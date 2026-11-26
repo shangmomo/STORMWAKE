@@ -1,6 +1,0 @@
-200 3839 text/html /
-200 2608 text/javascript; charset=utf-8 /src/land/ExpeditionRockV75.js
-200 2820 text/javascript; charset=utf-8 /src/land/CaptainMotionV75.js
-200 6144 text/javascript; charset=utf-8 /src/land/ExpeditionAssetsV73.js
-200 13733840 model/gltf-binary /models/expedition/v75/rock.glb
-200 113232 application/json /models/expedition/v75/captain-motion.json

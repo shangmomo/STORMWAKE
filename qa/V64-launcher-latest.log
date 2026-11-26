@@ -1,7 +1,0 @@
-test_keep_alive_and_offline_capability (__main__.LauncherTest) ... ok
-test_parallel_required_module_startup (__main__.LauncherTest) ... ok
-
-----------------------------------------------------------------------
-Ran 2 tests in 0.641s
-
-OK

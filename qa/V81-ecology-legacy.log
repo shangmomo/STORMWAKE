@@ -1,9 +1,0 @@
-PASS seven elemental kinds are reachable in normal / enraged rotations; no physical-contact routing
-PASS all new skills telegraph, release, and strike only in range; release captures original damage
-PASS NaN dt does not corrupt AI
-PASS contact release is idempotent and snapshots damage / origin; respawn clears pending
-PASS wave front is delayed and respects radius/depth
-PASS all VFX pools instantiate, produce finite matrices, and expire
-PASS habitat placement is deterministic, excludes land, and separates deep biomes
-PASS camera-streaming bounds, finite fish, terrain clearance, no land wildlife
-V65 new regression PASS: 8 cases
