@@ -1,3 +1,4 @@
+import {LAKE_LOOKOUT} from './UndergroundHallV84.js';
 import {bossGuide,landObserver,landDistance,corsairAvailable} from './LandEncounterGuideV832.js';
 import {LURKER,lurkerEnabled,createLurkerModel,poseLurker,lurkerFacing} from './LurkerV83.js';
 import {LandRewardOutbox} from './LandRewardOutboxV79.js';
@@ -35,7 +36,6 @@ import { LandDialoguePanel } from './LandDialoguePanel.js';
 import { createLighthouseV34, LIGHTHOUSE_V34 } from './LandLighthouseV34.js';
 import { installLighthouseV34Colliders } from './LandLighthouseV34Colliders.js';
 import { CORSAIR } from './LandCorsairBrain.js';
-import { attachPirateStyle } from './LandPirateStyle.js';
 import { LandFootPlant, groundSurface } from './LandGrounding.js';
 import { LAND_REGIONS, makeRegionWaypoint } from './LandRegionWaypoints.js';
 
@@ -174,6 +174,7 @@ export class LandAdventure {
 		if ( app.localLights ) {
 			for(const z of [-451,-470,-489,-521])for(const side of [-1,1]){const x=CAVE.x+side*8;app.localLights.add({position:new Vector3(x,terrain.heightAt(CAVE.x,z)+2.8,z),color:new Color(0xffae62),intensity:3.7,range:18,kind:"lantern",flicker:.12});}
 			for(const z of [-545,-565,-584,-595,-606,-623]){const cp=caveProfile(z);for(const sign of [-1,1]){const x=cp.x+sign*cp.width*.65;app.localLights.add({position:new Vector3(x,terrain.heightAt(x,z)+2.8,z),color:new Color(0xffb273),intensity:4,range:15,kind:'lantern',flicker:.08});}}
+            for(const [x,z] of [[365,-549],[351,-538],[338,-550],[351,-564]])app.localLights.add({position:new Vector3(x,terrain.heightAt(x,z)+3.2,z),color:new Color(0x83dfc8),intensity:3.5,range:17,kind:'lantern',flicker:.035});
             this.lighthouseLight = app.localLights.add( { position: new Vector3( tower.x, this.tower.group.position.y + this.tower.beaconHeight, tower.z ),
 				color: new Color( 0x56decf ), intensity: 6.4, range: 35, kind: 'beacon', flicker: .14 } );
 		}
@@ -218,14 +219,11 @@ export class LandAdventure {
 			// and ground-contact correction are ready (no invisible boss on load).
 			model.group.add( actor.rig.group );
 			enemy.actor = actor;
-			if(type==='bear'){enemy.bodyCollider=this.app.colliders.addCylinder(x,z,.68,model.group.position.y,model.group.position.y+1.75,{tag:'v73:bear-body',solid:false});}
+			if(type==='bear'){enemy.bodyCollider=this.app.colliders.addCylinder(x,z,.82,model.group.position.y,model.group.position.y+2.1,{tag:'v73:bear-body',solid:false});}
             if(type!=='bear'){enemy.footPlant = new LandFootPlant(actor.rig,{clearance:.018});
 			enemy.footPlant.update(0,{root:model.group.position});}
 			model.body.visible = false;
-			if(type==='corsair') {
-				// V38 boss source uses a human rig; size was calibrated in the manifest.
-				enemy.pirateStyle=attachPirateStyle(actor,0,{boss:true});
-			}
+			// Keep the original pirate GLB; omit legacy uncalibrated coat/hat/weapon props.
 			enemy.assetState='ready';
 		} ).catch(error=>{enemy.assetState='failed';enemy.assetRetryAt=this.time+8;console.warn('Land actor failed',type,error);});};enemy.retryAsset();
         }
@@ -373,7 +371,7 @@ export class LandAdventure {
 			if ( !sweptBladeContact( swing,
 				{ x: p.position.x, y: p.position.y + 1, z: p.position.z }, _view,
 				{ x: e.x, y: this.app.terrainData.heightAt( e.x, e.z ) + 1, z: e.z },
-				e.type === 'warden' ? 1.0 : .72 ) ) continue;
+				e.type === 'warden' ? 1.0 : e.type==='bear'?.9:.72 ) ) continue;
 			const savedSolid=e.bodyCollider?.solid;if(e.bodyCollider)e.bodyCollider.solid=false;
             const blocked = strikeLineBlocked( this.app.colliders,
 				{ x: p.position.x, y: p.position.y + 1.2, z: p.position.z },
@@ -658,9 +656,9 @@ export class LandAdventure {
 			else if ( Math.abs( this.app.terrainData.heightAt( e.x, tz ) - height ) < .40 ) e.z = tz;
 			if ( this.app.colliders?.resolveCapsule ) {
 				_tmp.set( e.x, this.app.terrainData.heightAt( e.x, e.z ), e.z );
-				if(e.type==='bear')for(const world of this.app.colliders.triangleWorlds||[]){const moved=world.move(oldPos,_tmp,{radius:.65,height:1.8,step:.3});_tmp.set(moved.x,moved.y,moved.z);}
+				if(e.type==='bear')for(const world of this.app.colliders.triangleWorlds||[]){const moved=world.move(oldPos,_tmp,{radius:.80,height:2.1,step:.3});_tmp.set(moved.x,moved.y,moved.z);}
                 if(e.type==='corsair'&&this.expeditionCave?.world){const moved=this.expeditionCave.world.move(oldPos,_tmp,{radius:1,height:2.4,step:.2});_tmp.set(moved.x??moved.position?.x??_tmp.x,moved.y??moved.position?.y??_tmp.y,moved.z??moved.position?.z??_tmp.z);}
-				this.app.colliders.resolveCapsule( _tmp, e.type === 'warden' || e.type === 'corsair' ? 1.0 : e.type==='bear'?.75:.42, 2.4, .20 );
+				this.app.colliders.resolveCapsule( _tmp, e.type === 'warden' || e.type === 'corsair' ? 1.0 : e.type==='bear'?.86:.42, 2.4, .20 );
 				e.x = _tmp.x; e.z = _tmp.z;
 			}
 		}
@@ -690,7 +688,7 @@ export class LandAdventure {
 			{ x: p.x, z: p.z, y: p.y }, result.range, 2.8 ) ) {
 			e.lastDamageSerial=e.attackSerial; this._takeDamage(result.damage);
 		}
-        if(e.bodyCollider){const c=e.bodyCollider;c.x=e.x;c.z=e.z;c.yMin=model.group.position.y;c.yMax=c.yMin+(e.type==='lurker'?LURKER.height:1.75);if(e.type==='lurker'){if(!e.collisionArmed&&d>=LURKER.radius+.40)e.collisionArmed=true;c.solid=!!e.collisionArmed;}else c.solid=true;}
+        if(e.bodyCollider){const c=e.bodyCollider;c.x=e.x;c.z=e.z;c.yMin=model.group.position.y;c.yMax=c.yMin+(e.type==='lurker'?LURKER.height:e.type==='bear'?2.1:1.75);if(e.type==='lurker'){if(!e.collisionArmed&&d>=LURKER.radius+.40)e.collisionArmed=true;c.solid=!!e.collisionArmed;}else c.solid=true;}
 	}
 
 	_takeDamage( amount ) {
@@ -751,8 +749,8 @@ export class LandAdventure {
 			if ( Math.hypot( nx - a.homeX, nz - a.homeZ ) < 34 &&
 				Math.abs( this.app.terrainData.heightAt( nx, nz ) - ground ) < .26 ) {
 				const actual = _tmp.set( nx, this.app.terrainData.heightAt( nx, nz ), nz );
-				this.app.colliders?.resolveCapsule?.( actual, a.kind === 'deer' ? .4 : .30,
-					a.kind === 'deer' ? 1.8 : 1.1, .24 );
+				this.app.colliders?.resolveCapsule?.( actual, a.kind === 'deer' ? .48 : .36,
+					a.kind === 'deer' ? 2.1 : 1.3, .24 );
 				if ( Math.hypot( actual.x - nx, actual.z - nz ) < .14 ) {
 					a.x = actual.x; a.z = actual.z;
 				} else {
@@ -790,7 +788,7 @@ export class LandAdventure {
 		this.hud.style.display = active ? '' : 'none';
 		if ( !active ) return;
         const scout=!!this.app.freeCam;this.hud.classList.toggle('sw-land-scout',scout);
-        const guide=this.ui('boss-guide');if(guide){const label=(scout?'自由视角侦察 · F 返回步行':'陆地首领 · 方位北0°')+'\n'+bossGuide(this).map(b=>b.name+' · '+b.distance+'m / '+b.bearing+'° · '+b.status).join('\n');if(guide.textContent!==label)guide.textContent=label;}
+        const guide=this.ui('boss-guide');if(guide){const label=(scout?'F 安全落地 · Shift+F 返回原角色':'陆地首领 · 方位北0°')+'\n'+bossGuide(this).map(b=>b.name+' · '+b.distance+'m / '+b.bearing+'° · '+b.status).join('\n')+(scout&&this.app.scoutLandingNotice?'\n'+this.app.scoutLandingNotice:'')+((Math.hypot(landObserver(this.app).x-LAKE_LOOKOUT.x,landObserver(this.app).z-LAKE_LOOKOUT.z)<130)?'\n西侧晶岩湖厅 · '+Math.round(Math.hypot(landObserver(this.app).x-LAKE_LOOKOUT.x,landObserver(this.app).z-LAKE_LOOKOUT.z))+'m · 船长营地后方蓝色箭头':'');if(guide.textContent!==label)guide.textContent=label;}
         if(scout)return;
 		const p = this.app.player.position, stage = this.progress.stage;
 		const tasks = [ '前往海风镇告示板，与小汐展开灯塔调查',

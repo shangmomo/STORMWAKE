@@ -1,5 +1,5 @@
 import {cameraLocalVolume} from './post/LocalWaterV81.js';
-import {safeFlyLanding} from './player/LandMotorV78.js';
+import {scoutLanding} from './player/ScoutLandingV84.js';
 import {localWaterAt} from './land/MineReservoirV80.js';
 import {FrameTiming} from './core/FrameTimingV79.js';
 import {showRuntimeFailure} from './core/RuntimeRecoveryV78.js';
@@ -555,18 +555,19 @@ fn terrainWetness( xz: vec2f, h: f32 ) -> vec2f {
 
 	// Free camera is separated from the actor. Do not freeze a passenger in a
 	// moving shaft or allow a network player to teleport through world geometry.
-	setFreeCam( on ) {
+	setFreeCam( on, returnToActor=false ) {
 		if(on===this.freeCam)return true;
 		const p=this.player,lift=this.landAdventure?.expeditionCave?.lift;
 		if(on&&!this.qs?.has('bench')&&!this.qs?.has('debug')){
 			if(!p||p.mode!=='walk'||!p.grounded||p.busy||p.stationId||p.pendingStation||p.shipClimb||p.boardingClimb||this.landAdventure?.stance||this.landAdventure?.battleTimer>0||this.hunt?.abyss?.active||this.voyageM1?.deepEcho?.piloting||lift?.onPlatform(p.position)||lift?.threshold(p.position))return false;
 		}
-		this.freeCam=on;
+		const networked=this.qs?.has('coop')||this.crew?.connected||this.voyageM1?.net?.connected;
+		if(!on&&!returnToActor&&!networked&&p&&['walk','swim'].includes(p.mode)&&!this.dropPlayerAtCamera())return false;
+		this.freeCam=on;this.scoutLandingNotice='';
 		if(on){
 			const e=new Euler().setFromQuaternion(this.camera.quaternion,'YXZ');
 			this.fly.setPose(this.camera.position.clone(),e.y,e.x);this.fly.velocity.set(0,0,0);
 		}else if(p&&['walk','swim'].includes(p.mode)){
-			if(!this.qs?.has('coop')&&!this.crew?.connected&&!this.voyageM1?.net?.connected)this.dropPlayerAtCamera();
 			p.velocity.set(0,0,0);p._camY=null;p.camOff=0;p.camOffV=0;
 		}
 		this.input?.resetPhysicalState?.();return true;
@@ -574,11 +575,11 @@ fn terrainWetness( xz: vec2f, h: f32 ) -> vec2f {
 
 	dropPlayerAtCamera() {
 		const p=this.player,c=this.camera.position;
-		const water=localWaterAt(c.x,c.y,c.z,this.terrainData)??this.cameraWaterHeight??0;
-		const landing=safeFlyLanding(this.terrainData,this.colliders,c,water);
-		if(!landing){this.ui?.ui?.toast?.('未找到安全落脚点，已返回角色位置。');return false;}
+		const landing=scoutLanding(this.terrainData,this.colliders,c,(x,y,z)=>localWaterAt(x,y+.03,z,this.terrainData)??0);
+		if(!landing){this.scoutLandingNotice='附近无安全落脚点：移动到干燥平地后按 F，或 Shift+F 返回原角色。';this.ui?.ui?.toast?.(this.scoutLandingNotice,4500);return false;}
+		const {foot,water}=landing;
 		const e=new Euler().setFromQuaternion(this.camera.quaternion,'YXZ');
-		p.yaw=e.y;p.pitch=MathUtils.clamp(e.x,-1.5,1.5);p.mode='walk';p.position.copy(landing);p.grounded=true;p.waterH=water;p.waterMean=water;return true;
+		p.yaw=e.y;p.pitch=MathUtils.clamp(e.x,-1.5,1.5);p.mode='walk';p.position.copy(foot);p.grounded=true;p.waterH=water;p.waterMean=water;p._lastSafeLand=foot.clone();p._previousSafeLand=null;return true;
 	}
 
 	// ---------------------------------------------------------------- loop
@@ -641,7 +642,7 @@ fn terrainWetness( xz: vec2f, h: f32 ) -> vec2f {
             playerCanBoard ? 'player' :
 			(this.voyageM1 && this.player.mode==='deck' && (this.input.down('ShiftLeft')||this.input.down('ShiftRight'))) ? 'voyage' :
 			this.voyageM1?.wantsInteraction?.() ? 'voyage' : this.landAdventure?.wantsLandInteraction?.( this.player.position ) ? 'land' : null;
-		if ( this.input.hit( 'KeyF' ) && (this.freeCam||!submerged) ) this.setFreeCam( ! this.freeCam );
+		if ( this.input.hit( 'KeyF' ) && (this.freeCam||!submerged) ) this.setFreeCam( ! this.freeCam, this.input.down('ShiftLeft')||this.input.down('ShiftRight') );
 		if ( this.input.hit( 'KeyT' ) && !submerged && !this.landAdventure?.stance && !(this.voyageM1 && ['deck','boat'].includes(this.player.mode)) ) this.toggleTime();
 		if ( this.input.hit( 'KeyL' ) && !submerged ) {
 

@@ -1,0 +1,16 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {TerrainData} from '../src/world/TerrainData.js';
+import {Group,Vector3} from '../src/engine/index.js';
+import {Colliders} from '../src/world/Colliders.js';
+import {buildExpeditionCave} from '../src/land/ExpeditionSites.js';
+import {EXPEDITION_ROUTES} from '../src/land/ExpeditionTerrain.js';
+import {DEEP_LAKE,LAKE_LOOKOUT,lakeDistance} from '../src/land/UndergroundHallV84.js';
+import {localWaterAt} from '../src/land/MineReservoirV80.js';
+import {cameraLocalVolume} from '../src/post/LocalWaterV81.js';
+import {scoutLanding} from '../src/player/ScoutLandingV84.js';
+const t=new TerrainData(),c=new Colliders(),cave=buildExpeditionCave(new Group(),t,c),w=cave.world;
+test('closed shell topology and render/collision agreement',()=>{const g=cave.roof.geometry,ix=g.index.array,edges=new Map();assert.ok(g.attributes.normal.array.every(Number.isFinite));for(let i=0;i<ix.length;i+=3){const ids=[ix[i],ix[i+1],ix[i+2]];for(let k=0;k<3;k++){const a=ids[k],b=ids[(k+1)%3],key=a<b?a+':'+b:b+':'+a;edges.set(key,(edges.get(key)||0)+1);}}assert.ok([...edges.values()].every(n=>n===2));assert.equal(w.triangles.length,ix.length/3);});
+test('lake floor, dry lookout, actual local water volume and shoreline',()=>{let area=0;for(let x=338;x<362;x+=.25)for(let z=-566;z<-536;z+=.25)if(lakeDistance(x,z)<1.1&&t.heightAt(x,z)<DEEP_LAKE.surface)area+=.0625;assert.ok(area>250);assert.ok(t.heightAt(DEEP_LAKE.x,DEEP_LAKE.z)<DEEP_LAKE.surface-5.8);assert.ok(t.heightAt(LAKE_LOOKOUT.x,LAKE_LOOKOUT.z)>DEEP_LAKE.surface+.5);assert.equal(localWaterAt(350,42,-551,t),DEEP_LAKE.surface);assert.equal(cameraLocalVolume({x:350,y:42,z:-551},null,t).surface,DEEP_LAKE.surface);assert.equal(localWaterAt(364,46,-549,t),null);assert.ok(cave.deepLake.geometry.attributes.position.count>1000);});
+test('new shore route and old fossil road clear rock mesh',()=>{for(let x=364;x<=381;x+=.25){const z=-549;assert.ok(!w.capsuleOverlap({x,y:t.heightAt(x,z),z},.3,1.75));}const route=EXPEDITION_ROUTES[1];for(let i=1;i<route.length;i++){const [ax,az]=route[i-1],[bx,bz]=route[i],n=Math.ceil(Math.hypot(bx-ax,bz-az)/.25);for(let j=0;j<=n;j++){const x=ax+(bx-ax)*j/n,z=az+(bz-az)*j/n;assert.ok(!w.capsuleOverlap({x,y:t.heightAt(x,z),z},.3,1.75));}}});
+test('scout landing from altitude, rejects water and sealed box',()=>{const c=new Colliders(),t={heightAt:()=>10},v=(x,y,z)=>new Vector3(x,y,z);assert.equal(scoutLanding(t,c,v(40,60,20)).foot.y,10);assert.equal(scoutLanding(t,c,v(40,60,20)).foot.x,40);assert.equal(scoutLanding(t,c,v(40,60,20),()=>11),null);c.addBox(v(40,12,20),v(20,2,20));assert.equal(scoutLanding(t,c,v(40,12,20)),null);assert.equal(scoutLanding(t,c,v(40,60,20)),null);});

@@ -93,7 +93,8 @@ export async function loadLandRig( slot ) {
 		for ( const material of rig.materials ) material.underwaterLighting = 'lite';
 		const actions = assignRigActions( rig.clipNames() );
 		if ( !actions.idle ) throw new Error( 'No idle clip; model needs a compatible animation export' );
-		rig.group.scale.setScalar( validation.scale );
+		const animalScale={fox:1.15,deer:1.15,boar:1.25};
+		rig.group.scale.setScalar( validation.scale*(animalScale[slot]||1) );
 		rig.group.position.y = validation.yOffset;
 		const forwardCorrection=inferPirateForward(rig,entry);rig.group.rotation.y = validation.yawOffset+forwardCorrection;
 		rig.play( actions.idle, { fade: .01 } );

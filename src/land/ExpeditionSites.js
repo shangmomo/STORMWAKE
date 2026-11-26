@@ -1,5 +1,7 @@
 import {MineLiftV81} from './MineLiftV81.js';
-import {caveRockGeometry,caveRockMaterial,reservoirGeometry,reservoirMaterial} from './CaveSurfaceV831.js';
+import {caveRockGeometry84} from './CaveRockV84.js';
+import {DEEP_LAKE} from './UndergroundHallV84.js';
+import {caveRockMaterial,reservoirGeometry,reservoirMaterial} from './CaveSurfaceV831.js';
 import {MINE_SAMPLE} from './MineReservoirV80.js';
 import {Material} from '../engine/render/Material.js';
 import {upgradeRoomArt,installCaveArt} from './ExpeditionArt.js';
@@ -15,7 +17,7 @@ export function buildExpeditionCave(scene,terrain,colliders){
  const root=new Group();root.name='V70 沉岩洞：真实可步行岩顶';scene.add(root);
  // One authoritative, terrain-fitted rock mesh for rendering and collision.
  const {x}=CAVE;
- const roof=new Mesh(caveRockGeometry(terrain),caveRockMaterial());roof.name='V83.1 natural rock arch';roof.castShadow=true;roof.receiveShadow=true;root.add(roof);const world=solidFromMesh(colliders,roof);
+ const roof=new Mesh(caveRockGeometry84(terrain),caveRockMaterial());roof.name='V84 continuous rock shell';roof.castShadow=true;roof.receiveShadow=true;root.add(roof);const world=solidFromMesh(colliders,roof);
  const parts=[];const add=(w,h,d,px,py,pz,color,pattern=0,rx=0)=>parts.push(prepare(box(w,h,d),{color,rough:.9,pattern,matrix:mat4(px,py,pz,rx,0,0)}));
  // Supporting timber frames: posts remain outside central walking route.
  for(const z of [-455,-474,-493,-526]){const y=terrain.heightAt(x,z);for(const dx of [-8,8]){add(.38,6,.44,x+dx,y+3,z,0x634831,PAT.wood);colliders.addBox(new Vector3(x+dx,y+3,z),new Vector3(.19,3,.22),0,{tag:'v70:cave-support'});}add(17,.45,.6,x,y+6,z,0x634831,PAT.wood);colliders.addBox(new Vector3(x,y+6,z),new Vector3(8.5,.225,.3),0,{tag:"v70:cave-beam"});}
@@ -31,14 +33,15 @@ export function buildExpeditionCave(scene,terrain,colliders){
  for(let i=0;i<4;i++)parts.push(prepare(cylinder(.16,.24,.35,6),{color:0x8faea1,matrix:mat4(sx-.5+i*.33,sy+1.12,sz)}));
  partsMesh(parts,root,'V80 cave braces, mining track and archive station');
  const surface=new Mesh(reservoirGeometry(terrain),reservoirMaterial());surface.name='V83.1 terrain-clipped underground reservoir';root.add(surface);
+ const deepLake=new Mesh(reservoirGeometry(terrain,DEEP_LAKE),reservoirMaterial());deepLake.name='V84 West underground lake';root.add(deepLake);
 
  // Route navigation uses the same position as the road centre, markers kept
  // outside the walking channel. No invisible walls at the entrance.
  const artReady=installCaveArt(scene,terrain,colliders,x);
  // Flush, non-blocking mineral trail arrows follow the verified dry path.
- const arrows=new BufferGeometry(),av=[],ai=[];for(const [px,pz,dx,dz] of [[345.8,-598,0,1],[343.5,-597,-1,0],[340,-597,-1,0],[338,-599,0,-1],[338,-604,0,-1],[338,-609,0,-1],[338,-612,0,-1]]){const n=av.length/3;for(const [u,w] of [[0,.48],[-.24,-.16],[-.10,-.16],[-.10,-.48],[.10,-.48],[.10,-.16],[.24,-.16]]){const xx=px+dz*u+dx*w,zz=pz-dx*u+dz*w;av.push(xx,terrain.heightAt(xx,zz)+.035,zz);}ai.push(n,n+1,n+2,n,n+2,n+5,n,n+5,n+6,n+2,n+3,n+4,n+2,n+4,n+5);}
+ const arrows=new BufferGeometry(),av=[],ai=[];for(const [px,pz,dx,dz] of [[379,-549,-1,0],[374,-549,-1,0],[369,-549,-1,0],[345.8,-598,0,1],[343.5,-597,-1,0],[340,-597,-1,0],[338,-599,0,-1],[338,-604,0,-1],[338,-609,0,-1],[338,-612,0,-1]]){const n=av.length/3;for(const [u,w] of [[0,.48],[-.24,-.16],[-.10,-.16],[-.10,-.48],[.10,-.48],[.10,-.16],[.24,-.16]]){const xx=px+dz*u+dx*w,zz=pz-dx*u+dz*w;av.push(xx,terrain.heightAt(xx,zz)+.035,zz);}ai.push(n,n+1,n+2,n,n+2,n+5,n,n+5,n+6,n+2,n+3,n+4,n+2,n+4,n+5);}
  arrows.setAttribute('position',new Float32BufferAttribute(av,3));arrows.setIndex(ai);arrows.computeVertexNormals();const trail=new Mesh(arrows,new Material({color:0x5de5d8,emissive:0x236e78,lit:false,side:'double',underwaterLighting:'none'}));trail.name='V83 dry route guidance';root.add(trail);
- const lift=new MineLiftV81(root,colliders);return {root,roof,world,artReady,sample:new Vector3(sx,sy,sz),lake:surface,lift};
+ const lift=new MineLiftV81(root,colliders);return {root,roof,world,artReady,sample:new Vector3(sx,sy,sz),lake:surface,deepLake,lift};
 }
 
 // Open-front, sheltered functional room. Mesh and collision dimensions share

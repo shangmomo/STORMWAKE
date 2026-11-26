@@ -12,9 +12,9 @@ const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 const delta=(a,b)=>Math.atan2(Math.sin(a-b),Math.cos(a-b));
 const horizontal=(a,b)=>Math.hypot(a.x-b.x,a.z-b.z);
 export const ECOLOGY=Object.freeze({
- ptero:{name:'无齿翼龙',kind:'air',file:'ptero.glb',home:{x:349,z:-625},radius:45,scale:1,turn:.63,accel:1.9,brake:2.8,speed:8,altitude:18,verticalSpeed:2.8,clips:{move:'04_Flapping_Flight',idle:'05_Soaring_Glide'},rig:69},
- wolf:{name:'灰苔灰狼',kind:'land',file:'wolf.glb',home:{x:-128,z:-226},radius:12,scale:1,turn:1.8,accel:2,brake:3,speed:1.7,clips:{move:'Wolf|Wolf_WalkFast_F',idle:'Wolf|Wolf_Howl'},rig:123},
- ray:{name:'深渊魔鬼鱼',kind:'water',file:'ray.glb',home:{x:530,z:490},radius:23,scale:2.8,turn:.48,accel:.65,brake:1.2,speed:2.5,altitude:-12,verticalSpeed:1.2,clips:{move:'Armature|Swim',idle:'Armature|Idle',warn:'Armature|Intimidate'},rig:244}
+ ptero:{name:'无齿翼龙',kind:'air',file:'ptero.glb',home:{x:349,z:-625},radius:45,scale:1.5,turn:.63,accel:1.9,brake:2.8,speed:8,altitude:18,verticalSpeed:2.8,clips:{move:'04_Flapping_Flight',idle:'05_Soaring_Glide'},rig:69},
+ wolf:{name:'灰苔灰狼',kind:'land',file:'wolf.glb',home:{x:-128,z:-226},radius:12,scale:1.4,turn:1.8,accel:2,brake:3,speed:1.7,clips:{move:'Wolf|Wolf_WalkFast_F',idle:'Wolf|Wolf_Howl'},rig:123},
+ ray:{name:'深渊魔鬼鱼',kind:'water',file:'ray.glb',home:{x:530,z:490},radius:23,scale:3.5,turn:.48,accel:.65,brake:1.2,speed:2.5,altitude:-12,verticalSpeed:1.2,clips:{move:'Armature|Swim',idle:'Armature|Idle',warn:'Armature|Intimidate'},rig:244}
 });
 export function initialEcology(spec,terrain,phase=0){const x=spec.home.x+Math.sin(phase)*4,z=spec.home.z+Math.cos(phase)*4,y=spec.kind==='air'?terrain(x,z)+spec.altitude:spec.kind==='water'?spec.altitude:terrain(x,z);return {x,y,z,yaw:phase,speed:0,vy:0,bank:0,pitch:0,time:0,state:'move',pause:0,phase,waypoint:phase,blocked:0};}
 export function stepEcology(e,s,p,dt,terrain,clear=()=>true){
@@ -72,7 +72,7 @@ export class ExpeditionWildlifeV74{
   if(this.grottoEnabled&&!this.grotto&&!this.loading.has('grotto')&&!this.failed.has('grotto')&&horizontal(eye,GROTTO_SITE)<170)this.loadGrotto();
   if(!this.enabled||this.app.crew?.connected){for(const a of this.actors){a.root.visible=false;a.rig.hold();}return;}
   for(const [key,s] of Object.entries(ECOLOGY)){if(horizontal(eye,s.home)<(s.kind==='air'?210:150)&&!this.actors.some(a=>a.key===key)&&!this.loading.has(key)&&!this.failed.has(key))this.load(key);}
-  for(const a of this.actors){const {s,e,rig,root}=a,visible=horizontal(eye,e)<(s.kind==='air'?220:125);root.visible=visible;if(!visible){rig.hold();continue;}const clear=(old,x,z,h)=>{if(s.kind!=='land')return true;const q=new Vector3(x,h,z);if(this.app.colliders.resolveCapsule(q,.27,1.15,.22)&&Math.hypot(q.x-x,q.z-z)>.02)return false;for(const w of this.app.colliders.triangleWorlds||[]){const r=w.move(old,{x,y:h,z},{radius:.27,height:1.15,step:.22});if(Math.hypot(r.x-x,r.z-z)>.02)return false;}return !this.actors.some(b=>b!==a&&b.s.kind==='land'&&Math.hypot(b.e.x-x,b.e.z-z)<1.35);};
+  for(const a of this.actors){const {s,e,rig,root}=a,visible=horizontal(eye,e)<(s.kind==='air'?220:125);root.visible=visible;if(!visible){rig.hold();continue;}const clear=(old,x,z,h)=>{if(s.kind!=='land')return true;const q=new Vector3(x,h,z);if(this.app.colliders.resolveCapsule(q,.38,1.61,.22)&&Math.hypot(q.x-x,q.z-z)>.02)return false;for(const w of this.app.colliders.triangleWorlds||[]){const r=w.move(old,{x,y:h,z},{radius:.38,height:1.61,step:.22});if(Math.hypot(r.x-x,r.z-z)>.02)return false;}return !this.actors.some(b=>b!==a&&b.s.kind==='land'&&Math.hypot(b.e.x-x,b.e.z-z)<1.8);};
    stepEcology(e,s,p,dt,terrain,clear);root.position.set(e.x,e.y,e.z);root.rotation.set(e.pitch,e.yaw,e.bank,'YXZ');const clip=s.clips[e.state]||s.clips.move;if(rig.current!==clip)rig.play(clip,{fade:.4,loop:true});const layer=rig.layers.find(l=>l.target===1);if(layer&&s.kind==='land'&&e.state==='move')layer.speed=clamp(e.speed/1.8,.1,1.4);rig.update(dt);
   }
  }

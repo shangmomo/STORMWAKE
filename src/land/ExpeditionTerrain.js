@@ -1,3 +1,4 @@
+import {hallProfile,deepLakeGround} from './UndergroundHallV84.js';
 import {reservoirGround} from './MineReservoirV80.js';
 import {SCENERY_SITES,SERVICE_PADS,SERVICE_SPURS} from './ScenerySitesV76.js';
 // V70 shared, deterministic terrain authoring. All units in metres.
@@ -34,7 +35,7 @@ const rockClearance=(x,z)=>ROCK_SITES.some(s=>Math.hypot(x-s.x,z-s.z)<5*s.scale+
 const siteClearance=(x,z)=>ART_SITES.some(s=>Math.abs(x-s.x)<s.rx+5&&Math.abs(z-s.z)<s.rz+5);
 const smooth=t=>{t=Math.max(0,Math.min(1,t));return t*t*(3-2*t);};
 function nearest(x,z,route){let best=Infinity,y=0;for(let i=1;i<route.length;i++){const a=route[i-1],b=route[i],dx=b[0]-a[0],dz=b[1]-a[1];const t=Math.max(0,Math.min(1,((x-a[0])*dx+(z-a[1])*dz)/(dx*dx+dz*dz)));const d=Math.hypot(x-a[0]-dx*t,z-a[1]-dz*t);if(d<best){best=d;y=a[2]+(b[2]-a[2])*t;}}return {d:best,y};}
-export function expeditionClearance(x,z){if(SERVICE_PADS.some(s=>Math.abs(x-s.x)<s.rx+2&&Math.abs(z-s.z)<s.rz+2)||SERVICE_SPURS.some(r=>nearest(x,z,r).d<5)||SCENERY_SITES.some(s=>!s.service&&Math.hypot(x-s.x,z-s.z)<(s.file==='mountain'?6:2.6)*s.scale)||rockClearance(x,z)||siteClearance(x,z)||Math.abs(x-GROTTO_SITE.x)<10&&Math.abs(z-GROTTO_SITE.z)<22||nearest(x,z,GROTTO_SPUR).d<5)return true;if(x<78||x>465||z> -138||z< -695)return false;const cp=caveProfile(z),cave=Math.abs(x-cp.x)<cp.width+5&&z>=CAVE.back-5&&z<=CAVE.front+5;return cave||Math.hypot(x-FOSSIL.x,z-FOSSIL.z)<FOSSIL.r+2||EXPEDITION_ROUTES.some(r=>nearest(x,z,r).d<7);}
+export function expeditionClearance(x,z){if(SERVICE_PADS.some(s=>Math.abs(x-s.x)<s.rx+2&&Math.abs(z-s.z)<s.rz+2)||SERVICE_SPURS.some(r=>nearest(x,z,r).d<5)||SCENERY_SITES.some(s=>!s.service&&Math.hypot(x-s.x,z-s.z)<(s.file==='mountain'?6:2.6)*s.scale)||rockClearance(x,z)||siteClearance(x,z)||Math.abs(x-GROTTO_SITE.x)<10&&Math.abs(z-GROTTO_SITE.z)<22||nearest(x,z,GROTTO_SPUR).d<5)return true;if(x<78||x>465||z> -138||z< -695)return false;const cp=hallProfile(caveProfile(z),z),cave=Math.abs(x-cp.x)<cp.width+5&&z>=CAVE.back-5&&z<=CAVE.front+5;return cave||Math.hypot(x-FOSSIL.x,z-FOSSIL.z)<FOSSIL.r+2||EXPEDITION_ROUTES.some(r=>nearest(x,z,r).d<7);}
 export function bakeExpeditionTerrain(t){
  const {origin,res,texel,heights}=t;
  // Widen the route into a sheltered ravine and a distinct northern basin.
@@ -42,7 +43,7 @@ export function bakeExpeditionTerrain(t){
   const x=origin+(i+.5)*texel,z=origin+(j+.5)*texel,k=j*res+i;let h=heights[k];let a=nearest(x,z,EXPEDITION_ROUTES[0]),b=nearest(x,z,EXPEDITION_ROUTES[1]);let s=a.d<b.d?a:b;
   const w=1-smooth((s.d-4)/18);if(w>0){h+=(s.y-h)*w;t.path[k]=Math.max(t.path[k],Math.round(225*(1-smooth((s.d-2)/3))));t.rock[k]*=1-w*.7;}
   // Cave is a broad excavated corridor with a roof added as actual geometry.
-  const cp=caveProfile(z),xDist=Math.abs(x-cp.x),zd=z<CAVE.back?CAVE.back-z:z>CAVE.front?z-CAVE.front:0;
+  const cp=hallProfile(caveProfile(z),z),xDist=Math.abs(x-cp.x),zd=z<CAVE.back?CAVE.back-z:z>CAVE.front?z-CAVE.front:0;
   const cw=(1-smooth((xDist-cp.width)/12))*(1-smooth(zd/12))*(z< -540?smooth((b.d-5)/13):1);
   if(cw>0){h+=(cp.floor-h)*cw;t.rock[k]=Math.max(t.rock[k],cw*.65);t.path[k]=Math.max(t.path[k],Math.round(cw*120));}
   const fd=Math.hypot(x-FOSSIL.x,z-FOSSIL.z),fw=1-smooth((fd-FOSSIL.r)/18);if(fw>0){h+=(FOSSIL.y+1.1*Math.sin(x*.09)*Math.sin(z*.07)-h)*fw;t.rock[k]=Math.max(t.rock[k],fw*.38);}
@@ -59,7 +60,7 @@ export function bakeExpeditionTerrain(t){
   // Preserve the mine's rear bank independently of the rerouted fossil road.
   // The pool is carved last so its original wet/dry path remains continuous.
   if(z<-618.5&&z>=CAVE.back-2&&xDist<cp.width){const bank=smooth((-z-618.5)/2.5)*(1-smooth((xDist-cp.width+4)/4));h=Math.max(h,cp.floor+7.5*bank);}
-  h=reservoirGround(x,z,h);
+  h=deepLakeGround(x,z,reservoirGround(x,z,h));
   heights[k]=h;
  }
  t.paths=[...t.paths,...[...EXPEDITION_ROUTES,GROTTO_SPUR,...SERVICE_SPURS].map(r=>({w:4,pts:r.map(p=>p.slice(0,2))}))];

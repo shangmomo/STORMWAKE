@@ -1,5 +1,6 @@
 // V37 world-scale wayfinding: ecological districts have recognisable landforms
 // and readable destinations instead of scattering enemies randomly.
+import {LAKE_LOOKOUT} from './UndergroundHallV84.js';
 import {Group,Mesh} from '../engine/index.js';
 import {prepare,mergePrepared,box,cylinder,torus,sphere,mat4} from '../world/boat/GeoKit.js';
 import {landMaterial} from './LandModels.js';
@@ -9,6 +10,7 @@ export const LAND_REGIONS = Object.freeze([
   {id:'eastroad',name:'东部古道',x:93,z:-148,note:'沿东部山路向北，途经峡谷，抵达沉岩洞。'},
   {id:'ravine',name:'沉岩峡谷',x:294,z:-299,note:'沿古道前行，石洞深处有荒潮船长。'},
   {id:'camp',name:'沉岩洞口',x:395,z:-438,note:'前方是真实可步行洞室；荒潮船长在深处营地。先观察其蓄力再出手。'},
+  {id:'deep-lake',name:'西侧晶岩湖厅',...LAKE_LOOKOUT,note:'地下湖：沿蓝色箭头从船长战斗区后方向西进入，岸边可步行，湖内可游泳。返回矿井请沿原通道东行。'},
   {id:'grotto74',name:'钟影岩廊',x:453,z:-457,note:'沿支路进入钟影岩廊，深入洞室调查岩层后原路返回。'},
   {id:'fossil',name:'北部化石谷',x:315,z:-650,note:'调查北部古地层。击败沉岩洞首领后可在港口接取三站勘测委托。'},
   {id:'altar',name:'被淹没的石道',x:-82,z:-208,note:'这里曾经是海岛祭坛的旧通道。沿斜坡能抵达断崖灯塔。'},

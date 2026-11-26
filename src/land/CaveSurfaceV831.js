@@ -50,7 +50,7 @@ export function caveRockGeometry(terrain){
  }
  const g=new BufferGeometry();g.setAttribute('position',new Float32BufferAttribute(pos,3));g.setAttribute('color',new Float32BufferAttribute(col,3));g.setIndex(indices);g.computeVertexNormals();return g;
 }
-export function caveRockMaterial(){return new Material({name:'V83.1 layered weathered rock',vertexColors:true,roughness:.94,metalness:0,underwaterLighting:'lite',modules:[commonModule],surface:`
+export function caveRockMaterial(){return new Material({name:'V84 weathered stone',vertexColors:true,roughness:.94,metalness:0,side:'double',underwaterLighting:'lite',modules:[commonModule],surface:`
  let p = in.P;
  let grain = mx_fractal_noise_float3(p * 1.8, 3, 2.1, 0.48);
  let strata = sin(p.y * 1.9 + p.x * 0.45 + p.z * 0.31 + grain * 2.5);
@@ -58,16 +58,13 @@ export function caveRockMaterial(){return new Material({name:'V83.1 layered weat
  let moss = smoothstep(0.08, 0.45, in.N.y) * smoothstep(-0.1, 0.32, mx_noise_float3(p * 0.31));
  s.albedo *= (0.72 + grain * 0.38) * (1.0 - fissure * 0.24);
  s.albedo = mix(s.albedo, s.albedo * vec3f(0.66,0.88,0.48), moss * 0.63);
- let h = grain * 0.075 - fissure * 0.033;
- let r1 = cross(dpdy(p), s.normal); let r2 = cross(s.normal, dpdx(p));
- let det = dot(dpdx(p), r1);
- s.normal = normalize(abs(det) * s.normal - sign(det) * (dpdx(h) * r1 + dpdy(h) * r2) + s.normal * 1e-12);
+ // Geometry supplies the normal; avoid derivative instability on sharp folds.
 `});}
 // Clip the reservoir to the sampled submerged terrain, not a floating ellipse.
-export function reservoirGeometry(terrain){
- const {x,z,rx,rz,surface}=RESERVOIR,step=.22,nx=Math.ceil(2.2*rx/step),nz=Math.ceil(2.2*rz/step),pos=[],colors=[];
+export function reservoirGeometry(terrain,pool=RESERVOIR){
+ const {x,z,rx,rz,surface}=pool,step=.22,nx=Math.ceil(2.2*rx/step),nz=Math.ceil(2.2*rz/step),pos=[],colors=[];
  const deep=new Color(0x12343a),edge=new Color(0x37665b);
- const sample=(i,j)=>{const px=x-rx*1.1+2.2*rx*i/nx,pz=z-rz*1.1+2.2*rz*j/nz;return [px,pz,Math.min(surface-terrain.heightAt(px,pz),(1.1-reservoirDistance(px,pz))*Math.min(rx,rz))];};
+ const sample=(i,j)=>{const px=x-rx*1.1+2.2*rx*i/nx,pz=z-rz*1.1+2.2*rz*j/nz;return [px,pz,Math.min(surface-terrain.heightAt(px,pz),(1.1-reservoirDistance(px,pz,pool))*Math.min(rx,rz))];};
  const emit=p=>{pos.push(p[0],surface,p[1]);const c=edge.clone().lerp(deep,smooth(p[2]/1.5));colors.push(c.r,c.g,c.b);};
  const clip=tri=>{const poly=[];for(let i=0;i<3;i++){const a=tri[i],b=tri[(i+1)%3];if(a[2]>0)poly.push(a);if((a[2]>0)!==(b[2]>0)){let t=a[2]/(a[2]-b[2]);poly.push([mix(a[0],b[0],t),mix(a[1],b[1],t),0]);}}for(let i=1;i+1<poly.length;i++){emit(poly[0]);emit(poly[i]);emit(poly[i+1]);}};
  const grid=Array.from({length:nz+1},(_,j)=>Array.from({length:nx+1},(_,i)=>sample(i,j)));
