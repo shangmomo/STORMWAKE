@@ -1,5 +1,6 @@
 import {MineLiftV81} from './MineLiftV81.js';
-import {RESERVOIR,MINE_SAMPLE} from './MineReservoirV80.js';
+import {caveRockGeometry,caveRockMaterial,reservoirGeometry,reservoirMaterial} from './CaveSurfaceV831.js';
+import {MINE_SAMPLE} from './MineReservoirV80.js';
 import {Material} from '../engine/render/Material.js';
 import {upgradeRoomArt,installCaveArt} from './ExpeditionArt.js';
 import {Group,Mesh,Vector3,Color,BufferGeometry,Float32BufferAttribute} from '../engine/index.js';
@@ -8,37 +9,14 @@ import {landMaterial} from './LandModels.js';
 import {PAT} from '../game/GameMaterials.js';
 import {CollisionWorld} from '../systems/CollisionWorld.js';
 import {CAVE,EXPEDITION_ROUTES,caveProfile} from './ExpeditionTerrain.js';
-const rockColors=[0x505d57,0x626860,0x49534f,0x7a7968,0x535b52,0x656d61];
 const partsMesh=(parts,root,name)=>{const m=new Mesh(mergePrepared(parts),landMaterial);m.name=name;m.castShadow=true;m.receiveShadow=true;root.add(m);return m;};
 const solidFromMesh=(colliders,mesh)=>{mesh.updateWorldMatrix(true,false);const geo=mesh.geometry,p=geo.attributes.position,idx=geo.index?.array;const tris=[];for(let i=0;i<(idx?.length??p.count);i+=3){const vs=[];for(let j=0;j<3;j++){const v=new Vector3().fromBufferAttribute(p,idx?idx[i+j]:i+j).applyMatrix4(mesh.matrixWorld);vs.push([v.x,v.y,v.z]);}tris.push({vertices:vs,id:mesh.name});}const world=new CollisionWorld(tris);colliders.triangleWorlds.push(world);return world;};
 export function buildExpeditionCave(scene,terrain,colliders){
  const root=new Group();root.name='V70 沉岩洞：真实可步行岩顶';scene.add(root);
- // Closed arch shell with two independently shaped rock surfaces. Every triangle
- // is also baked into the swept capsule collision world; no invisible roof proxy.
- const {x,front,back}=CAVE, n=24,m=Math.round((front-back)/2.93),span=front-back;
- const vertices=[],indices=[];const inner=[],outer=[];
- for(let j=0;j<=m;j++){
-  const z=front-span*j/m,profile=caveProfile(z),cx=profile.x,base=terrain.heightAt(cx,z),ripple=Math.sin(j*1.73)*.56+Math.sin(j*.43)*.75;
-  const width=profile.width+ripple,high=profile.high+2*Math.sin(j*.49)+.6*Math.cos(j*1.3);
-  for(let i=0;i<=n;i++){
-   const a=Math.PI*i/n,s=Math.sin(a),c=Math.cos(a),u=cx+c*width;
-   const sideBase=terrain.heightAt(u,z);const low=base+(sideBase-base)*Math.pow(Math.abs(c),8)-1.0;
-   const rough=.38*Math.sin(i*2.17+j*1.41)*s;
-   inner.push([u,low+s*high+rough,z]);
-   outer.push([cx+c*(width+3.4),low+s*(high+5.5)+rough+1.0,z]);
-  }
- }
- const stride=n+1,offset=inner.length;vertices.push(...inner.flat(),...outer.flat());
- const quad=(a,b,c,d)=>indices.push(a,b,c,a,c,d);
- for(let j=0;j<m;j++)for(let i=0;i<n;i++){const a=j*stride+i,b=a+1,c=b+stride,d=a+stride;quad(a,b,c,d);quad(a+offset,d+offset,c+offset,b+offset);}
- for(const j of [0,m])for(let i=0;i<n;i++){const a=j*stride+i; if(j===0)quad(a,a+1,a+1+offset,a+offset);else quad(a+1,a,a+offset,a+1+offset);}
- for(let j=0;j<m;j++)for(const i of [0,n]){const a=j*stride+i,b=a+stride;quad(a,b,b+offset,a+offset);}
- const g=new BufferGeometry();g.setAttribute('position',new Float32BufferAttribute(vertices,3));g.setIndex(indices);g.computeVertexNormals();
- const colors=[],uvs=[],palette=rockColors.map(v=>new Color(v));for(let j=0;j<vertices.length/3;j++){const a=j%stride,b=Math.floor((j%offset)/stride);const rgb=palette[(a*17+b*13)%palette.length];colors.push(rgb.r,rgb.g,rgb.b);uvs.push(vertices[j*3]/4,vertices[j*3+2]/4);}g.setAttribute('color',new Float32BufferAttribute(colors,3));g.setAttribute('uv',new Float32BufferAttribute(uvs,2));
- const roof=partsMesh([prepare(g,{rough:.97})],root,'V70 natural rock arch');const world=solidFromMesh(colliders,roof);
- // Close the back, but leave the front as a physically open portal.
+ // One authoritative, terrain-fitted rock mesh for rendering and collision.
+ const {x}=CAVE;
+ const roof=new Mesh(caveRockGeometry(terrain),caveRockMaterial());roof.name='V83.1 natural rock arch';roof.castShadow=true;roof.receiveShadow=true;root.add(roof);const world=solidFromMesh(colliders,roof);
  const parts=[];const add=(w,h,d,px,py,pz,color,pattern=0,rx=0)=>parts.push(prepare(box(w,h,d),{color,rough:.9,pattern,matrix:mat4(px,py,pz,rx,0,0)}));
- const end=caveProfile(back),endY=terrain.heightAt(end.x,back),wallHalf=end.width+2;add(wallHalf*2,18,2,end.x,endY+8,back,0x48524d);colliders.addBox(new Vector3(end.x,endY+8,back),new Vector3(wallHalf,9,1),0,{tag:'v70:cave-back'});
  // Supporting timber frames: posts remain outside central walking route.
  for(const z of [-455,-474,-493,-526]){const y=terrain.heightAt(x,z);for(const dx of [-8,8]){add(.38,6,.44,x+dx,y+3,z,0x634831,PAT.wood);colliders.addBox(new Vector3(x+dx,y+3,z),new Vector3(.19,3,.22),0,{tag:'v70:cave-support'});}add(17,.45,.6,x,y+6,z,0x634831,PAT.wood);colliders.addBox(new Vector3(x,y+6,z),new Vector3(8.5,.225,.3),0,{tag:"v70:cave-beam"});}
  // Real torches on posts, non-blocking visual fixture above player height.
@@ -52,7 +30,7 @@ export function buildExpeditionCave(scene,terrain,colliders){
  const sx=MINE_SAMPLE.x,sz=MINE_SAMPLE.z,sy=terrain.heightAt(sx,sz);add(1.6,.85,.7,sx,sy+.425,sz,0x70563d,PAT.wood);colliders.addBox(new Vector3(sx,sy+.425,sz),new Vector3(.8,.425,.35),0,{tag:'v80:mine-bench'});add(1.7,.13,.8,sx,sy+.915,sz,0x9c7f56,PAT.wood);colliders.addBox(new Vector3(sx,sy+.915,sz),new Vector3(.85,.065,.4),0,{tag:'v80:mine-bench'});
  for(let i=0;i<4;i++)parts.push(prepare(cylinder(.16,.24,.35,6),{color:0x8faea1,matrix:mat4(sx-.5+i*.33,sy+1.12,sz)}));
  partsMesh(parts,root,'V80 cave braces, mining track and archive station');
- const lake=new BufferGeometry(),lv=[RESERVOIR.x,RESERVOIR.surface,RESERVOIR.z],li=[];for(let i=0;i<=64;i++){const a=i/64*2*Math.PI;lv.push(RESERVOIR.x+Math.cos(a)*RESERVOIR.rx*1.10,RESERVOIR.surface,RESERVOIR.z+Math.sin(a)*RESERVOIR.rz*1.10);if(i<64)li.push(0,i+2,i+1);}lake.setAttribute('position',new Float32BufferAttribute(lv,3));lake.setIndex(li);lake.computeVertexNormals();const surface=new Mesh(lake,new Material({color:0x2b7580,emissive:0x092f37,opacity:.67,transparent:true,depthWrite:false,side:'double',metalness:.15,roughness:.14,underwaterLighting:'none'}));surface.name='V80 local underground reservoir';root.add(surface);
+ const surface=new Mesh(reservoirGeometry(terrain),reservoirMaterial());surface.name='V83.1 terrain-clipped underground reservoir';root.add(surface);
 
  // Route navigation uses the same position as the road centre, markers kept
  // outside the walking channel. No invisible walls at the entrance.

@@ -161,7 +161,7 @@ export class Player {
             if(this.mode==='walk'&&!this.adventure?.app?.qs?.has('coop')&&inp.consume('F6')&&!this.busy&&!this.adventure?.battleTimer&&this._previousSafeLand&&this.position.distanceTo(this._previousSafeLand)<8){const safe=this._previousSafeLand.clone(),q=safe.clone();this.colliders.resolveCapsule(q,RADIUS,HEIGHT,.03,true);if(q.distanceTo(safe)<.005&&!combinedWorld(this.colliders).capsuleOverlap(safe,RADIUS,HEIGHT)){this.position.copy(safe);this.velocity.set(0,0,0);this._camY=null;inp.resetPhysicalState?.();}}
         }
         this.query.setPoint( this.slot, this.position.x, this.position.z );
-		const local=(this.mode==='walk'||this.mode==='swim')?localWaterAt(this.position.x,this.position.y,this.position.z):null;
+		const local=(this.mode==='walk'||this.mode==='swim')?localWaterAt(this.position.x,this.position.y,this.position.z,this.terrain):null;
         const changed=(local!==null)!==!!this._localWater;this._localWater=local!==null;
         this.waterH=local??this.waterHeight();
         if(changed||this._localWater)this.waterMean=this.waterH;

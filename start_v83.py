@@ -1,4 +1,4 @@
-"""V83 launcher: fail early when run from an uninstalled payload."""
+"""V83.1 launcher: fail early when run from an uninstalled payload."""
 from pathlib import Path
 import sys
 ROOT=Path(__file__).resolve().parent
@@ -11,9 +11,10 @@ required+=('src/oceanhunt/PressureSystemsV80.js','src/land/MineReservoirV80.js',
 required+=('src/land/MineLiftV81.js','src/game/FishStockV81.js','src/post/LocalWaterV81.js','docs/V81_EXECUTION_zh.md')
 required+=('test/stormwake-v82.mjs','docs/V82_EXECUTION_zh.md','src/systems/MovingSurfaceWorld.js')
 required+=('src/oceanhunt/AbyssHatchV83.js','src/land/LurkerV83.js','src/land/MineLiftRulesV83.js','server/mineLiftRoomV83.js','test/stormwake-v83.mjs','test/stormwake-v83-ws.mjs','docs/V83_EXECUTION_zh.md')
+required+=('src/land/CaveSurfaceV831.js','test/stormwake-v831.mjs')
 missing=[n for n in required if not (ROOT/n).is_file()]
 if missing:
-    print('STORMWAKE V83 incomplete. Re-extract the entire STORMWAKE_V83_Complete archive. Missing: '+', '.join(missing),file=sys.stderr)
+    print('STORMWAKE V83.1 incomplete. Update or re-extract the complete repository. Missing: '+', '.join(missing),file=sys.stderr)
     raise SystemExit(2)
 from start_v60 import main
 if __name__=='__main__': raise SystemExit(main())

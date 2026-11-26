@@ -3,7 +3,7 @@ import {SCENERY_SITES,SERVICE_PADS,SERVICE_SPURS} from './ScenerySitesV76.js';
 // V70 shared, deterministic terrain authoring. All units in metres.
 export const EXPEDITION_ROUTES = Object.freeze([
  [[90,-150,6],[160,-200,15],[200,-230,28],[240,-255,41],[290,-300,54],[350,-350,62],[390,-410,62],[390,-445,56],[390,-500,49],[390,-540,49]],
- [[390,-410,62],[430,-440,62],[435,-530,52],[385,-610,45],[310,-650,46]]
+ [[390,-410,62],[430,-440,62],[435,-530,52],[385,-610,45],[378,-636,46],[371,-651,46],[337,-656,46],[310,-650,46]]
 ]);
 export const CAVE = Object.freeze({x:390,z:-500,front:-445,back:-626,halfWidth:21,arenaRadius:16,floor:49});
 // Continuous, bent lower gallery: transition from the existing boss chamber
@@ -56,6 +56,9 @@ export function bakeExpeditionTerrain(t){
   // The excavation is deliberately west of the fossil approach. Retain its
   // road and fossil terrain; flatten only the newly roofed central corridor.
   if(z<-603&&z>=CAVE.back-2&&xDist<cp.width){const ew=(1-smooth((xDist-cp.width+3)/3))*smooth((-z-603)/4)*smooth((b.d-5)/10);h+=(cp.floor-h)*ew;}
+  // Preserve the mine's rear bank independently of the rerouted fossil road.
+  // The pool is carved last so its original wet/dry path remains continuous.
+  if(z<-618.5&&z>=CAVE.back-2&&xDist<cp.width){const bank=smooth((-z-618.5)/2.5)*(1-smooth((xDist-cp.width+4)/4));h=Math.max(h,cp.floor+7.5*bank);}
   h=reservoirGround(x,z,h);
   heights[k]=h;
  }

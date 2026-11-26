@@ -259,7 +259,7 @@ export class AppUI {
 		if ( app.freeCam ) {
 
 			ui.setMode( 'Free camera' );
-			ui.setPrompt( 'F', 'Walk' );
+			ui.setPrompt( 'F', 'Leave free camera' );
 			ui.setBoatGauges( { visible: false } );
 			ui.setDepth( { visible: false } );
 			return;

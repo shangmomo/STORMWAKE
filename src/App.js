@@ -1,4 +1,6 @@
 import {cameraLocalVolume} from './post/LocalWaterV81.js';
+import {safeFlyLanding} from './player/LandMotorV78.js';
+import {localWaterAt} from './land/MineReservoirV80.js';
 import {FrameTiming} from './core/FrameTimingV79.js';
 import {showRuntimeFailure} from './core/RuntimeRecoveryV78.js';
 import {controlContext,modalActive,routeFrameMenus} from './core/ControlPolicy.js';
@@ -551,54 +553,32 @@ fn terrainWetness( xz: vec2f, h: f32 ) -> vec2f {
 
 	}
 
-	// Free (debug) camera on F; the walker / boat resumes where it was left.
+	// Free camera is separated from the actor. Do not freeze a passenger in a
+	// moving shaft or allow a network player to teleport through world geometry.
 	setFreeCam( on ) {
-
-		if ( on === this.freeCam ) return;
-		this.freeCam = on;
-		if ( on ) {
-
-			const e = new Euler().setFromQuaternion( this.camera.quaternion, 'YXZ' );
-			this.fly.setPose( this.camera.position.clone(), e.y, e.x );
-			this.fly.velocity.set( 0, 0, 0 );
-
-		} else if ( this.player.mode !== 'boat' && this.player.mode !== 'deck' ) {
-
-			this.dropPlayerAtCamera();
-
+		if(on===this.freeCam)return true;
+		const p=this.player,lift=this.landAdventure?.expeditionCave?.lift;
+		if(on&&!this.qs?.has('bench')&&!this.qs?.has('debug')){
+			if(!p||p.mode!=='walk'||!p.grounded||p.busy||p.stationId||p.pendingStation||p.shipClimb||p.boardingClimb||this.landAdventure?.stance||this.landAdventure?.battleTimer>0||this.hunt?.abyss?.active||this.voyageM1?.deepEcho?.piloting||lift?.onPlatform(p.position)||lift?.threshold(p.position))return false;
 		}
-
+		this.freeCam=on;
+		if(on){
+			const e=new Euler().setFromQuaternion(this.camera.quaternion,'YXZ');
+			this.fly.setPose(this.camera.position.clone(),e.y,e.x);this.fly.velocity.set(0,0,0);
+		}else if(p&&['walk','swim'].includes(p.mode)){
+			if(!this.qs?.has('coop')&&!this.crew?.connected&&!this.voyageM1?.net?.connected)this.dropPlayerAtCamera();
+			p.velocity.set(0,0,0);p._camY=null;p.camOff=0;p.camOffV=0;
+		}
+		this.input?.resetPhysicalState?.();return true;
 	}
 
-	// Leaving the free camera: the player continues from where the camera is, facing the same way,
-	// and falls from there (swimming at once if the camera is under water).
 	dropPlayerAtCamera() {
-
-		const p = this.player, c = this.camera.position;
-		const e = new Euler().setFromQuaternion( this.camera.quaternion, 'YXZ' );
-		p.yaw = e.y;
-		p.pitch = MathUtils.clamp( e.x, - 1.5, 1.5 );
-		p.velocity.set( 0, 0, 0 );
-		const ground = Math.max( this.terrainData.heightAt( c.x, c.z ), this.colliders.groundHeightAt( c.x, c.z, c.y ) );
-		const water = this.cameraWaterHeight ?? 0;
-		if ( c.y < water ) {
-
-			p.mode = 'swim';
-			p.position.set( c.x, Math.max( c.y - 0.16, ground + 0.3 ), c.z );
-
-		} else {
-
-			// drop from where the camera is: gravity brings you down onto the ground or a deck, or into
-			// the sea (the walker starts swimming once it is out of its depth)
-			p.mode = 'walk';
-			p.position.set( c.x, Math.max( c.y - 1.62, ground ), c.z );
-			p.grounded = false;
-
-		}
-
-		p.waterH = water;
-		p.waterMean = water;
-
+		const p=this.player,c=this.camera.position;
+		const water=localWaterAt(c.x,c.y,c.z,this.terrainData)??this.cameraWaterHeight??0;
+		const landing=safeFlyLanding(this.terrainData,this.colliders,c,water);
+		if(!landing){this.ui?.ui?.toast?.('未找到安全落脚点，已返回角色位置。');return false;}
+		const e=new Euler().setFromQuaternion(this.camera.quaternion,'YXZ');
+		p.yaw=e.y;p.pitch=MathUtils.clamp(e.x,-1.5,1.5);p.mode='walk';p.position.copy(landing);p.grounded=true;p.waterH=water;p.waterMean=water;return true;
 	}
 
 	// ---------------------------------------------------------------- loop
@@ -661,7 +641,7 @@ fn terrainWetness( xz: vec2f, h: f32 ) -> vec2f {
             playerCanBoard ? 'player' :
 			(this.voyageM1 && this.player.mode==='deck' && (this.input.down('ShiftLeft')||this.input.down('ShiftRight'))) ? 'voyage' :
 			this.voyageM1?.wantsInteraction?.() ? 'voyage' : this.landAdventure?.wantsLandInteraction?.( this.player.position ) ? 'land' : null;
-		if ( this.input.hit( 'KeyF' ) && !submerged && !this.landAdventure?.stance && !this.player.stationId && !(this.voyageM1 && ['deck','boat'].includes(this.player.mode)) ) this.setFreeCam( ! this.freeCam );
+		if ( this.input.hit( 'KeyF' ) && (this.freeCam||!submerged) ) this.setFreeCam( ! this.freeCam );
 		if ( this.input.hit( 'KeyT' ) && !submerged && !this.landAdventure?.stance && !(this.voyageM1 && ['deck','boat'].includes(this.player.mode)) ) this.toggleTime();
 		if ( this.input.hit( 'KeyL' ) && !submerged ) {
 
@@ -757,7 +737,7 @@ fn terrainWetness( xz: vec2f, h: f32 ) -> vec2f {
 		this.query.update();
 		// A below-waterline wooden cabin is an enclosed dry air space. The outer
 		// ocean is NOT a bilge water surface, and must not be drawn through walls.
-		const localVolume=cameraLocalVolume(this.camera.position,this.hunt?.abyss);
+		const localVolume=cameraLocalVolume(this.camera.position,this.hunt?.abyss,this.terrainData);
         const raid=this.hunt?.abyss;const dryHoldCamera=raid?.active?(raid.cameraMode==='interior'&&!raid.hatch?.wetView&&(!localVolume||localVolume.dry)):(!localVolume&&isDryHoldCamera(this.player));
         this.cameraLocalVolume=localVolume;this.cameraDryHold=dryHoldCamera;this.underwater.setLocalVolume(dryHoldCamera?null:localVolume);
 		// V50: never disable the WORLD ocean from a cabin viewpoint.

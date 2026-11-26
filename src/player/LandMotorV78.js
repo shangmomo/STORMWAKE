@@ -43,3 +43,19 @@ export function safeCameraBoom(colliders,origin,desired){const d=new Vector3().s
 
 // Standing transitions must fit both the legacy and the exact mesh world.
 export function canStandAt(colliders,foot,radius=.3,height=1.75){if(!finite(foot))return false;const q=new Vector3(foot.x,foot.y+.012,foot.z);const probe=q.clone();colliders.resolveCapsule(probe,radius,height,0,true);return probe.distanceTo(q)<.005&&!combinedWorld(colliders).capsuleOverlap(q,radius,height);}
+
+// A free-camera is not a character. Only a supported, capsule-clear dry landing
+// close to its eye can become a solo-player spawn. Never snap through rock.
+export function safeFlyLanding(terrain,colliders,camera,water=0){
+ if(!finite(camera)||!Number.isFinite(water))return null;
+ const foot=camera.y-1.62,ground=Math.max(terrain.heightAt(camera.x,camera.z),colliders.groundHeightAt(camera.x,camera.z,foot+.4));
+ if(!Number.isFinite(ground)||ground<water+.05||ground>foot+.35||foot-ground>3)return null;
+ const p=new Vector3(camera.x,ground,camera.z);if(!canStandAt(colliders,p))return null;
+ const eye=p.clone().add(new Vector3(0,1.62,0));
+ const w=combinedWorld(colliders);if(w.segmentHit(camera,eye))return null;
+ const support=w.segmentHit(eye,{x:p.x,y:p.y-.06,z:p.z});
+ if(support&&(support.y>p.y+.06||support.normal[1]<.55))return null;
+ const d=eye.clone().sub(camera),len=d.length();
+ if(len>.005&&colliders.raycast(camera,d.multiplyScalar(1/len),len,.08)<len-.001)return null;
+ return p;
+}
