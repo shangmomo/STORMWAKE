@@ -1,3 +1,4 @@
+import {UndergroundAdventureV85} from './UndergroundAdventureV85.js';
 import {LAKE_LOOKOUT} from './UndergroundHallV84.js';
 import {bossGuide,landObserver,landDistance,corsairAvailable} from './LandEncounterGuideV832.js';
 import {LURKER,lurkerEnabled,createLurkerModel,poseLurker,lurkerFacing} from './LurkerV83.js';
@@ -167,6 +168,7 @@ export class LandAdventure {
         this.rockV75=new ExpeditionRockV75(this);
         this.sceneryV76=new ExpeditionSceneryV76(this);
         this.servicesV77=new ExpeditionServicesV77(this);
+        this.undergroundV85=new UndergroundAdventureV85(this);
 		this.residents = new LandResidents( app );
 		this.dialogue = new LandDialoguePanel( app );
 		this.avatar = new LandAvatar( app );
@@ -263,6 +265,7 @@ export class LandAdventure {
 	// Evaluated BEFORE Player.update: an E press at a land object belongs to
 	// the land interaction director, never the ship's generic boarding handler.
 	wantsLandInteraction( point ) {
+        if(point&&this.undergroundV85?.wants(point))return true;
 		if ( !point || this.app.player?.mode !== 'walk' || !canPersonal(this.app) ) return false;
 		const near = ( pos, reach, vertical=3.25 ) =>
 			Math.hypot( pos.x-point.x, pos.z-point.z ) < reach && Math.abs(pos.y-point.y) < vertical;
@@ -396,6 +399,7 @@ export class LandAdventure {
 			}
 		}
 		if(this.rex?.strike(swing,p.position,_view))hit++;
+        if(this.undergroundV85?.strike(swing,p.position,_view))hit++;
 		if ( hit ) this._message( `⚔ ${ swing.heavy ? '重击' : '斩击' }命中 ${hit} 个目标`, 1.15 );
 	}
 
@@ -443,6 +447,7 @@ export class LandAdventure {
         this.ecologyV74?.register(director,player);
         this.fossilSurvey?.register(director,player);
         this.expeditionCave?.lift?.register(director,player,this);
+        this.undergroundV85?.register(director,player);
         if(this.deepSurvey&&this.progress.corsairDefeated){const dp=this.deepSurvey.position;if(!strikeLineBlocked(this.app.colliders,{x:p.x,y:p.y+1.2,z:p.z},{x:dp.x,y:dp.y+1.2,z:dp.z},.85))director.add({id:'v78:deep-survey',position:dp,range:3.4,heightRange:1.8,priority:94,label:'深层岩心 · E 记录地下地层',perform:()=>{const wallet=this.app.game?.state,id='land:v78:deep-survey';if(wallet?.rewardReceipts?.includes(id))this._message('岩心已记录。从灯火引导的原路返回。',5);else this._reward(95,id,'地下岩心调查完成，获得95金币；沿灯火继续深入或返回洞口。');}},player);}
         const sample=this.expeditionCave?.sample;if(sample&&dist(p,sample)<3&&Math.abs(p.y-sample.y)<1.8&&!strikeLineBlocked(this.app.colliders,{x:p.x,y:p.y+1.35,z:p.z},{x:sample.x,y:sample.y+1.35,z:sample.z},.2)){director.add({id:'v80:mine-sample',position:sample,range:3,heightRange:1.8,priority:95,label:'废弃采掘站 · E 调查矿样',perform:()=>{const wallet=this.app.game?.state,id='land:v80:mine-sample';if(!this.progress.corsairDefeated||!wallet?.rewardReceipts?.includes('land:v78:deep-survey'))return this._message('先击败荒潮船长并调查深层岩心。',5);if(wallet.rewardReceipts.includes(id))return this._message('矿样已登记；沿木梁灯火返回。',5);this._reward(120,id,'矿样登记完成，获得120金币。西侧干路可原路返回。');}},player);}
         if(this.eastQuest.accepted&&!this.eastQuest.completed){
@@ -787,8 +792,8 @@ export class LandAdventure {
 		if ( !this.hud ) return;
 		this.hud.style.display = active ? '' : 'none';
 		if ( !active ) return;
-        const scout=!!this.app.freeCam;this.hud.classList.toggle('sw-land-scout',scout);
-        const guide=this.ui('boss-guide');if(guide){const label=(scout?'F 安全落地 · Shift+F 返回原角色':'陆地首领 · 方位北0°')+'\n'+bossGuide(this).map(b=>b.name+' · '+b.distance+'m / '+b.bearing+'° · '+b.status).join('\n')+(scout&&this.app.scoutLandingNotice?'\n'+this.app.scoutLandingNotice:'')+((Math.hypot(landObserver(this.app).x-LAKE_LOOKOUT.x,landObserver(this.app).z-LAKE_LOOKOUT.z)<130)?'\n西侧晶岩湖厅 · '+Math.round(Math.hypot(landObserver(this.app).x-LAKE_LOOKOUT.x,landObserver(this.app).z-LAKE_LOOKOUT.z))+'m · 船长营地后方蓝色箭头':'');if(guide.textContent!==label)guide.textContent=label;}
+        const scout=!!this.app.freeCam||this.app.player.mode==='swim';this.hud.classList.toggle('sw-land-scout',scout);
+        const guide=this.ui('boss-guide');if(guide){const label=(this.app.player.mode==='swim'&&!this.app.freeCam?'湖底探索 · C 下潜 / Space 上浮':scout?'F 安全落地 · Shift+F 返回原角色':'陆地首领 · 方位北0°')+'\n'+bossGuide(this).map(b=>b.name+' · '+b.distance+'m / '+b.bearing+'° · '+b.status).join('\n')+(scout&&this.app.scoutLandingNotice?'\n'+this.app.scoutLandingNotice:'')+((Math.hypot(landObserver(this.app).x-LAKE_LOOKOUT.x,landObserver(this.app).z-LAKE_LOOKOUT.z)<130)?'\n西侧晶岩湖厅 · '+Math.round(Math.hypot(landObserver(this.app).x-LAKE_LOOKOUT.x,landObserver(this.app).z-LAKE_LOOKOUT.z))+'m · 船长营地后方蓝色箭头':'');const extra=this.undergroundV85?.hud();const display=label+(extra?'\n'+extra:'');if(guide.textContent!==display)guide.textContent=display;}
         if(scout)return;
 		const p = this.app.player.position, stage = this.progress.stage;
 		const tasks = [ '前往海风镇告示板，与小汐展开灯塔调查',
@@ -901,6 +906,7 @@ export class LandAdventure {
         this.rockV75?.update();
         this.sceneryV76?.update();
         this.servicesV77?.update();
+        this.undergroundV85?.update(dt);
 		if ( this.pendingStrike && combatActive ) this._resolveStrikeContacts();
 		this._updateFauna( dt, player, phase );
 		const conversation = this.residents.update( dt, {
@@ -966,7 +972,7 @@ export class LandAdventure {
             if(this.weaponId==='polearm'&&swing){viewWeapon.position.addScaledVector(_view,.55*Math.sin(Math.PI*t));viewWeapon.rotateX(-.55*Math.sin(Math.PI*t));}if(this.weaponId==='rod')viewWeapon.rotateZ(.24*Math.sin(this.time*2));
 		}
 		this.hud?.classList.toggle('sw-deck-combat',app.player.mode==='deck');
-        this._updateHUD( (preserveStance&&(app.player.mode==='walk'||this.stance))||(app.freeCam&&!app.hunt?.abyss?.active&&!app.voyageM1?.deepEcho?.piloting), phase );
+        this._updateHUD( (app.player.mode==='swim'&&!!this.undergroundV85?.hud())||(preserveStance&&(app.player.mode==='walk'||this.stance))||(app.freeCam&&!app.hunt?.abyss?.active&&!app.voyageM1?.deepEcho?.piloting), phase );
 	}
 }
 

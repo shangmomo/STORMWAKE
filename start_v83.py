@@ -1,4 +1,4 @@
-"""V84 launcher: fail early when run from an uninstalled payload."""
+"""V85 launcher: fail early when run from an uninstalled payload."""
 from pathlib import Path
 import sys
 ROOT=Path(__file__).resolve().parent
@@ -12,10 +12,10 @@ required+=('src/land/MineLiftV81.js','src/game/FishStockV81.js','src/post/LocalW
 required+=('test/stormwake-v82.mjs','docs/V82_EXECUTION_zh.md','src/systems/MovingSurfaceWorld.js')
 required+=('src/oceanhunt/AbyssHatchV83.js','src/land/LurkerV83.js','src/land/MineLiftRulesV83.js','server/mineLiftRoomV83.js','test/stormwake-v83.mjs','test/stormwake-v83-ws.mjs','docs/V83_EXECUTION_zh.md')
 required+=('src/land/CaveSurfaceV831.js','test/stormwake-v831.mjs')
-required+=('src/land/CaveRockV84.js','src/land/UndergroundHallV84.js','src/player/ScoutLandingV84.js','test/stormwake-v84.mjs')
+required+=('src/land/CaveRockV84.js','src/land/UndergroundHallV84.js','src/player/ScoutLandingV84.js','test/stormwake-v84.mjs','src/land/UndergroundAdventureV85.js','src/game/UndergroundLedgerV85.js','test/stormwake-v85-world.mjs','test/stormwake-v85-ledger.mjs')
 missing=[n for n in required if not (ROOT/n).is_file()]
 if missing:
-    print('STORMWAKE V84 incomplete. Update or re-extract the complete repository. Missing: '+', '.join(missing),file=sys.stderr)
+    print('STORMWAKE V85 incomplete. Update or re-extract the complete repository. Missing: '+', '.join(missing),file=sys.stderr)
     raise SystemExit(2)
 from start_v60 import main
 if __name__=='__main__': raise SystemExit(main())

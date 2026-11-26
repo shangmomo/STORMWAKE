@@ -641,7 +641,7 @@ fn terrainWetness( xz: vec2f, h: f32 ) -> vec2f {
 		this.input.interactionOwner = this.game?.hud?.catchOpen ? 'catch' : this.game?.hud?.standOpen ? 'vendor' :
             playerCanBoard ? 'player' :
 			(this.voyageM1 && this.player.mode==='deck' && (this.input.down('ShiftLeft')||this.input.down('ShiftRight'))) ? 'voyage' :
-			this.voyageM1?.wantsInteraction?.() ? 'voyage' : this.landAdventure?.wantsLandInteraction?.( this.player.position ) ? 'land' : null;
+			this.landAdventure?.undergroundV85?.wants(this.player.position) ? 'land' : this.voyageM1?.wantsInteraction?.() ? 'voyage' : this.landAdventure?.wantsLandInteraction?.( this.player.position ) ? 'land' : null;
 		if ( this.input.hit( 'KeyF' ) && (this.freeCam||!submerged) ) this.setFreeCam( ! this.freeCam, this.input.down('ShiftLeft')||this.input.down('ShiftRight') );
 		if ( this.input.hit( 'KeyT' ) && !submerged && !this.landAdventure?.stance && !(this.voyageM1 && ['deck','boat'].includes(this.player.mode)) ) this.toggleTime();
 		if ( this.input.hit( 'KeyL' ) && !submerged ) {

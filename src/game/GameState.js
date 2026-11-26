@@ -1,3 +1,4 @@
+import {restoreUnderground} from './UndergroundLedgerV85.js';
 import {FishStockV81} from './FishStockV81.js';
 import {FORGE_COSTS,WEAPON_IDS,restoreForge} from './LandForge.js';
 import { FISH, fishValue, fishLengthCm } from './FishTable.js';
@@ -25,6 +26,7 @@ export class GameState {
 		this.catchListeners = new Set();
 		this.rewardReceipts = [];
 		this.landForge = restoreForge(null);
+		this.underground=restoreUnderground(null);
 		this.fishStock=new FishStockV81();
 
 	}
@@ -230,7 +232,7 @@ export class GameState {
 
 	toJSON() {
 
-		return { v: 1, money: this.money, inventory: this.inventory, log: this.log, upgrades: this.upgrades, fuel: this.fuel, nextId: this._nextId, rewardReceipts: this.rewardReceipts, landForge:this.landForge,fishStock:this.fishStock.toJSON() };
+		return { v: 1, money: this.money, inventory: this.inventory, log: this.log, upgrades: this.upgrades, fuel: this.fuel, nextId: this._nextId, rewardReceipts: this.rewardReceipts, landForge:this.landForge,underground:this.underground,fishStock:this.fishStock.toJSON() };
 
 	}
 
@@ -239,6 +241,7 @@ export class GameState {
 		if ( ! d || d.v !== 1 ) return false;
 		this.money = Number.isFinite( d.money ) ? d.money : 0;
 		this.landForge=restoreForge(d.landForge);
+		this.underground=restoreUnderground(d.underground);
 		this.fishStock.restore(d.fishStock);
 		this.rewardReceipts = Array.isArray( d.rewardReceipts ) ? [ ...new Set( d.rewardReceipts.filter( id => typeof id === 'string' && id.length <= 120 ) ) ] : [];
 		this.inventory = Array.isArray( d.inventory ) ? d.inventory.filter( ( f ) => f && FISH[ f.species ] && Number.isFinite( f.kg ) ) : [];
@@ -282,6 +285,7 @@ export class GameState {
 	}
 
 	reset() {
+		this.underground=restoreUnderground(null);
 		this.fishStock=new FishStockV81();
 
 		this.money = 0;
