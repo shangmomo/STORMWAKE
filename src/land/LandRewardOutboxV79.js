@@ -1,6 +1,6 @@
 const KEY='stormwake:land-reward-outbox:v79';
 // Only awards emitted by the actual land runtime are eligible for replay.
-const FIXED=new Map([['land:v73:forest-bear',60],['land:v37:corsair',180],['land:v31:lighthouse',250],['land:v31:shrine',30],['land:v31:forest-cache',40],['land:v74:grotto',45],['land:v78:deep-survey',95],['land:v80:mine-sample',120],['land:v81:gallery-inspection',80],['land:v83:lurker',220]]);
+const FIXED=new Map([['land:v71:rex',350],['land:v73:forest-bear',60],['land:v37:corsair',180],['land:v31:lighthouse',250],['land:v31:shrine',30],['land:v31:forest-cache',40],['land:v74:grotto',45],['land:v78:deep-survey',95],['land:v80:mine-sample',120],['land:v81:gallery-inspection',80],['land:v83:lurker',220]]);
 export function validLandReward(id,amount){return FIXED.has(id)&&FIXED.get(id)===amount||typeof id==='string'&&/^land:v31:raid:[1-9]\d{0,7}$/.test(id)&&amount===75;}
 export class LandRewardOutbox {
  constructor(storage){this.storage=storage;this.pending=new Map();try{const entries=JSON.parse(storage?.getItem(KEY)||'[]');if(Array.isArray(entries))for(const e of entries.slice(0,512)){if(Array.isArray(e)&&validLandReward(e[0],e[1]))this.pending.set(e[0],e[1]);}}catch{}}

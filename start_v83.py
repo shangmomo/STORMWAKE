@@ -1,4 +1,4 @@
-"""V83.1 launcher: fail early when run from an uninstalled payload."""
+"""V83.2 launcher: fail early when run from an uninstalled payload."""
 from pathlib import Path
 import sys
 ROOT=Path(__file__).resolve().parent
@@ -14,7 +14,7 @@ required+=('src/oceanhunt/AbyssHatchV83.js','src/land/LurkerV83.js','src/land/Mi
 required+=('src/land/CaveSurfaceV831.js','test/stormwake-v831.mjs')
 missing=[n for n in required if not (ROOT/n).is_file()]
 if missing:
-    print('STORMWAKE V83.1 incomplete. Update or re-extract the complete repository. Missing: '+', '.join(missing),file=sys.stderr)
+    print('STORMWAKE V83.2 incomplete. Update or re-extract the complete repository. Missing: '+', '.join(missing),file=sys.stderr)
     raise SystemExit(2)
 from start_v60 import main
 if __name__=='__main__': raise SystemExit(main())

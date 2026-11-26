@@ -1,3 +1,4 @@
+import {bossGuide,landObserver,landDistance,corsairAvailable} from './LandEncounterGuideV832.js';
 import {LURKER,lurkerEnabled,createLurkerModel,poseLurker,lurkerFacing} from './LurkerV83.js';
 import {LandRewardOutbox} from './LandRewardOutboxV79.js';
 import {ExpeditionServicesV77} from './ExpeditionServicesV77.js';
@@ -210,8 +211,9 @@ export class LandAdventure {
 		this.app.scene.add( model.group );
 		this.enemies.push( enemy );
 		if(type==='lurker'){enemy.bodyCollider=this.app.colliders.addCylinder(x,z,LURKER.radius,model.group.position.y,model.group.position.y+LURKER.height,{tag:'v83:lurker',solid:false});return enemy;}
-		if ( typeof document !== 'undefined' ) (type==='bear'?loadBearActor():loadLandRig(type)).then( actor => {
-			if ( !actor || enemy.dead ) return;
+		if ( typeof document !== 'undefined' ) {
+          enemy.assetAttempts=0;enemy.retryAsset=()=>{enemy.assetAttempts++;enemy.assetState='loading';return (type==='bear'?loadBearActor():loadLandRig(type)).then( actor => {
+			if(enemy.dead)return;if(!actor)throw Error('No actor returned');
 			// Keep the procedural silhouette until the fully loaded animated body
 			// and ground-contact correction are ready (no invisible boss on load).
 			model.group.add( actor.rig.group );
@@ -224,7 +226,9 @@ export class LandAdventure {
 				// V38 boss source uses a human rig; size was calibrated in the manifest.
 				enemy.pirateStyle=attachPirateStyle(actor,0,{boss:true});
 			}
-		} ).catch(error=>console.warn('Land actor failed',type,error));
+			enemy.assetState='ready';
+		} ).catch(error=>{enemy.assetState='failed';enemy.assetRetryAt=this.time+8;console.warn('Land actor failed',type,error);});};enemy.retryAsset();
+        }
 		return enemy;
 	}
 
@@ -239,6 +243,7 @@ export class LandAdventure {
 			<div class="land-v31-vitals"><span>生命</span><div><i data-land-hp></i></div><b data-land-hp-label>100</b></div>
 			<div class="land-v31-vitals"><span>体力</span><div><i class="land-v31-stamina" data-land-stamina></i></div><b data-land-stamina-label>100</b></div>
 			<div class="land-v31-enemy" data-land-enemy></div>
+            <div class="sw-land-boss-guide" data-land-boss-guide></div>
 			<div class="land-v31-gear" data-land-gear>探索姿态</div>
 			<div class="land-v66-weaponbar" data-land-weaponbar>${Object.entries(PERSONAL_WEAPONS).map(([id,w])=>`<button type="button" data-weapon="${id}" aria-label="装备${w.name}"><b>${w.key}</b> ${w.name}</button>`).join('')}</div><div class="land-v66-recovery"><i data-land-recovery></i></div><div class="land-v31-controls">1/2/3 武器 · Z 收起 · 左键/J 轻击 · K 重击 · Q 闪避 · 右键格挡 · V 视角 · E 交互 · P 任务</div></div>
 			<div class="land-v31-message" data-land-message></div>`;
@@ -362,7 +367,7 @@ export class LandAdventure {
 		p.getViewDir( _view ); _view.y = 0; _view.normalize();if(swing.direction)_view.copy(swing.direction);
 		let hit = 0;
 		for ( const e of this.enemies ) {
-			if ( swing.targetsHit.has( e.id ) || e.dead || (e.type==='lurker'&&!this._lurkerEnabled()) || (e.type==='bear'&&!e.actor) || (e.type==='corsair'&&this.progress.stage<1) || ( e.type === 'warden' && this.progress.stage < 3 ) ||
+			if ( swing.targetsHit.has( e.id ) || e.dead || (e.type==='lurker'&&!this._lurkerEnabled()) || (e.type==='bear'&&!e.actor) || (e.type==='corsair'&&!corsairAvailable(this.progress.stage,this.app)) || ( e.type === 'warden' && this.progress.stage < 3 ) ||
 				!targetWithinStrike( { ...p.position, y: p.position.y + 1 },
 					{ x: e.x, z: e.z, y: this.app.terrainData.heightAt( e.x, e.z ) + 1 }, swing.reach, 3 ) ) continue;
 			if ( !sweptBladeContact( swing,
@@ -591,9 +596,10 @@ export class LandAdventure {
 	_updateEnemy( e, dt, interactive, phase ) {
 		const p = this.app.player.position;
 		const d = dist( p, e );
+        const visibleDistance=landDistance(landObserver(this.app),e);
         if(e.bodyCollider)e.bodyCollider.solid=false;
         if(e.type==='lurker'&&!this._lurkerEnabled()){e.model.group.visible=false;e.state='idle';e.collisionArmed=false;return;}
-        if(e.type==='bear'&&!e.actor){e.model.group.visible=false;return;}
+        if(e.type==='bear'&&!e.actor){e.model.group.visible=false;if(e.assetState==='failed'&&e.assetAttempts<3&&visibleDistance<150&&this.time>=e.assetRetryAt)e.retryAsset?.();return;}
 		if ( e.type === 'warden' && this.progress.stage < 3 ) { e.model.group.visible = false; return; }
 		if ( e.dead ) {
 			if ( e.deathVisualRemaining > 0 && e.actor ) {
@@ -603,10 +609,10 @@ export class LandAdventure {
 			} else e.model.group.visible = false;
 			return;
 		}
-		const enabled = (e.type !== 'corsair' || this.progress.stage >= 1) &&
+		const enabled = (e.type !== 'corsair' || corsairAvailable(this.progress.stage,this.app)) &&
 			( e.type !== 'wraith' || phase === 'invasion' || this.progress.stage >= 2 ) &&
 			( !e.raid || this.raidActive );
-		const visible = enabled && d < 130;
+		const visible = enabled && Math.min(d,visibleDistance) < 130;
 		e.model.group.visible = visible;
 		if ( !visible ) return;
 		// A spectral sailor only retreats when the existing flashlight actually
@@ -725,9 +731,9 @@ export class LandAdventure {
 
 	_updateFauna( dt, player, phase ) {
 		for ( const a of this.animals ) {
-			const d = dist( a, player ), near = d < 74;
+			const d = dist( a, player ), near = Math.min(d,landDistance(landObserver(this.app),a)) < 74;
 			a.model.group.visible = near;
-			if ( !near ) continue;
+			if ( !near || d>=74 ) continue;
 			a.t += dt;
 			if ( d < 9 || phase === 'invasion' || phase === 'warning' ) a.panic = Math.max( a.panic, phase === 'calm' ? 5 : 1 );
 			a.panic = Math.max( 0, a.panic - dt );
@@ -783,6 +789,9 @@ export class LandAdventure {
 		if ( !this.hud ) return;
 		this.hud.style.display = active ? '' : 'none';
 		if ( !active ) return;
+        const scout=!!this.app.freeCam;this.hud.classList.toggle('sw-land-scout',scout);
+        const guide=this.ui('boss-guide');if(guide){const label=(scout?'自由视角侦察 · F 返回步行':'陆地首领 · 方位北0°')+'\n'+bossGuide(this).map(b=>b.name+' · '+b.distance+'m / '+b.bearing+'° · '+b.status).join('\n');if(guide.textContent!==label)guide.textContent=label;}
+        if(scout)return;
 		const p = this.app.player.position, stage = this.progress.stage;
 		const tasks = [ '前往海风镇告示板，与小汐展开灯塔调查',
 			'沿翡翠密林的荧光石柱寻找断崖灯塔',
@@ -959,7 +968,7 @@ export class LandAdventure {
             if(this.weaponId==='polearm'&&swing){viewWeapon.position.addScaledVector(_view,.55*Math.sin(Math.PI*t));viewWeapon.rotateX(-.55*Math.sin(Math.PI*t));}if(this.weaponId==='rod')viewWeapon.rotateZ(.24*Math.sin(this.time*2));
 		}
 		this.hud?.classList.toggle('sw-deck-combat',app.player.mode==='deck');
-        this._updateHUD( preserveStance&&(app.player.mode==='walk'||this.stance), phase );
+        this._updateHUD( (preserveStance&&(app.player.mode==='walk'||this.stance))||(app.freeCam&&!app.hunt?.abyss?.active&&!app.voyageM1?.deepEcho?.piloting), phase );
 	}
 }
 

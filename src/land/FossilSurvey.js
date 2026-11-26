@@ -27,7 +27,7 @@ export class FossilSurvey {
  _save(){try{localStorage.setItem(STORE,JSON.stringify(this.state));}catch{}}
  _apply(action){const before=this.state;this.state=surveyAction(before,action);this._save();return before;}
  wants(point){return this.state.accepted&&!this.state.returned&&this.sites.some(s=>dist(s.root.position,point)<3.4&&Math.abs(s.root.position.y-point.y)<3.2);}
- register(director,player){const a=this.adventure;if(!a.progress.corsairDefeated)return;
+ register(director,player){const a=this.adventure;if(!a.progress.corsairDefeated||a.progress.stage<1)return;
   const p=player.position,board=a.board.position;
   if(!this.state.returned&&(!this.state.accepted||this.state.records.length===SURVEY.length))director.add({id:'land:v71-survey-board',position:board,range:3.6,priority:90,label:this.state.accepted?'北部调查 · E 提交三份记录':'北部化石谷 · E 接取勘测委托',perform:()=>{if(!this.state.accepted){this._apply('accept');a._message('前往沉岩峡谷岔路，沿北部古道抵达化石谷，调查三个标记点。',7);}else{const wallet=a.app.game?.state,id='land:v71:fossil-survey';if(wallet&&(wallet.rewardReceipts?.includes(id)||wallet.grantMoney?.(160,id))){this._apply('return');a._message('三份野外调查记录已提交，获得 160 金币。单人模式可返回化石谷追踪暴龙。',7);}else a._message('提交未成功，请重试。',4);}}},player);
   if(!this.state.accepted||this.state.returned)return;

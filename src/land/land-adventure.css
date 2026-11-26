@@ -54,6 +54,10 @@
 	min-height: 0;
 }
 .land-v31-message:empty { display: none; }
+.sw-land-boss-guide{white-space:pre-line;margin:7px 0;padding:7px;border-top:1px solid #40616b;font-size:11px;line-height:1.55;color:#e2cfa4}
+.sw-land-scout .land-v31-body>:not(.sw-land-boss-guide),.sw-land-scout .land-v31-message{display:none}
+.sw-land-scout .land-v31-body{padding:5px 8px}
+.sw-land-scout.land-v31-collapsed .land-v31-body{display:block}
 .land-v31-hit .land-v31-body { box-shadow: inset 0 0 25px rgba(227,77,93,.32); }
 .land-v31-collapsed .land-v31-body { display: none; }
 @media (max-width: 800px) {
