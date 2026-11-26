@@ -1,0 +1,2 @@
+import {shipToWorld} from './CargoReach.js';
+export function releaseSunkenCargo(cargo,ship){let released=0;for(const item of [...cargo.listShipHold('stormwake')]){const at=shipToWorld(ship,item.holdLocal||{x:0,y:0,z:0});if(!at)continue;cargo.holds.get('stormwake')?.delete(item.id);Object.assign(item,{state:'world',shipId:null,actorId:null,onDeck:false,deckLocal:null,holdLocal:null,holdLayer:null,floating:true,x:at.x,y:Math.max(0,at.y),z:at.z});released++;}return released;}

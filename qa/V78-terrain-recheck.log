@@ -1,0 +1,42 @@
+TAP version 13
+# max route grade 0.295
+# max route grade 0.243
+# Subtest: real terrain: both expedition routes continuous and traversable
+ok 1 - real terrain: both expedition routes continuous and traversable
+  ---
+  duration_ms: 7.55193
+  type: 'test'
+  ...
+# Subtest: actual cave mesh: roof, side collision, open entrance, return route
+ok 2 - actual cave mesh: roof, side collision, open entrance, return route
+  ---
+  duration_ms: 7.969494
+  type: 'test'
+  ...
+# Subtest: three service rooms: station and aisle clear, counter and rear solid
+ok 3 - three service rooms: station and aisle clear, counter and rear solid
+  ---
+  duration_ms: 32.330081
+  type: 'test'
+  ...
+# Subtest: corsair has bounded turn, initialized strafe, locked dash, no remote melee
+ok 4 - corsair has bounded turn, initialized strafe, locked dash, no remote melee
+  ---
+  duration_ms: 2.273017
+  type: 'test'
+  ...
+# Subtest: actual V69 village plus four new service buildings: full-sized player can enter
+ok 5 - actual V69 village plus four new service buildings: full-sized player can enter
+  ---
+  duration_ms: 644.404528
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5299.335212

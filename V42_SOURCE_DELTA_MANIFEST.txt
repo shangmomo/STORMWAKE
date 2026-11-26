@@ -1,0 +1,36 @@
+STORMWAKE V42 | Deep Gameplay | 2026-11-13
+Complete 1-folder distribution: Tidewater_V42
+Base V41 ZIP files: 768
+V42 folder total entries before manifest: 777
+Added: 9; modified: 16; missing from V41: 0
+Core WebGPU/Ocean/Sky/Post: 89 SHA256 identical to V41.
+Rendering QA was blocked by sandbox policy; code tests are not real visual play.
+
+ADDED FILES:
+START_STORMWAKE_V42.cmd
+START_STORMWAKE_V42_COOP.cmd
+V42_SOURCE_DELTA_MANIFEST.txt
+docs/V42_交互工具航程深度重构_设计与验收.md
+src/ship/PirateEquipment.js
+src/ship/PirateHands.js
+src/voyage/VoyageJournal.js
+start_v42.py
+test/stormwake-v42-systems.mjs
+
+MODIFIED FILES:
+README.md
+package.json
+server/coopHub.js
+src/App.js
+src/game/Game.js
+src/net/ShipNetBridge.js
+src/oceanhunt/HuntCombat.js
+src/player/BoatController.js
+src/player/Player.js
+src/ship/SailWind.js
+src/ship/ShipDamage.js
+src/ship/ShipStations.js
+src/voyage/Cargo.js
+src/voyage/VoyageM1.js
+src/voyage/VoyageWorld.js
+src/voyage/voyage-m1.css

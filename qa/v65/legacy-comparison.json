@@ -1,0 +1,476 @@
+{
+  "V64": [
+    {
+      "file": "test/stormwake-v25.mjs",
+      "code": 0,
+      "output": "V25: SDC Nautilus 248218 triangles, artist Leviathan 12923 weighted vertices, 66 animated bones and three crossfading clips passed.\n\n"
+    },
+    {
+      "file": "test/stormwake-v41-ship-reliability.mjs",
+      "code": 1,
+      "output": "PASS auto anchor: shore -> anchored; free sail deck -> released; destination -> parking\n\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\ntrue !== false\n\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v41-ship-reliability.mjs:25:9\n    at check (file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v41-ship-reliability.mjs:14:33)\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v41-ship-reliability.mjs:22:1\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: true,\n  expected: false,\n  operator: 'strictEqual'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v43-core.mjs",
+      "code": 1,
+      "output": "\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: sealed hull does not magically remove prior bilge water\n+ actual - expected\n\n+ 0.09636670436926119\n- 0.09636670436926116\n                    ^\n\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v43-core.mjs:31:43\n    at run (file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v43-core.mjs:19:23)\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v43-core.mjs:20:1\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: 0.09636670436926119,\n  expected: 0.09636670436926116,\n  operator: 'strictEqual'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v28.mjs",
+      "code": 0,
+      "output": "V28 regression OK: pointer-lock helm, modernized 116m/s flank, independent ballast, 136 live skin bones (8465 vertices), water cannon, sonar cone, harpoon, depth charge & counterpulse.\n\n"
+    },
+    {
+      "file": "test/stormwake-v13.mjs",
+      "code": 1,
+      "output": "\nfile:///tmp/storm-original/STORMWAKE_V64/src/oceanhunt/SeaBosses.js:51\n\t\tdocument.body.append( this.hud );this.eventNotice=document.createElement('div');this.eventNotice.style.cssText='position:fixed;left:50%;top:105px;transform:translateX(-50%);padding:8px 14px;background:#152b32dc;color:#f4d8a1;border:1px solid #7c6a47;border-radius:8px;font:14px sans-serif;pointer-events:none';document.body.append(this.eventNotice);\n\t\t                                                                                                              ^\n\nTypeError: Cannot set properties of undefined (setting 'cssText')\n    at new SeaBosses (file:///tmp/storm-original/STORMWAKE_V64/src/oceanhunt/SeaBosses.js:51:113)\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v13.mjs:65:16\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v49-original-hull.mjs",
+      "code": 1,
+      "output": "\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n6 !== 1\n\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v49-original-hull.mjs:24:9\n    at check (file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v49-original-hull.mjs:20:27)\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v49-original-hull.mjs:23:1\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: 6,\n  expected: 1,\n  operator: 'strictEqual'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v18.mjs",
+      "code": 1,
+      "output": "\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: co-op host warns all players\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v18.mjs:58:8\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '=='\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v20.mjs",
+      "code": 1,
+      "output": "\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n63 !== 7\n\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v20.mjs:30:9\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: 63,\n  expected: 7,\n  operator: 'strictEqual'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v37.mjs",
+      "code": 0,
+      "output": "V37 PASS: 4 unique grounded GLBs, 4 pirate hat styles, 4 region landmarks, input exclusivity, sidequest save isolation, 30/60/144Hz boss AI (12/12/12)\n\n"
+    },
+    {
+      "file": "test/stormwake-v11-marine.mjs",
+      "code": 0,
+      "output": "V11 maritime: PASS physical trawl mesh, distance-based fish inventory, pot deploy/haul, reef survey, persistence, daily quest\n\n"
+    },
+    {
+      "file": "test/stormwake-v19.mjs",
+      "code": 1,
+      "output": "\nfile:///tmp/storm-original/STORMWAKE_V64/src/player/BoatController.js:214\n        this.anchorTether.reset();\n                          ^\n\nTypeError: Cannot read properties of undefined (reading 'reset')\n    at BoatController.teleportTo (file:///tmp/storm-original/STORMWAKE_V64/src/player/BoatController.js:214:27)\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v19.mjs:42:20\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v47-cc0-assets.mjs",
+      "code": 0,
+      "output": "PASS 1 21 uploaded CC0 assets actually bundled, with matching SHA256\nPASS 2 real Dutch Blender mesh converted to three separate PBR GLB primitives\nPASS 3 measured hull 22m long, 5.2m wide, real mast 22m tall\nPASS 4 V49 original Dutch hull deck restored with no artificial hatch\nPASS 5 Quaternius skeleton has actual skin and 15 animations\nPASS 6 Kenney cannon/stock and Quaternius bucket/chest can be parsed in engine\nPASS 7 baked artist hull width is finite, conservative and continuous\nPASS 8 ship hydro and artist mesh are not scaled twice\nV47 imported art acceptance 8/8 (not a GPU/browser QA)\n\n"
+    },
+    {
+      "file": "test/stormwake-stair-route.mjs",
+      "code": 0,
+      "output": "V11 staircase route: PASS [\n  {\n    name: 'C',\n    samples: 313,\n    rearClearance: 1.2,\n    landingDepth: 1.2299999999999998\n  },\n  {\n    name: 'G',\n    samples: 313,\n    rearClearance: 1.2,\n    landingDepth: 1.2299999999999998\n  },\n  {\n    name: 'L',\n    samples: 313,\n    rearClearance: 1.2,\n    landingDepth: 1.2299999999999998\n  }\n]\n\n"
+    },
+    {
+      "file": "test/stormwake-v26.mjs",
+      "code": 0,
+      "output": "V26: compact combat HUD, corrected mouse and steering, safe real harbor teleport, deeper visibility and smoothly propulsive 66-bone Leviathan passed.\n\n"
+    },
+    {
+      "file": "test/stormwake-v24.mjs",
+      "code": 0,
+      "output": "V24: independent orbit & periscope camera, day-independent dual floodlights, volumetric sub beam, optional licensed Leviathan source passed.\n\n"
+    },
+    {
+      "file": "test/stormwake-v16.mjs",
+      "code": 0,
+      "output": "V16: PASS downloaded high-detail shark, turtle, kraken, handcrafted sea serpent, 4 optimized textured GLBs and readable geometry\n\n"
+    },
+    {
+      "file": "test/stormwake-v9.mjs",
+      "code": 0,
+      "output": "V9 detail and gameplay: PASS 3 two-storey houses, 45 unobstructed walkable treads, one genuine pirate sloop with safe helm and preserved hydrodynamics\n\n"
+    },
+    {
+      "file": "test/stormwake-v44-heritage-sea.mjs",
+      "code": 0,
+      "output": "Heritage physics 30s calm-water: {\n  x: -593.1060403394174,\n  z: 2004.4090775451448,\n  y: 0.14495374686797868,\n  speed: 7.333857979272836,\n  peak: 7.333857979272836,\n  minY: -0.10922972937817649,\n  maxY: 0.3492217334938069,\n  maxAng: 0.022208496991224135,\n  capsized: false,\n  mass: 45862.4565\n}\n\n"
+    },
+    {
+      "file": "test/stormwake-v40-playflow.mjs",
+      "code": 1,
+      "output": "PASS network input one-shots are latched and each shot is consumed once\n\nfile:///tmp/storm-original/STORMWAKE_V64/src/voyage/QuestBuoyancy.js:2\n constructor(v,name,message){this.v=v;this.message=message;this.slot=v.app.query.allocate(name,1);this.sendClock=0;}\n                                                                                 ^\n\nTypeError: Cannot read properties of undefined (reading 'allocate')\n    at new QuestBuoyancy (file:///tmp/storm-original/STORMWAKE_V64/src/voyage/QuestBuoyancy.js:2:82)\n    at new CartographerRuntime (file:///tmp/storm-original/STORMWAKE_V64/src/voyage/CartographerRuntime.js:10:40)\n    at new VoyageM1 (file:///tmp/storm-original/STORMWAKE_V64/src/voyage/VoyageM1.js:126:39)\n    at makeFakeRuntime (file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v40-playflow.mjs:52:15)\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v40-playflow.mjs:67:9\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v44-phase1.mjs",
+      "code": 1,
+      "output": "PASS V44 1: Port is calm and major hazards are located well offshore, not near island\nPASS V44 2: Remote spatial weather is deterministic, bounded and changes with time\nPASS V44 3: Weather has continuous boundary transitions, not sudden jumps near a storm edge\n\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 0.5868340994810433\n- 0\n\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v44-phase1.mjs:45:9\n    at run (file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v44-phase1.mjs:14:23)\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v44-phase1.mjs:40:1\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: 0.5868340994810433,\n  expected: 0,\n  operator: 'strictEqual'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v30.mjs",
+      "code": 0,
+      "output": "V30 PASS: independent mouse camera, latched W/S telegraph, N stop, self-centering A/D rudder, correct speed/lever HUD, mode switching and 30/60/144Hz consistency.\n\n"
+    },
+    {
+      "file": "test/stormwake-v35.mjs",
+      "code": 0,
+      "output": "[V35] fox                   51 bones, 24 clips, 5 draw call(s), 5 actions validated\n[V35] deer                  46 bones, 26 clips, 7 draw call(s), 5 actions validated\n[V35] boar                  32 bones,  7 clips, 1 draw call(s), 3 actions validated\n[V35] hound                 51 bones, 24 clips, 4 draw call(s), 6 actions validated\n[V35] wraith                38 bones,  8 clips, 1 draw call(s), 5 actions validated\n[V35] warden                43 bones, 14 clips, 2 draw call(s), 6 actions validated\n[V35] resident_scout        31 bones, 12 clips, 6 draw call(s), 5 actions validated\n[V35] resident_courier      31 bones, 12 clips, 6 draw call(s), 5 actions validated\n[V35] resident_watchman     31 bones, 12 clips, 6 draw call(s), 5 actions validated\n[V35] resident_apprentice   31 bones, 12 clips, 6 draw call(s), 5 actions validated\n[V35] PASS: 6 creature types + 4 independent village role rigs; 4513136 raw asset bytes, 23726 triangles (unique actor meshes)\n\n"
+    },
+    {
+      "file": "test/stormwake-v34.mjs",
+      "code": 0,
+      "output": "V34 PASS: physically open 45m lighthouse, 154 continuous steps, gate collision toggle, 20 independent villagers, free dialogue, network-safe world intents.\n\n"
+    },
+    {
+      "file": "test/stormwake-v38.mjs",
+      "code": 0,
+      "output": "V38 PASS: 20 residents, 1 captain, 1 corsair; 12 unique pirate GLB palettes; 12 unique skeletal rigs validated; 5 true clips, 4 headwear types + coat, simulated grounded feet, keyboard/modals, 30/60/144 Hz boss (13/13/13)\n\n"
+    },
+    {
+      "file": "test/stormwake-v22.mjs",
+      "code": 0,
+      "output": "squid: max bone-length deviation 0.000% · max tip-frame movement 0.315m model · contact events 6 · 1.128ms/frame headless CPU\nsquid mid-attack: [\n  { error: 0.1, latched: true, reach: true, rootDistance: 2.41 },\n  { error: 0.07, latched: true, reach: true, rootDistance: 2.17 },\n  { error: 32.83, latched: false, reach: false, rootDistance: 4.37 },\n  { error: 32.96, latched: false, reach: false, rootDistance: 4.29 },\n  { error: 0.03, latched: true, reach: true, rootDistance: 1.97 },\n  { error: 0.07, latched: true, reach: true, rootDistance: 2.77 },\n  { error: 0.16, latched: true, reach: true, rootDistance: 2.66 },\n  { error: 0.13, latched: true, reach: true, rootDistance: 2.3 }\n]\nleviathan: max bone-length deviation 0.001% · max tip-frame movement 0.484m model · contact events 3 · 0.826ms/frame headless CPU\nleviathan mid-attack: [\n  { error: 2.94, latched: false, reach: true, rootDistance: 18.36 },\n  { error: 0.01, latched: false, reach: true, rootDistance: 18.31 },\n  { error: 0.04, latched: false, reach: true, rootDistance: 15.07 }\n]\nV22 fixed-length skinning, smooth joint trajectories and live-hull effector tests passed.\n\n"
+    },
+    {
+      "file": "test/stormwake-v45-hull-weather-input.mjs",
+      "code": 1,
+      "output": "\nfile:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v45-hull-weather-input.mjs:10\nimport {VortexVisuals,funnelGeometry} from '../src/offshore/VortexVisuals.js';\n                      ^^^^^^^^^^^^^^\nSyntaxError: The requested module '../src/offshore/VortexVisuals.js' does not provide an export named 'funnelGeometry'\n    at ModuleJob._instantiate (node:internal/modules/esm/module_job:182:21)\n    at async ModuleJob.run (node:internal/modules/esm/module_job:266:5)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v48-playable-ship.mjs",
+      "code": 1,
+      "output": "PASS 1 CC0 22m boat hull has one exact metric deck root, no inflated props\n\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: bad width at 7: 0.873\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v48-playable-ship.mjs:29:65\n    at check (file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v48-playable-ship.mjs:16:25)\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v48-playable-ship.mjs:28:1\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '=='\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v51-original-ship.mjs",
+      "code": 1,
+      "output": "\nnode:fs:562\n  return binding.open(\n                 ^\n\nError: ENOENT: no such file or directory, open '/tmp/storm-original/STORMWAKE_V64/public/models/stormwake_v51/dutch_ship_operable.glb'\n    at Object.openSync (node:fs:562:18)\n    at Object.readFileSync (node:fs:446:35)\n    at bytes (file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v51-original-ship.mjs:12:19)\n    at glb (file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v51-original-ship.mjs:13:25)\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v51-original-ship.mjs:17:16\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  errno: -2,\n  code: 'ENOENT',\n  syscall: 'open',\n  path: '/tmp/storm-original/STORMWAKE_V64/public/models/stormwake_v51/dutch_ship_operable.glb'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v27.mjs",
+      "code": 0,
+      "output": "V27 legacy: WGSL crash regression, boat-compatible orbit, jaw, realistic lunge, swept 3D bite/whiff and animation passed.\n\n"
+    },
+    {
+      "file": "test/stormwake-v23.mjs",
+      "code": 0,
+      "output": "V23: sea god 172 bones, 40010 skin verts, 173 animated controls\nV23: submarine 89 modeled mesh groups, 89 named parts\nV23: stages, 3D collision, pressure, crafting unlock, save migration and unique final reward passed.\n\n"
+    },
+    {
+      "file": "test/stormwake-v52-rebuilt-cabin.mjs",
+      "code": 1,
+      "output": "PASS V52 1 V52 GLB checksum, full length, original materials/UV textures and rigging preserved\nPASS V52 2 hinged door contains only FOUR copied source vertices and TWO source triangles, not an overlay model\nPASS V52 3 source opening is fully cut in the original aft-bulkhead: no closed hidden face remains\nPASS V52 4 closed door UV surface fills rebuilt source doorway within metric fit\n\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v52-rebuilt-cabin.mjs:78:9\n    at test (file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v52-rebuilt-cabin.mjs:12:24)\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v52-rebuilt-cabin.mjs:75:1\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: 'strictEqual'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v36.mjs",
+      "code": 0,
+      "output": "[V36] boar                    32 bones, 3 required clips\n[V36] captain                 80 bones, 8 required clips\n[V36] crab                    34 bones, 6 required clips\n[V36] deer                    46 bones, 3 required clips\n[V36] fox                     51 bones, 3 required clips\n[V36] hound                   51 bones, 6 required clips\n[V36] resident_apprentice     31 bones, 3 required clips\n[V36] resident_baker          81 bones, 3 required clips\n[V36] resident_bellringer     81 bones, 3 required clips\n[V36] resident_carpenter      80 bones, 3 required clips\n[V36] resident_cartographer   80 bones, 3 required clips\n[V36] resident_courier        31 bones, 3 required clips\n[V36] resident_fisher         81 bones, 3 required clips\n[V36] resident_gardener       81 bones, 3 required clips\n[V36] resident_harbor         80 bones, 3 required clips\n[V36] resident_herbalist      81 bones, 3 required clips\n[V36] resident_keeper         80 bones, 3 required clips\n[V36] resident_medic          81 bones, 3 required clips\n[V36] resident_merchant       80 bones, 3 required clips\n[V36] resident_netmaker       81 bones, 3 required clips\n[V36] resident_sailor         81 bones, 3 required clips\n[V36] resident_scout          31 bones, 3 required clips\n[V36] resident_shipwright     81 bones, 3 required clips\n[V36] resident_smith          80 bones, 3 required clips\n[V36] resident_teacher        81 bones, 3 required clips\n[V36] resident_watchman       31 bones, 3 required clips\n[V36] warden                  43 bones, 6 required clips\n[V36] wraith                  38 bones, 5 required clips\n[V36] PASS: 28 roles, 13 real files, 100 declared action slots, 17736232 unique bytes, 51178 unique triangles, pose + combat timing\n\n"
+    },
+    {
+      "file": "test/stormwake-v44-phase2.mjs",
+      "code": 0,
+      "output": "PASS Preview heritage ship reaches 23m with 5.9m beam; legacy stays 8.2m\nPASS Model mass, waterplane and buoyancy samples share the same metric frame\nPASS A heritage helm interaction is placed over the scaled deck\nPASS Hold has usable standing height, length and beam in a 23m ship\nPASS Ladder transitions over physical time, blocks double action, and preserves position\nPASS Cargo is placed at physical local coordinates, with capacity and hatch kept clear\nPASS Legacy hull and legacy interior geometry remain available as fallback\nPASS Rigid body mass & initial buoyancy samples are finite in heritage preview\nPASS Projectile segment detects a hit at the scaled bow, not just the hull centre\nPASS Rotated ship hitbox respects yaw and rejects misses\nPASS Large-hull damage accepts impact coordinates outside 8m boat limits\nV44 phase2 geometry / cargo / ladder checks: 11 passed; no WebGPU browser QA implied\n\n"
+    },
+    {
+      "file": "test/stormwake-v14.mjs",
+      "code": 0,
+      "output": "V14: PASS modeled ship-mounted weapons, progression, fleet changes, lazy remote full ship models, cosmetic co-op cannon rounds, cleanup\n\n"
+    },
+    {
+      "file": "test/stormwake-voyage-m1-integrated.mjs",
+      "code": 1,
+      "output": "\nfile:///tmp/storm-original/STORMWAKE_V64/src/voyage/QuestBuoyancy.js:2\n constructor(v,name,message){this.v=v;this.message=message;this.slot=v.app.query.allocate(name,1);this.sendClock=0;}\n                                                                                 ^\n\nTypeError: Cannot read properties of undefined (reading 'allocate')\n    at new QuestBuoyancy (file:///tmp/storm-original/STORMWAKE_V64/src/voyage/QuestBuoyancy.js:2:82)\n    at new CartographerRuntime (file:///tmp/storm-original/STORMWAKE_V64/src/voyage/CartographerRuntime.js:10:40)\n    at new VoyageM1 (file:///tmp/storm-original/STORMWAKE_V64/src/voyage/VoyageM1.js:126:39)\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-voyage-m1-integrated.mjs:18:9\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v11-fleet.mjs",
+      "code": 0,
+      "output": "V11 fleet: PASS >=5 unique replaceable ships, 1-key captain, Shift+E deck, real 3D movement and turn, 30 fish with rendered anatomy\n\n"
+    },
+    {
+      "file": "test/stormwake-v42-systems.mjs",
+      "code": 1,
+      "output": "✓ Leak causes actual bilge water; empty bucket cannot extinguish fire\n✓ Repair requires uninterrupted 2.2 s hold and consumes one plank\n\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\ntrue !== false\n\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v42-systems.mjs:44:36\n    at check (file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v42-systems.mjs:17:26)\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v42-systems.mjs:41:1\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: true,\n  expected: false,\n  operator: 'strictEqual'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v12.mjs",
+      "code": 1,
+      "output": "\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n7 !== 4\n\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v12.mjs:13:8\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: 7,\n  expected: 4,\n  operator: 'strictEqual'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v33.mjs",
+      "code": 0,
+      "output": "V33 PASS: truthful walkable shrine surfaces, collision separation, priority E dispatch, collision-aware villager routes.\n\n"
+    },
+    {
+      "file": "test/stormwake-v53-lower-hold-usable-weapons.mjs",
+      "code": 1,
+      "output": "\nnode:fs:562\n  return binding.open(\n                 ^\n\nError: ENOENT: no such file or directory, open '/tmp/storm-original/STORMWAKE_V64/public/models/stormwake_v53/dutch_ship_lower_hold.glb'\n    at Object.openSync (node:fs:562:18)\n    at Object.readFileSync (node:fs:446:35)\n    at bytes (file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v53-lower-hold-usable-weapons.mjs:14:22)\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v53-lower-hold-usable-weapons.mjs:16:12\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  errno: -2,\n  code: 'ENOENT',\n  syscall: 'open',\n  path: '/tmp/storm-original/STORMWAKE_V64/public/models/stormwake_v53/dutch_ship_lower_hold.glb'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v29.mjs",
+      "code": 1,
+      "output": " Colliders();\\r\\n' +\n    '\\t\\t// the village flattens building pads into the heightmap: build it before any terrain\\r\\n' +\n    '\\t\\t// data is derived (shore field, GPU textures, meshes)\\r\\n' +\n    \"\\t\\tawait progress( 0.12, 'Building the village…' );\\r\\n\" +\n    '\\t\\tthis.village = new Village( { scene, terrain: this.terrainData, colliders: this.colliders } );\\r\\n' +\n    \"\\t\\tif ( ! qs.has( 'noVeg' ) ) {\\r\\n\" +\n    '\\r\\n' +\n    \"\\t\\t\\tawait progress( 0.14, 'Planting the island…' );\\r\\n\" +\n    '\\t\\t\\tthis.vegetation = new Vegetation( { scene, terrain: this.terrainData, village: this.village } );\\r\\n' +\n    '\\t\\t\\tuseStaticVelocity( this.vegetation.group );\\r\\n' +\n    '\\r\\n' +\n    '\\t\\t}\\r\\n' +\n    '\\r\\n' +\n    \"\\t\\tawait progress( 0.19, 'Rolling in the swell…' );\\r\\n\" +\n    '\\t\\tthis.shoreField = computeShoreField( this.terrainData, { res: 512, swellDir: [ WORLD.swellDir.x, WORLD.swellDir.y ] } );\\r\\n' +\n    '\\t\\tthis.terrainGPU = new TerrainGPU( this.terrainData, this.shoreField );\\r\\n' +\n    '\\t\\t// terrain and rocks apply the heightfield sun shadow (long hill shadows) in their own lighting\\r\\n' +\n    '\\t\\tthis.terrain = new Terrain( { scene, terrainData: this.terrainData, terrainGPU: this.terrainGPU, renderer } );\\r\\n' +\n    '\\t\\tthis.rocks = new Rocks( { scene, terrain: this.terrain, village: this.village, colliders: this.colliders } );\\r\\n' +\n    '\\t\\t// driftwood (CC0 photoscans), wrack, pebbles and village clutter\\r\\n' +\n    '\\t\\tthis.debris = new Debris( { scene, terrain: this.terrain, village: this.village, vegetation: this.vegetation, rocks: this.rocks, colliders: this.colliders } );\\r\\n' +\n    '\\t\\t// these apply the heightfield sun shadow in their own lighting model (see UnderwaterLighting)\\r\\n' +\n    '\\t\\tthis.terrain.mesh.material.appliesHillShadow = true;\\r\\n' +\n    '\\t\\tthis.rocks.material.appliesHillShadow = true;\\r\\n' +\n    '\\r\\n' +\n    \"\\t\\tawait progress( 0.23, 'Growing the reef…' );\\r\\n\" +\n    '\\t\\tthis.reef = new Reef( { scene, terrain: this.terrainData, shoreField: this.shoreField } );\\r\\n' +\n    '\\r\\n' +\n    \"\\t\\tthis.boat = new BoatModel({shipClass:qs.has('heritageShip')?'heritage':'legacy'});\\r\\n\" +\n    '\\t\\tscene.add( this.boat.group );\\r\\n' +\n    '\\t\\tif ( this.boat.shipScale ) {\\r\\n' +\n    '\\t\\t\\ttry { await installHeritageArtistShip( this.boat ); this.boat.heritageDeck=new HeritageDeck(this.boat); this.boat.mastLookout=installMastLookout(this.boat); const cabin=new CaptainCabinInterior(this.boat); await cabin.load();this.boat.captainCabin=cabin;this.boat.heritageDeck.realInteriorEnabled=true; }\\r\\n' +\n    \"\\t\\t\\tcatch ( error ) { console.error( '[STORMWAKE V47] Dutch CC0 model load failed; retaining old playable hull', error ); }\\r\\n\" +\n    '\\t\\t}\\r\\n' +\n    '\\r\\n' +\n    '\\t\\tthis.boat.group.position.copy( WORLD.boatDock.position );\\r\\n' +\n    '\\t\\tthis.boat.group.rotation.y = WORLD.boatDock.heading;\\r\\n' +\n    '\\r\\n' +\n    '\\t\\t// ---------------------------------------------------------------- ocean\\r\\n' +\n    \"\\t\\tawait progress( 0.3, 'Simulating the ocean…' );\\r\\n\" +\n    '\\t\\tthis.fft = new OceanFFT( renderer );\\r\\n' +\n    '\\t\\tif ( this.reef.setOcean ) this.reef.setOcean( this.fft ); // coral / sea fan sway follows the simulated swell\\r\\n' +\n    '\\t\\tthis.foamTexture = createFoamTexture( renderer );\\r\\n' +\n    '\\t\\tthis.oceanLOD = new CDLOD( { gridSize: Nu'... 32796 more characters,\n  expected: /if \\( !this\\.hunt\\?\\.abyss\\?\\.active \\) this\\.game\\.update\\( dt \\)/,\n  operator: 'match'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v50-quarters-rig-water.mjs",
+      "code": 1,
+      "output": "PASS V50 1 all v50 art resources are present and SHA256 verified\nPASS V50 2 Dutch GLB truly has real localized hatch, same original three art meshes\nPASS V50 3 captains quarters preserves uploaded model provenance, textures, original pieces\nPASS V50 4 chart is an actual painted/glTF textured 3D object, not UI-only label\nPASS V50 5 sourced cabin fitted within Dutch outer half beam at both ends\n\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 1.9300000000000002\n- null\n\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v50-quarters-rig-water.mjs:60:9\n    at check (file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v50-quarters-rig-water.mjs:13:33)\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v50-quarters-rig-water.mjs:56:1\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: 1.9300000000000002,\n  expected: null,\n  operator: 'strictEqual'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v32.mjs",
+      "code": 1,
+      "output": "/ the village flattens building pads into the heightmap: build it before any terrain\\r\\n' +\n    '\\t\\t// data is derived (shore field, GPU textures, meshes)\\r\\n' +\n    \"\\t\\tawait progress( 0.12, 'Building the village…' );\\r\\n\" +\n    '\\t\\tthis.village = new Village( { scene, terrain: this.terrainData, colliders: this.colliders } );\\r\\n' +\n    \"\\t\\tif ( ! qs.has( 'noVeg' ) ) {\\r\\n\" +\n    '\\r\\n' +\n    \"\\t\\t\\tawait progress( 0.14, 'Planting the island…' );\\r\\n\" +\n    '\\t\\t\\tthis.vegetation = new Vegetation( { scene, terrain: this.terrainData, village: this.village } );\\r\\n' +\n    '\\t\\t\\tuseStaticVelocity( this.vegetation.group );\\r\\n' +\n    '\\r\\n' +\n    '\\t\\t}\\r\\n' +\n    '\\r\\n' +\n    \"\\t\\tawait progress( 0.19, 'Rolling in the swell…' );\\r\\n\" +\n    '\\t\\tthis.shoreField = computeShoreField( this.terrainData, { res: 512, swellDir: [ WORLD.swellDir.x, WORLD.swellDir.y ] } );\\r\\n' +\n    '\\t\\tthis.terrainGPU = new TerrainGPU( this.terrainData, this.shoreField );\\r\\n' +\n    '\\t\\t// terrain and rocks apply the heightfield sun shadow (long hill shadows) in their own lighting\\r\\n' +\n    '\\t\\tthis.terrain = new Terrain( { scene, terrainData: this.terrainData, terrainGPU: this.terrainGPU, renderer } );\\r\\n' +\n    '\\t\\tthis.rocks = new Rocks( { scene, terrain: this.terrain, village: this.village, colliders: this.colliders } );\\r\\n' +\n    '\\t\\t// driftwood (CC0 photoscans), wrack, pebbles and village clutter\\r\\n' +\n    '\\t\\tthis.debris = new Debris( { scene, terrain: this.terrain, village: this.village, vegetation: this.vegetation, rocks: this.rocks, colliders: this.colliders } );\\r\\n' +\n    '\\t\\t// these apply the heightfield sun shadow in their own lighting model (see UnderwaterLighting)\\r\\n' +\n    '\\t\\tthis.terrain.mesh.material.appliesHillShadow = true;\\r\\n' +\n    '\\t\\tthis.rocks.material.appliesHillShadow = true;\\r\\n' +\n    '\\r\\n' +\n    \"\\t\\tawait progress( 0.23, 'Growing the reef…' );\\r\\n\" +\n    '\\t\\tthis.reef = new Reef( { scene, terrain: this.terrainData, shoreField: this.shoreField } );\\r\\n' +\n    '\\r\\n' +\n    \"\\t\\tthis.boat = new BoatModel({shipClass:qs.has('heritageShip')?'heritage':'legacy'});\\r\\n\" +\n    '\\t\\tscene.add( this.boat.group );\\r\\n' +\n    '\\t\\tif ( this.boat.shipScale ) {\\r\\n' +\n    '\\t\\t\\ttry { await installHeritageArtistShip( this.boat ); this.boat.heritageDeck=new HeritageDeck(this.boat); this.boat.mastLookout=installMastLookout(this.boat); const cabin=new CaptainCabinInterior(this.boat); await cabin.load();this.boat.captainCabin=cabin;this.boat.heritageDeck.realInteriorEnabled=true; }\\r\\n' +\n    \"\\t\\t\\tcatch ( error ) { console.error( '[STORMWAKE V47] Dutch CC0 model load failed; retaining old playable hull', error ); }\\r\\n\" +\n    '\\t\\t}\\r\\n' +\n    '\\r\\n' +\n    '\\t\\tthis.boat.group.position.copy( WORLD.boatDock.position );\\r\\n' +\n    '\\t\\tthis.boat.group.rotation.y = WORLD.boatDock.heading;\\r\\n' +\n    '\\r\\n' +\n    '\\t\\t// ---------------------------------------------------------------- ocean\\r\\n' +\n    \"\\t\\tawait progress( 0.3, 'Simulating the ocean…' );\\r\\n\" +\n    '\\t\\tthis.fft = new OceanFFT( renderer );\\r\\n' +\n    '\\t\\tif ( this.reef.setOcean ) this.reef.setOcean( this.fft ); // coral / sea fan sway follows the simulated swell\\r\\n' +\n    '\\t\\tthis.foamTexture = createFoamTexture( renderer );\\r\\n' +\n    '\\t\\tthis.oceanLOD = new CDLOD( { gridSize: Nu'... 32796 more characters,\n  expected: /this\\.landAdventure\\.update\\( dt \\);\\s*if \\( !this\\.hunt\\?\\.abyss\\?\\.active \\) this\\.game\\.update/,\n  operator: 'match'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v21.mjs",
+      "code": 0,
+      "output": "PASS shark: 63 bones; 0 IK joints; finite GPU skin matrices\nPASS turtle: 73 bones; 0 IK joints; finite GPU skin matrices\nPASS squid: 211 bones; 192 IK joints; finite GPU skin matrices\nPASS leviathan: 120 bones; 87 IK joints; finite GPU skin matrices\nPASS waves: four-slot rolling displacement with shared ocean/buoyancy source\nPASS optical integration: common-sea slope, foam and reflection; dark noise-driven ink\nV21 dense-rig / full-contact IK / integrated water-attack tests passed.\n\n"
+    },
+    {
+      "file": "test/stormwake-v31.mjs",
+      "code": 0,
+      "output": "V31 PASS: living island and tower models, land combat telegraphs, torches, AI contact, 3-mirror puzzle, Xiaoxi aid, boss, saves and nightly harbor defense.\n\n"
+    },
+    {
+      "file": "test/stormwake-v43-assets.mjs",
+      "code": 0,
+      "output": "PASS resident_watchman -> pirate_sailor.glb: 11 authored clips, 1 skin(s), 469 KiB\nPASS resident_herbalist -> pirate_innkeeper.glb: 11 authored clips, 1 skin(s), 469 KiB\nPASS resident_apprentice -> pirate_shipwright.glb: 12 authored clips, 1 skin(s), 630 KiB\nV43 installed CC0 sailor asset checks passed: 3\n\n"
+    },
+    {
+      "file": "test/stormwake-v15.mjs",
+      "code": 1,
+      "output": "\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: original close-to-island survey points remain intact\n\n7 !== 4\n\n    at file:///tmp/storm-original/STORMWAKE_V64/test/stormwake-v15.mjs:37:8\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: 7,\n  expected: 4,\n  operator: 'strictEqual'\n}\n\nNode.js v22.16.0\n"
+    }
+  ],
+  "V65": [
+    {
+      "file": "test/stormwake-v25.mjs",
+      "code": 0,
+      "output": "V25: SDC Nautilus 248218 triangles, artist Leviathan 12923 weighted vertices, 66 animated bones and three crossfading clips passed.\n\n"
+    },
+    {
+      "file": "test/stormwake-v41-ship-reliability.mjs",
+      "code": 1,
+      "output": "PASS auto anchor: shore -> anchored; free sail deck -> released; destination -> parking\n\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\ntrue !== false\n\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v41-ship-reliability.mjs:25:9\n    at check (file:///tmp/storm/STORMWAKE_V64/test/stormwake-v41-ship-reliability.mjs:14:33)\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v41-ship-reliability.mjs:22:1\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: true,\n  expected: false,\n  operator: 'strictEqual'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v43-core.mjs",
+      "code": 1,
+      "output": "\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: sealed hull does not magically remove prior bilge water\n+ actual - expected\n\n+ 0.09636670436926119\n- 0.09636670436926116\n                    ^\n\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v43-core.mjs:31:43\n    at run (file:///tmp/storm/STORMWAKE_V64/test/stormwake-v43-core.mjs:19:23)\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v43-core.mjs:20:1\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: 0.09636670436926119,\n  expected: 0.09636670436926116,\n  operator: 'strictEqual'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v28.mjs",
+      "code": 0,
+      "output": "V28 regression OK: pointer-lock helm, modernized 116m/s flank, independent ballast, 136 live skin bones (8465 vertices), water cannon, sonar cone, harpoon, depth charge & counterpulse.\n\n"
+    },
+    {
+      "file": "test/stormwake-v13.mjs",
+      "code": 1,
+      "output": "\nfile:///tmp/storm/STORMWAKE_V64/src/oceanhunt/SeaBosses.js:51\n\t\tdocument.body.append( this.hud );this.eventNotice=document.createElement('div');this.eventNotice.style.cssText='position:fixed;left:50%;top:105px;transform:translateX(-50%);padding:8px 14px;background:#152b32dc;color:#f4d8a1;border:1px solid #7c6a47;border-radius:8px;font:14px sans-serif;pointer-events:none';document.body.append(this.eventNotice);\n\t\t                                                                                                              ^\n\nTypeError: Cannot set properties of undefined (setting 'cssText')\n    at new SeaBosses (file:///tmp/storm/STORMWAKE_V64/src/oceanhunt/SeaBosses.js:51:113)\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v13.mjs:65:16\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v49-original-hull.mjs",
+      "code": 1,
+      "output": "\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n6 !== 1\n\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v49-original-hull.mjs:24:9\n    at check (file:///tmp/storm/STORMWAKE_V64/test/stormwake-v49-original-hull.mjs:20:27)\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v49-original-hull.mjs:23:1\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: 6,\n  expected: 1,\n  operator: 'strictEqual'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v18.mjs",
+      "code": 1,
+      "output": "\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: co-op host warns all players\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v18.mjs:58:8\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '=='\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v20.mjs",
+      "code": 1,
+      "output": "\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n63 !== 7\n\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v20.mjs:30:9\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: 63,\n  expected: 7,\n  operator: 'strictEqual'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v37.mjs",
+      "code": 0,
+      "output": "V37 PASS: 4 unique grounded GLBs, 4 pirate hat styles, 4 region landmarks, input exclusivity, sidequest save isolation, 30/60/144Hz boss AI (12/12/12)\n\n"
+    },
+    {
+      "file": "test/stormwake-v11-marine.mjs",
+      "code": 0,
+      "output": "V11 maritime: PASS physical trawl mesh, distance-based fish inventory, pot deploy/haul, reef survey, persistence, daily quest\n\n"
+    },
+    {
+      "file": "test/stormwake-v19.mjs",
+      "code": 1,
+      "output": "\nfile:///tmp/storm/STORMWAKE_V64/src/player/BoatController.js:214\n        this.anchorTether.reset();\n                          ^\n\nTypeError: Cannot read properties of undefined (reading 'reset')\n    at BoatController.teleportTo (file:///tmp/storm/STORMWAKE_V64/src/player/BoatController.js:214:27)\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v19.mjs:42:20\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v47-cc0-assets.mjs",
+      "code": 0,
+      "output": "PASS 1 21 uploaded CC0 assets actually bundled, with matching SHA256\nPASS 2 real Dutch Blender mesh converted to three separate PBR GLB primitives\nPASS 3 measured hull 22m long, 5.2m wide, real mast 22m tall\nPASS 4 V49 original Dutch hull deck restored with no artificial hatch\nPASS 5 Quaternius skeleton has actual skin and 15 animations\nPASS 6 Kenney cannon/stock and Quaternius bucket/chest can be parsed in engine\nPASS 7 baked artist hull width is finite, conservative and continuous\nPASS 8 ship hydro and artist mesh are not scaled twice\nV47 imported art acceptance 8/8 (not a GPU/browser QA)\n\n"
+    },
+    {
+      "file": "test/stormwake-stair-route.mjs",
+      "code": 0,
+      "output": "V11 staircase route: PASS [\n  {\n    name: 'C',\n    samples: 313,\n    rearClearance: 1.2,\n    landingDepth: 1.2299999999999998\n  },\n  {\n    name: 'G',\n    samples: 313,\n    rearClearance: 1.2,\n    landingDepth: 1.2299999999999998\n  },\n  {\n    name: 'L',\n    samples: 313,\n    rearClearance: 1.2,\n    landingDepth: 1.2299999999999998\n  }\n]\n\n"
+    },
+    {
+      "file": "test/stormwake-v26.mjs",
+      "code": 0,
+      "output": "V26: compact combat HUD, corrected mouse and steering, safe real harbor teleport, deeper visibility and smoothly propulsive 66-bone Leviathan passed.\n\n"
+    },
+    {
+      "file": "test/stormwake-v24.mjs",
+      "code": 0,
+      "output": "V24: independent orbit & periscope camera, day-independent dual floodlights, volumetric sub beam, optional licensed Leviathan source passed.\n\n"
+    },
+    {
+      "file": "test/stormwake-v16.mjs",
+      "code": 0,
+      "output": "V16: PASS downloaded high-detail shark, turtle, kraken, handcrafted sea serpent, 4 optimized textured GLBs and readable geometry\n\n"
+    },
+    {
+      "file": "test/stormwake-v9.mjs",
+      "code": 0,
+      "output": "V9 detail and gameplay: PASS 3 two-storey houses, 45 unobstructed walkable treads, one genuine pirate sloop with safe helm and preserved hydrodynamics\n\n"
+    },
+    {
+      "file": "test/stormwake-v44-heritage-sea.mjs",
+      "code": 0,
+      "output": "Heritage physics 30s calm-water: {\n  x: -593.1060403394174,\n  z: 2004.4090775451448,\n  y: 0.14495374686797868,\n  speed: 7.333857979272836,\n  peak: 7.333857979272836,\n  minY: -0.10922972937817649,\n  maxY: 0.3492217334938069,\n  maxAng: 0.022208496991224135,\n  capsized: false,\n  mass: 45862.4565\n}\n\n"
+    },
+    {
+      "file": "test/stormwake-v40-playflow.mjs",
+      "code": 1,
+      "output": "PASS network input one-shots are latched and each shot is consumed once\n\nfile:///tmp/storm/STORMWAKE_V64/src/voyage/QuestBuoyancy.js:2\n constructor(v,name,message){this.v=v;this.message=message;this.slot=v.app.query.allocate(name,1);this.sendClock=0;}\n                                                                                 ^\n\nTypeError: Cannot read properties of undefined (reading 'allocate')\n    at new QuestBuoyancy (file:///tmp/storm/STORMWAKE_V64/src/voyage/QuestBuoyancy.js:2:82)\n    at new CartographerRuntime (file:///tmp/storm/STORMWAKE_V64/src/voyage/CartographerRuntime.js:10:40)\n    at new VoyageM1 (file:///tmp/storm/STORMWAKE_V64/src/voyage/VoyageM1.js:126:39)\n    at makeFakeRuntime (file:///tmp/storm/STORMWAKE_V64/test/stormwake-v40-playflow.mjs:52:15)\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v40-playflow.mjs:67:9\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v44-phase1.mjs",
+      "code": 1,
+      "output": "PASS V44 1: Port is calm and major hazards are located well offshore, not near island\nPASS V44 2: Remote spatial weather is deterministic, bounded and changes with time\nPASS V44 3: Weather has continuous boundary transitions, not sudden jumps near a storm edge\n\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 0.5868340994810433\n- 0\n\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v44-phase1.mjs:45:9\n    at run (file:///tmp/storm/STORMWAKE_V64/test/stormwake-v44-phase1.mjs:14:23)\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v44-phase1.mjs:40:1\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: 0.5868340994810433,\n  expected: 0,\n  operator: 'strictEqual'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v30.mjs",
+      "code": 0,
+      "output": "V30 PASS: independent mouse camera, latched W/S telegraph, N stop, self-centering A/D rudder, correct speed/lever HUD, mode switching and 30/60/144Hz consistency.\n\n"
+    },
+    {
+      "file": "test/stormwake-v35.mjs",
+      "code": 0,
+      "output": "[V35] fox                   51 bones, 24 clips, 5 draw call(s), 5 actions validated\n[V35] deer                  46 bones, 26 clips, 7 draw call(s), 5 actions validated\n[V35] boar                  32 bones,  7 clips, 1 draw call(s), 3 actions validated\n[V35] hound                 51 bones, 24 clips, 4 draw call(s), 6 actions validated\n[V35] wraith                38 bones,  8 clips, 1 draw call(s), 5 actions validated\n[V35] warden                43 bones, 14 clips, 2 draw call(s), 6 actions validated\n[V35] resident_scout        31 bones, 12 clips, 6 draw call(s), 5 actions validated\n[V35] resident_courier      31 bones, 12 clips, 6 draw call(s), 5 actions validated\n[V35] resident_watchman     31 bones, 12 clips, 6 draw call(s), 5 actions validated\n[V35] resident_apprentice   31 bones, 12 clips, 6 draw call(s), 5 actions validated\n[V35] PASS: 6 creature types + 4 independent village role rigs; 4513136 raw asset bytes, 23726 triangles (unique actor meshes)\n\n"
+    },
+    {
+      "file": "test/stormwake-v34.mjs",
+      "code": 0,
+      "output": "V34 PASS: physically open 45m lighthouse, 154 continuous steps, gate collision toggle, 20 independent villagers, free dialogue, network-safe world intents.\n\n"
+    },
+    {
+      "file": "test/stormwake-v38.mjs",
+      "code": 0,
+      "output": "V38 PASS: 20 residents, 1 captain, 1 corsair; 12 unique pirate GLB palettes; 12 unique skeletal rigs validated; 5 true clips, 4 headwear types + coat, simulated grounded feet, keyboard/modals, 30/60/144 Hz boss (13/13/13)\n\n"
+    },
+    {
+      "file": "test/stormwake-v22.mjs",
+      "code": 0,
+      "output": "squid: max bone-length deviation 0.000% · max tip-frame movement 0.315m model · contact events 6 · 1.517ms/frame headless CPU\nsquid mid-attack: [\n  { error: 0.1, latched: true, reach: true, rootDistance: 2.41 },\n  { error: 0.07, latched: true, reach: true, rootDistance: 2.17 },\n  { error: 32.83, latched: false, reach: false, rootDistance: 4.37 },\n  { error: 32.96, latched: false, reach: false, rootDistance: 4.29 },\n  { error: 0.03, latched: true, reach: true, rootDistance: 1.97 },\n  { error: 0.07, latched: true, reach: true, rootDistance: 2.77 },\n  { error: 0.16, latched: true, reach: true, rootDistance: 2.66 },\n  { error: 0.13, latched: true, reach: true, rootDistance: 2.3 }\n]\nleviathan: max bone-length deviation 0.001% · max tip-frame movement 0.484m model · contact events 3 · 1.338ms/frame headless CPU\nleviathan mid-attack: [\n  { error: 2.94, latched: false, reach: true, rootDistance: 18.36 },\n  { error: 0.01, latched: false, reach: true, rootDistance: 18.31 },\n  { error: 0.04, latched: false, reach: true, rootDistance: 15.07 }\n]\nV22 fixed-length skinning, smooth joint trajectories and live-hull effector tests passed.\n\n"
+    },
+    {
+      "file": "test/stormwake-v45-hull-weather-input.mjs",
+      "code": 1,
+      "output": "\nfile:///tmp/storm/STORMWAKE_V64/test/stormwake-v45-hull-weather-input.mjs:10\nimport {VortexVisuals,funnelGeometry} from '../src/offshore/VortexVisuals.js';\n                      ^^^^^^^^^^^^^^\nSyntaxError: The requested module '../src/offshore/VortexVisuals.js' does not provide an export named 'funnelGeometry'\n    at ModuleJob._instantiate (node:internal/modules/esm/module_job:182:21)\n    at async ModuleJob.run (node:internal/modules/esm/module_job:266:5)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v48-playable-ship.mjs",
+      "code": 1,
+      "output": "PASS 1 CC0 22m boat hull has one exact metric deck root, no inflated props\n\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: bad width at 7: 0.873\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v48-playable-ship.mjs:29:65\n    at check (file:///tmp/storm/STORMWAKE_V64/test/stormwake-v48-playable-ship.mjs:16:25)\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v48-playable-ship.mjs:28:1\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '=='\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v51-original-ship.mjs",
+      "code": 1,
+      "output": "\nnode:fs:562\n  return binding.open(\n                 ^\n\nError: ENOENT: no such file or directory, open '/tmp/storm/STORMWAKE_V64/public/models/stormwake_v51/dutch_ship_operable.glb'\n    at Object.openSync (node:fs:562:18)\n    at Object.readFileSync (node:fs:446:35)\n    at bytes (file:///tmp/storm/STORMWAKE_V64/test/stormwake-v51-original-ship.mjs:12:19)\n    at glb (file:///tmp/storm/STORMWAKE_V64/test/stormwake-v51-original-ship.mjs:13:25)\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v51-original-ship.mjs:17:16\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  errno: -2,\n  code: 'ENOENT',\n  syscall: 'open',\n  path: '/tmp/storm/STORMWAKE_V64/public/models/stormwake_v51/dutch_ship_operable.glb'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v27.mjs",
+      "code": 0,
+      "output": "V27 legacy: WGSL crash regression, boat-compatible orbit, jaw, realistic lunge, swept 3D bite/whiff and animation passed.\n\n"
+    },
+    {
+      "file": "test/stormwake-v23.mjs",
+      "code": 0,
+      "output": "V23: sea god 172 bones, 40010 skin verts, 173 animated controls\nV23: submarine 89 modeled mesh groups, 89 named parts\nV23: stages, 3D collision, pressure, crafting unlock, save migration and unique final reward passed.\n\n"
+    },
+    {
+      "file": "test/stormwake-v52-rebuilt-cabin.mjs",
+      "code": 1,
+      "output": "PASS V52 1 V52 GLB checksum, full length, original materials/UV textures and rigging preserved\nPASS V52 2 hinged door contains only FOUR copied source vertices and TWO source triangles, not an overlay model\nPASS V52 3 source opening is fully cut in the original aft-bulkhead: no closed hidden face remains\nPASS V52 4 closed door UV surface fills rebuilt source doorway within metric fit\n\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v52-rebuilt-cabin.mjs:78:9\n    at test (file:///tmp/storm/STORMWAKE_V64/test/stormwake-v52-rebuilt-cabin.mjs:12:24)\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v52-rebuilt-cabin.mjs:75:1\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: 'strictEqual'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v36.mjs",
+      "code": 0,
+      "output": "[V36] boar                    32 bones, 3 required clips\n[V36] captain                 80 bones, 8 required clips\n[V36] crab                    34 bones, 6 required clips\n[V36] deer                    46 bones, 3 required clips\n[V36] fox                     51 bones, 3 required clips\n[V36] hound                   51 bones, 6 required clips\n[V36] resident_apprentice     31 bones, 3 required clips\n[V36] resident_baker          81 bones, 3 required clips\n[V36] resident_bellringer     81 bones, 3 required clips\n[V36] resident_carpenter      80 bones, 3 required clips\n[V36] resident_cartographer   80 bones, 3 required clips\n[V36] resident_courier        31 bones, 3 required clips\n[V36] resident_fisher         81 bones, 3 required clips\n[V36] resident_gardener       81 bones, 3 required clips\n[V36] resident_harbor         80 bones, 3 required clips\n[V36] resident_herbalist      81 bones, 3 required clips\n[V36] resident_keeper         80 bones, 3 required clips\n[V36] resident_medic          81 bones, 3 required clips\n[V36] resident_merchant       80 bones, 3 required clips\n[V36] resident_netmaker       81 bones, 3 required clips\n[V36] resident_sailor         81 bones, 3 required clips\n[V36] resident_scout          31 bones, 3 required clips\n[V36] resident_shipwright     81 bones, 3 required clips\n[V36] resident_smith          80 bones, 3 required clips\n[V36] resident_teacher        81 bones, 3 required clips\n[V36] resident_watchman       31 bones, 3 required clips\n[V36] warden                  43 bones, 6 required clips\n[V36] wraith                  38 bones, 5 required clips\n[V36] PASS: 28 roles, 13 real files, 100 declared action slots, 17736232 unique bytes, 51178 unique triangles, pose + combat timing\n\n"
+    },
+    {
+      "file": "test/stormwake-v44-phase2.mjs",
+      "code": 0,
+      "output": "PASS Preview heritage ship reaches 23m with 5.9m beam; legacy stays 8.2m\nPASS Model mass, waterplane and buoyancy samples share the same metric frame\nPASS A heritage helm interaction is placed over the scaled deck\nPASS Hold has usable standing height, length and beam in a 23m ship\nPASS Ladder transitions over physical time, blocks double action, and preserves position\nPASS Cargo is placed at physical local coordinates, with capacity and hatch kept clear\nPASS Legacy hull and legacy interior geometry remain available as fallback\nPASS Rigid body mass & initial buoyancy samples are finite in heritage preview\nPASS Projectile segment detects a hit at the scaled bow, not just the hull centre\nPASS Rotated ship hitbox respects yaw and rejects misses\nPASS Large-hull damage accepts impact coordinates outside 8m boat limits\nV44 phase2 geometry / cargo / ladder checks: 11 passed; no WebGPU browser QA implied\n\n"
+    },
+    {
+      "file": "test/stormwake-v14.mjs",
+      "code": 0,
+      "output": "V14: PASS modeled ship-mounted weapons, progression, fleet changes, lazy remote full ship models, cosmetic co-op cannon rounds, cleanup\n\n"
+    },
+    {
+      "file": "test/stormwake-voyage-m1-integrated.mjs",
+      "code": 1,
+      "output": "\nfile:///tmp/storm/STORMWAKE_V64/src/voyage/QuestBuoyancy.js:2\n constructor(v,name,message){this.v=v;this.message=message;this.slot=v.app.query.allocate(name,1);this.sendClock=0;}\n                                                                                 ^\n\nTypeError: Cannot read properties of undefined (reading 'allocate')\n    at new QuestBuoyancy (file:///tmp/storm/STORMWAKE_V64/src/voyage/QuestBuoyancy.js:2:82)\n    at new CartographerRuntime (file:///tmp/storm/STORMWAKE_V64/src/voyage/CartographerRuntime.js:10:40)\n    at new VoyageM1 (file:///tmp/storm/STORMWAKE_V64/src/voyage/VoyageM1.js:126:39)\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-voyage-m1-integrated.mjs:18:9\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v11-fleet.mjs",
+      "code": 0,
+      "output": "V11 fleet: PASS >=5 unique replaceable ships, 1-key captain, Shift+E deck, real 3D movement and turn, 30 fish with rendered anatomy\n\n"
+    },
+    {
+      "file": "test/stormwake-v42-systems.mjs",
+      "code": 1,
+      "output": "✓ Leak causes actual bilge water; empty bucket cannot extinguish fire\n✓ Repair requires uninterrupted 2.2 s hold and consumes one plank\n\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\ntrue !== false\n\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v42-systems.mjs:44:36\n    at check (file:///tmp/storm/STORMWAKE_V64/test/stormwake-v42-systems.mjs:17:26)\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v42-systems.mjs:41:1\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: true,\n  expected: false,\n  operator: 'strictEqual'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v12.mjs",
+      "code": 1,
+      "output": "\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n7 !== 4\n\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v12.mjs:13:8\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: 7,\n  expected: 4,\n  operator: 'strictEqual'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v33.mjs",
+      "code": 0,
+      "output": "V33 PASS: truthful walkable shrine surfaces, collision separation, priority E dispatch, collision-aware villager routes.\n\n"
+    },
+    {
+      "file": "test/stormwake-v53-lower-hold-usable-weapons.mjs",
+      "code": 1,
+      "output": "\nnode:fs:562\n  return binding.open(\n                 ^\n\nError: ENOENT: no such file or directory, open '/tmp/storm/STORMWAKE_V64/public/models/stormwake_v53/dutch_ship_lower_hold.glb'\n    at Object.openSync (node:fs:562:18)\n    at Object.readFileSync (node:fs:446:35)\n    at bytes (file:///tmp/storm/STORMWAKE_V64/test/stormwake-v53-lower-hold-usable-weapons.mjs:14:22)\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v53-lower-hold-usable-weapons.mjs:16:12\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  errno: -2,\n  code: 'ENOENT',\n  syscall: 'open',\n  path: '/tmp/storm/STORMWAKE_V64/public/models/stormwake_v53/dutch_ship_lower_hold.glb'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v29.mjs",
+      "code": 1,
+      "output": "ng pads into the heightmap: build it before any terrain\\n' +\n    '\\t\\t// data is derived (shore field, GPU textures, meshes)\\n' +\n    \"\\t\\tawait progress( 0.12, 'Building the village…' );\\n\" +\n    '\\t\\tthis.village = new Village( { scene, terrain: this.terrainData, colliders: this.colliders } );\\n' +\n    \"\\t\\tif ( ! qs.has( 'noVeg' ) ) {\\n\" +\n    '\\n' +\n    \"\\t\\t\\tawait progress( 0.14, 'Planting the island…' );\\n\" +\n    '\\t\\t\\tthis.vegetation = new Vegetation( { scene, terrain: this.terrainData, village: this.village } );\\n' +\n    '\\t\\t\\tuseStaticVelocity( this.vegetation.group );\\n' +\n    '\\n' +\n    '\\t\\t}\\n' +\n    '\\n' +\n    \"\\t\\tawait progress( 0.19, 'Rolling in the swell…' );\\n\" +\n    '\\t\\tthis.shoreField = computeShoreField( this.terrainData, { res: 512, swellDir: [ WORLD.swellDir.x, WORLD.swellDir.y ] } );\\n' +\n    '\\t\\tthis.terrainGPU = new TerrainGPU( this.terrainData, this.shoreField );\\n' +\n    '\\t\\t// terrain and rocks apply the heightfield sun shadow (long hill shadows) in their own lighting\\n' +\n    '\\t\\tthis.terrain = new Terrain( { scene, terrainData: this.terrainData, terrainGPU: this.terrainGPU, renderer } );\\n' +\n    '\\t\\tthis.rocks = new Rocks( { scene, terrain: this.terrain, village: this.village, colliders: this.colliders } );\\n' +\n    '\\t\\t// driftwood (CC0 photoscans), wrack, pebbles and village clutter\\n' +\n    '\\t\\tthis.debris = new Debris( { scene, terrain: this.terrain, village: this.village, vegetation: this.vegetation, rocks: this.rocks, colliders: this.colliders } );\\n' +\n    '\\t\\t// these apply the heightfield sun shadow in their own lighting model (see UnderwaterLighting)\\n' +\n    '\\t\\tthis.terrain.mesh.material.appliesHillShadow = true;\\n' +\n    '\\t\\tthis.rocks.material.appliesHillShadow = true;\\n' +\n    '\\n' +\n    \"\\t\\tawait progress( 0.23, 'Growing the reef…' );\\n\" +\n    '\\t\\tthis.reef = new Reef( { scene, terrain: this.terrainData, shoreField: this.shoreField } );\\n' +\n    '\\n' +\n    \"\\t\\tthis.boat = new BoatModel({shipClass:qs.has('heritageShip')?'heritage':'legacy'});\\n\" +\n    '\\t\\tscene.add( this.boat.group );\\n' +\n    '\\t\\tif ( this.boat.shipScale ) {\\n' +\n    '\\t\\t\\ttry { await installHeritageArtistShip( this.boat ); this.boat.heritageDeck=new HeritageDeck(this.boat); this.boat.mastLookout=installMastLookout(this.boat); const cabin=new CaptainCabinInterior(this.boat); await cabin.load();this.boat.captainCabin=cabin;this.boat.heritageDeck.realInteriorEnabled=true; }\\n' +\n    \"\\t\\t\\tcatch ( error ) { console.error( '[STORMWAKE V47] Dutch CC0 model load failed; retaining old playable hull', error ); }\\n\" +\n    '\\t\\t}\\n' +\n    '\\n' +\n    '\\t\\tthis.boat.group.position.copy( WORLD.boatDock.position );\\n' +\n    '\\t\\tthis.boat.group.rotation.y = WORLD.boatDock.heading;\\n' +\n    '\\n' +\n    '\\t\\t// ---------------------------------------------------------------- ocean\\n' +\n    \"\\t\\tawait progress( 0.3, 'Simulating the ocean…' );\\n\" +\n    '\\t\\tthis.fft = new OceanFFT( renderer );\\n' +\n    '\\t\\tif ( this.reef.setOcean ) this.reef.setOcean( this.fft ); // coral / sea fan sway follows the simulated swell\\n' +\n    '\\t\\tthis.foamTexture = createFoamTexture( renderer );\\n' +\n    \"\\t\\tthis.oceanLOD = new CDLOD( { gridSize: Number( qs.get( 'G' ) || 32 ), leafSize: 8, levels: 12, minY: - 25, maxY: 25 } );\\n\" +\n    '\\t\\tthis.surface = new WaterSurface( { fft: this.fft, '... 32194 more characters,\n  expected: /if \\( !this\\.hunt\\?\\.abyss\\?\\.active \\) this\\.game\\.update\\( dt \\)/,\n  operator: 'match'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v50-quarters-rig-water.mjs",
+      "code": 1,
+      "output": "PASS V50 1 all v50 art resources are present and SHA256 verified\nPASS V50 2 Dutch GLB truly has real localized hatch, same original three art meshes\nPASS V50 3 captains quarters preserves uploaded model provenance, textures, original pieces\nPASS V50 4 chart is an actual painted/glTF textured 3D object, not UI-only label\nPASS V50 5 sourced cabin fitted within Dutch outer half beam at both ends\n\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 1.9300000000000002\n- null\n\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v50-quarters-rig-water.mjs:60:9\n    at check (file:///tmp/storm/STORMWAKE_V64/test/stormwake-v50-quarters-rig-water.mjs:13:33)\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v50-quarters-rig-water.mjs:56:1\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: 1.9300000000000002,\n  expected: null,\n  operator: 'strictEqual'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v32.mjs",
+      "code": 1,
+      "output": "ld it before any terrain\\n' +\n    '\\t\\t// data is derived (shore field, GPU textures, meshes)\\n' +\n    \"\\t\\tawait progress( 0.12, 'Building the village…' );\\n\" +\n    '\\t\\tthis.village = new Village( { scene, terrain: this.terrainData, colliders: this.colliders } );\\n' +\n    \"\\t\\tif ( ! qs.has( 'noVeg' ) ) {\\n\" +\n    '\\n' +\n    \"\\t\\t\\tawait progress( 0.14, 'Planting the island…' );\\n\" +\n    '\\t\\t\\tthis.vegetation = new Vegetation( { scene, terrain: this.terrainData, village: this.village } );\\n' +\n    '\\t\\t\\tuseStaticVelocity( this.vegetation.group );\\n' +\n    '\\n' +\n    '\\t\\t}\\n' +\n    '\\n' +\n    \"\\t\\tawait progress( 0.19, 'Rolling in the swell…' );\\n\" +\n    '\\t\\tthis.shoreField = computeShoreField( this.terrainData, { res: 512, swellDir: [ WORLD.swellDir.x, WORLD.swellDir.y ] } );\\n' +\n    '\\t\\tthis.terrainGPU = new TerrainGPU( this.terrainData, this.shoreField );\\n' +\n    '\\t\\t// terrain and rocks apply the heightfield sun shadow (long hill shadows) in their own lighting\\n' +\n    '\\t\\tthis.terrain = new Terrain( { scene, terrainData: this.terrainData, terrainGPU: this.terrainGPU, renderer } );\\n' +\n    '\\t\\tthis.rocks = new Rocks( { scene, terrain: this.terrain, village: this.village, colliders: this.colliders } );\\n' +\n    '\\t\\t// driftwood (CC0 photoscans), wrack, pebbles and village clutter\\n' +\n    '\\t\\tthis.debris = new Debris( { scene, terrain: this.terrain, village: this.village, vegetation: this.vegetation, rocks: this.rocks, colliders: this.colliders } );\\n' +\n    '\\t\\t// these apply the heightfield sun shadow in their own lighting model (see UnderwaterLighting)\\n' +\n    '\\t\\tthis.terrain.mesh.material.appliesHillShadow = true;\\n' +\n    '\\t\\tthis.rocks.material.appliesHillShadow = true;\\n' +\n    '\\n' +\n    \"\\t\\tawait progress( 0.23, 'Growing the reef…' );\\n\" +\n    '\\t\\tthis.reef = new Reef( { scene, terrain: this.terrainData, shoreField: this.shoreField } );\\n' +\n    '\\n' +\n    \"\\t\\tthis.boat = new BoatModel({shipClass:qs.has('heritageShip')?'heritage':'legacy'});\\n\" +\n    '\\t\\tscene.add( this.boat.group );\\n' +\n    '\\t\\tif ( this.boat.shipScale ) {\\n' +\n    '\\t\\t\\ttry { await installHeritageArtistShip( this.boat ); this.boat.heritageDeck=new HeritageDeck(this.boat); this.boat.mastLookout=installMastLookout(this.boat); const cabin=new CaptainCabinInterior(this.boat); await cabin.load();this.boat.captainCabin=cabin;this.boat.heritageDeck.realInteriorEnabled=true; }\\n' +\n    \"\\t\\t\\tcatch ( error ) { console.error( '[STORMWAKE V47] Dutch CC0 model load failed; retaining old playable hull', error ); }\\n\" +\n    '\\t\\t}\\n' +\n    '\\n' +\n    '\\t\\tthis.boat.group.position.copy( WORLD.boatDock.position );\\n' +\n    '\\t\\tthis.boat.group.rotation.y = WORLD.boatDock.heading;\\n' +\n    '\\n' +\n    '\\t\\t// ---------------------------------------------------------------- ocean\\n' +\n    \"\\t\\tawait progress( 0.3, 'Simulating the ocean…' );\\n\" +\n    '\\t\\tthis.fft = new OceanFFT( renderer );\\n' +\n    '\\t\\tif ( this.reef.setOcean ) this.reef.setOcean( this.fft ); // coral / sea fan sway follows the simulated swell\\n' +\n    '\\t\\tthis.foamTexture = createFoamTexture( renderer );\\n' +\n    \"\\t\\tthis.oceanLOD = new CDLOD( { gridSize: Number( qs.get( 'G' ) || 32 ), leafSize: 8, levels: 12, minY: - 25, maxY: 25 } );\\n\" +\n    '\\t\\tthis.surface = new WaterSurface( { fft: this.fft, '... 32194 more characters,\n  expected: /this\\.landAdventure\\.update\\( dt \\);\\s*if \\( !this\\.hunt\\?\\.abyss\\?\\.active \\) this\\.game\\.update/,\n  operator: 'match'\n}\n\nNode.js v22.16.0\n"
+    },
+    {
+      "file": "test/stormwake-v21.mjs",
+      "code": 0,
+      "output": "PASS shark: 63 bones; 0 IK joints; finite GPU skin matrices\nPASS turtle: 73 bones; 0 IK joints; finite GPU skin matrices\nPASS squid: 211 bones; 192 IK joints; finite GPU skin matrices\nPASS leviathan: 120 bones; 87 IK joints; finite GPU skin matrices\nPASS waves: four-slot rolling displacement with shared ocean/buoyancy source\nPASS optical integration: common-sea slope, foam and reflection; dark noise-driven ink\nV21 dense-rig / full-contact IK / integrated water-attack tests passed.\n\n"
+    },
+    {
+      "file": "test/stormwake-v31.mjs",
+      "code": 0,
+      "output": "V31 PASS: living island and tower models, land combat telegraphs, torches, AI contact, 3-mirror puzzle, Xiaoxi aid, boss, saves and nightly harbor defense.\n\n"
+    },
+    {
+      "file": "test/stormwake-v43-assets.mjs",
+      "code": 0,
+      "output": "PASS resident_watchman -> pirate_sailor.glb: 11 authored clips, 1 skin(s), 469 KiB\nPASS resident_herbalist -> pirate_innkeeper.glb: 11 authored clips, 1 skin(s), 469 KiB\nPASS resident_apprentice -> pirate_shipwright.glb: 12 authored clips, 1 skin(s), 630 KiB\nV43 installed CC0 sailor asset checks passed: 3\n\n"
+    },
+    {
+      "file": "test/stormwake-v15.mjs",
+      "code": 1,
+      "output": "\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: original close-to-island survey points remain intact\n\n7 !== 4\n\n    at file:///tmp/storm/STORMWAKE_V64/test/stormwake-v15.mjs:37:8\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: 7,\n  expected: 4,\n  operator: 'strictEqual'\n}\n\nNode.js v22.16.0\n"
+    }
+  ]
+}

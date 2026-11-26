@@ -1,0 +1,34 @@
+TIDEWATER V17 — SEA TITAN MODEL ASSETS
+
+abyssal-hydra.glb (optional automatically installed asset)
+  Source: https://grab3d.com/models/creatures/hydra/
+  Direct downloadable light variant: https://grab3d.com/dl/hydra/hydra-light.glb
+  License: CC0 1.0 / public domain (as stated by source website).
+  Creator's high-detail three-headed, scaly Hydra PBR model.
+  Downloaded on first Windows launch by scripts/install_hydra.py.
+  Site access is optional. If offline, the original handmade model below
+  is retained so the game and multiplayer rooms still launch correctly.
+
+great-white-shark.glb
+  Source: https://grab3d.com/models/animals/great-white-shark/
+  License: CC0 / public domain (as stated by source website).
+  Local derivative: mesh decimation + PBR texture size reduction.
+
+sea-turtle.glb
+  Source: https://grab3d.com/models/animals/sea-turtle/
+  License: CC0 / public domain (as stated by source website).
+  Local derivative: mesh decimation + PBR texture size reduction.
+
+kraken.glb
+  Source: https://grab3d.com/models/creatures/kraken/
+  License: CC0 / public domain (as stated by source website).
+  Local derivative: mesh decimation + PBR texture size reduction.
+
+leviathan.glb
+  Original procedural marine-serpent model generated for Tidewater V16.
+  Source: scripts/build_leviathan.py.
+  Original textures: leviathan-marine-scales.png and leviathan-marine-normal.png.
+  No original copyrighted Subnautica or third-party video-game model used.
+
+Please independently confirm licenses of source-hosted assets before
+redistributing outside the bundled Tidewater game project.

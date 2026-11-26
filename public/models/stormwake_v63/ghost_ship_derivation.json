@@ -1,0 +1,42 @@
+{
+  "source": "public\\models\\stormwake_v47\\quaternius_ship_large.glb",
+  "output": "public\\models\\stormwake_v63\\ghost_ship_separated.glb",
+  "hullTriangles": 20328,
+  "clothTriangles": 308,
+  "panels": [
+    {
+      "triangles": 154,
+      "bounds": [
+        [
+          1.032746434211731,
+          1.762812614440918
+        ],
+        [
+          3.2529332637786865,
+          7.578427314758301
+        ],
+        [
+          -1.9317786693572998,
+          1.931778073310852
+        ]
+      ]
+    },
+    {
+      "triangles": 154,
+      "bounds": [
+        [
+          -3.7048308849334717,
+          -3.098621129989624
+        ],
+        [
+          3.281527280807495,
+          5.51748514175415
+        ],
+        [
+          -1.511517882347107,
+          1.479378581047058
+        ]
+      ]
+    }
+  ]
+}

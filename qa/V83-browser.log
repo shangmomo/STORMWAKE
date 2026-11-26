@@ -1,0 +1,8 @@
+HTTP /index.html 200 3902
+HTTP /src/App.js 200 43760
+HTTP /src/oceanhunt/AbyssHatchV83.js 200 6365
+HTTP /src/land/LurkerV83.js 200 5574
+HTTP /src/land/MineLiftRulesV83.js 200 1085
+HTTP /models/abyss/deepsea-demon-whale.glb 200 1259636
+HTTP /models/abyss/external/nautilus-sdc.glb 200 15545532
+Real browser blocked or failed: Error('Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:52849/?stormwake=1&heritageShip=1\nCall log:\n  - navigating to "http://127.0.0.1:52849/?stormwake=1&heritageShip=1", waiting until "load"\n')

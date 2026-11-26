@@ -1,0 +1,303 @@
+{
+  "version": "V64 development acceptance build",
+  "build_sha256": "5ed647e7bfdcc23b85ba545334b969853d5be1de1d70cbe593d3e1d55bc94740",
+  "baseline": "C:\\Users\\syz\\Documents\\ChatGPT\\3d\\stormwake-v63\\STORMWAKE_V63",
+  "changed_files": [
+    {
+      "path": "00_START_V64.cmd",
+      "sha256": "5fed1693ab37b4deb03cc1059ddb2799752fd119a785078886101d51c2955842",
+      "bytes": 70
+    },
+    {
+      "path": "CREDITS.md",
+      "sha256": "75b2ca6f3d1ce00ab8ff00624c07a05dd573219ad1545c795620cad197657abb",
+      "bytes": 13777
+    },
+    {
+      "path": "README.md",
+      "sha256": "5b679acb462ada006480f7f77e62d31abf682eb61cb682fe030c305428a4a8f2",
+      "bytes": 41705
+    },
+    {
+      "path": "README_V64_先读我.md",
+      "sha256": "be8a7d287c9cb9972dbf8e1fba16ec66ed71890d76a1728e652ff34030518163",
+      "bytes": 2762
+    },
+    {
+      "path": "index.html",
+      "sha256": "c65988e6a351716aa54d5388514d95d0e7311ca5ce5e5478d9f9fb69773b79c2",
+      "bytes": 3896
+    },
+    {
+      "path": "package.json",
+      "sha256": "d487e8a055c2973a49afe72b72456a4587e55ae454aa9c1b56883dc0088e0699",
+      "bytes": 7775
+    },
+    {
+      "path": "start_v60.py",
+      "sha256": "b32482ba17fb872d5f21de5e7ad2a2e710ecbfc8226404fa6fef3564e7d92205",
+      "bytes": 4810
+    },
+    {
+      "path": "start_v64.py",
+      "sha256": "5abc6fe26e8d229fd090b8cb54b73809f9dfd4c04583dda741fc8a6e4f1956e4",
+      "bytes": 125
+    },
+    {
+      "path": "docs/V64_FIXES_AND_ACCEPTANCE.md",
+      "sha256": "ced3e94c08261a61dff05192aebbaf02ff18e13dfd642717cf25087ed1ba13e1",
+      "bytes": 6539
+    },
+    {
+      "path": "public/models/stormwake_v64/dutch_ship_lower_hold.glb",
+      "sha256": "ffb1d2a35bfad3684b524aa52b0b0053882929aeb9e1cf7709152de9bf6b5b08",
+      "bytes": 31478784
+    },
+    {
+      "path": "public/models/stormwake_v64/stair_manifest_v64.json",
+      "sha256": "09e5d3e5e7ab80b720d9562a7a494bd92a38bdd2317a3addaefc6ded6557b54c",
+      "bytes": 3000
+    },
+    {
+      "path": "server/coopHub.js",
+      "sha256": "0ca7024fd247be7ab353aa9c0812aa1b67db8155c0276245670721d1818fe5ca",
+      "bytes": 46902
+    },
+    {
+      "path": "src/game/Game.js",
+      "sha256": "229183d1913efb08feeba0936e3448c1e9a6ebd6eba6803496c2bc8bb7c115e1",
+      "bytes": 19351
+    },
+    {
+      "path": "src/islandlife/OceanChart.js",
+      "sha256": "8a7971d251210d9d7a4748d3e0822412f3d8bb97d09b2598bc07d55999087178",
+      "bytes": 18507
+    },
+    {
+      "path": "src/land/LandRigRuntime.js",
+      "sha256": "69c3bc52716159916d84b77458288d9859a69fe0e4832d95e621271b77a89e8a",
+      "bytes": 6232
+    },
+    {
+      "path": "src/net/ShipNetBridge.js",
+      "sha256": "d60b56cdaf28530866f09759f37c4ef87a20a4f784b48e6f673e4bab1dea5639",
+      "bytes": 15878
+    },
+    {
+      "path": "src/oceanhunt/CoopClient.js",
+      "sha256": "a6326b561c8b71d2786fb10d9184ebddedf79a974de0b5288921bdd412056327",
+      "bytes": 23959
+    },
+    {
+      "path": "src/oceanhunt/HuntCombat.js",
+      "sha256": "251caefbf2c0a784dea5d00194c58404b012145fcd19ce99fc710c5c1f203b50",
+      "bytes": 18162
+    },
+    {
+      "path": "src/player/BoatController.js",
+      "sha256": "55bda13ddd70c34a6c2805aba5562375b0a5b8a1471a52db66efdea9c89cadbe",
+      "bytes": 29027
+    },
+    {
+      "path": "src/player/CharacterMotor.js",
+      "sha256": "6b1bb811feae07e144d8a0bf893bfdc0096dfc3b5cfa458824be11830b88605a",
+      "bytes": 2096
+    },
+    {
+      "path": "src/player/Player.js",
+      "sha256": "637494bdbc9d1c7e166a9b4f380534aeb07fff03f3d7ecae287e4b1423982d53",
+      "bytes": 52165
+    },
+    {
+      "path": "src/qa/AutoQA.js",
+      "sha256": "b145f976e3a4c9e8928f7df78b9f353464fa11fcc12155bfdd0460b9a8276f32",
+      "bytes": 10421
+    },
+    {
+      "path": "src/ship/CaptainCabinInterior.js",
+      "sha256": "ce0f1f16917dab4a17585f47ea65ab68505e2e895bb8f45108d39670a685e78f",
+      "bytes": 9258
+    },
+    {
+      "path": "src/ship/CrewAI.js",
+      "sha256": "57cfd296cf591047cab04038531b140713d279ba7564988ae7289ff1725d08ef",
+      "bytes": 6557
+    },
+    {
+      "path": "src/ship/CrewNavigation.js",
+      "sha256": "7a3c18e0271d801ce7fcb66b2e802bd3846957e329b9b0abc0f192c84e2ca5ad",
+      "bytes": 4410
+    },
+    {
+      "path": "src/ship/CrewVisuals.js",
+      "sha256": "89c796d7f3404b850b4b16f36544897cb25e59bac9f97d7b0312454c0962bc3f",
+      "bytes": 1868
+    },
+    {
+      "path": "src/ship/HeritageAssetRig.js",
+      "sha256": "f6f0b8560cadda22d899b69ef0c20c08f15eed3a630080b48595a4d7246a7f5e",
+      "bytes": 14073
+    },
+    {
+      "path": "src/ship/HeritageDeck.js",
+      "sha256": "e91b79e69e713cf20f707b4ee683b2ec36d2629b08a397d22cd10e4bf4c610ac",
+      "bytes": 14849
+    },
+    {
+      "path": "src/ship/MastLookout.js",
+      "sha256": "3f849f704864eab4a78912997e709be15a5b864ed5d8a4a2fbd4de953a6a6801",
+      "bytes": 2419
+    },
+    {
+      "path": "src/ship/MetricOpening.js",
+      "sha256": "84a5e7555c574286cee817624d74c076d62dd489c2f6e5a8e8f1897d67ce2480",
+      "bytes": 4123
+    },
+    {
+      "path": "src/ship/SailWind.js",
+      "sha256": "909e9278184f0b12e72cffd685aa1f74a4b80f1722fe9de1f9329809b4cd7ab8",
+      "bytes": 1433
+    },
+    {
+      "path": "src/ship/SailingCourse.js",
+      "sha256": "34ac3e146d7c75e7c31e1f42d9e82908e2f526ed31b9f5d59952553e816ab3f2",
+      "bytes": 958
+    },
+    {
+      "path": "src/ship/SailorBody.js",
+      "sha256": "815bc055b6b6c4b115a90fccaa972c4637042bc4c2c0e8cf54e71f491ab2e57e",
+      "bytes": 9447
+    },
+    {
+      "path": "src/ship/ShipCollisionWorld.js",
+      "sha256": "ee503065792430d3bd360fb30158e6074d38aeccc06eee760537fa8207358042",
+      "bytes": 1697
+    },
+    {
+      "path": "src/ship/ShipDeckRoutes.js",
+      "sha256": "73527c2b507f47699433cae7f2085b3cc003b2e89c3702f681767327fbd57af6",
+      "bytes": 963
+    },
+    {
+      "path": "src/ship/ShipLadder.js",
+      "sha256": "ad48f7da9bc60c8d2acda32604ebafa93c67442203e5334c63044aaeba85c73a",
+      "bytes": 4040
+    },
+    {
+      "path": "src/ship/ShipStations.js",
+      "sha256": "04f8793cb93e0c07a74fe2983fd75cc3e2030c1beb34537d09d91f4fffb02984",
+      "bytes": 7131
+    },
+    {
+      "path": "src/ship/StationSites.js",
+      "sha256": "f9f6b88752f3f83c519644f335e19402e96cbd0603f5b64bb605fef84963b496",
+      "bytes": 3017
+    },
+    {
+      "path": "src/systems/CollisionWorld.js",
+      "sha256": "776feb9aa0d7570f24f547bb561e0c8bc484ff5968b80f77858eb22891a1b912",
+      "bytes": 8773
+    },
+    {
+      "path": "src/voyage/VoyageM1.js",
+      "sha256": "69a44ffa1b444560b7506a958074c237c5865e407defa471d9c9c506431b3cc0",
+      "bytes": 93814
+    },
+    {
+      "path": "test/stormwake-v61-reliability.mjs",
+      "sha256": "8aeb7e4ba14c2e3e33677881f8bc633921fa0d269488dea933ded5ace216907a",
+      "bytes": 9481
+    },
+    {
+      "path": "test/stormwake-v62-stairs.mjs",
+      "sha256": "d7cf1ae3c46f9ce42a1432139a802d49aab1f2367c956826c5af00fe040de2d7",
+      "bytes": 3770
+    },
+    {
+      "path": "test/stormwake-v63-character-forward.mjs",
+      "sha256": "9cc990af53de00e0a45229e3887da0f045fb865b668e412b804e2e9b5c4ee577",
+      "bytes": 1768
+    },
+    {
+      "path": "test/stormwake-v63-sailor-grips.mjs",
+      "sha256": "043a25506d49a25bfb5051d2359aff1622be9f74b57d36e4bdafbf31b34b5277",
+      "bytes": 2780
+    },
+    {
+      "path": "test/stormwake-v63-stair-momentum.mjs",
+      "sha256": "018a5817559b3bd9535db9507635e80461917dedceed87b58bb78f92cfeb55d0",
+      "bytes": 2988
+    },
+    {
+      "path": "test/stormwake-v64-grips.mjs",
+      "sha256": "043a25506d49a25bfb5051d2359aff1622be9f74b57d36e4bdafbf31b34b5277",
+      "bytes": 2780
+    },
+    {
+      "path": "test/stormwake-v64-ladders.mjs",
+      "sha256": "68f8c2cd69bfb0918638e44815ce55ddb23da2eacff6a3b5fe9b85888ef6979f",
+      "bytes": 2084
+    },
+    {
+      "path": "test/stormwake-v64-navigation.mjs",
+      "sha256": "382cf3d01ed532cdce6b47179da32eacf61ea917185af9736fa2da094e3fe6cd",
+      "bytes": 2562
+    },
+    {
+      "path": "test/stormwake-v64-walking.mjs",
+      "sha256": "21bd1724d7cb043b02dc58531f5e1dbf4bdfe79be915febb79633683e2635240",
+      "bytes": 1336
+    },
+    {
+      "path": "test/stormwake-voyage-m1.mjs",
+      "sha256": "3a885c4cd5dfcb51f1909bfb3041130b4467b48b22b1dbd55feca4c56eaddab4",
+      "bytes": 11338
+    },
+    {
+      "path": "test/helpers/v64-ship.mjs",
+      "sha256": "7c0f863c188d66c4e0be669b4a2db125e3cdb51e36f3b4129f47f79cb261ec27",
+      "bytes": 2935
+    },
+    {
+      "path": "tools/build_v64_ship_access.py",
+      "sha256": "2e9789dd675bafe5b23959ef6d2c356ab5ef61560773ab7a4849662aa3034a96",
+      "bytes": 5253
+    },
+    {
+      "path": "tools/release_v64.py",
+      "sha256": "90a750ab1ac494c7478a136eb687d570e907c3a67487b51fb1e9b50215388085",
+      "bytes": 3267
+    },
+    {
+      "path": "tools/autoqa/runner_v64.py",
+      "sha256": "35c171bc4c6ec463872d5431dc447285af71c7fe54efa7a640706a975ecb2a03",
+      "bytes": 34241
+    },
+    {
+      "path": "tools/autoqa/v64_sailing.py",
+      "sha256": "ecd5f5d76063d368647855a75200b7a9ce43f64c41e7f803e4a2a33aa9788a07",
+      "bytes": 5147
+    },
+    {
+      "path": "tools/autoqa/v64_walk.py",
+      "sha256": "df6158038e91ee5dae2a09ef2b581dce63233f66986789887ca3c6eef92d1472",
+      "bytes": 8727
+    }
+  ],
+  "evidence": [
+    "qa/V64-base-latest.log",
+    "qa/V64-base-tests-latest.log",
+    "qa/V64-build-latest.log",
+    "qa/V64-launcher-latest.log",
+    "qa/V64-regression-latest.log",
+    "qa/V64-four-client/V62_20261116_002100/report.json",
+    "qa/V64-four-client-final/V64_20261116_002709/report.json",
+    "qa/V64-sailing/results.json",
+    "qa/V64-walk/boarding_results.json",
+    "qa/V64-walk/results.json",
+    "qa/V64-walk/walk_results.json",
+    "qa/V64-walk-cabin/results.json",
+    "qa/V64-walk-hold/results.json"
+  ],
+  "verification_limits": "See docs/V64_FIXES_AND_ACCEPTANCE.md; historical failed trials are retained. This is not a claim that the entire GDD or zero-defect acceptance is complete."
+}

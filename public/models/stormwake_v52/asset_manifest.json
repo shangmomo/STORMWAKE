@@ -1,0 +1,33 @@
+{
+  "source": "public/models/stormwake_v50/dutch_ship_cabin_access.glb",
+  "output": "public/models/stormwake_v52/dutch_ship_passable.glb",
+  "sha256": "ac81748622ce08c3888f4beacbe7b6fb4620ed83e17ad490bd816f1715ecbf92",
+  "source_triangles": 27660,
+  "bulkhead_triangles_intersected": 68,
+  "fully_removed_faces": 70,
+  "new_hull_triangles": 27624,
+  "new_split_vertices": 80,
+  "door_source_faces": [
+    6300,
+    6301
+  ],
+  "door_source_vertex_ids": [
+    16658,
+    16659,
+    16660,
+    16661
+  ],
+  "hole_author_coordinates": [
+    -1.365,
+    -0.295,
+    1.635,
+    3.085
+  ],
+  "door_scale": [
+    1.82,
+    1.92,
+    1.0
+  ],
+  "retained_materials": 3,
+  "retained_textures": 9
+}

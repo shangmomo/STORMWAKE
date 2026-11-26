@@ -1,0 +1,193 @@
+{
+  "build_sha256": "45870307a51002982f8b5ac1b9fa04481ae029f127c40a597095fc035fffe895",
+  "source_zip_sha256": "ffc58cc43cd35d650080c66fc7dd3aadffa242f8d8171aa6b96355cd696abfb8",
+  "changed_code": [
+    {
+      "path": "src/App.js",
+      "kind": "modified",
+      "sha256": "13cc59bdb3b5d9a0c4a4506de804dac4f7c2c10c7b471fd123ddf8707fcfb6e3"
+    },
+    {
+      "path": "src/core/BenchSeed.js",
+      "kind": "modified",
+      "sha256": "ba7136314858a82ece1da95cbd7e525119deeadf0d809cc1c0e0a4e4864e6d8f"
+    },
+    {
+      "path": "src/engine/Engine.js",
+      "kind": "modified",
+      "sha256": "cca7d066c6f8c5d6013286d6d906dfabfdaa71a4a9224c05005bf5d7814e8ef8"
+    },
+    {
+      "path": "src/game/Game.js",
+      "kind": "modified",
+      "sha256": "cd4b64ed0cf210975078d2c51b98ffec81d1e09e70a606ceea478af185b28bb2"
+    },
+    {
+      "path": "src/interact/InteractionDirector.js",
+      "kind": "modified",
+      "sha256": "86e7d2022f9ed0762bf86d5db9a48026c02c2018ba8db40cf538daf4fc37e0b7"
+    },
+    {
+      "path": "src/main.js",
+      "kind": "modified",
+      "sha256": "2acc14c158d2f59f670195d1ef535d678fce8e033ee5d603a21085b6027e904f"
+    },
+    {
+      "path": "src/materials/LocalLights.js",
+      "kind": "modified",
+      "sha256": "82c5536a5e0c9ef77760625df4461826400c64ba3027cae627af792c24b487f1"
+    },
+    {
+      "path": "src/net/ShipNetBridge.js",
+      "kind": "modified",
+      "sha256": "7efe7a5b7908df9d698a9cf05c6702bfa30177cb756a92820eb8600f22834e42"
+    },
+    {
+      "path": "src/oceanhunt/HuntCombat.js",
+      "kind": "modified",
+      "sha256": "b62d226835d2baac830a85c0a358a29df3eeef78a4de9dfd4aa6bd0bbbf3de83"
+    },
+    {
+      "path": "src/player/Player.js",
+      "kind": "modified",
+      "sha256": "1d5a87f3c69f16def7a098f6ed012fa22bf5416a3bc5a54f8af2f62c117f6b64"
+    },
+    {
+      "path": "src/post/Underwater.js",
+      "kind": "modified",
+      "sha256": "f7a1bddb63494968012fbcc4fd9cd63b06624d9a6d6cdd10d3e936092347971e"
+    },
+    {
+      "path": "src/qa/AutoQA.js",
+      "kind": "modified",
+      "sha256": "53e15c8cbcf804fafef19727081f6ddd5598284fb68f0c5bb16b091a3a82d93e"
+    },
+    {
+      "path": "src/ship/CaptainCabinInterior.js",
+      "kind": "modified",
+      "sha256": "55d00ea1f737b48fdc03cfc95564b2fb15d8e394b9a966f4565eeacf5cf86f04"
+    },
+    {
+      "path": "src/ship/DoorSweep.js",
+      "kind": "added",
+      "sha256": "d83884ec5cc74242e4a177ae0a55812668c67901be269653e13529e059fa9abf"
+    },
+    {
+      "path": "src/ship/DutchLowerHold.js",
+      "kind": "modified",
+      "sha256": "df8e3517ea7cd4bc4298b5f24a8bfdb17e88ae427a3d6e2cc7f22cb5a4818108"
+    },
+    {
+      "path": "src/ship/HeritageAssetRig.js",
+      "kind": "modified",
+      "sha256": "a57f7e48d71098766a0d6e2a543e9d7027d45c0f135725d6ac0d1e113580058a"
+    },
+    {
+      "path": "src/ship/InteriorLanterns.js",
+      "kind": "added",
+      "sha256": "d70e6071797a9e0bbe14574724372ed767620130fdb56f0ad5503622370043b5"
+    },
+    {
+      "path": "src/ship/ShipCollisionWorld.js",
+      "kind": "added",
+      "sha256": "7b01e47ea9196de6026b469fd92af4e67e30b4108f18040b690f2d031d367973"
+    },
+    {
+      "path": "src/ship/ShipLadder.js",
+      "kind": "modified",
+      "sha256": "264fe321b9319d40ad7558d0d64a0eacfc536b766b3889f73dd679b493ea25a0"
+    },
+    {
+      "path": "src/ship/ShipStations.js",
+      "kind": "modified",
+      "sha256": "d262cd34de494cb66f0540dd10f47f92922c95f0349d6575a64bf782b1f7328c"
+    },
+    {
+      "path": "src/ship/StationSites.js",
+      "kind": "modified",
+      "sha256": "70c094d12f4802d4f83249b41f490296d4e6f075de241c17e98c2242b433c837"
+    },
+    {
+      "path": "src/systems/CollisionWorld.js",
+      "kind": "added",
+      "sha256": "5fad3282a554ac81fe0185f9c4af4ef1d5e2ee8e8b08540a5cc371fa2767f109"
+    },
+    {
+      "path": "src/voyage/CargoReach.js",
+      "kind": "modified",
+      "sha256": "d8c6d58876890662018f588e0d5ff2118794f41f2640b37e9ad265d83307aca9"
+    },
+    {
+      "path": "src/voyage/voyage-m1.css",
+      "kind": "modified",
+      "sha256": "f283110fa2f9e68a05dd9566538cba964e96a3c4bbca074723dbefa9afb95a1f"
+    },
+    {
+      "path": "src/voyage/VoyageM1.js",
+      "kind": "modified",
+      "sha256": "c090d8f4466c7407c8c7dfeb02b4221320b846f1657b07a6251fd321b6ac9860"
+    },
+    {
+      "path": "server/coopHub.js",
+      "kind": "modified",
+      "sha256": "a917a0f9bc9ad302b283521d3df9a95147ff9b947a278459c7e7c159978a3c1a"
+    },
+    {
+      "path": "test/engine-smoke.mjs",
+      "kind": "modified",
+      "sha256": "f81c4541307c7ac7011f21e53bf0c9a2443bd5c9c4be7aa4a7267a4e47fb3ab7"
+    },
+    {
+      "path": "test/stormwake-v61-reliability.mjs",
+      "kind": "added",
+      "sha256": "08d543dc7d4ec159fd2e5fdfe762804a002aa91b797d6986f2309278e50f1520"
+    },
+    {
+      "path": "test/test_launcher_v61.py",
+      "kind": "added",
+      "sha256": "b613270cbee074319754154c35c0c863e35cd20b1a5fd7234408e36d7be5e4ff"
+    },
+    {
+      "path": "tools/autoqa/runner.py",
+      "kind": "modified",
+      "sha256": "7cc0db57594c0fb94fe7df14f8141b4b8f48f9630da0c0b39925e0d3809bbc31"
+    },
+    {
+      "path": "tools/build_fingerprint.py",
+      "kind": "added",
+      "sha256": "324b911a92bfde63c19d95629b3243f1bbcfa9029bf4300e08032e5e50a78e52"
+    },
+    {
+      "path": "tools/release_v61.py",
+      "kind": "added",
+      "sha256": "7dbc22b3d2fd0bab4042e5b31e1452b61b6413451fd4cfc183086c5aad6f8734"
+    },
+    {
+      "path": "00_START_STORMWAKE_V61.cmd",
+      "kind": "added",
+      "sha256": "f7c4542b7cb93be4abc249a4d398d365e2494d1a5e0eb8a719e5f7363137836c"
+    },
+    {
+      "path": "package.json",
+      "kind": "modified",
+      "sha256": "bd49b2593a0d159b2f29072c3828d876a5403a7ca98389ae5a3e28780a9b7753"
+    },
+    {
+      "path": "start_v38.py",
+      "kind": "modified",
+      "sha256": "9b2467f21774572525ea4073178d765170090341b87e6fad8b42570529346174"
+    },
+    {
+      "path": "start_v60.py",
+      "kind": "modified",
+      "sha256": "8539e0c5a7e2e7abf5476e804e003f61ddcce65b79577dbc04f46b58e4218cfb"
+    },
+    {
+      "path": "start_v61.py",
+      "kind": "added",
+      "sha256": "8389411ab490de6bb5d43bc0fc1a3bb996852e7e2674337b2738c43d013c550d"
+    }
+  ],
+  "acceptance_csv": "qa/V61/acceptance_cases.csv",
+  "evidence_index": "qa/V61/evidence_index.json"
+}

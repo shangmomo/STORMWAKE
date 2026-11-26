@@ -1,0 +1,18 @@
+/* Three HUD modes, independent of photo/camera and gameplay state. Never hide dialogs or start/error screens. */
+.sw-hud-switch{position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:80;border:1px solid #80a4ad66;border-radius:7px;background:#0c222bd9;color:#d7edf2;padding:5px 10px;font:12px system-ui;cursor:pointer;pointer-events:auto}.sw-hud-switch[hidden]{display:none!important}
+body[data-sw-hud=compact] :is(#fps,.tw-stats,.tw-brand,.hl-clock,.hl-home,.ic-notice,.tw-photo-hint,.land-v31-controls,.land-v31-header,.land-v31-sub,.marine-banner){display:none!important}
+body[data-sw-hud=compact] .land-v31-hud{max-width:min(310px,40vw)}
+body[data-sw-hud=compact] .sw-deck-combat :is(.land-v31-task,.land-v31-enemy){display:none!important}
+body[data-sw-hud=compact] .sw-v39-hud{max-width:min(310px,40vw);font-size:12px}
+body[data-sw-hud=compact] :is(.ic-open,.ocean-chart-launch,.hunt-launch){display:none!important}
+body[data-sw-hud=pure] :is(#fps,.sw-hud-switch,.tw-hud,.tw-rail,.tw-toasts,.tw-photo-hint,.gm-purse,.gm-map,.gm-fight,.gm-bite,.gm-cast,.gm-dot,.hl-clock,.hl-home,.ic-open,.ic-notice,.fleet-launch,.ocean-chart-launch,.il-launch,.hunt-launch,.crew-launch,.marine-banner,.sw-v39-hud,.land-v31-hud,.hunt-weapon-hud,.hunt-reticle,.hunt-boss-hud,.hunt-hit-notice,.hunt-attack-callout,.boat-recovery,.sw-v67-deep-nav,.sw-v67-sea-notice,.abyss-raid-hud){display:none!important}
+body:is([data-sw-context=abyss],[data-sw-context=research]) :is(.sw-v39-hud,.land-v31-hud,.hunt-weapon-hud,.hunt-reticle,.hunt-boss-hud,.hunt-hit-notice,.hunt-attack-callout,.sw-v67-sea-notice,.ic-open,.fleet-launch,.ocean-chart-launch,.il-launch,.hunt-launch,.marine-banner,.boat-recovery){display:none!important}
+body[data-sw-context=research] :is(.gm-map,.gm-purse,.gm-fight,.gm-bite,.gm-cast,.gm-dot){display:none!important}
+.gm-catch.is-on,.gm-catch-scrim.is-on{pointer-events:auto!important;cursor:pointer}
+.land-v66-weaponbar button{pointer-events:auto;cursor:pointer}.land-v66-weaponbar button.queued{outline:1px dashed #e8c78b}
+
+body[data-sw-hud=compact] .sw-v39-hud:not(.is-expanded) :is(.sw-v39-help,.sw-v42-camera,.sw-v39-heading){display:none!important}
+body[data-sw-hud=pure] :is(.hl-toast,.land-v31-message,.tw-toast){display:none!important}
+
+body[data-sw-hud=compact] .abyss-shortcuts{display:none!important}
+body[data-sw-hud=compact] .abyss-raid-hud header small{display:none!important}

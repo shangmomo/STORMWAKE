@@ -1,0 +1,129 @@
+{
+  "source_attribution": {
+    "sailor": "Quaternius Animated Man (CC0, https://poly.pizza/m/HMnuH5geEG); source tools/assets_stage/man.glb",
+    "rogue": "Quaternius RPG Characters Pack (CC0, https://quaternius.com/packs/rpgcharacters.html); source tools/assets_stage/character_animated.glb"
+  },
+  "notes": "Rig, mesh, weights, clip channels and buffer bytes preserved; only glTF material palette changed.",
+  "models": [
+    {
+      "id": "admiral",
+      "family": "rogue",
+      "file": "pirate_admiral.glb",
+      "source": "character_animated.glb",
+      "sha256": "4ca38737f3c8f46405fd77a23b4c47545469f351c8cd017191a1c948171de3d0",
+      "joints": 31,
+      "animations": 12,
+      "materials": 11
+    },
+    {
+      "id": "sailor",
+      "family": "sailor",
+      "file": "pirate_sailor.glb",
+      "source": "man.glb",
+      "sha256": "512fa33096664e429a2115d77c66f27ee7ddce148cf9b9401ca218266885ab86",
+      "joints": 31,
+      "animations": 11,
+      "materials": 6
+    },
+    {
+      "id": "corsair",
+      "family": "rogue",
+      "file": "pirate_corsair.glb",
+      "source": "character_animated.glb",
+      "sha256": "b755796a12309eeeeca7b80d18763b86d432798434dac38ba4d1e2a726de4bd1",
+      "joints": 31,
+      "animations": 12,
+      "materials": 11
+    },
+    {
+      "id": "herbalist",
+      "family": "sailor",
+      "file": "pirate_herbalist.glb",
+      "source": "man.glb",
+      "sha256": "85ed8941fa8a86002d5ac98666880683777b2a5dad37e4b5d797b73716c0a94e",
+      "joints": 31,
+      "animations": 11,
+      "materials": 6
+    },
+    {
+      "id": "explorer",
+      "family": "rogue",
+      "file": "pirate_explorer.glb",
+      "source": "character_animated.glb",
+      "sha256": "b6813d270c36080ade31d73719c9b63789fc8027a839503eb1fa9ea888362357",
+      "joints": 31,
+      "animations": 12,
+      "materials": 11
+    },
+    {
+      "id": "nightwatch",
+      "family": "sailor",
+      "file": "pirate_nightwatch.glb",
+      "source": "man.glb",
+      "sha256": "8dfa28bfce1361ac4c77431e1ac8d6fa73c3efb86be3b4636b5c830e21709f97",
+      "joints": 31,
+      "animations": 11,
+      "materials": 6
+    },
+    {
+      "id": "shipwright",
+      "family": "rogue",
+      "file": "pirate_shipwright.glb",
+      "source": "character_animated.glb",
+      "sha256": "bc49db1eb8e372528c1ec883e393bce7311ac0997f0959126dcf7354ced5026d",
+      "joints": 31,
+      "animations": 12,
+      "materials": 11
+    },
+    {
+      "id": "innkeeper",
+      "family": "sailor",
+      "file": "pirate_innkeeper.glb",
+      "source": "man.glb",
+      "sha256": "46eee22474ea4107b02b3ef1d3eee40bd9607330e2e93fa83038f89be3035b83",
+      "joints": 31,
+      "animations": 11,
+      "materials": 6
+    },
+    {
+      "id": "messenger",
+      "family": "rogue",
+      "file": "pirate_messenger.glb",
+      "source": "character_animated.glb",
+      "sha256": "9e2963a1a992872c79c31a1d0b01646eaa2017db4731df66134750ee1667e55f",
+      "joints": 31,
+      "animations": 12,
+      "materials": 11
+    },
+    {
+      "id": "scholar",
+      "family": "sailor",
+      "file": "pirate_scholar.glb",
+      "source": "man.glb",
+      "sha256": "b341471b9b34c8ce3376d228750408bf50d15b98bd26d107783d1e31e56ff986",
+      "joints": 31,
+      "animations": 11,
+      "materials": 6
+    },
+    {
+      "id": "captain",
+      "family": "rogue",
+      "file": "pirate_captain.glb",
+      "source": "character_animated.glb",
+      "sha256": "e7a16995f2d858c6f6a45f1d623d33e4061e0bf6776945d8a9a2b85010aed5ff",
+      "joints": 31,
+      "animations": 12,
+      "materials": 11
+    },
+    {
+      "id": "corsair_boss",
+      "family": "rogue",
+      "file": "pirate_corsair_boss.glb",
+      "source": "character_animated.glb",
+      "sha256": "bf23e0cca4d3180f0783bb7465096b1abd3da365219cef2ee40ea83569a75f27",
+      "joints": 31,
+      "animations": 12,
+      "materials": 11
+    }
+  ]
+}

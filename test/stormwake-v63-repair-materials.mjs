@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {MerchantRescueQuest} from '../src/voyage/MerchantRescueQuest.js';
+import {StormBeaconQuest,BEACON} from '../src/voyage/StormBeaconQuest.js';
+import {shipToWorld} from '../src/voyage/CargoReach.js';
+const ship={x:69.8,y:0,z:42,yaw:0},merchant=new MerchantRescueQuest();let planks=0,spent=0;const consume=()=>{if(!planks)return false;planks--;spent++;return true;};merchant.consumePlank=consume;merchant.begin();
+const hole=merchant.damage.holes[0],actor={id:'a',mode:'swim',...shipToWorld(merchant.ship,hole.local)};
+for(let i=0;i<30;i++){merchant.action('repair',actor,ship,{tool:'plank',holeId:hole.id});merchant.update(.1,ship);}assert.equal(hole.state,'open','holding an empty plank slot cannot repair');planks=1;
+for(let i=0;i<8;i++){merchant.action('repair',actor,ship,{tool:'plank',holeId:hole.id});merchant.update(.1,ship);}assert.equal(hole.state,'sealed');assert.equal(spent,1);assert.equal(planks,0);
+const beacon=new StormBeaconQuest();beacon.consumePlank=consume;beacon.phase='sailing';const diver={id:'a',mode:'swim',...BEACON};for(let i=0;i<75;i++){beacon.action('repair',diver,ship,{tool:'plank'});beacon.update(.1,ship);}assert.ok(beacon.progress<1);assert.equal(beacon.action('fit_wick',diver,ship),false);planks=1;for(let i=0;i<10;i++){beacon.action('repair',diver,ship,{tool:'plank'});beacon.update(.1,ship);}assert.equal(beacon.progress,1);assert.equal(spent,2);for(let i=0;i<10;i++)beacon.update(.1,ship);assert.equal(spent,2,'completed beacon never charges another plank');
+console.log('V63 actual task repair materials: zero-stock rejection, one plank per sealed hole/interface, persistent partial progress and no repeated charge PASS');

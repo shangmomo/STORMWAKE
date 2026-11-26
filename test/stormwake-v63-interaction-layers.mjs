@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {CartographerRuntime} from '../src/voyage/CartographerRuntime.js';
+import {CARTOGRAPHER as C} from '../src/voyage/CartographerQuest.js';
+import {DeepEchoRuntime} from '../src/voyage/DeepEchoRuntime.js';
+import {InteractionDirector} from '../src/interact/InteractionDirector.js';
+import {Vector3} from '../src/engine/index.js';
+const p={mode:'deck',deckLayer:'deck',position:{...C.table}},v={actorId:'local',app:{player:p},localWorld:point=>point,equipment:{active:'hands'}},runtime={v,quest:{phase:'offer'},action:()=>true};
+const candidates=()=>CartographerRuntime.prototype.candidates.call(runtime);
+assert(!candidates().some(c=>c.id==='cartographer_accept'),'letter cannot compete with a helm on the deck above');p.deckLayer='hold';assert(candidates().some(c=>c.id==='cartographer_accept'));
+runtime.quest={phase:'log_held',logActor:'other'};assert(!candidates().some(c=>c.id==='cartographer_read_log'));runtime.quest.logActor='local';assert(candidates().some(c=>c.id==='cartographer_read_log'));
+const deep={v,quest:{phase:'parts',parts:0},action:()=>true,piloting:false,ready:false};p.deckLayer='deck';assert(!DeepEchoRuntime.prototype.candidates.call(deep).some(c=>c.id==='deep_echo_part_0'));p.deckLayer='hold';assert(DeepEchoRuntime.prototype.candidates.call(deep).some(c=>c.id==='deep_echo_part_0'));
+p.position={x:0,y:0,z:0};p.getViewDir=out=>out.set(0,0,1);runtime.quest={phase:'accepted'};v.equipment={active:'spyglass',raised:true};const router=new InteractionDirector();router.beginFrame({view:new Vector3(0,0,1)});for(const c of candidates())router.add(c,p.position);router.add({id:'arsenal_harpoon',position:{x:0,y:0,z:.9},range:2,priority:235,perform:()=>true},p.position);assert.equal(router.select().id,'cartographer_spot','a bow rack cannot steal E while confirming a raised spyglass');
+console.log('V63 interaction eligibility: actual cabin layers, exclusive log carrier and targeted spyglass confirmation outranks nearby weapon rack PASS');

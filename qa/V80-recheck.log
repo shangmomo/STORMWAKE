@@ -1,0 +1,126 @@
+TAP version 13
+# Subtest: surface actual force integrator, A turns port +X and D starboard -X
+ok 1 - surface actual force integrator, A turns port +X and D starboard -X
+  ---
+  duration_ms: 10.782505
+  type: 'test'
+  ...
+# Subtest: submarine A/D consistent with forward-facing camera ahead and astern
+ok 2 - submarine A/D consistent with forward-facing camera ahead and astern
+  ---
+  duration_ms: 1.084513
+  type: 'test'
+  ...
+# Subtest: side and forward viewport rays clear, adjacent steel remains solid, cabin cannot walk through openings
+ok 3 - side and forward viewport rays clear, adjacent steel remains solid, cabin cannot walk through openings
+  ---
+  duration_ms: 45.405188
+  type: 'test'
+  ...
+# Subtest: current guest driver owns input; departed, stale or wrong station input stops
+ok 4 - current guest driver owns input; departed, stale or wrong station input stops
+  ---
+  duration_ms: 0.815768
+  type: 'test'
+  ...
+# Subtest: teleport destination in detection, natural aggro and attacks without world event
+ok 5 - teleport destination in detection, natural aggro and attacks without world event
+  ---
+  duration_ms: 25.651974
+  type: 'test'
+  ...
+# Subtest: AI safe combat course and broadside real ballistic direction; no shooting dead targets
+ok 6 - AI safe combat course and broadside real ballistic direction; no shooting dead targets
+  ---
+  duration_ms: 0.91871
+  type: 'test'
+  ...
+# Subtest: AI walks to capstan, unfurls sails and fires without taking human helm
+ok 7 - AI walks to capstan, unfurls sails and fires without taking human helm
+  ---
+  duration_ms: 12.910971
+  type: 'test'
+  ...
+# max route grade 0.295
+# max route grade 0.243
+# Subtest: real terrain: both expedition routes continuous and traversable
+ok 8 - real terrain: both expedition routes continuous and traversable
+  ---
+  duration_ms: 8.584214
+  type: 'test'
+  ...
+# Subtest: actual cave mesh: roof, side collision, open entrance, return route
+ok 9 - actual cave mesh: roof, side collision, open entrance, return route
+  ---
+  duration_ms: 6.028409
+  type: 'test'
+  ...
+# Subtest: three service rooms: station and aisle clear, counter and rear solid
+ok 10 - three service rooms: station and aisle clear, counter and rear solid
+  ---
+  duration_ms: 23.183378
+  type: 'test'
+  ...
+# Subtest: corsair has bounded turn, initialized strafe, locked dash, no remote melee
+ok 11 - corsair has bounded turn, initialized strafe, locked dash, no remote melee
+  ---
+  duration_ms: 2.319638
+  type: 'test'
+  ...
+# Subtest: actual V69 village plus four new service buildings: full-sized player can enter
+ok 12 - actual V69 village plus four new service buildings: full-sized player can enter
+  ---
+  duration_ms: 543.832307
+  type: 'test'
+  ...
+# Subtest: directional damage, spillover, repair budget and finite snapshots
+ok 13 - directional damage, spillover, repair budget and finite snapshots
+  ---
+  duration_ms: 1.886382
+  type: 'test'
+  ...
+# Subtest: isolated flooding, equal-volume transfer and pumping, power affects thrust
+ok 14 - isolated flooding, equal-volume transfer and pumping, power affects thrust
+  ---
+  duration_ms: 23.195777
+  type: 'test'
+  ...
+# Subtest: physical bulkhead closed both ways, reopening traversable, obstruction rejected
+ok 15 - physical bulkhead closed both ways, reopening traversable, obstruction rejected
+  ---
+  duration_ms: 12.349287
+  type: 'test'
+  ...
+# Subtest: real AbyssRaid damage and repair invoke compartment logic
+ok 16 - real AbyssRaid damage and repair invoke compartment logic
+  ---
+  duration_ms: 0.431995
+  type: 'test'
+  ...
+# Subtest: server checks door distance and blocks walking through snapshot-closed door
+ok 17 - server checks door distance and blocks walking through snapshot-closed door
+  ---
+  duration_ms: 0.813375
+  type: 'test'
+  ...
+# Subtest: real underground annex: 20 round trips on dry route, roof, bench collision and reservoir depth
+ok 18 - real underground annex: 20 round trips on dry route, roof, bench collision and reservoir depth
+  ---
+  duration_ms: 126.678413
+  type: 'test'
+  ...
+# Subtest: actual swimmer reaches shore and returns to walk on local reservoir terrain
+ok 19 - actual swimmer reaches shore and returns to walk on local reservoir terrain
+  ---
+  duration_ms: 5.558839
+  type: 'test'
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 19
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4823.658267

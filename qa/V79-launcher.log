@@ -1,0 +1,12 @@
+usage: start_v79.py [-h] [--mode {solo,host,join}] [--room ROOM] [--port PORT]
+                    [--no-browser]
+
+STORMWAKE V79 - one launcher, choose solo / LAN host / LAN join. Python 3.10+,
+Chrome or Edge with WebGPU; host also requires Node.js 22+.
+
+options:
+  -h, --help            show this help message and exit
+  --mode {solo,host,join}
+  --room ROOM
+  --port PORT
+  --no-browser

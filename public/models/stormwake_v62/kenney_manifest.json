@@ -1,0 +1,66 @@
+[
+  {
+    "file": "kenney_barrel.glb",
+    "source": "public/models/stormwake_v47/kenney_barrel.glb",
+    "sourceSHA256": "7616dedf7c1023afa6ecd3c52a4609460aae0e582dee14e60ec5e47c1174793b",
+    "sha256": "9e37b8131d7e42a1a4db4b60b9eae55bda97a80911afb91acc00473a2332f73c",
+    "license": "CC0",
+    "change": "embedded original Kenney Pirate Kit 2.1 atlas; geometry unchanged"
+  },
+  {
+    "file": "kenney_cannon-ball.glb",
+    "source": "public/models/stormwake_v47/kenney_cannon-ball.glb",
+    "sourceSHA256": "8d60d9f56df1bf118d3c589bc14a1b37d21b7834ecb9541b7840a4e8200797e6",
+    "sha256": "1526e2c9cb066b6edad745b1b3a39c5d18a6bbbdfdfdb09da3cf1ac7c3344c1e",
+    "license": "CC0",
+    "change": "embedded original Kenney Pirate Kit 2.1 atlas; geometry unchanged"
+  },
+  {
+    "file": "kenney_cannon-mobile.glb",
+    "source": "public/models/stormwake_v47/kenney_cannon-mobile.glb",
+    "sourceSHA256": "0e8ae9889b35bb43c0da779a7eed3c2a7a204b80350516f7c4ad523a550d8867",
+    "sha256": "934f1689c3fd97a1957d8f86e59f862b02be7dee914e67e588db84e7fc67b87b",
+    "license": "CC0",
+    "change": "embedded original Kenney Pirate Kit 2.1 atlas; geometry unchanged"
+  },
+  {
+    "file": "kenney_cannon.glb",
+    "source": "public/models/stormwake_v47/kenney_cannon.glb",
+    "sourceSHA256": "b2ea71475fa52de312a0fe3fb9085e1a3f83f9e6bb167668fb62f71383cbc41a",
+    "sha256": "a8f868310a92bcd343953600509f0ace9abea5ab31209803688d1ef468e3529b",
+    "license": "CC0",
+    "change": "embedded original Kenney Pirate Kit 2.1 atlas; geometry unchanged"
+  },
+  {
+    "file": "kenney_chest.glb",
+    "source": "public/models/stormwake_v47/kenney_chest.glb",
+    "sourceSHA256": "26d26c4c032a12320fe05b5005a72eba96db7167db0d35873639a4b7dcc06bcb",
+    "sha256": "65754449fe51477424fdd59181e78e41da145ed65cddb32e010fbaf84c158658",
+    "license": "CC0",
+    "change": "embedded original Kenney Pirate Kit 2.1 atlas; geometry unchanged"
+  },
+  {
+    "file": "kenney_crate.glb",
+    "source": "public/models/stormwake_v47/kenney_crate.glb",
+    "sourceSHA256": "b525674e07c8b83667512a8dd93be0d7684358347d0e64d2bb16b156ac382ed1",
+    "sha256": "f708eb10f6f64d5a2daef655228773d14ca08228828e54d69af217285aaec822",
+    "license": "CC0",
+    "change": "embedded original Kenney Pirate Kit 2.1 atlas; geometry unchanged"
+  },
+  {
+    "file": "kenney_flag-pirate.glb",
+    "source": "public/models/stormwake_v47/kenney_flag-pirate.glb",
+    "sourceSHA256": "4672c3a8c2844e9fb09838b65c97fdf5c49447c2566310918f8e7563f7200baf",
+    "sha256": "846ce653c870024ac0e98305b408584a03b385d5f259de168639dadb80fffb83",
+    "license": "CC0",
+    "change": "embedded original Kenney Pirate Kit 2.1 atlas; geometry unchanged"
+  },
+  {
+    "file": "kenney_mast-ropes.glb",
+    "source": "public/models/stormwake_v47/kenney_mast-ropes.glb",
+    "sourceSHA256": "ad2bd14acacd3f4901177d8b13bcc6158f558e8c1959b6e19576e17ea8b10570",
+    "sha256": "775ccf08e801065e995f343be0363636ad02013637cc6a929e9afa8a0e890b72",
+    "license": "CC0",
+    "change": "embedded original Kenney Pirate Kit 2.1 atlas; geometry unchanged"
+  }
+]

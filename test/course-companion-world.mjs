@@ -1,0 +1,41 @@
+// Optional integration check against the actual village geometry and terrain.
+import assert from 'node:assert/strict';
+import './headless.mjs';
+import { GPU } from '../src/engine/gpu/GPU.js';
+import { Scene, Vector3 } from '../src/engine/index.js';
+import { TerrainData } from '../src/world/TerrainData.js';
+import { Colliders } from '../src/world/Colliders.js';
+import { Village } from '../src/world/Village.js';
+import { CompanionActor } from '../src/course/CompanionActor.js';
+
+await GPU.init( { headless: true } );
+const terrain = new TerrainData(), colliders = new Colliders(), scene = new Scene();
+const village = new Village( { scene, terrain, colliders } );
+const p = new Vector3( 53.6, 0, - 77 );
+p.y = Math.max( terrain.heightAt( p.x, p.z ), colliders.groundHeightAt( p.x, p.z, 50 ) );
+const app = { scene, colliders, terrainData: terrain, village, player: { position: p, yaw: Math.PI, mode: 'walk' }, settings: { timeOfDay: 10 },
+	game: { state: {} }, homeLife: { saveState: { home: 'A', day: 1 } }, expedition: {} };
+const actor = new CompanionActor( app );
+assert.equal( actor.command( 'follow' ), true );
+p.x += 5;
+for ( let i = 0; i < 1200; i ++ ) actor.update( 1 / 60 );
+const followDistance = Math.hypot( p.x - actor.group.position.x, p.z - actor.group.position.z );
+assert.ok( followDistance < 2.3, `companion failed to follow across the village: ${ followDistance }m` );
+const home = village.enterable.find( h => h.name === 'A' );
+assert.equal( actor.command( 'home' ), true );
+for ( let i = 0; i < 3000; i ++ ) actor.update( 0.05 );
+const bedDistance = Math.hypot( actor.group.position.x - home.bed.x, actor.group.position.z - home.bed.z );
+assert.equal( home.open, true, `companion should open the selected cottage door: ${ JSON.stringify( { position: actor.group.position, target: actor.target, stage: actor.homeStage, approach: home.approach, navNodes: actor.nav?.nodes.size, navOpen: actor.nav?.open.length, path: actor.navPath.slice( 0, 3 ), retry: actor.navRetry } ) }` );
+assert.ok( bedDistance < 1.7, `companion did not reach the bed: ${ bedDistance }m` );
+assert.ok( Math.abs( actor.group.position.y - home.floorY ) < 0.3, 'companion must stay on the cottage floor' );
+const stilt = village.enterable.find( h => h.name === 'S1' );
+p.set( 53.6, 0, - 77 );
+p.y = Math.max( terrain.heightAt( p.x, p.z ), colliders.groundHeightAt( p.x, p.z, 50 ) );
+app.homeLife.saveState.home = 'S1';
+const second = new CompanionActor( app );
+assert.equal( second.command( 'home' ), true );
+for ( let i = 0; i < 4000; i ++ ) second.update( 0.05 );
+const stiltDistance = Math.hypot( second.group.position.x - stilt.bed.x, second.group.position.z - stilt.bed.z );
+assert.ok( stilt.open && stiltDistance < 1.7 && Math.abs( second.group.position.y - stilt.floorY ) < 0.3, `stilt cottage: ${ JSON.stringify( { open: stilt.open, position: second.group.position, stage: second.homeStage, target: second.target, distance: stiltDistance } ) }` );
+console.log( 'ok companion follows in the village and enters the selected cottage' );
+process.exit( 0 );

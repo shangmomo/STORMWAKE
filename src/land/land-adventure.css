@@ -1,0 +1,71 @@
+.land-v31-hud {
+	position: fixed;
+	z-index: 70;
+	/* Clear the existing Xiaoxi companion button at top:72px. */
+	top: 154px;
+	right: 16px;
+	width: min(335px, calc(100vw - 32px));
+	color: #e4f9f3;
+	font: 600 12px/1.5 system-ui, -apple-system, 'Microsoft Yahei', sans-serif;
+	pointer-events: none;
+	text-shadow: 0 1px 2px #001018;
+	filter: drop-shadow(0 10px 16px rgba(0,0,0,.28));
+}
+.land-v31-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+	padding: 8px 12px;
+	border: 1px solid #4b999b;
+	border-radius: 12px 12px 0 0;
+	background: linear-gradient(125deg, rgba(3,42,55,.93), rgba(5,28,40,.91));
+	font-size: 13px;
+	letter-spacing: .025em;
+}
+.land-v31-header span:last-child { color: #99e8c9; white-space: nowrap; font-size: 11px; }
+.land-v31-body {
+	padding: 11px 12px 10px;
+	border: 1px solid #306979;
+	border-top: none;
+	border-radius: 0 0 12px 12px;
+	background: rgba(2,25,37,.86);
+	backdrop-filter: blur(9px);
+}
+.land-v31-task { color: #f7e4b7; font-size: 13px; line-height: 1.46; }
+.land-v31-sub { color: #80c9d3; margin: 6px 0 9px; }
+.land-v31-vitals { display: flex; gap: 8px; align-items: center; margin: 4px 0; }
+.land-v31-vitals span { flex: 0 0 28px; font-size: 11px; color: #b6d8da; }
+.land-v31-vitals div { flex: 1; height: 7px; border-radius: 8px; overflow: hidden; background: #243e4a; }
+.land-v31-vitals i { display: block; height: 100%; background: linear-gradient(90deg,#a73357,#f36e75); transition: width .15s; }
+.land-v31-vitals i.land-v31-stamina { background: linear-gradient(90deg,#258f84,#69ddbc); }
+.land-v31-vitals b { flex: 0 0 24px; text-align: right; font-size: 11px; font-variant-numeric: tabular-nums; }
+.land-v31-enemy { min-height: 16px; color: #ff9b92; margin-top: 6px; }
+.land-v31-gear { color: #a8f1db; margin-top: 2px; }
+.land-v31-controls { margin-top: 8px; padding-top: 7px; border-top: 1px solid #33586b; color: #9bb8c5; font-weight: 500; font-size: 10.5px; }
+.land-v31-message {
+	margin-top: 8px;
+	padding: 8px 10px;
+	border-left: 3px solid #65e0c9;
+	border-radius: 6px;
+	background: rgba(4,36,48,.88);
+	color: #ddf9ee;
+	font-size: 12px;
+	min-height: 0;
+}
+.land-v31-message:empty { display: none; }
+.land-v31-hit .land-v31-body { box-shadow: inset 0 0 25px rgba(227,77,93,.32); }
+.land-v31-collapsed .land-v31-body { display: none; }
+@media (max-width: 800px) {
+	.land-v31-hud { top: 150px; right: 8px; width: min(285px, calc(100vw - 16px)); font-size: 11px; }
+	.land-v31-controls { font-size: 9.5px; }
+}
+@media (max-width: 520px) {
+	.land-v31-hud { top: 154px; width: 215px; }
+	.land-v31-header { display: block; font-size: 11px; }
+	.land-v31-header span:last-child { display: block; }
+	.land-v31-controls { display: none; }
+	.land-v31-task { font-size: 11px; }
+}
+/* V66 equipment and recovery are real state, not clickable cosmetic controls. */
+.land-v66-weaponbar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:8px 0 4px}.land-v66-weaponbar span{padding:6px 4px;border:1px solid #315561;background:#0b2331;border-radius:5px;line-height:1.35;font-size:10px;color:#a3b8c0}.land-v66-weaponbar span b{display:block;font-size:11px;color:#c9e7e9}.land-v66-weaponbar span.selected{border-color:#f2ce87;background:#284b51;color:#fff2cf}.land-v66-recovery{height:4px;background:#152e38;border-radius:4px;overflow:hidden}.land-v66-recovery i{display:block;height:100%;background:#e4c483}.land-v31-enemy:not(:empty){background:#532a28;border-left:2px solid #ee9e83;padding:6px;margin-top:9px}.land-v31-gear{font-weight:700;color:#f4ddb2}

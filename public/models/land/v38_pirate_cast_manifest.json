@@ -1,0 +1,179 @@
+{
+  "schema": 1,
+  "actors": {
+    "resident_scout": {
+      "file": "pirate_scholar.glb",
+      "license": "CC0",
+      "attribution": "Quaternius CC0: Animated Man; generated recoloring V38, see v38_pirate_cast_sources.json",
+      "scale": 0.37,
+      "yOffset": 0,
+      "yawOffset": 0
+    },
+    "resident_courier": {
+      "file": "pirate_nightwatch.glb",
+      "license": "CC0",
+      "attribution": "Quaternius CC0: Animated Man; generated recoloring V38, see v38_pirate_cast_sources.json",
+      "scale": 0.37,
+      "yOffset": 0,
+      "yawOffset": 0
+    },
+    "resident_apprentice": {
+      "file": "pirate_shipwright.glb",
+      "license": "CC0",
+      "attribution": "Quaternius CC0: RPG Characters Pack; generated recoloring V38, see v38_pirate_cast_sources.json",
+      "scale": 0.64,
+      "yOffset": 0,
+      "yawOffset": 0
+    },
+    "resident_watchman": {
+      "file": "pirate_sailor.glb",
+      "license": "CC0",
+      "attribution": "Quaternius CC0: Animated Man; generated recoloring V38, see v38_pirate_cast_sources.json",
+      "scale": 0.37,
+      "yOffset": 0,
+      "yawOffset": 0
+    },
+    "resident_harbor": {
+      "file": "pirate_admiral.glb",
+      "license": "CC0",
+      "attribution": "Quaternius CC0: RPG Characters Pack; generated recoloring V38, see v38_pirate_cast_sources.json",
+      "scale": 0.64,
+      "yOffset": 0,
+      "yawOffset": 0
+    },
+    "resident_herbalist": {
+      "file": "pirate_innkeeper.glb",
+      "license": "CC0",
+      "attribution": "Quaternius CC0: Animated Man; generated recoloring V38, see v38_pirate_cast_sources.json",
+      "scale": 0.37,
+      "yOffset": 0,
+      "yawOffset": 0
+    },
+    "resident_keeper": {
+      "file": "pirate_explorer.glb",
+      "license": "CC0",
+      "attribution": "Quaternius CC0: RPG Characters Pack; generated recoloring V38, see v38_pirate_cast_sources.json",
+      "scale": 0.64,
+      "yOffset": 0,
+      "yawOffset": 0
+    },
+    "resident_netmaker": {
+      "file": "pirate_sailor.glb",
+      "license": "CC0",
+      "attribution": "Quaternius CC0: Animated Man; generated recoloring V38, see v38_pirate_cast_sources.json",
+      "scale": 0.37,
+      "yOffset": 0,
+      "yawOffset": 0
+    },
+    "resident_merchant": {
+      "file": "pirate_messenger.glb",
+      "license": "CC0",
+      "attribution": "Quaternius CC0: RPG Characters Pack; generated recoloring V38, see v38_pirate_cast_sources.json",
+      "scale": 0.64,
+      "yOffset": 0,
+      "yawOffset": 0
+    },
+    "resident_fisher": {
+      "file": "pirate_nightwatch.glb",
+      "license": "CC0",
+      "attribution": "Quaternius CC0: Animated Man; generated recoloring V38, see v38_pirate_cast_sources.json",
+      "scale": 0.37,
+      "yOffset": 0,
+      "yawOffset": 0
+    },
+    "resident_baker": {
+      "file": "pirate_corsair.glb",
+      "license": "CC0",
+      "attribution": "Quaternius CC0: RPG Characters Pack; generated recoloring V38, see v38_pirate_cast_sources.json",
+      "scale": 0.64,
+      "yOffset": 0,
+      "yawOffset": 0
+    },
+    "resident_medic": {
+      "file": "pirate_shipwright.glb",
+      "license": "CC0",
+      "attribution": "Quaternius CC0: RPG Characters Pack; generated recoloring V38, see v38_pirate_cast_sources.json",
+      "scale": 0.64,
+      "yOffset": 0,
+      "yawOffset": 0
+    },
+    "resident_sailor": {
+      "file": "pirate_herbalist.glb",
+      "license": "CC0",
+      "attribution": "Quaternius CC0: Animated Man; generated recoloring V38, see v38_pirate_cast_sources.json",
+      "scale": 0.37,
+      "yOffset": 0,
+      "yawOffset": 0
+    },
+    "resident_carpenter": {
+      "file": "pirate_admiral.glb",
+      "license": "CC0",
+      "attribution": "Quaternius CC0: RPG Characters Pack; generated recoloring V38, see v38_pirate_cast_sources.json",
+      "scale": 0.64,
+      "yOffset": 0,
+      "yawOffset": 0
+    },
+    "resident_shipwright": {
+      "file": "pirate_innkeeper.glb",
+      "license": "CC0",
+      "attribution": "Quaternius CC0: Animated Man; generated recoloring V38, see v38_pirate_cast_sources.json",
+      "scale": 0.37,
+      "yOffset": 0,
+      "yawOffset": 0
+    },
+    "resident_cartographer": {
+      "file": "pirate_explorer.glb",
+      "license": "CC0",
+      "attribution": "Quaternius CC0: RPG Characters Pack; generated recoloring V38, see v38_pirate_cast_sources.json",
+      "scale": 0.64,
+      "yOffset": 0,
+      "yawOffset": 0
+    },
+    "resident_teacher": {
+      "file": "pirate_messenger.glb",
+      "license": "CC0",
+      "attribution": "Quaternius CC0: RPG Characters Pack; generated recoloring V38, see v38_pirate_cast_sources.json",
+      "scale": 0.64,
+      "yOffset": 0,
+      "yawOffset": 0
+    },
+    "resident_gardener": {
+      "file": "pirate_corsair.glb",
+      "license": "CC0",
+      "attribution": "Quaternius CC0: RPG Characters Pack; generated recoloring V38, see v38_pirate_cast_sources.json",
+      "scale": 0.64,
+      "yOffset": 0,
+      "yawOffset": 0
+    },
+    "resident_smith": {
+      "file": "pirate_scholar.glb",
+      "license": "CC0",
+      "attribution": "Quaternius CC0: Animated Man; generated recoloring V38, see v38_pirate_cast_sources.json",
+      "scale": 0.37,
+      "yOffset": 0,
+      "yawOffset": 0
+    },
+    "resident_bellringer": {
+      "file": "pirate_herbalist.glb",
+      "license": "CC0",
+      "attribution": "Quaternius CC0: Animated Man; generated recoloring V38, see v38_pirate_cast_sources.json",
+      "scale": 0.37,
+      "yOffset": 0,
+      "yawOffset": 0
+    },
+    "captain": {
+      "file": "pirate_captain.glb",
+      "license": "CC0",
+      "attribution": "Quaternius RPG Characters Pack, CC0; recolored V38",
+      "scale": 0.64,
+      "yOffset": 0
+    },
+    "corsair": {
+      "file": "pirate_corsair_boss.glb",
+      "license": "CC0",
+      "attribution": "Quaternius RPG Characters Pack, CC0; recolored V38",
+      "scale": 0.82,
+      "yOffset": 0
+    }
+  }
+}

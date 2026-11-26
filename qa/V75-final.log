@@ -1,0 +1,383 @@
+
+> tidewater@1.0.0 test:v75
+> node --test test/stormwake-v75.mjs && npm run test:v74
+
+TAP version 13
+# east-ridge {
+#   above: 54783,
+#   below: 5739,
+#   bounds: [
+#     [ 349.03829169491615, 69.62159690856933, -334.8753030291521 ],
+#     [ 361.300301356144, 77.34127469062804, -324.3274492473856 ]
+#   ]
+# }
+# high-pass {
+#   above: 54960,
+#   below: 5562,
+#   bounds: [
+#     [ 396.6912780361275, 69.0803050994873, -400.7892976178484 ],
+#     [ 408.2225935535236, 77.29802660942077, -387.61478805487883 ]
+#   ]
+# }
+# north-pass {
+#   above: 50392,
+#   below: 10130,
+#   bounds: [
+#     [ 426.75152012604906, 59.94844493865967, -428.1989030050882 ],
+#     [ 435.9105369657394, 66.4230134010315, -418.8709361902366 ]
+#   ]
+# }
+# fossil-approach {
+#   above: 42625,
+#   below: 17897,
+#   bounds: [
+#     [ 404.3583513605461, 45.39627380371094, -599.8895851295423 ],
+#     [ 414.6522734934803, 52.36888599395752, -589.4598583321266 ]
+#   ]
+# }
+# fossil-ridge {
+#   above: 51544,
+#   below: 8978,
+#   bounds: [
+#     [ 343.4065388451021, 45.81705722808838, -649.3184094063969 ],
+#     [ 353.6336131896314, 53.03869128227234, -639.4483080228932 ]
+#   ]
+# }
+# original {
+#   lo: [ -0.3144760154907066, -0.018142533345469763, -0.3548964544485512 ],
+#   hi: [ 0.31387915581073417, 1.7177603215602057, 0.2010692883319427 ]
+# }
+# V75_Idle_talking maxReach 0.2488435059785843
+# V75_Action_interact maxReach 0.40975093841552734
+# Subtest: original rock FBX converted to complete 20174 triangle PBR GLB
+ok 1 - original rock FBX converted to complete 20174 triangle PBR GLB
+  ---
+  duration_ms: 21.051855
+  type: 'test'
+  ...
+# Subtest: five rock sites use actual triangles, embedded base, visible height and terrain clearance
+ok 2 - five rock sites use actual triangles, embedded base, visible height and terrain clearance
+  ---
+  duration_ms: 36.478648
+  type: 'test'
+  ...
+# Subtest: rock wall blocks swept player capsule at a visible, steep source triangle on every site
+ok 3 - rock wall blocks swept player capsule at a visible, steep source triangle on every site
+  ---
+  duration_ms: 76.942876
+  type: 'test'
+  ...
+# Subtest: all original road centerlines stay outside every new collision world with >2m horizontal clearance
+ok 4 - all original road centerlines stay outside every new collision world with >2m horizontal clearance
+  ---
+  duration_ms: 3.019365
+  type: 'test'
+  ...
+# Subtest: captain motion has 13 reviewed rotation channels; rejects wrong skeleton or invalid quaternion without partial mutation
+ok 5 - captain motion has 13 reviewed rotation channels; rejects wrong skeleton or invalid quaternion without partial mutation
+  ---
+  duration_ms: 103.747506
+  type: 'test'
+  ...
+# Subtest: actual 63-bone skin, foot stability, arm reach and no extreme vertex stretch during both retargeted actions
+ok 6 - actual 63-bone skin, foot stability, arm reach and no extreme vertex stretch during both retargeted actions
+  ---
+  duration_ms: 122.171307
+  type: 'test'
+  ...
+# Subtest: conversation greeting -> talk -> idle, repeated E cannot restart, walking away cancels, 30/60/144Hz
+ok 7 - conversation greeting -> talk -> idle, repeated E cannot restart, walking away cancels, 30/60/144Hz
+  ---
+  duration_ms: 125.850162
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4687.024819
+
+> tidewater@1.0.0 test:v74
+> node --test test/stormwake-v74.mjs test/stormwake-v73.mjs test/stormwake-v72.mjs test/stormwake-v71.mjs test/stormwake-v70.mjs test/stormwake-v69.mjs && node test/stormwake-v68-ws.mjs
+
+TAP version 13
+# Subtest: physical screen directions: bridge, chase, four heading quadrants, normal/inverted input
+ok 1 - physical screen directions: bridge, chase, four heading quadrants, normal/inverted input
+  ---
+  duration_ms: 6.436675
+  type: 'test'
+  ...
+# Subtest: interior stations, moving boat rotation, consistent look direction and sensitivity
+ok 2 - interior stations, moving boat rotation, consistent look direction and sensitivity
+  ---
+  duration_ms: 119.028016
+  type: 'test'
+  ...
+# Subtest: all species swim in 3D with bounded heading change, speed, depth and shoreline clearance
+ok 3 - all species swim in 3D with bounded heading change, speed, depth and shoreline clearance
+  ---
+  duration_ms: 92.811916
+  type: 'test'
+  ...
+# Subtest: host publishes depth, pitch and bank for every titan
+ok 4 - host publishes depth, pitch and bank for every titan
+  ---
+  duration_ms: 1.569013
+  type: 'test'
+  ...
+# Subtest: AI operates both actual sail stations without stealing human helm and can furl both
+ok 5 - AI operates both actual sail stations without stealing human helm and can furl both
+  ---
+  duration_ms: 65.576189
+  type: 'test'
+  ...
+# Subtest: actual V64 asset: all four cloth panels return exactly, trim moves vertices and normals stay finite
+ok 6 - actual V64 asset: all four cloth panels return exactly, trim moves vertices and normals stay finite
+  ---
+  duration_ms: 141.122925
+  type: 'test'
+  ...
+# Subtest: real cabin lid included in collision BVH; crossing roof and repeated jump landings remain above cabin
+ok 7 - real cabin lid included in collision BVH; crossing roof and repeated jump landings remain above cabin
+  ---
+  duration_ms: 1205.748034
+  type: 'test'
+  ...
+# max route grade 0.295
+# max route grade 0.243
+# Subtest: real terrain: both expedition routes continuous and traversable
+ok 8 - real terrain: both expedition routes continuous and traversable
+  ---
+  duration_ms: 8.584479
+  type: 'test'
+  ...
+# Subtest: actual cave mesh: roof, side collision, open entrance, return route
+ok 9 - actual cave mesh: roof, side collision, open entrance, return route
+  ---
+  duration_ms: 8.329436
+  type: 'test'
+  ...
+# Subtest: three service rooms: station and aisle clear, counter and rear solid
+ok 10 - three service rooms: station and aisle clear, counter and rear solid
+  ---
+  duration_ms: 45.365782
+  type: 'test'
+  ...
+# Subtest: corsair has bounded turn, initialized strafe, locked dash, no remote melee
+ok 11 - corsair has bounded turn, initialized strafe, locked dash, no remote melee
+  ---
+  duration_ms: 3.484973
+  type: 'test'
+  ...
+# Subtest: actual V69 village plus four new service buildings: full-sized player can enter
+ok 12 - actual V69 village plus four new service buildings: full-sized player can enter
+  ---
+  duration_ms: 837.51856
+  type: 'test'
+  ...
+# merchant 34280 vertices 34349 triangles
+# shipwright 39429 vertices 37765 triangles
+# keeper 35120 vertices 34769 triangles
+# expedition-notice 13920 vertices 10852 triangles
+# Subtest: all eight selected artist scans physically present with texture and mesh data
+ok 13 - all eight selected artist scans physically present with texture and mesh data
+  ---
+  duration_ms: 6.846727
+  type: 'test'
+  ...
+# Subtest: scanned models fit measured local collider envelope including 90-degree rotation
+ok 14 - scanned models fit measured local collider envelope including 90-degree rotation
+  ---
+  duration_ms: 1.963325
+  type: 'test'
+  ...
+# Subtest: all four rooms build real PBR mesh with scan UVs, normals and texture layer indices
+ok 15 - all four rooms build real PBR mesh with scan UVs, normals and texture layer indices
+  ---
+  duration_ms: 266.128964
+  type: 'test'
+  ...
+# Subtest: cave scan supplies are outside central passage and inside rock arch
+ok 16 - cave scan supplies are outside central passage and inside rock arch
+  ---
+  duration_ms: 0.349907
+  type: 'test'
+  ...
+# Subtest: existing enemies cannot instantly turn or attack-turn, return to home outside territory
+ok 17 - existing enemies cannot instantly turn or attack-turn, return to home outside territory
+  ---
+  duration_ms: 1.48185
+  type: 'test'
+  ...
+# Subtest: survey records unique and return requires all three stations; malformed saves rejected
+ok 18 - survey records unique and return requires all three stations; malformed saves rejected
+  ---
+  duration_ms: 0.763981
+  type: 'test'
+  ...
+# Subtest: optional T. rex AI: locked telegraph, bounded angular velocity and acceleration, bite event and leash
+ok 19 - optional T. rex AI: locked telegraph, bounded angular velocity and acceleration, bite event and leash
+  ---
+  duration_ms: 4.048453
+  type: 'test'
+  ...
+# Subtest: uploaded GLB physically bundled, verified SHA256, source clips, full skin and texture count
+ok 20 - uploaded GLB physically bundled, verified SHA256, source clips, full skin and texture count
+  ---
+  duration_ms: 23.463648
+  type: 'test'
+  ...
+# Subtest: rigid eyes become two additional animated attachments without changing original bones
+ok 21 - rigid eyes become two additional animated attachments without changing original bones
+  ---
+  duration_ms: 11.613116
+  type: 'test'
+  ...
+# Subtest: calibration and all real animation samples produce finite 86-joint transforms
+ok 22 - calibration and all real animation samples produce finite 86-joint transforms
+  ---
+  duration_ms: 130.676024
+  type: 'test'
+  ...
+# Subtest: real jaw closure contacts standing player, not distant or flank player
+ok 23 - real jaw closure contacts standing player, not distant or flank player
+  ---
+  duration_ms: 13.709095
+  type: 'test'
+  ...
+# Subtest: full encounter real pose and collision proxies; exactly one bite at authored contact across rates
+ok 24 - full encounter real pose and collision proxies; exactly one bite at authored contact across rates
+  ---
+  duration_ms: 11549.722748
+  type: 'test'
+  ...
+# Subtest: blocked bite, far-player deactivation and quest navigation
+ok 25 - blocked bite, far-player deactivation and quest navigation
+  ---
+  duration_ms: 2313.260224
+  type: 'test'
+  ...
+# Subtest: NPC path cannot cross thin wall, stale clearance invalidated after new collision geometry
+ok 26 - NPC path cannot cross thin wall, stale clearance invalidated after new collision geometry
+  ---
+  duration_ms: 2.336851
+  type: 'test'
+  ...
+# Subtest: all four actual uploaded assets retain provenance and runtime hashes; no unsupported extensions
+ok 27 - all four actual uploaded assets retain provenance and runtime hashes; no unsupported extensions
+  ---
+  duration_ms: 457.258588
+  type: 'test'
+  ...
+# Subtest: real bear walking and trotting are in-place without losing paw movement
+ok 28 - real bear walking and trotting are in-place without losing paw movement
+  ---
+  duration_ms: 129.511453
+  type: 'test'
+  ...
+# Subtest: authored paw contact at 0.85s is spatial, not a generic circular damage area
+ok 29 - authored paw contact at 0.85s is spatial, not a generic circular damage area
+  ---
+  duration_ms: 27.598819
+  type: 'test'
+  ...
+# Subtest: bear patrol, bounded turning, contact and recovery at 30/60/144 Hz
+ok 30 - bear patrol, bounded turning, contact and recovery at 30/60/144 Hz
+  ---
+  duration_ms: 1.989881
+  type: 'test'
+  ...
+# Subtest: real building door and porch clearance: actual 0.3m/1.75m player walks inside and returns
+ok 31 - real building door and porch clearance: actual 0.3m/1.75m player walks inside and returns
+  ---
+  duration_ms: 30.246707
+  type: 'test'
+  ...
+# Subtest: building wall blocks capsule; site foundations remain flat and source house retains original mesh data
+ok 32 - building wall blocks capsule; site foundations remain flat and source house retains original mesh data
+  ---
+  duration_ms: 59.059595
+  type: 'test'
+  ...
+# Subtest: real captain original idle, bounded facing, E interaction and proximity claim
+ok 33 - real captain original idle, bounded facing, E interaction and proximity claim
+  ---
+  duration_ms: 65.632261
+  type: 'test'
+  ...
+# Subtest: real LandAdventure bear integration: body solid, one bone-timed damage event, no collision after death
+ok 34 - real LandAdventure bear integration: body solid, one bone-timed damage event, no collision after death
+  ---
+  duration_ms: 137.236744
+  type: 'test'
+  ...
+# grotto route end {
+#   x: 448,
+#   y: 58.618520084069054,
+#   z: -480.00000000001074,
+#   contacts: [],
+#   stepped: true,
+#   support: 58.618520084069054
+# } maxstep 0.08601786645606779
+# Subtest: four authored assets packed with matching SHA256, PBR maps and original triangle counts
+ok 35 - four authored assets packed with matching SHA256, PBR maps and original triangle counts
+  ---
+  duration_ms: 161.333125
+  type: 'test'
+  ...
+# Subtest: every original clip has finite pose and bounded actual skinned mesh vertices
+ok 36 - every original clip has finite pose and bounded actual skinned mesh vertices
+  ---
+  duration_ms: 252.181866
+  type: 'test'
+  ...
+# Subtest: continuous air and water simulation: bounded turns, vertical rates, terrain and surface constraints at 30/60/144Hz
+ok 37 - continuous air and water simulation: bounded turns, vertical rates, terrain and surface constraints at 30/60/144Hz
+  ---
+  duration_ms: 47.6691
+  type: 'test'
+  ...
+# Subtest: wolf patrol, avoidance, howl and authored gait use bounded velocity; no attack path
+ok 38 - wolf patrol, avoidance, howl and authored gait use bounded velocity; no attack path
+  ---
+  duration_ms: 5.619902
+  type: 'test'
+  ...
+# Subtest: actual grotto 10k triangles, entrance, safe interior floor and return through original mesh
+ok 39 - actual grotto 10k triangles, entrance, safe interior floor and return through original mesh
+  ---
+  duration_ms: 37.506596
+  type: 'test'
+  ...
+# Subtest: grotto side walls block player and source terrain clearance leaves walking corridor
+ok 40 - grotto side walls block player and source terrain clearance leaves walking corridor
+  ---
+  duration_ms: 6.752542
+  type: 'test'
+  ...
+# Subtest: grotto one-time interaction is registered only when loaded and in reach
+ok 41 - grotto one-time interaction is registered only when loaded and in reach
+  ---
+  duration_ms: 1.115489
+  type: 'test'
+  ...
+# Subtest: skinned PBR emissive maps retain texture binding and shader branch
+ok 42 - skinned PBR emissive maps retain texture binding and shader branch
+  ---
+  duration_ms: 37.35335
+  type: 'test'
+  ...
+1..42
+# tests 42
+# suites 0
+# pass 42
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 16026.585961
+V68 REAL 4-client WebSocket PASS: guest helm claim + ACK, authoritative drive applies to dynamics, occupied station and unauthorized drive rejected, release invalidates old command, host takes over

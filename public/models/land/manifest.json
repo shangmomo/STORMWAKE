@@ -1,0 +1,592 @@
+{
+  "schema": 2,
+  "actors": {
+    "fox": {
+      "file": "fox.glb",
+      "license": "CC0",
+      "attribution": "Quaternius, Ultimate Animated Animal Pack, https://poly.pizza/m/Bc97C66HKi",
+      "scale": 0.3,
+      "clips": [
+        "Attack",
+        "Death",
+        "Eating",
+        "Gallop",
+        "Gallop_Jump",
+        "Idle_HitReact_Left",
+        "Idle_HitReact_Right",
+        "Jump_ToIdle",
+        "Walk",
+        "Idle_2_HeadLow",
+        "Idle_2",
+        "Idle",
+        "AnimalArmature|Attack",
+        "AnimalArmature|Death",
+        "AnimalArmature|Eating",
+        "AnimalArmature|Gallop",
+        "AnimalArmature|Gallop_Jump",
+        "AnimalArmature|Idle",
+        "AnimalArmature|Idle_2",
+        "AnimalArmature|Idle_2_HeadLow",
+        "AnimalArmature|Idle_HitReact_Left",
+        "AnimalArmature|Idle_HitReact_Right",
+        "AnimalArmature|Jump_ToIdle",
+        "AnimalArmature|Walk"
+      ]
+    },
+    "deer": {
+      "file": "deer.glb",
+      "license": "CC0",
+      "attribution": "Quaternius, Ultimate Animated Animal Pack, https://poly.pizza/m/T6Cs7tmMHJ",
+      "scale": 0.45,
+      "clips": [
+        "Attack_Headbutt",
+        "Attack_Kick",
+        "Death",
+        "Eating",
+        "Gallop",
+        "Gallop_Jump",
+        "Idle_HitReact_Left",
+        "Idle_HitReact_Right",
+        "Jump_toIdle",
+        "Walk",
+        "Idle_Headlow",
+        "Idle_2",
+        "Idle",
+        "AnimalArmature|Attack_Headbutt",
+        "AnimalArmature|Attack_Kick",
+        "AnimalArmature|Death",
+        "AnimalArmature|Eating",
+        "AnimalArmature|Gallop",
+        "AnimalArmature|Gallop_Jump",
+        "AnimalArmature|Idle",
+        "AnimalArmature|Idle_2",
+        "AnimalArmature|Idle_Headlow",
+        "AnimalArmature|Idle_HitReact_Left",
+        "AnimalArmature|Idle_HitReact_Right",
+        "AnimalArmature|Jump_toIdle",
+        "AnimalArmature|Walk"
+      ]
+    },
+    "hound": {
+      "file": "hound.glb",
+      "license": "CC0",
+      "attribution": "Quaternius, Ultimate Animated Animal Pack, https://poly.pizza/m/P1gU3Qkr9r",
+      "scale": 0.42,
+      "clips": [
+        "Attack",
+        "Death",
+        "Eating",
+        "Gallop",
+        "Gallop_Jump",
+        "Idle_HitReact_Left",
+        "Idle_HitReact_Right",
+        "Jump_ToIdle",
+        "Walk",
+        "Idle_2_HeadLow",
+        "Idle_2",
+        "Idle",
+        "AnimalArmature|Attack",
+        "AnimalArmature|Death",
+        "AnimalArmature|Eating",
+        "AnimalArmature|Gallop",
+        "AnimalArmature|Gallop_Jump",
+        "AnimalArmature|Idle",
+        "AnimalArmature|Idle_2",
+        "AnimalArmature|Idle_2_HeadLow",
+        "AnimalArmature|Idle_HitReact_Left",
+        "AnimalArmature|Idle_HitReact_Right",
+        "AnimalArmature|Jump_ToIdle",
+        "AnimalArmature|Walk"
+      ]
+    },
+    "boar": {
+      "file": "boar.glb",
+      "license": "CC0",
+      "attribution": "Teh_Bucket / Saltflower, OpenGameArt Boar, https://opengameart.org/content/boar, converted by Southern Mercenaries",
+      "scale": 1.3,
+      "yOffset": -0.24,
+      "yawOffset": 3.141592653589793,
+      "clips": [
+        "[Action Stash]",
+        "idle",
+        "walk",
+        "attack",
+        "Run",
+        "HitReact",
+        "Death"
+      ]
+    },
+    "wraith": {
+      "file": "wraith.glb",
+      "license": "CC0",
+      "attribution": "Quaternius, Ultimate Monsters, https://quaternius.com/packs/ultimatemonsters.html, converted by warptracker",
+      "scale": 0.7,
+      "clips": [
+        "Death",
+        "Fast_Flying",
+        "Flying_Idle",
+        "Headbutt",
+        "HitReact",
+        "No",
+        "Punch",
+        "Yes"
+      ]
+    },
+    "warden": {
+      "file": "warden.glb",
+      "license": "CC0",
+      "attribution": "Quaternius, Ultimate Monsters, https://quaternius.com/packs/ultimatemonsters.html, converted by warptracker",
+      "scale": 0.85,
+      "clips": [
+        "Death",
+        "Duck",
+        "HitReact",
+        "Idle",
+        "Jump",
+        "Jump_Idle",
+        "Jump_Land",
+        "No",
+        "Punch",
+        "Run",
+        "Walk",
+        "Wave",
+        "Weapon",
+        "Yes"
+      ]
+    },
+    "resident_scout": {
+      "file": "resident_scout.glb",
+      "license": "CC0",
+      "attribution": "Quaternius, Animated Man, https://poly.pizza/m/HMnuH5geEG",
+      "scale": 0.36,
+      "clips": [
+        "HumanArmature|Man_Clapping",
+        "HumanArmature|Man_Death",
+        "HumanArmature|Man_Idle",
+        "HumanArmature|Man_Jump",
+        "HumanArmature|Man_Punch",
+        "HumanArmature|Man_Run",
+        "HumanArmature|Man_RunningJump",
+        "HumanArmature|Man_Sitting",
+        "HumanArmature|Man_Standing",
+        "HumanArmature|Man_SwordSlash",
+        "HumanArmature|Man_Walk",
+        "Talk"
+      ]
+    },
+    "resident_courier": {
+      "file": "resident_courier.glb",
+      "license": "CC0",
+      "attribution": "Quaternius, Animated Man, https://poly.pizza/m/HMnuH5geEG",
+      "scale": 0.355,
+      "clips": [
+        "HumanArmature|Man_Clapping",
+        "HumanArmature|Man_Death",
+        "HumanArmature|Man_Idle",
+        "HumanArmature|Man_Jump",
+        "HumanArmature|Man_Punch",
+        "HumanArmature|Man_Run",
+        "HumanArmature|Man_RunningJump",
+        "HumanArmature|Man_Sitting",
+        "HumanArmature|Man_Standing",
+        "HumanArmature|Man_SwordSlash",
+        "HumanArmature|Man_Walk",
+        "Talk"
+      ]
+    },
+    "resident_apprentice": {
+      "file": "resident_apprentice.glb",
+      "license": "CC0",
+      "attribution": "Quaternius, Animated Man, https://poly.pizza/m/HMnuH5geEG",
+      "scale": 0.34,
+      "clips": [
+        "HumanArmature|Man_Clapping",
+        "HumanArmature|Man_Death",
+        "HumanArmature|Man_Idle",
+        "HumanArmature|Man_Jump",
+        "HumanArmature|Man_Punch",
+        "HumanArmature|Man_Run",
+        "HumanArmature|Man_RunningJump",
+        "HumanArmature|Man_Sitting",
+        "HumanArmature|Man_Standing",
+        "HumanArmature|Man_SwordSlash",
+        "HumanArmature|Man_Walk",
+        "Talk"
+      ]
+    },
+    "resident_watchman": {
+      "file": "resident_watchman.glb",
+      "license": "CC0",
+      "attribution": "Quaternius, Animated Man, https://poly.pizza/m/HMnuH5geEG",
+      "scale": 0.38,
+      "clips": [
+        "HumanArmature|Man_Clapping",
+        "HumanArmature|Man_Death",
+        "HumanArmature|Man_Idle",
+        "HumanArmature|Man_Jump",
+        "HumanArmature|Man_Punch",
+        "HumanArmature|Man_Run",
+        "HumanArmature|Man_RunningJump",
+        "HumanArmature|Man_Sitting",
+        "HumanArmature|Man_Standing",
+        "HumanArmature|Man_SwordSlash",
+        "HumanArmature|Man_Walk",
+        "Talk"
+      ]
+    },
+    "resident_harbor": {
+      "file": "joe.glb",
+      "collection": "characters",
+      "license": "MIT",
+      "attribution": "Microsoft Rocketbox, https://github.com/microsoft/Microsoft-Rocketbox, modified with Tidewater V36 hand-authored baked actions",
+      "scale": 1.0,
+      "yOffset": 1.0,
+      "clips": [
+        "idle_neutral_01",
+        "gestic_talk_neutral_01",
+        "wave_01",
+        "Walk",
+        "Run",
+        "Attack",
+        "Heavy",
+        "Dodge",
+        "HitReact",
+        "Death"
+      ]
+    },
+    "resident_herbalist": {
+      "file": "marta.glb",
+      "collection": "characters",
+      "license": "MIT",
+      "attribution": "Microsoft Rocketbox, https://github.com/microsoft/Microsoft-Rocketbox, modified with Tidewater V36 hand-authored baked actions",
+      "scale": 1.0,
+      "yOffset": 1.0,
+      "clips": [
+        "idle_neutral_01",
+        "gestic_talk_neutral_01",
+        "wave_01",
+        "Walk",
+        "Run",
+        "Attack",
+        "Heavy",
+        "Dodge",
+        "HitReact",
+        "Death"
+      ]
+    },
+    "resident_keeper": {
+      "file": "joe.glb",
+      "collection": "characters",
+      "license": "MIT",
+      "attribution": "Microsoft Rocketbox, https://github.com/microsoft/Microsoft-Rocketbox, modified with Tidewater V36 hand-authored baked actions",
+      "scale": 1.0,
+      "yOffset": 1.0,
+      "clips": [
+        "idle_neutral_01",
+        "gestic_talk_neutral_01",
+        "wave_01",
+        "Walk",
+        "Run",
+        "Attack",
+        "Heavy",
+        "Dodge",
+        "HitReact",
+        "Death"
+      ]
+    },
+    "resident_netmaker": {
+      "file": "marta.glb",
+      "collection": "characters",
+      "license": "MIT",
+      "attribution": "Microsoft Rocketbox, https://github.com/microsoft/Microsoft-Rocketbox, modified with Tidewater V36 hand-authored baked actions",
+      "scale": 1.0,
+      "yOffset": 1.0,
+      "clips": [
+        "idle_neutral_01",
+        "gestic_talk_neutral_01",
+        "wave_01",
+        "Walk",
+        "Run",
+        "Attack",
+        "Heavy",
+        "Dodge",
+        "HitReact",
+        "Death"
+      ]
+    },
+    "resident_merchant": {
+      "file": "joe.glb",
+      "collection": "characters",
+      "license": "MIT",
+      "attribution": "Microsoft Rocketbox, https://github.com/microsoft/Microsoft-Rocketbox, modified with Tidewater V36 hand-authored baked actions",
+      "scale": 1.0,
+      "yOffset": 1.0,
+      "clips": [
+        "idle_neutral_01",
+        "gestic_talk_neutral_01",
+        "wave_01",
+        "Walk",
+        "Run",
+        "Attack",
+        "Heavy",
+        "Dodge",
+        "HitReact",
+        "Death"
+      ]
+    },
+    "resident_fisher": {
+      "file": "marta.glb",
+      "collection": "characters",
+      "license": "MIT",
+      "attribution": "Microsoft Rocketbox, https://github.com/microsoft/Microsoft-Rocketbox, modified with Tidewater V36 hand-authored baked actions",
+      "scale": 1.0,
+      "yOffset": 1.0,
+      "clips": [
+        "idle_neutral_01",
+        "gestic_talk_neutral_01",
+        "wave_01",
+        "Walk",
+        "Run",
+        "Attack",
+        "Heavy",
+        "Dodge",
+        "HitReact",
+        "Death"
+      ]
+    },
+    "resident_baker": {
+      "file": "marta.glb",
+      "collection": "characters",
+      "license": "MIT",
+      "attribution": "Microsoft Rocketbox, https://github.com/microsoft/Microsoft-Rocketbox, modified with Tidewater V36 hand-authored baked actions",
+      "scale": 1.0,
+      "yOffset": 1.0,
+      "clips": [
+        "idle_neutral_01",
+        "gestic_talk_neutral_01",
+        "wave_01",
+        "Walk",
+        "Run",
+        "Attack",
+        "Heavy",
+        "Dodge",
+        "HitReact",
+        "Death"
+      ]
+    },
+    "resident_medic": {
+      "file": "marta.glb",
+      "collection": "characters",
+      "license": "MIT",
+      "attribution": "Microsoft Rocketbox, https://github.com/microsoft/Microsoft-Rocketbox, modified with Tidewater V36 hand-authored baked actions",
+      "scale": 1.0,
+      "yOffset": 1.0,
+      "clips": [
+        "idle_neutral_01",
+        "gestic_talk_neutral_01",
+        "wave_01",
+        "Walk",
+        "Run",
+        "Attack",
+        "Heavy",
+        "Dodge",
+        "HitReact",
+        "Death"
+      ]
+    },
+    "resident_sailor": {
+      "file": "marta.glb",
+      "collection": "characters",
+      "license": "MIT",
+      "attribution": "Microsoft Rocketbox, https://github.com/microsoft/Microsoft-Rocketbox, modified with Tidewater V36 hand-authored baked actions",
+      "scale": 1.0,
+      "yOffset": 1.0,
+      "clips": [
+        "idle_neutral_01",
+        "gestic_talk_neutral_01",
+        "wave_01",
+        "Walk",
+        "Run",
+        "Attack",
+        "Heavy",
+        "Dodge",
+        "HitReact",
+        "Death"
+      ]
+    },
+    "resident_carpenter": {
+      "file": "joe.glb",
+      "collection": "characters",
+      "license": "MIT",
+      "attribution": "Microsoft Rocketbox, https://github.com/microsoft/Microsoft-Rocketbox, modified with Tidewater V36 hand-authored baked actions",
+      "scale": 1.0,
+      "yOffset": 1.0,
+      "clips": [
+        "idle_neutral_01",
+        "gestic_talk_neutral_01",
+        "wave_01",
+        "Walk",
+        "Run",
+        "Attack",
+        "Heavy",
+        "Dodge",
+        "HitReact",
+        "Death"
+      ]
+    },
+    "resident_shipwright": {
+      "file": "marta.glb",
+      "collection": "characters",
+      "license": "MIT",
+      "attribution": "Microsoft Rocketbox, https://github.com/microsoft/Microsoft-Rocketbox, modified with Tidewater V36 hand-authored baked actions",
+      "scale": 1.0,
+      "yOffset": 1.0,
+      "clips": [
+        "idle_neutral_01",
+        "gestic_talk_neutral_01",
+        "wave_01",
+        "Walk",
+        "Run",
+        "Attack",
+        "Heavy",
+        "Dodge",
+        "HitReact",
+        "Death"
+      ]
+    },
+    "resident_cartographer": {
+      "file": "joe.glb",
+      "collection": "characters",
+      "license": "MIT",
+      "attribution": "Microsoft Rocketbox, https://github.com/microsoft/Microsoft-Rocketbox, modified with Tidewater V36 hand-authored baked actions",
+      "scale": 1.0,
+      "yOffset": 1.0,
+      "clips": [
+        "idle_neutral_01",
+        "gestic_talk_neutral_01",
+        "wave_01",
+        "Walk",
+        "Run",
+        "Attack",
+        "Heavy",
+        "Dodge",
+        "HitReact",
+        "Death"
+      ]
+    },
+    "resident_teacher": {
+      "file": "marta.glb",
+      "collection": "characters",
+      "license": "MIT",
+      "attribution": "Microsoft Rocketbox, https://github.com/microsoft/Microsoft-Rocketbox, modified with Tidewater V36 hand-authored baked actions",
+      "scale": 1.0,
+      "yOffset": 1.0,
+      "clips": [
+        "idle_neutral_01",
+        "gestic_talk_neutral_01",
+        "wave_01",
+        "Walk",
+        "Run",
+        "Attack",
+        "Heavy",
+        "Dodge",
+        "HitReact",
+        "Death"
+      ]
+    },
+    "resident_gardener": {
+      "file": "marta.glb",
+      "collection": "characters",
+      "license": "MIT",
+      "attribution": "Microsoft Rocketbox, https://github.com/microsoft/Microsoft-Rocketbox, modified with Tidewater V36 hand-authored baked actions",
+      "scale": 1.0,
+      "yOffset": 1.0,
+      "clips": [
+        "idle_neutral_01",
+        "gestic_talk_neutral_01",
+        "wave_01",
+        "Walk",
+        "Run",
+        "Attack",
+        "Heavy",
+        "Dodge",
+        "HitReact",
+        "Death"
+      ]
+    },
+    "resident_smith": {
+      "file": "joe.glb",
+      "collection": "characters",
+      "license": "MIT",
+      "attribution": "Microsoft Rocketbox, https://github.com/microsoft/Microsoft-Rocketbox, modified with Tidewater V36 hand-authored baked actions",
+      "scale": 1.0,
+      "yOffset": 1.0,
+      "clips": [
+        "idle_neutral_01",
+        "gestic_talk_neutral_01",
+        "wave_01",
+        "Walk",
+        "Run",
+        "Attack",
+        "Heavy",
+        "Dodge",
+        "HitReact",
+        "Death"
+      ]
+    },
+    "resident_bellringer": {
+      "file": "marta.glb",
+      "collection": "characters",
+      "license": "MIT",
+      "attribution": "Microsoft Rocketbox, https://github.com/microsoft/Microsoft-Rocketbox, modified with Tidewater V36 hand-authored baked actions",
+      "scale": 1.0,
+      "yOffset": 1.0,
+      "clips": [
+        "idle_neutral_01",
+        "gestic_talk_neutral_01",
+        "wave_01",
+        "Walk",
+        "Run",
+        "Attack",
+        "Heavy",
+        "Dodge",
+        "HitReact",
+        "Death"
+      ]
+    },
+    "captain": {
+      "file": "joe.glb",
+      "collection": "characters",
+      "license": "MIT",
+      "attribution": "Microsoft Rocketbox, https://github.com/microsoft/Microsoft-Rocketbox, extended with Tidewater V36 baked keyframe actions",
+      "scale": 1.0,
+      "yOffset": 1.0,
+      "clips": [
+        "idle_neutral_01",
+        "Walk",
+        "Run",
+        "Attack",
+        "Heavy",
+        "Dodge",
+        "HitReact",
+        "Death"
+      ]
+    },
+    "crab": {
+      "file": "crab.glb",
+      "license": "MIT",
+      "attribution": "Original, Tidewater V36 articulated shoreline crab, in-project asset script tools/build_land_crab_v36.py",
+      "scale": 1.0,
+      "yOffset": 0.0,
+      "yawOffset": 0.0,
+      "clips": [
+        "Idle",
+        "Walk",
+        "Run",
+        "Attack",
+        "HitReact",
+        "Death"
+      ]
+    }
+  }
+}

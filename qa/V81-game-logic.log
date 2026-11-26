@@ -1,0 +1,63 @@
+     sand: delay ~Infinity s; nothing
+     shallows: delay ~5.6 s; mullet 40%, pompano 24%, needlefish 18%, silverside 8%, jack 5%
+     pier: delay ~4.0 s; sergeant 16%, grunt 15%, blueRunner 13%, seaBream 8%, needlefish 7%
+     reef: delay ~4.0 s; sergeant 9%, grunt 9%, seaBream 8%, tang 6%, triggerfish 6%
+     deep: delay ~5.2 s; redSnapper 29%, mahi 16%, flyingfish 12%, tuna 12%, barracuda 9%
+ok   nothing bites on dry sand
+ok   no bite delay on sand
+ok   deep water selects only fish with deep-water habitats
+ok   the reef gives mostly reef fish (80.2%)
+ok   tarpon bite at night (176 vs 17 by day)
+ok   bigger fish is worth more
+     grunt 0.8 kg, careful: caught after 16.9 s
+     grunt 0.8 kg, mash: caught after 13.3 s
+     grunt 0.8 kg, idle: escaped after 4.4 s
+     yellowtail 1.2 kg, careful: caught after 16.1 s
+     yellowtail 1.2 kg, mash: caught after 13.7 s
+     yellowtail 1.2 kg, idle: escaped after 12.1 s
+     jack 6 kg, careful: caught after 22.0 s
+     jack 6 kg, mash: snapped after 2.3 s
+     jack 6 kg, idle: escaped after 29.1 s
+     redSnapper 5 kg, careful: caught after 18.7 s
+     redSnapper 5 kg, mash: caught after 13.9 s
+     redSnapper 5 kg, idle: escaped after 14.5 s
+     tuna 6 kg, careful: caught after 23.1 s
+     tuna 6 kg, mash: snapped after 3.6 s
+     tuna 6 kg, idle: escaped after 27.6 s
+     tuna 13 kg, careful: snapped after 2.4 s
+     tuna 13 kg, mash: snapped after 1.4 s
+     tuna 13 kg, idle: escaped after 84.1 s
+     tarpon 35 kg, careful: snapped after 3.2 s
+     tarpon 35 kg, mash: snapped after 1.1 s
+     tarpon 35 kg, idle: snapped after 3.4 s
+ok   careful reeling lands small fish
+ok   careful reeling lands a 6 kg jack on the starter line
+ok   holding reel on a big fish snaps the line
+ok   a 13 kg tuna needs the 30 lb line
+ok   never reeling loses the fish
+ok   a 35 kg tarpon beats the starter line
+ok   the top line and reel land it
+ok   cooler holds 30 kg
+ok   fish go into the cooler
+ok   a fish too big for the hold is logged but not kept
+ok   selling one fish pays for it
+ok   save / load round trip
+ok   ids keep counting after a load
+ok   every species has a scientific name and a plausible, increasing length (5–200 cm)
+ok   length-weight: a 10 kg mahi ~108 cm, a 0.84 kg grunt ~36 cm
+ok   first of a species: new species, not a record, length stored
+ok   a smaller one: no record, best unchanged
+ok   a bigger one: new record, previous best reported, log updated
+ok   a fish that does not fit: logged, card says released
+ok   old saves load with lengths filled in
+ok   blocked storage does not throw
+ok   cannot spend more than you have
+ok   gear stats
+ok   buying the reel upgrade
+ok   cannot buy what you cannot afford
+ok   fuel burns and costs to refill
+ok   refuel stops when the money runs out
+ok   a new tank comes full
+ok   fish finder: one level
+value check 22
+all passed

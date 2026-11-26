@@ -1,0 +1,54 @@
+TAP version 13
+# Subtest: actual walking motor: lift boards, carries, exits and returns at 30/60/144 Hz
+ok 1 - actual walking motor: lift boards, carries, exits and returns at 30/60/144 Hz
+  ---
+  duration_ms: 338.493492
+  type: 'test'
+  ...
+# Subtest: actual walking motor: backup stairs ascend and descend with empty lift below
+ok 2 - actual walking motor: backup stairs ascend and descend with empty lift below
+  ---
+  duration_ms: 98.111023
+  type: 'test'
+  ...
+# Subtest: gate interlocks reject unsafe departure and block both portals during travel
+ok 3 - gate interlocks reject unsafe departure and block both portals during travel
+  ---
+  duration_ms: 27.313182
+  type: 'test'
+  ...
+# Subtest: landing call works without occupying platform, upper path stays available
+not ok 4 - landing call works without occupying platform, upper path stays available
+  ---
+  duration_ms: 45.100248
+  type: 'test'
+  location: '/mnt/data/work/STORMWAKE_V81/test/stormwake-v81.mjs:10:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(l.request(LIFT.top,p))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///mnt/data/work/STORMWAKE_V81/test/stormwake-v81.mjs:10:139)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 3
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3993.366046

@@ -1,0 +1,126 @@
+[6929:6957:1126/031116.432651:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[6929:6957:1126/031116.437831:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to connect to socket /run/oai/bus: No such file or directory
+[6929:6957:1126/031116.438004:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[6929:6957:1126/031116.438057:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[6969:6969:1126/031116.452601:ERROR:ui/gl/angle_platform_impl.cc:42] DisplayVkXcb.cpp:62 (initialize): xcb_connect() failed, error 1
+ERR: DisplayVkXcb.cpp:62 (initialize): xcb_connect() failed, error 1
+[6969:6969:1126/031116.452690:ERROR:ui/gl/angle_platform_impl.cc:42] Display.cpp:1097 (initialize): ANGLE Display::initialize error 0: Not initialized.
+ERR: Display.cpp:1097 (initialize): ANGLE Display::initialize error 0: Not initialized.
+[6969:6969:1126/031116.452821:ERROR:ui/gl/egl_util.cc:92] EGL Driver message (Critical) eglInitialize: Not initialized.
+[6969:6969:1126/031116.452918:ERROR:ui/gl/gl_display.cc:639] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[6969:6969:1126/031116.452988:ERROR:ui/gl/gl_display.cc:674] Initialization of all EGL display types failed.
+[6969:6969:1126/031116.453005:ERROR:ui/ozone/common/gl_ozone_egl.cc:26] GLDisplayEGL::Initialize failed.
+[6969:6969:1126/031116.454417:ERROR:ui/gl/angle_platform_impl.cc:42] DisplayVkXcb.cpp:62 (initialize): xcb_connect() failed, error 1
+ERR: DisplayVkXcb.cpp:62 (initialize): xcb_connect() failed, error 1
+[6969:6969:1126/031116.454481:ERROR:ui/gl/angle_platform_impl.cc:42] Display.cpp:1097 (initialize): ANGLE Display::initialize error 0: Not initialized.
+ERR: Display.cpp:1097 (initialize): ANGLE Display::initialize error 0: Not initialized.
+[6969:6969:1126/031116.454499:ERROR:ui/gl/egl_util.cc:92] EGL Driver message (Critical) eglInitialize: Not initialized.
+[6969:6969:1126/031116.454549:ERROR:ui/gl/gl_display.cc:639] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[6969:6969:1126/031116.454588:ERROR:ui/gl/gl_display.cc:674] Initialization of all EGL display types failed.
+[6969:6969:1126/031116.454599:ERROR:ui/ozone/common/gl_ozone_egl.cc:26] GLDisplayEGL::Initialize failed.
+[6969:6969:1126/031116.456014:ERROR:components/viz/service/main/viz_main_impl.cc:189] Exiting GPU process due to errors during initialization
+[6929:6957:1126/031116.480542:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to connect to socket /run/oai/bus: No such file or directory
+[6929:6957:1126/031116.497893:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to connect to socket /run/oai/bus: No such file or directory
+[6929:6929:1126/031116.525140:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[6929:6957:1126/031116.526336:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to connect to socket /run/oai/bus: No such file or directory
+[6929:6929:1126/031116.527058:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[6929:6929:1126/031116.530643:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[6929:6957:1126/031116.532526:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[6929:6957:1126/031116.532554:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[6995:6995:1126/031116.543356:ERROR:ui/gl/angle_platform_impl.cc:42] DisplayVkXcb.cpp:62 (initialize): xcb_connect() failed, error 1
+ERR: DisplayVkXcb.cpp:62 (initialize): xcb_connect() failed, error 1
+[6995:6995:1126/031116.543480:ERROR:ui/gl/angle_platform_impl.cc:42] Display.cpp:1097 (initialize): ANGLE Display::initialize error 0: Not initialized.
+ERR: Display.cpp:1097 (initialize): ANGLE Display::initialize error 0: Not initialized.
+[6995:6995:1126/031116.543565:ERROR:ui/gl/egl_util.cc:92] EGL Driver message (Critical) eglInitialize: Not initialized.
+[6995:6995:1126/031116.543617:ERROR:ui/gl/gl_display.cc:639] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[6995:6995:1126/031116.543808:ERROR:ui/gl/gl_display.cc:674] Initialization of all EGL display types failed.
+[6995:6995:1126/031116.543929:ERROR:ui/ozone/common/gl_ozone_egl.cc:26] GLDisplayEGL::Initialize failed.
+[6995:6995:1126/031116.545344:ERROR:ui/gl/angle_platform_impl.cc:42] DisplayVkXcb.cpp:62 (initialize): xcb_connect() failed, error 1
+ERR: DisplayVkXcb.cpp:62 (initialize): xcb_connect() failed, error 1
+[6995:6995:1126/031116.545449:ERROR:ui/gl/angle_platform_impl.cc:42] Display.cpp:1097 (initialize): ANGLE Display::initialize error 0: Not initialized.
+ERR: Display.cpp:1097 (initialize): ANGLE Display::initialize error 0: Not initialized.
+[6995:6995:1126/031116.545515:ERROR:ui/gl/egl_util.cc:92] EGL Driver message (Critical) eglInitialize: Not initialized.
+[6995:6995:1126/031116.545812:ERROR:ui/gl/gl_display.cc:639] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[6995:6995:1126/031116.545882:ERROR:ui/gl/gl_display.cc:674] Initialization of all EGL display types failed.
+[6995:6995:1126/031116.546277:ERROR:ui/ozone/common/gl_ozone_egl.cc:26] GLDisplayEGL::Initialize failed.
+[6995:6995:1126/031116.549524:ERROR:components/viz/service/main/viz_main_impl.cc:189] Exiting GPU process due to errors during initialization
+[6929:6957:1126/031116.559680:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to connect to socket /run/oai/bus: No such file or directory
+[6929:6929:1126/031116.611077:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[6929:6929:1126/031116.612628:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.Properties.GetAll: object_path= /org/freedesktop/UPower/devices/DisplayDevice: unknown error type: 
+[6929:6929:1126/031116.615681:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[6929:6957:1126/031116.615821:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to connect to socket /run/oai/bus: No such file or directory
+[7033:7033:1126/031116.631098:ERROR:ui/gl/angle_platform_impl.cc:42] DisplayVkXcb.cpp:62 (initialize): xcb_connect() failed, error 1
+ERR: DisplayVkXcb.cpp:62 (initialize): xcb_connect() failed, error 1
+[7033:7033:1126/031116.631175:ERROR:ui/gl/angle_platform_impl.cc:42] Display.cpp:1097 (initialize): ANGLE Display::initialize error 0: Not initialized.
+ERR: Display.cpp:1097 (initialize): ANGLE Display::initialize error 0: Not initialized.
+[7033:7033:1126/031116.631222:ERROR:ui/gl/egl_util.cc:92] EGL Driver message (Critical) eglInitialize: Not initialized.
+[7033:7033:1126/031116.631246:ERROR:ui/gl/gl_display.cc:639] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[7033:7033:1126/031116.631274:ERROR:ui/gl/gl_display.cc:674] Initialization of all EGL display types failed.
+[7033:7033:1126/031116.631295:ERROR:ui/ozone/common/gl_ozone_egl.cc:26] GLDisplayEGL::Initialize failed.
+[7033:7033:1126/031116.632566:ERROR:ui/gl/angle_platform_impl.cc:42] DisplayVkXcb.cpp:62 (initialize): xcb_connect() failed, error 1
+ERR: DisplayVkXcb.cpp:62 (initialize): xcb_connect() failed, error 1
+[7033:7033:1126/031116.632617:ERROR:ui/gl/angle_platform_impl.cc:42] Display.cpp:1097 (initialize): ANGLE Display::initialize error 0: Not initialized.
+ERR: Display.cpp:1097 (initialize): ANGLE Display::initialize error 0: Not initialized.
+[7033:7033:1126/031116.632646:ERROR:ui/gl/egl_util.cc:92] EGL Driver message (Critical) eglInitialize: Not initialized.
+[7033:7033:1126/031116.632669:ERROR:ui/gl/gl_display.cc:639] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[7033:7033:1126/031116.632693:ERROR:ui/gl/gl_display.cc:674] Initialization of all EGL display types failed.
+[7033:7033:1126/031116.632713:ERROR:ui/ozone/common/gl_ozone_egl.cc:26] GLDisplayEGL::Initialize failed.
+[7033:7033:1126/031116.635078:ERROR:components/viz/service/main/viz_main_impl.cc:189] Exiting GPU process due to errors during initialization
+[6929:6929:1126/031116.641635:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[6929:6957:1126/031116.641819:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to connect to socket /run/oai/bus: No such file or directory
+[6929:6929:1126/031116.648547:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[6929:6957:1126/031116.650675:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to connect to socket /run/oai/bus: No such file or directory
+[6929:6929:1126/031116.651316:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[6929:6957:1126/031116.651406:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to connect to socket /run/oai/bus: No such file or directory
+[6929:6929:1126/031116.652242:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[7048:7048:1126/031116.663384:ERROR:ui/gl/angle_platform_impl.cc:42] DisplayVkXcb.cpp:62 (initialize): xcb_connect() failed, error 1
+ERR: DisplayVkXcb.cpp:62 (initialize): xcb_connect() failed, error 1
+[7048:7048:1126/031116.663443:ERROR:ui/gl/angle_platform_impl.cc:42] Display.cpp:1097 (initialize): ANGLE Display::initialize error 0: Not initialized.
+ERR: Display.cpp:1097 (initialize): ANGLE Display::initialize error 0: Not initialized.
+[7048:7048:1126/031116.663467:ERROR:ui/gl/egl_util.cc:92] EGL Driver message (Critical) eglInitialize: Not initialized.
+[7048:7048:1126/031116.663480:ERROR:ui/gl/gl_display.cc:639] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[7048:7048:1126/031116.663495:ERROR:ui/gl/gl_display.cc:674] Initialization of all EGL display types failed.
+[7048:7048:1126/031116.663508:ERROR:ui/ozone/common/gl_ozone_egl.cc:26] GLDisplayEGL::Initialize failed.
+[7048:7048:1126/031116.664439:ERROR:ui/gl/angle_platform_impl.cc:42] DisplayVkXcb.cpp:62 (initialize): xcb_connect() failed, error 1
+ERR: DisplayVkXcb.cpp:62 (initialize): xcb_connect() failed, error 1
+[7048:7048:1126/031116.664475:ERROR:ui/gl/angle_platform_impl.cc:42] Display.cpp:1097 (initialize): ANGLE Display::initialize error 0: Not initialized.
+ERR: Display.cpp:1097 (initialize): ANGLE Display::initialize error 0: Not initialized.
+[7048:7048:1126/031116.664491:ERROR:ui/gl/egl_util.cc:92] EGL Driver message (Critical) eglInitialize: Not initialized.
+[7048:7048:1126/031116.664502:ERROR:ui/gl/gl_display.cc:639] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[7048:7048:1126/031116.664513:ERROR:ui/gl/gl_display.cc:674] Initialization of all EGL display types failed.
+[7048:7048:1126/031116.664522:ERROR:ui/ozone/common/gl_ozone_egl.cc:26] GLDisplayEGL::Initialize failed.
+[7048:7048:1126/031116.665817:ERROR:components/viz/service/main/viz_main_impl.cc:189] Exiting GPU process due to errors during initialization
+[7056:7056:1126/031116.679915:ERROR:ui/gl/angle_platform_impl.cc:42] DisplayVkXcb.cpp:62 (initialize): xcb_connect() failed, error 1
+ERR: DisplayVkXcb.cpp:62 (initialize): xcb_connect() failed, error 1
+[7056:7056:1126/031116.679972:ERROR:ui/gl/angle_platform_impl.cc:42] Display.cpp:1097 (initialize): ANGLE Display::initialize error 0: Not initialized.
+ERR: Display.cpp:1097 (initialize): ANGLE Display::initialize error 0: Not initialized.
+[7056:7056:1126/031116.679994:ERROR:ui/gl/egl_util.cc:92] EGL Driver message (Critical) eglInitialize: Not initialized.
+[7056:7056:1126/031116.680011:ERROR:ui/gl/gl_display.cc:639] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[7056:7056:1126/031116.680025:ERROR:ui/gl/gl_display.cc:674] Initialization of all EGL display types failed.
+[7056:7056:1126/031116.680037:ERROR:ui/ozone/common/gl_ozone_egl.cc:26] GLDisplayEGL::Initialize failed.
+[7056:7056:1126/031116.680826:ERROR:ui/gl/angle_platform_impl.cc:42] DisplayVkXcb.cpp:62 (initialize): xcb_connect() failed, error 1
+ERR: DisplayVkXcb.cpp:62 (initialize): xcb_connect() failed, error 1
+[7056:7056:1126/031116.680859:ERROR:ui/gl/angle_platform_impl.cc:42] Display.cpp:1097 (initialize): ANGLE Display::initialize error 0: Not initialized.
+ERR: Display.cpp:1097 (initialize): ANGLE Display::initialize error 0: Not initialized.
+[7056:7056:1126/031116.680874:ERROR:ui/gl/egl_util.cc:92] EGL Driver message (Critical) eglInitialize: Not initialized.
+[7056:7056:1126/031116.680885:ERROR:ui/gl/gl_display.cc:639] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[7056:7056:1126/031116.680896:ERROR:ui/gl/gl_display.cc:674] Initialization of all EGL display types failed.
+[7056:7056:1126/031116.680906:ERROR:ui/ozone/common/gl_ozone_egl.cc:26] GLDisplayEGL::Initialize failed.
+[7056:7056:1126/031116.682224:ERROR:components/viz/service/main/viz_main_impl.cc:189] Exiting GPU process due to errors during initialization
+[7062:7062:1126/031116.695525:ERROR:ui/gl/angle_platform_impl.cc:42] DisplayVkXcb.cpp:62 (initialize): xcb_connect() failed, error 1
+ERR: DisplayVkXcb.cpp:62 (initialize): xcb_connect() failed, error 1
+[7062:7062:1126/031116.695587:ERROR:ui/gl/angle_platform_impl.cc:42] Display.cpp:1097 (initialize): ANGLE Display::initialize error 0: Not initialized.
+ERR: Display.cpp:1097 (initialize): ANGLE Display::initialize error 0: Not initialized.
+[7062:7062:1126/031116.695693:ERROR:ui/gl/egl_util.cc:92] EGL Driver message (Critical) eglInitialize: Not initialized.
+[7062:7062:1126/031116.695711:ERROR:ui/gl/gl_display.cc:639] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[7062:7062:1126/031116.695793:ERROR:ui/gl/gl_display.cc:674] Initialization of all EGL display types failed.
+[7062:7062:1126/031116.695805:ERROR:ui/ozone/common/gl_ozone_egl.cc:26] GLDisplayEGL::Initialize failed.
+[7062:7062:1126/031116.697059:ERROR:ui/gl/angle_platform_impl.cc:42] DisplayVkXcb.cpp:62 (initialize): xcb_connect() failed, error 1
+ERR: DisplayVkXcb.cpp:62 (initialize): xcb_connect() failed, error 1
+[7062:7062:1126/031116.697095:ERROR:ui/gl/angle_platform_impl.cc:42] Display.cpp:1097 (initialize): ANGLE Display::initialize error 0: Not initialized.
+ERR: Display.cpp:1097 (initialize): ANGLE Display::initialize error 0: Not initialized.
+[7062:7062:1126/031116.697111:ERROR:ui/gl/egl_util.cc:92] EGL Driver message (Critical) eglInitialize: Not initialized.
+[7062:7062:1126/031116.697122:ERROR:ui/gl/gl_display.cc:639] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[7062:7062:1126/031116.697186:ERROR:ui/gl/gl_display.cc:674] Initialization of all EGL display types failed.
+[7062:7062:1126/031116.697196:ERROR:ui/ozone/common/gl_ozone_egl.cc:26] GLDisplayEGL::Initialize failed.
+[7062:7062:1126/031116.699230:ERROR:components/viz/service/main/viz_main_impl.cc:189] Exiting GPU process due to errors during initialization

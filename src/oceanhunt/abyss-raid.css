@@ -1,0 +1,202 @@
+/* V26: isolated combat HUD, no competition with the main game overlay. */
+body.abyss-raid-active .tw-root,
+body.abyss-raid-active .hunt-launch,
+body.abyss-raid-active .hunt-weapon-hud,
+body.abyss-raid-active .hunt-boss-hud,
+body.abyss-raid-active .hunt-reticle,
+body.abyss-raid-active .hunt-hit-notice,
+body.abyss-raid-active .hunt-attack-callout,
+body.abyss-raid-active .crew-launch,
+body.abyss-raid-active #fps { visibility: hidden !important; pointer-events: none !important; }
+/* visibility:hidden is not enough: an explicitly visible descendant (such as
+   .tw-boat.is-on) can still paint through it. Hide the complete surface HUD. */
+body.abyss-raid-active .tw-root,
+body.abyss-raid-active .hl-root,
+body.abyss-raid-active .ic-root,
+body.abyss-raid-active .marine-banner { display: none !important; }
+
+.abyss-raid-hud[hidden] { display: none !important; }
+.abyss-raid-hud {
+	position: fixed; z-index: 450; inset: 0;
+	font-family: system-ui, "Microsoft YaHei", sans-serif;
+	color: #ebf9ff; font-size: 13px; line-height: 1.4;
+	box-sizing: border-box; pointer-events: none;
+	text-shadow: 0 1px 2px rgba(0, 9, 18, .75);
+}
+.abyss-raid-hud *, .abyss-raid-hud *::before, .abyss-raid-hud *::after { box-sizing: border-box; }
+.abyss-raid-hud.abyss-hit::before {
+	content: ""; position: fixed; inset: 0; pointer-events: none;
+	z-index: 0; border: 20px solid rgba(205, 41, 40, .33);
+	box-shadow: inset 0 0 90px rgba(228, 36, 39, .25);
+	animation: abyss-hull-hit .55s ease-out both;
+}
+@keyframes abyss-hull-hit {
+	0% { opacity: .95; } 100% { opacity: 0; }
+}
+.abyss-raid-hud header, .abyss-raid-hud .abyss-stat,
+.abyss-raid-hud .abyss-weapon, .abyss-raid-hud p[data-abyss-alert] {
+	background: linear-gradient(130deg, rgba(4, 24, 42, .89), rgba(6, 37, 54, .83));
+	border: 1px solid rgba(123, 220, 244, .42); border-radius: 12px;
+	box-shadow: 0 5px 22px rgba(0, 5, 20, .45);
+	backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+}
+.abyss-raid-hud header {
+	position: absolute; top: 12px; left: 12px;
+	width: min(535px, calc(100vw - 24px));
+	display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+	padding: 10px 12px;
+}
+.abyss-raid-hud .abyss-title { flex: 1 1 170px; min-width: 0; }
+.abyss-raid-hud header small {
+	display: block; letter-spacing: .12em; color: #8fdfec;
+	font-size: 10px; font-weight: 700; margin-bottom: 2px;
+}
+.abyss-raid-hud header strong { display: block; font-size: 17px; line-height: 1.2; }
+.abyss-raid-hud header nav { display: flex; flex-wrap: wrap; gap: 6px; pointer-events: auto; }
+.abyss-raid-hud button {
+	pointer-events: auto; cursor: pointer; padding: 7px 10px;
+	border: 1px solid rgba(131, 228, 247, .56); color: #effbff;
+	background: linear-gradient(130deg, #0f6684, #0b3f5a); border-radius: 8px;
+	font: 700 12px system-ui, "Microsoft YaHei", sans-serif;
+	white-space: nowrap; transition: filter .15s, transform .15s;
+}
+.abyss-raid-hud button:focus-visible { outline: 2px solid #ecf9ff; outline-offset: 2px; }
+.abyss-raid-hud button:not(:disabled):hover { filter: brightness(1.2); transform: translateY(-1px); }
+.abyss-raid-hud button:disabled { opacity: .45; cursor: default; }
+.abyss-raid-hud .abyss-home {
+	background: linear-gradient(120deg, #146d63, #145342);
+	border-color: rgba(138, 250, 195, .65);
+}
+.abyss-raid-hud .abyss-stat {
+	position: absolute; top: 84px; left: 12px;
+	width: min(535px, calc(100vw - 24px));
+	display: grid; grid-template-columns: 1fr 1fr;
+	gap: 3px 10px; padding: 8px 11px;
+	font-size: 12px; font-variant-numeric: tabular-nums;
+}
+.abyss-raid-hud .abyss-stat span { min-width: 0; overflow-wrap: anywhere; padding: 2px 0; }
+.abyss-raid-hud .abyss-stat span:first-child { color: #ffc6bd; font-weight: 800; }
+.abyss-raid-hud .abyss-stat span:nth-child(3) { color: #c5fbff; font-weight: 800; }
+.abyss-raid-hud .abyss-stat [data-abyss-nav],
+.abyss-raid-hud .abyss-stat [data-abyss-telemetry],
+.abyss-raid-hud .abyss-stat [data-abyss-model] { grid-column: 1 / -1; }
+.abyss-raid-hud .abyss-stat [data-abyss-telemetry] { color: #6fefda; font-weight: 800; }
+.abyss-raid-hud .abyss-stat [data-abyss-model] { font-size: 10px; color: #adcae4; }
+.abyss-raid-hud .abyss-instruments {
+	position: absolute; z-index: 2; top: 14px; right: 14px; width: 222px;
+	display: grid; gap: 2px; padding: 10px 14px;
+	background: linear-gradient(130deg, rgba(3, 28, 44, .88), rgba(4, 51, 66, .76));
+	border: 1px solid rgba(100, 226, 236, .5); border-radius: 12px;
+	box-shadow: inset 0 0 20px rgba(4, 114, 135, .12), 0 6px 28px rgba(0, 7, 16, .4);
+	font-variant-numeric: tabular-nums; text-align: right;
+}
+.abyss-raid-hud [data-abyss-speed] {
+	font-weight: 900; font-size: 24px; line-height: 1.1; color: #b2fff3;
+}
+.abyss-raid-hud .abyss-gauge-caption { color: #8dc8db; font-size: 10px; font-weight: 800; letter-spacing: .12em; }
+.abyss-raid-hud .abyss-speed-track {
+	width: 100%; height: 5px; margin: 4px 0 3px; overflow: hidden;
+	border-radius: 99px; background: rgba(74, 147, 165, .29);
+}
+.abyss-raid-hud .abyss-speed-track i {
+	display: block; height: 100%; width: 0; border-radius: inherit;
+	background: linear-gradient(90deg, #58dfc1 0%, #a3eaff 70%, #ffd179 100%);
+	box-shadow: 0 0 9px rgba(95, 220, 235, .6);
+	transition: width .1s linear;
+}
+.abyss-raid-hud [data-abyss-thrust] { color: #a5edce; font-size: 11px; font-weight: 750; }
+.abyss-raid-hud [data-abyss-target-speed] { color: #d8f9ff; font-size: 11px; font-weight: 700; }
+.abyss-raid-hud .abyss-throttle-track {
+	position: relative; width: 100%; height: 8px; margin: 5px 0 4px;
+	background: linear-gradient(90deg, rgba(219, 134, 87, .2), rgba(73, 136, 151, .25) 50%, rgba(85, 228, 195, .19));
+	border: 1px solid rgba(139, 203, 218, .35); border-radius: 7px; overflow: hidden;
+}
+.abyss-raid-hud .abyss-throttle-track i {
+	position: absolute; height: 100%; left: 50%; width: 0; border-radius: 5px;
+	box-shadow: 0 0 10px rgba(85, 250, 218, .35); transition: left .10s, width .10s;
+}
+.abyss-raid-hud .abyss-throttle-track b {
+	position: absolute; left: calc(50% - 1px); width: 2px; top: 0; bottom: 0;
+	background: #f4fdff; box-shadow: 0 0 4px #fff;
+}
+.abyss-raid-hud [data-abyss-rudder] { color: #e9c99e; font-size: 11px; font-weight: 700; }
+.abyss-raid-hud .abyss-telegraph-actions { display: flex; gap: 5px; margin-top: 5px; }
+.abyss-raid-hud .abyss-telegraph-actions button {
+	flex: 1; min-width: 0; padding: 5px 4px; font-size: 11px;
+	background: rgba(15, 94, 109, .86);
+}
+.abyss-raid-hud [data-abyss-bearing] { color: #c4eaf9; font-weight: 700; }
+.abyss-raid-hud [data-abyss-helm-label] { font-size: 10px; letter-spacing: .05em; color: #8cd7e8; }
+.abyss-raid-hud .abyss-aim {
+	position: absolute; left: 50%; top: 47%; transform: translate(-50%, -50%);
+	display: flex; align-items: center; flex-direction: column; gap: 12px;
+	color: #d2faff; font-size: 10px; letter-spacing: .08em;
+}
+.abyss-raid-hud .abyss-aim span {
+	width: 18px; height: 18px; border: 1px solid rgba(137, 249, 255, .8);
+	border-radius: 50%; box-shadow: 0 0 10px rgba(45, 228, 246, .28);
+	position: relative;
+}
+.abyss-raid-hud .abyss-aim span::before,
+.abyss-raid-hud .abyss-aim span::after {
+	content: ''; position: absolute; background: #a6f9ff; opacity: .86;
+}
+.abyss-raid-hud .abyss-aim span::before { width: 30px; height: 1px; top: 8px; left: -7px; }
+.abyss-raid-hud .abyss-aim span::after { width: 1px; height: 30px; left: 8px; top: -7px; }
+.abyss-raid-hud.abyss-locked .abyss-aim span { border-color: #ffda82; box-shadow: 0 0 16px #ffc86b99; }
+.abyss-raid-hud.abyss-locked .abyss-aim small { color: #ffe0a1; }
+.abyss-raid-hud .abyss-aim small {
+	padding: 2px 6px; background: rgba(0, 13, 27, .5); border-radius: 4px;
+}
+.abyss-raid-hud .abyss-weapon {
+	position: absolute; left: 50%; bottom: 12px;
+	transform: translateX(-50%);
+	width: min(1120px, calc(100vw - 24px));
+	display: flex; flex-wrap: wrap; gap: 7px 12px;
+	align-items: center; justify-content: center; padding: 8px 11px;
+}
+.abyss-raid-hud .abyss-shortcuts {
+	flex: 1 1 300px; min-width: 0;
+	font-size: 11px; line-height: 1.55;
+	color: #e5f8ff; font-weight: 600;
+}
+.abyss-raid-hud .abyss-actions {
+	display: flex; flex-wrap: wrap; gap: 6px;
+	justify-content: center; pointer-events: auto;
+}
+.abyss-raid-hud p[data-abyss-alert] {
+	position: absolute; top: 232px; left: 12px;
+	width: min(535px, calc(100vw - 24px));
+	margin: 0; padding: 8px 12px;
+	font-size: 12px; font-weight: 700; color: #ffedbd;
+}
+.abyss-raid-hud p[data-abyss-alert]:empty { display: none; }
+.hunt-abyss-gate { border-color: rgba(65, 165, 190, .48) !important; }
+.hunt-abyss-gate button { min-width: 184px; }
+@media (max-width: 770px) {
+	.abyss-raid-hud header { top: 6px; left: 6px; width: calc(100vw - 12px); padding: 7px 9px; }
+	.abyss-raid-hud header strong { font-size: 14px; }
+	.abyss-raid-hud .abyss-stat { left: 6px; top: 81px; width: min(465px, calc(100vw - 12px)); font-size: 11px; padding: 6px 9px; }
+	.abyss-raid-hud p[data-abyss-alert] { left: 6px; top: 208px; width: min(465px, calc(100vw - 12px)); }
+	.abyss-raid-hud .abyss-weapon { bottom: 6px; width: calc(100vw - 12px); padding: 6px; }
+	.abyss-raid-hud .abyss-shortcuts { flex: 1 1 100%; text-align: center; }
+	.abyss-raid-hud button { padding: 6px 8px; font-size: 11px; }
+	.abyss-raid-hud .abyss-instruments { top: auto; bottom: 130px; right: 6px; width: 205px; padding: 6px 8px; }
+	.abyss-raid-hud [data-abyss-speed] { font-size: 17px; }
+}
+@media (max-height: 590px) {
+	.abyss-raid-hud .abyss-stat { max-height: 102px; overflow-y: auto; }
+	.abyss-raid-hud p[data-abyss-alert] { top: 220px; }
+	.abyss-raid-hud .abyss-shortcuts { display: none; }
+	.abyss-raid-hud .abyss-instruments { max-height: calc(100vh - 116px); overflow-y: auto; }
+}
+@media (max-width: 550px) {
+	.abyss-raid-hud header { gap: 6px; }
+	.abyss-raid-hud header nav { width: 100%; }
+	.abyss-raid-hud .abyss-stat { top: 117px; }
+	.abyss-raid-hud p[data-abyss-alert] { top: 271px; }
+	.abyss-raid-hud .abyss-instruments { display: none; }
+	.abyss-raid-hud .abyss-aim small { display: none; }
+}
+/* V66 dedicated role instruments, small enough to leave the interior visible. */
+.abyss-crew-station{position:absolute;left:12px;top:275px;width:235px;background:#092532e8;border:1px solid #4f7b84;border-radius:8px;padding:9px 11px;display:grid;gap:5px;pointer-events:none}.abyss-crew-station strong{color:#f7d597;font-size:15px}.abyss-crew-station span{font-size:11px;color:#b7d8df}.abyss-crew-station button{pointer-events:auto;font-size:11px}.abyss-raid-hud.abyss-inside .abyss-instruments{width:176px;padding:7px 9px}.abyss-raid-hud.abyss-inside .abyss-aim{opacity:.45}.abyss-raid-hud.abyss-inside .abyss-shortcuts{font-size:12px;color:#e9d6a5}.abyss-raid-hud.abyss-inside .abyss-stat{width:340px}.abyss-raid-hud.abyss-inside .abyss-title strong{font-size:14px}.abyss-raid-hud.abyss-inside .abyss-weapon{max-width:min(960px,calc(100vw - 24px))}.abyss-raid-hud header{max-width:min(660px,calc(100vw - 24px))}@media(max-width:800px){.abyss-crew-station{top:265px;width:175px}.abyss-raid-hud.abyss-inside .abyss-stat{width:255px}.abyss-raid-hud.abyss-inside .abyss-instruments{width:145px}}

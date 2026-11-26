@@ -1,0 +1,742 @@
+{
+  "version": "V63 development acceptance build",
+  "build_sha256": "346cc7bc791500a544cfee178454fa6e255be8bbe43b87e98b1ec99eb3ecdf88",
+  "baseline": "C:\\Users\\syz\\Documents\\ChatGPT\\3d\\stormwake-v62\\STORMWAKE_V62",
+  "changed_files": [
+    {
+      "path": "00_START_V63.cmd",
+      "sha256": "aa4c1617841930e232a3894f72d121f1bbf80121d4f79caf3ca91aed03a72e5d",
+      "bytes": 70
+    },
+    {
+      "path": "CREDITS.md",
+      "sha256": "c6e3b46a113a4c30037a6339afe9ef67c1e94128aaf392b2a299b36c5adf732c",
+      "bytes": 12187
+    },
+    {
+      "path": "README.md",
+      "sha256": "576acd59831710f5fb884df2b7771abfe9d922c951ba27a5f15603dd7d2bf9ca",
+      "bytes": 41621
+    },
+    {
+      "path": "README_V63_先读我.md",
+      "sha256": "61c2be6c75a2160103233cc6a0ab1101bad6bc0b1a5ce44d1ae9a40185b5191f",
+      "bytes": 3867
+    },
+    {
+      "path": "package.json",
+      "sha256": "c1ba1c7371e1c286da8bf9ac1437f6870245a4a1d9788494d1f97748f83a5987",
+      "bytes": 7509
+    },
+    {
+      "path": "start_v60.py",
+      "sha256": "6ac27be99dd0339ffa053dbb28002b4d7571d2058e87a26dfb2e350cdff833b1",
+      "bytes": 4810
+    },
+    {
+      "path": "start_v63.py",
+      "sha256": "3ab4835abd621e0dffc3885cff9781b8bc40f120d989b59b5a170cc38341aeb0",
+      "bytes": 125
+    },
+    {
+      "path": "docs/V63_IMPLEMENTATION_TRACKER.md",
+      "sha256": "2667a16eb220d68c570fa11fe4d188347b60555aeedf129420a3b319d64d4132",
+      "bytes": 9863
+    },
+    {
+      "path": "public/models/stormwake_v63/cannon_articulated.glb",
+      "sha256": "19afd1423be531fef6584ee8bd44c6006abb7c7a8d945ded3e1b1db369996618",
+      "bytes": 36172
+    },
+    {
+      "path": "public/models/stormwake_v63/dutch_ship_lower_hold.glb",
+      "sha256": "74b58da09709b5d330d0f7e4db32470e28a124629e43a0e1694f010d5c9d6e10",
+      "bytes": 31537536
+    },
+    {
+      "path": "public/models/stormwake_v63/ghost_ship_derivation.json",
+      "sha256": "4ef7f9100cadca359680c1fe72cf11f9745c0546c7454052c716aebe94a83dda",
+      "bytes": 855
+    },
+    {
+      "path": "public/models/stormwake_v63/ghost_ship_separated.glb",
+      "sha256": "2b1fe9a58600e06d8432c3b9b47dccc499d40af3f5012e7f70baac0255cd3dea",
+      "bytes": 1176004
+    },
+    {
+      "path": "public/models/stormwake_v63/stair_manifest_v63.json",
+      "sha256": "7f079f5dc5cbf8a2f0605f9db5097750ef8ed4075b27faf3bc63f5897c84f342",
+      "bytes": 2183
+    },
+    {
+      "path": "server/coopHub.js",
+      "sha256": "a658bce396e179b1f10fb4ce8831ed5718533e726a7fbee255c72d34bc6a34de",
+      "bytes": 46830
+    },
+    {
+      "path": "server/deckSupplies.js",
+      "sha256": "efe5a18a3cd786920d326b5267d75e397103bf6bfc7df728ea6ae95e2214d5be",
+      "bytes": 3157
+    },
+    {
+      "path": "src/App.js",
+      "sha256": "2e1ac92709567070f1b9c415be49b6b5e18416cd7faf2ec5924edc8063b6454c",
+      "bytes": 42821
+    },
+    {
+      "path": "src/audio/SoundScape.js",
+      "sha256": "2c8df7b6422480c60adfddba75dda2ada01071d4fd75c0629571075010370184",
+      "bytes": 52328
+    },
+    {
+      "path": "src/islandlife/OceanZones.js",
+      "sha256": "fb713459eebda782d224c1502ea8480c2e1d9c98537162982d8ebd4556ee0443",
+      "bytes": 2166
+    },
+    {
+      "path": "src/land/LandAdventure.js",
+      "sha256": "1f9cb87f4048443c3111efb15b9334089010d1601c17a090bfc843aaee996e02",
+      "bytes": 44967
+    },
+    {
+      "path": "src/land/LandGrounding.js",
+      "sha256": "23288abddf2e245c1c19417eb7ace0c9df18edc6e18bb7f4e76af8d25f282953",
+      "bytes": 5218
+    },
+    {
+      "path": "src/land/LandRigRuntime.js",
+      "sha256": "616a7852b3c4c9893ec8f165fb29c1fdfcd1159d34690e9e8580fde2511c75a6",
+      "bytes": 6240
+    },
+    {
+      "path": "src/net/ShipNetBridge.js",
+      "sha256": "7d8bbe239571612cdf8e3b6eea61cdd40972f0908e6ad2eb31e684a35259e6fa",
+      "bytes": 15816
+    },
+    {
+      "path": "src/oceanhunt/CoopClient.js",
+      "sha256": "457b0efcbc458de7e7d46df07477db23d9574b23c875faf3d1a93fdf8409419b",
+      "bytes": 23877
+    },
+    {
+      "path": "src/oceanhunt/DeckArsenal.js",
+      "sha256": "93ed9f668157432212e655be231e5f8d6673e17abb47422798c00c54d9c19c50",
+      "bytes": 7495
+    },
+    {
+      "path": "src/oceanhunt/MonsterContacts.js",
+      "sha256": "05de98c82792061eae9663ee4c82f34220c5dbdd4e9759cbac643fd958ef51be",
+      "bytes": 3558
+    },
+    {
+      "path": "src/oceanhunt/SeaBosses.js",
+      "sha256": "e020a75572a7041734b7a99db15e2182023e7d54fd04b1a61654e2c82322bf7b",
+      "bytes": 21893
+    },
+    {
+      "path": "src/oceanhunt/TitanAI.js",
+      "sha256": "b9dd4bf0c403a7537949fb00870bd5f0405217e21bf89f4daa0cea8d48966b9a",
+      "bytes": 9170
+    },
+    {
+      "path": "src/oceanhunt/TitanEffects.js",
+      "sha256": "aec382e5d49f27715ca69e2784e6fadd538b0e11a7cd215bfb35c2a2c83f920a",
+      "bytes": 14526
+    },
+    {
+      "path": "src/oceanhunt/TitanSkeleton.js",
+      "sha256": "5353f73ae309b691c7fbd17eec24fbe25472daceb22ee0945577560231d9006d",
+      "bytes": 26967
+    },
+    {
+      "path": "src/offshore/GhostFleet.js",
+      "sha256": "18292291d89bc2dbaddd835290373dd3892d6d900704593295c3670c4d295b11",
+      "bytes": 11916
+    },
+    {
+      "path": "src/offshore/GhostSites.js",
+      "sha256": "17007729db6a6c90c36aa08db266e03b0db544de44bfb9e1163357871aa8a157",
+      "bytes": 645
+    },
+    {
+      "path": "src/offshore/WorldEventDirector.js",
+      "sha256": "524ea6f6ba429a0fa73ba6a73a97c64e851435a3fa26ee3ef965e270f5218dbd",
+      "bytes": 2080
+    },
+    {
+      "path": "src/player/BoatController.js",
+      "sha256": "432ac64730bd21b28d72593b9b82208beab11531af7139acd08b603e32fd96b9",
+      "bytes": 28864
+    },
+    {
+      "path": "src/player/CharacterMotor.js",
+      "sha256": "f23908448c863ba807061ea09b5b3f5cc26a96e3ad3a0fef8f73ee34f5ffd871",
+      "bytes": 1837
+    },
+    {
+      "path": "src/player/Player.js",
+      "sha256": "84a247d4fd1f4c3f7e0f8cd3f1cdcb24efd6883d2ed777bcba0e0bb1fdb7381b",
+      "bytes": 51112
+    },
+    {
+      "path": "src/post/Underwater.js",
+      "sha256": "80a97c555d07c779bee653f8a1be8aa6f608277e769f3ae304f7f656d6d38be3",
+      "bytes": 19790
+    },
+    {
+      "path": "src/qa/AutoQA.js",
+      "sha256": "ee85071128ccc4dcafea222097dcea2ee07f3678f68119aa1cbdbdd1898d0a9d",
+      "bytes": 10421
+    },
+    {
+      "path": "src/ship/ArsenalSites.js",
+      "sha256": "e9030bae434f8eeaa17628cf59efabb56b771362ac05c724d9aab61c87a649cf",
+      "bytes": 1192
+    },
+    {
+      "path": "src/ship/CannonBallistics.js",
+      "sha256": "eaf1023d8606d56b388673026a1d5b477567aac43eb54ea6e29393902a240503",
+      "bytes": 1397
+    },
+    {
+      "path": "src/ship/CannonMount.js",
+      "sha256": "cef7e8dd7e309249af23863876611f1b97283fb64063b515f48b1c19bf2e4f63",
+      "bytes": 1204
+    },
+    {
+      "path": "src/ship/CrewAI.js",
+      "sha256": "0846499baa81f595b353221ca0a0e8a44a4639bfc943c07c99552c12c24bedca",
+      "bytes": 5520
+    },
+    {
+      "path": "src/ship/CrewNavigation.js",
+      "sha256": "2f889d0a8283254bb32243bbc2d291ea92d356416a7980de15b18cfcf426ec99",
+      "bytes": 4252
+    },
+    {
+      "path": "src/ship/CrewVisuals.js",
+      "sha256": "0ca7002995106296ec59cf8178e1d0c237af39a52c090eba01204bf3dfc88147",
+      "bytes": 2834
+    },
+    {
+      "path": "src/ship/HeritageAssetRig.js",
+      "sha256": "347492766e16e552aeec643d206f6666bd33d5a20a43564731f9e66bf704c843",
+      "bytes": 14073
+    },
+    {
+      "path": "src/ship/HeritageDeck.js",
+      "sha256": "e0db47b799d38905693ec2fff476c54146a072054903c9acd8b2344d23f23217",
+      "bytes": 14609
+    },
+    {
+      "path": "src/ship/RigTwoBoneIK.js",
+      "sha256": "795453078f3c05f880061277cba15cec74a43a62defd393973159145464935d4",
+      "bytes": 2691
+    },
+    {
+      "path": "src/ship/SailReefing.js",
+      "sha256": "9b31ced46182027e9b43c3ad579190ca1613ccd23a60476de23eccdfa87f5e62",
+      "bytes": 1895
+    },
+    {
+      "path": "src/ship/SailorActivity.js",
+      "sha256": "461fa956b1ddbeb60b4133a2e6cfb558579ff5e9d23f33693d8e547243db6581",
+      "bytes": 2471
+    },
+    {
+      "path": "src/ship/SailorBody.js",
+      "sha256": "72ade520c0c7afc91a63ce0e31d92751d36b62de62177df0eb74a5c3ea0cb892",
+      "bytes": 9277
+    },
+    {
+      "path": "src/ship/SailorPosture.js",
+      "sha256": "a3a6fbac9d2907065148f7a35fbbb7e5cf80a1a9db21e5b06ba9cf00150636b0",
+      "bytes": 629
+    },
+    {
+      "path": "src/ship/SharedDeckSupplies.js",
+      "sha256": "3f34860f6756a9eea44db7d99a5f107655d2c5c6117abd96b6ca3b0fe589a7e4",
+      "bytes": 1982
+    },
+    {
+      "path": "src/ship/SharedSupplyLedger.js",
+      "sha256": "5d9d943d8737783854611aec8fe41e054ddfba481572f7e197808ea133f92a76",
+      "bytes": 1760
+    },
+    {
+      "path": "src/ship/ShipCannon.js",
+      "sha256": "f03a394fe42f528fcd6b226adc8106b0fcdb51770c9c6ee916c4fbfa12cd14ae",
+      "bytes": 1708
+    },
+    {
+      "path": "src/ship/ShipLoadDynamics.js",
+      "sha256": "a153c8cac28879b2ba74be0ec843bc48ec494e3e7a1a8250314d8c84149caef3",
+      "bytes": 2177
+    },
+    {
+      "path": "src/ship/ShipLooseProps.js",
+      "sha256": "bae7154c8b9442c82195305a8106d910d86774891e3359cde71f81d21432eb10",
+      "bytes": 2211
+    },
+    {
+      "path": "src/ship/StationHandRig.js",
+      "sha256": "13772ad65f23c6f1976e52a2ccd462a04ee2e31c06492f0665c785edabc91a82",
+      "bytes": 3498
+    },
+    {
+      "path": "src/ship/StationSites.js",
+      "sha256": "78ec51c1d41af9750269bd94212a6940529ddf04ea6a4ee49242e56db032d216",
+      "bytes": 3017
+    },
+    {
+      "path": "src/systems/CollisionWorld.js",
+      "sha256": "404a924b9aac1a60a76e870ac92fbe23356ab597c61d52f7443bfb6f103a4360",
+      "bytes": 8526
+    },
+    {
+      "path": "src/systems/MovingSurfaceWorld.js",
+      "sha256": "c02a171397618db51915b479132de65a03ab94e3743971ed9184932bd34e9725",
+      "bytes": 2160
+    },
+    {
+      "path": "src/systems/PressureCabin.js",
+      "sha256": "b7b61042a8f37efdaf8c0fadd0ab7c4aa5791dbd5a3dbe9e2ff950a735cdefa4",
+      "bytes": 2491
+    },
+    {
+      "path": "src/ui/ui.css",
+      "sha256": "d8d5cc90ac56a1d9354cb6dd558cd58412c6beaac3d8c50fd1ffb2ae5bdb0144",
+      "bytes": 63459
+    },
+    {
+      "path": "src/voyage/Broker.js",
+      "sha256": "3e7ce143fbaa29604c25be8ec3da77aab1d946dff01b7f857950a834ea8b3bd5",
+      "bytes": 309
+    },
+    {
+      "path": "src/voyage/Cargo.js",
+      "sha256": "7a48c3177b1e2a6ee32d0e4be1324ad567bd10be8f50e11c428c077ccad5b465",
+      "bytes": 2822
+    },
+    {
+      "path": "src/voyage/CargoReach.js",
+      "sha256": "ab8fbf16077de0e4a385c36ca798597e051359a50d1bb9f3d661a759c6ff9755",
+      "bytes": 2722
+    },
+    {
+      "path": "src/voyage/CartographerQuest.js",
+      "sha256": "8a20e00767f633c713992665ad2e3360e3ceb3bbbbd4cb98298a9ba63c7c37b8",
+      "bytes": 4838
+    },
+    {
+      "path": "src/voyage/CartographerRuntime.js",
+      "sha256": "559b2a2e5f39050d5254eec2bb51dbdaeb716ef3ea49744836bec4f1a24ecf54",
+      "bytes": 6916
+    },
+    {
+      "path": "src/voyage/DeepEchoQuest.js",
+      "sha256": "2786e6e9a44970b338a09b231d19045c03a9825360846cf75c2411e72d88144d",
+      "bytes": 10310
+    },
+    {
+      "path": "src/voyage/DeepEchoRuntime.js",
+      "sha256": "dd8180f5231d51ea251409ff9cc217da2cc6f2c5f4fb1367ea64f9fb0ec8f2e7",
+      "bytes": 14595
+    },
+    {
+      "path": "src/voyage/GhostLanternQuest.js",
+      "sha256": "7f216d8a98fc17ecb464fabc65bf99e192c2b7d850be88655a14c67c67c16b3b",
+      "bytes": 5171
+    },
+    {
+      "path": "src/voyage/GhostLanternRuntime.js",
+      "sha256": "62629e8ad73f5769914c79793a4a0ad683c92321fb73466c05a6b6c2828d3709",
+      "bytes": 10545
+    },
+    {
+      "path": "src/voyage/HarborTrade.js",
+      "sha256": "e580b09a6da0c2ad958c335a24855c82a4db2a76a7eef46464a737fa393b3ee5",
+      "bytes": 1968
+    },
+    {
+      "path": "src/voyage/HarborTradeRuntime.js",
+      "sha256": "1b4cd6635ccd50f600771f3c83e2c86307c4c11bde10e51d4a4c6539c357ac54",
+      "bytes": 4550
+    },
+    {
+      "path": "src/voyage/MerchantRescueQuest.js",
+      "sha256": "ee0971a9560b467fab890e69d598b187974526cb9bf0c0edd23b463cefdc8264",
+      "bytes": 3744
+    },
+    {
+      "path": "src/voyage/MerchantRescueRuntime.js",
+      "sha256": "af11c58cb3bca2800df6370997e6a52c67fcd4719960bb5b09803ddf98e374e9",
+      "bytes": 7664
+    },
+    {
+      "path": "src/voyage/MonsterSpoils.js",
+      "sha256": "8d1aa410c6a2cd64c76b8e10571352e4f2f42833ee86e5c10b5d824811218714",
+      "bytes": 1013
+    },
+    {
+      "path": "src/voyage/QuestBuoyancy.js",
+      "sha256": "e332f2826ed4594578297b1496a4950fec079bb4d67a3caf0d0675cd9e89fbd5",
+      "bytes": 759
+    },
+    {
+      "path": "src/voyage/SightActionPoint.js",
+      "sha256": "c299ab9b2b4df8a0057a197ba2253b9e682985a3e23e956ffb552c5cbb1b9fb7",
+      "bytes": 374
+    },
+    {
+      "path": "src/voyage/StormBeaconQuest.js",
+      "sha256": "d1ea6c09f5305afb2de2a3e0cc5e6d8e19e603e83f28f91442103c254703a8cb",
+      "bytes": 2516
+    },
+    {
+      "path": "src/voyage/StormBeaconRuntime.js",
+      "sha256": "40f270f10af039b18f7f11459a2f52e115195bcb5897008c8a31975186f0259c",
+      "bytes": 4706
+    },
+    {
+      "path": "src/voyage/SunkenCargo.js",
+      "sha256": "706cca343f0f5916e216a0db5302ebde5258f22ed7f94f1d5bdce2e78f50e5c3",
+      "bytes": 478
+    },
+    {
+      "path": "src/voyage/VoyageDirector.js",
+      "sha256": "06b554a35cc00d5ee43074a8102ec8c41c448e4c7764539dd4061bd9af32ed22",
+      "bytes": 2768
+    },
+    {
+      "path": "src/voyage/VoyageM1.js",
+      "sha256": "094353e64f20e65ca4e17a2504133b004b624d15e267b3bcddd244d40a182163",
+      "bytes": 93039
+    },
+    {
+      "path": "src/voyage/VoyageSites.js",
+      "sha256": "f8f0e60f5b889536d4611ded220d46b1f3193bbc9567888f8253d1a224ab4c8a",
+      "bytes": 287
+    },
+    {
+      "path": "src/voyage/VoyageWorld.js",
+      "sha256": "8629e376b386510366e1e6ceb2200ed8d7eb735bddbf81a8ec56a4d6de527e83",
+      "bytes": 8022
+    },
+    {
+      "path": "src/world/AdventureIslet.js",
+      "sha256": "18fe8b537a7684ad4d15c230f7b747dcc9a0ae215d377b03148f11da2fc93375",
+      "bytes": 948
+    },
+    {
+      "path": "src/world/CartographerScenery.js",
+      "sha256": "81f105c99a240c2f1fc1710947648332e29883f8a86a28b299a0e229fd983077",
+      "bytes": 2247
+    },
+    {
+      "path": "src/world/Colliders.js",
+      "sha256": "50ecc19d789f579117c63a4ca455cac4b51eef3a8da51c9e470e48a66f746f7c",
+      "bytes": 5172
+    },
+    {
+      "path": "src/world/DeepBathymetry.js",
+      "sha256": "614ea8f35e79798d34b36cdea9b322a952448a0fb2a70ce3b0f0845f655ea6fa",
+      "bytes": 394
+    },
+    {
+      "path": "src/world/DistressSmoke.js",
+      "sha256": "dfcdeb207499691822337d7d148ac8fe2aba40d39534b4679e85abae3dfe11a3",
+      "bytes": 940
+    },
+    {
+      "path": "src/world/HarborQuestPeople.js",
+      "sha256": "6c0d0f35b820d940b84ecd7ad13f91af7a49070ec8f4f6e94e6ad5daa11b4ce9",
+      "bytes": 4675
+    },
+    {
+      "path": "src/world/TerrainData.js",
+      "sha256": "7666f43e8dc88a4daa8148a3fea64d1cb214faff482b4dfe13569fde76ebf214",
+      "bytes": 38205
+    },
+    {
+      "path": "src/world/TerrainGPU.js",
+      "sha256": "0c440fefb48eb21c8dc9cc41cbabe34bf1735d70b3ab1f495f662994162db96d",
+      "bytes": 14015
+    },
+    {
+      "path": "test/stormwake-v53-lower-hold-usable-weapons.mjs",
+      "sha256": "83b32e8246c6b4c3aea75856481589c1a68117f5cb23a51879d622e37c6db4f3",
+      "bytes": 8459
+    },
+    {
+      "path": "test/stormwake-v54-systems.mjs",
+      "sha256": "5b168e8affc1b055c7e4a7fc8d22f4efa2f4f96b345125c2e6f5e8146fe12ad2",
+      "bytes": 11930
+    },
+    {
+      "path": "test/stormwake-v56-systems.mjs",
+      "sha256": "d6ee885c37e85b3ebb5eaad755121fad6af7e0ceeb8ce7fc8655dd30848bc468",
+      "bytes": 5564
+    },
+    {
+      "path": "test/stormwake-v61-reliability.mjs",
+      "sha256": "7e3967f61384b1f74412ba9abd92b127be9116fb7c9ac643b42ed299bd0f18f1",
+      "bytes": 9481
+    },
+    {
+      "path": "test/stormwake-v63-actor-pose-ws.mjs",
+      "sha256": "7e39d8e1f9c0254d047bb33ca30b6685d1a3808716046149ecbd144e80b42ba6",
+      "bytes": 2878
+    },
+    {
+      "path": "test/stormwake-v63-arsenal.mjs",
+      "sha256": "d3bc6de8010aead94b8ccb172dde3d80779e35bedf82cd2676c8330cc3f56f7d",
+      "bytes": 1982
+    },
+    {
+      "path": "test/stormwake-v63-beacon.mjs",
+      "sha256": "9e884c4fe519480d523fd45b62886573fc94b7bbbfd5b38a6dea8ce846534189",
+      "bytes": 1446
+    },
+    {
+      "path": "test/stormwake-v63-cannon-mount.mjs",
+      "sha256": "312adc9151543ab1d497f45ce49019ea62f6bc222d43e123976348af2c3a9f76",
+      "bytes": 3508
+    },
+    {
+      "path": "test/stormwake-v63-cartographer.mjs",
+      "sha256": "368f38778ea078fa859ac6cf5de65644159ab380f2340f74a900a7816c69f5e6",
+      "bytes": 2118
+    },
+    {
+      "path": "test/stormwake-v63-character-forward.mjs",
+      "sha256": "b39dadf69310ab23747e7171588aff3ddb464de5bd3004c7ad01e38d3593d6e9",
+      "bytes": 1713
+    },
+    {
+      "path": "test/stormwake-v63-contacts.mjs",
+      "sha256": "259e6417a6cad06c31d2bac93abd0dcb93245fb40147c059965dbc13021a861c",
+      "bytes": 3772
+    },
+    {
+      "path": "test/stormwake-v63-deck-supplies.mjs",
+      "sha256": "4296db85b238d75b9f582e75991d94aaca144316fedf6c82b12b606244711df9",
+      "bytes": 1489
+    },
+    {
+      "path": "test/stormwake-v63-deep-echo.mjs",
+      "sha256": "707594b9924241537f3130a8c687df61ab006b01162691b6ac25a97b73465098",
+      "bytes": 3305
+    },
+    {
+      "path": "test/stormwake-v63-events.mjs",
+      "sha256": "10718242679341ebd8c49e4a61aa536a48f1d38ca90690dc44add3a5a3b69525",
+      "bytes": 2749
+    },
+    {
+      "path": "test/stormwake-v63-footprint.mjs",
+      "sha256": "cbb6d2e278c71a10b9a2dc4dc2e8fe7a60f75d6f4ae6b6df6d727e95b38c49af",
+      "bytes": 1129
+    },
+    {
+      "path": "test/stormwake-v63-ghost-geometry.mjs",
+      "sha256": "a221d27a04dcafd7e800b03bb4f8618b3d0cbc9f81aa9e50557d299cda9f7ed3",
+      "bytes": 2061
+    },
+    {
+      "path": "test/stormwake-v63-ghost-lantern.mjs",
+      "sha256": "3fe98e46858f169eb1aac5e8de47bc0f3b8a0f2f5b956f0349fa2e069ec58582",
+      "bytes": 2163
+    },
+    {
+      "path": "test/stormwake-v63-interaction-layers.mjs",
+      "sha256": "1c2946b05bb5c53b4a819d445b84b54311b76343aca5f94608a9b16c8d807f03",
+      "bytes": 2011
+    },
+    {
+      "path": "test/stormwake-v63-load.mjs",
+      "sha256": "5b6fb9c8f01a6f4772cc7bdfb097a7e1fc4dd10b3c86b43d657ed14f7b721fe9",
+      "bytes": 2081
+    },
+    {
+      "path": "test/stormwake-v63-merchant.mjs",
+      "sha256": "9d7ffa885e67d9fedba15bbdb7e59e86f30757c9cd83949f5a741307b4f89059",
+      "bytes": 1908
+    },
+    {
+      "path": "test/stormwake-v63-moving-surfaces.mjs",
+      "sha256": "f61893d7326bd189c716911dfef23ee46931f97666d3950e6720c4a555b854a8",
+      "bytes": 1483
+    },
+    {
+      "path": "test/stormwake-v63-repair-materials.mjs",
+      "sha256": "6c189081379b7c95cc5aad95a0a314d4f42c641d4255344a7ed4c6ee5b624e39",
+      "bytes": 1710
+    },
+    {
+      "path": "test/stormwake-v63-rig-ik.mjs",
+      "sha256": "3829467c5e5c8a2f444acc8645808ba5539d5f76efe6ab3498b280b4c2a18559",
+      "bytes": 1531
+    },
+    {
+      "path": "test/stormwake-v63-sailor-activity.mjs",
+      "sha256": "b48452a7dfc67c0ffb1b39561df7efecad7ce8af0004bb9bbd006cc36ac7673d",
+      "bytes": 1858
+    },
+    {
+      "path": "test/stormwake-v63-sailor-grips.mjs",
+      "sha256": "b149df903672a336637c9c1ffac90896e5bd66327a310a61c14542639ef69637",
+      "bytes": 2786
+    },
+    {
+      "path": "test/stormwake-v63-sails.mjs",
+      "sha256": "6da46779a78d092a466121ca77119447b3e19cd2b753aa1a8a1b69bffbcbd47e",
+      "bytes": 1691
+    },
+    {
+      "path": "test/stormwake-v63-shared-supplies.mjs",
+      "sha256": "93d831988e79e38b323823184a2ba3fcc4c5970151589dc55d6e8c0925889e8d",
+      "bytes": 1175
+    },
+    {
+      "path": "test/stormwake-v63-skiffs.mjs",
+      "sha256": "c8dfb678e01d813d919fd2e9d772ecef55f911298de7aa7a3a46f707452fefa9",
+      "bytes": 1398
+    },
+    {
+      "path": "test/stormwake-v63-stair-momentum.mjs",
+      "sha256": "2bb4637087376477b22e2e004791382d4b268071066646140b71c5ad14ee1992",
+      "bytes": 2947
+    },
+    {
+      "path": "test/stormwake-v63-supply-authority.mjs",
+      "sha256": "7731ce6fc38d6969cca897217ae8b8f896b1dbb65a55668da9a368dde0043fac",
+      "bytes": 2505
+    },
+    {
+      "path": "test/stormwake-v63-supply-ws.mjs",
+      "sha256": "415e2eaded0100ef08669b1f1412d43eb604e9ff739ddeb3a5a5e320137d16ba",
+      "bytes": 4742
+    },
+    {
+      "path": "test/stormwake-v63-trade.mjs",
+      "sha256": "c6b917071bb3a1ff8991083869509fab6f898da9553728091594669f41e88761",
+      "bytes": 1215
+    },
+    {
+      "path": "test/stormwake-v63-ws.mjs",
+      "sha256": "53103678b76fbbe16dcd2a53583d4cc9ccf34541b46cbc5a8ccc929edd3ddc3f",
+      "bytes": 5256
+    },
+    {
+      "path": "tools/build_v63_cannon.py",
+      "sha256": "6a7b6366ac4a0f9e55d692791bcca66082ba2a3e56c73e2af30a4906dc95e703",
+      "bytes": 3612
+    },
+    {
+      "path": "tools/build_v63_ghost_ship.py",
+      "sha256": "152822769476f354e4af51e25060e006fd2a87087af912691f8681b6dc9a9b03",
+      "bytes": 4206
+    },
+    {
+      "path": "tools/build_v63_stair_apertures.py",
+      "sha256": "3c19708bcb778021adb01a783cd3c59ef19df57e1fe63a4f27702b360f51dbdf",
+      "bytes": 5020
+    },
+    {
+      "path": "tools/release_v63.py",
+      "sha256": "14f15b8d42d01e4edcc8a1a53af415e620fa85642a4ad482e191b6bd559b8994",
+      "bytes": 3153
+    },
+    {
+      "path": "tools/autoqa/runner.py",
+      "sha256": "8cc137acf851202676df41ca4514b6ba922a5a812373c67fb15c0f0a8681dff0",
+      "bytes": 35000
+    },
+    {
+      "path": "tools/autoqa/v63_cannon.py",
+      "sha256": "87312c6dcbe4d29f272eb9b404954c06b0115686498665c93fbb631dd7449728",
+      "bytes": 3930
+    },
+    {
+      "path": "tools/autoqa/v63_cartographer.py",
+      "sha256": "b913c2ac6befccdf222bb01d8da19c2d8c90ca470adc25358c7d051c6ce071e7",
+      "bytes": 3197
+    },
+    {
+      "path": "tools/autoqa/v63_cartographer_flow.py",
+      "sha256": "56a15ac646b0b67d823d62d87d3333f3e96d002a4452a0cf2317639679b88270",
+      "bytes": 5452
+    },
+    {
+      "path": "tools/autoqa/v63_contacts.py",
+      "sha256": "f5573bb6621f1d3d166551705e224a353e5aef3f08736cde85a2ac9d4165f975",
+      "bytes": 3218
+    },
+    {
+      "path": "tools/autoqa/v63_deep.py",
+      "sha256": "7a16b3fee8700c0c30605cd49755686d8e008969475212c126f872dfe30a04ea",
+      "bytes": 4013
+    },
+    {
+      "path": "tools/autoqa/v63_four_connect.py",
+      "sha256": "f46f81de2c3ca2dfdab7192ce07a5f5f7a8ae0546311ab62d47af2d509f32846",
+      "bytes": 2867
+    },
+    {
+      "path": "tools/autoqa/v63_ghost_visual.py",
+      "sha256": "331aae4c8aeaf2362b355adaacb19904a40fe99e4dd17bf9065a10f4e3566114",
+      "bytes": 5619
+    },
+    {
+      "path": "tools/autoqa/v63_harbor.py",
+      "sha256": "8d5f674b9828b6987b5df78c338bf79c82a1b7ed482c9a2eff84b6291132c3a9",
+      "bytes": 3288
+    },
+    {
+      "path": "tools/autoqa/v63_market.py",
+      "sha256": "ecf544e4e9d552c1066ad11a7855db13ef85adb29c42dcf1848e8d354f100bb6",
+      "bytes": 4483
+    },
+    {
+      "path": "tools/autoqa/v63_posture.py",
+      "sha256": "706430364ea425656f6ba1ebe75ded702cf25217eb83bde146441dfd87909af6",
+      "bytes": 3382
+    },
+    {
+      "path": "tools/autoqa/v63_sailors.py",
+      "sha256": "9d4dfc72c4cd9e79fd8d408005e4384c997cea1d00ca77b610e22c9afed05fdf",
+      "bytes": 5022
+    },
+    {
+      "path": "tools/autoqa/v63_sinking.py",
+      "sha256": "ccfbe6e7f2c617f7e82de40902a9ce6025d8b50b1a2053ee21b75253d22b818a",
+      "bytes": 2974
+    },
+    {
+      "path": "tools/autoqa/v63_stairs.py",
+      "sha256": "10e3c65713ebab603516e5dc3692b86079c2d7aec0545ed0ea5f16da1f5bc36d",
+      "bytes": 2978
+    }
+  ],
+  "evidence": [
+    "qa/V63-cannon/results.json",
+    "qa/V63-cartographer/results.json",
+    "qa/V63-cartographer-flow/results.json",
+    "qa/V63-deep/results.json",
+    "qa/V63-four-client-final/V62_20261115_130756/report.json",
+    "qa/V63-four-client-final/V62_20261115_170808/report.json",
+    "qa/V63-four-client-final/V62_20261115_220144/report.json",
+    "qa/V63-four-client-final/V62_20261115_221431/report.json",
+    "qa/V63-four-connect/results.json",
+    "qa/V63-ghost-materials/results.json",
+    "qa/V63-harbor-work/results.json",
+    "qa/V63-market/results.json",
+    "qa/V63-monster-contact/results.json",
+    "qa/V63-posture/results.json",
+    "qa/V63-sailors/results.json",
+    "qa/V63-sinking/results.json",
+    "qa/V63-stairs/results.json"
+  ],
+  "verification_limits": "See docs/V63_IMPLEMENTATION_TRACKER.md; historical failed trials are retained. This is not a claim that the entire GDD or zero-defect acceptance is complete."
+}

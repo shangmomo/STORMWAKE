@@ -1,0 +1,19 @@
+{
+  "file": "trex-v71.glb",
+  "source": "https://animalanimator.com/free-3d-animated-t-rex-reference/",
+  "download": "https://media.animalanimator.com/free-3d-animated-t-rex-reference/model/tyrannosaurus-rex-rigged-animated.glb",
+  "license": "CC-BY-4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "attribution": "Tyrannosaurus rex 3D model by AnimalAnimator.com (https://animalanimator.com), licensed under CC BY 4.0",
+  "sha256": "4e4c0bdf971b4df688653b6caec170e19a9ab8712ce37c64607a1246ebaf51ce",
+  "bytes": 10320144,
+  "joints": 84,
+  "clips": [
+    "01_Idle",
+    "02_Walk",
+    "03_Run",
+    "04_Attack"
+  ],
+  "status": "Bundled user-supplied GLB; original 84 joints and four clips verified; CPU calibration and combat tests passed; WebGPU visual validation pending",
+  "runtime_adaptation": "Two rigid eyes attached to the skin in memory; cornea shells omitted; max texture resolution 2048px on runtime GPU, original file unchanged"
+}

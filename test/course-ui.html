@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>海岛伙伴 UI 开发预览</title>
+<style>body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 35% 40%,#25556a,#0b1c32 62%,#07101c);color:#def;font-family:system-ui}
+.scene{position:fixed;left:8%;top:24%;width:62%;font-size:22px}.scene small{display:block;font-size:14px;opacity:.7;margin-top:12px}</style>
+</head>
+<body>
+<div class="scene">Tidewater · 海岛探险伙伴<small>独立 UI 预览：不会加载 WebGPU 3D 引擎。按 K 打开对话。</small></div>
+<script type="module">
+import { IslandCompanion } from '../src/course/IslandCompanion.js';
+const app = {
+  settings: { timeOfDay: 16.2 }, input: { enabled: true }, freeCam: false,
+  player: { mode: 'walk', position: { x: 53.6, z: -77 } },
+  game: { state: { log: {}, money: 0 }, vendors: [], hud: { standOpen: false } },
+};
+const companion = new IslandCompanion( app );
+window.__courseTest = { app, companion };
+companion.toggle( true );
+</script>
+</body></html>

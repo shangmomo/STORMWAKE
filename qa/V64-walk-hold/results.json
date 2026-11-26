@@ -1,0 +1,78 @@
+{
+  "results": {
+    "hold": {
+      "pass": true,
+      "paused": 0.2222499999999976,
+      "exit": {
+        "player": {
+          "mode": "deck",
+          "deckLayer": "deck",
+          "position": {
+            "x": 69.9111,
+            "y": 1.2716,
+            "z": 34.2685
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "deckPosition": {
+            "x": 0.0468,
+            "y": 1.0296,
+            "z": -2.18
+          },
+          "station": null,
+          "grounded": true,
+          "deckYaw": 3.1416,
+          "climbing": false,
+          "collision": {
+            "triangles": 49179,
+            "bvh": true
+          }
+        },
+        "contacts": [
+          {
+            "t": 0,
+            "normal": [
+              0.10601438074215423,
+              0.9943645966524842,
+              -8.012215721479674e-09
+            ],
+            "id": "Artist mesh dutch_ship_medium_hull"
+          }
+        ],
+        "velocity": {
+          "x": 0.02324593368409667,
+          "y": 0,
+          "z": 0
+        },
+        "climb": null,
+        "mast": null,
+        "trace": {
+          "playerLocal": {
+            "x": 0.0468,
+            "y": 1.0296,
+            "z": -2.18
+          },
+          "focusOwner": null,
+          "overlayActive": false,
+          "playState": "playing",
+          "frame": 111,
+          "selectedId": "anchor",
+          "candidates": [
+            {
+              "id": "anchor",
+              "distance": 0.4649128130485235,
+              "priority": 330,
+              "facing": 0.9962059653808386,
+              "aimed": true
+            }
+          ],
+          "history": []
+        }
+      }
+    }
+  },
+  "errors": []
+}

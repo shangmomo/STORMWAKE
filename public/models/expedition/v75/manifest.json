@@ -1,0 +1,25 @@
+{
+  "rock": {
+    "name": "Poly Haven Rock Face 01",
+    "source": "https://polyhaven.com/a/rock_face_01",
+    "license": "CC0 1.0",
+    "originalSHA256": "3277f291c4a2fe6eecf6dea03397472fb08383e54d80166312abc0d83c854684",
+    "runtimeSHA256": "efa432ae6a6bd792ce8e42a33db279f9f4950cbd2f55660d4bff115e14ef906c",
+    "triangles": 20174,
+    "textureSize": 2048,
+    "notes": "Source mesh triangles preserved; FBX cm and -90deg X orientation baked; corner UV and normals preserved; original 4K diffuse downsampled to JPEG95; normal decoded linear EXR to renormalized PNG; roughness encoded linear ORM PNG."
+  },
+  "captainMotion": {
+    "source": "https://github.com/Kinemiq/free-game-animations",
+    "upstream": "https://quaternius.com/packs/universalanimationlibrary.html",
+    "license": "CC0 1.0 (supplied README.txt)",
+    "sourceSHA256": "64ca5ab4a92c9da079c5e88ca509391b0a58a24ccf2a1307b16e2f0fc6b23ffc",
+    "runtimeSHA256": "05ce62e9168feb5a9b5df1f9f68b3bb4bb5429486737964d7e23fb7369615a4e",
+    "originalClips": 35,
+    "activeClips": [
+      "Idle_talking",
+      "Action_interact"
+    ],
+    "notes": "13 mapped upper-body rotations; preserved target original root/legs/fingers, no new character mesh. Source animation archive stored in tools/v75_sources."
+  }
+}

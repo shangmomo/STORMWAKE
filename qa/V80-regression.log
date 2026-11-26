@@ -1,0 +1,789 @@
+TAP version 13
+# Subtest: pressure hull walls, open doorway, and consoles
+ok 1 - pressure hull walls, open doorway, and consoles
+  ---
+  duration_ms: 1.47716
+  type: 'test'
+  ...
+# Subtest: walk speed and submarine-local camera follow world transform
+ok 2 - walk speed and submarine-local camera follow world transform
+  ---
+  duration_ms: 47.837389
+  type: 'test'
+  ...
+# Subtest: elemental frost_lance collision, windup and finite instance transforms
+ok 3 - elemental frost_lance collision, windup and finite instance transforms
+  ---
+  duration_ms: 6.159711
+  type: 'test'
+  ...
+# Subtest: elemental storm_lance collision, windup and finite instance transforms
+ok 4 - elemental storm_lance collision, windup and finite instance transforms
+  ---
+  duration_ms: 0.979429
+  type: 'test'
+  ...
+# Subtest: elemental cinder_fall collision, windup and finite instance transforms
+ok 5 - elemental cinder_fall collision, windup and finite instance transforms
+  ---
+  duration_ms: 0.781268
+  type: 'test'
+  ...
+# Subtest: elemental nova_beam collision, windup and finite instance transforms
+ok 6 - elemental nova_beam collision, windup and finite instance transforms
+  ---
+  duration_ms: 0.601194
+  type: 'test'
+  ...
+# Subtest: elemental voltaic_snare collision, windup and finite instance transforms
+ok 7 - elemental voltaic_snare collision, windup and finite instance transforms
+  ---
+  duration_ms: 0.727048
+  type: 'test'
+  ...
+# Subtest: elemental glacial_crown collision, windup and finite instance transforms
+ok 8 - elemental glacial_crown collision, windup and finite instance transforms
+  ---
+  duration_ms: 0.646871
+  type: 'test'
+  ...
+# Subtest: elemental flame_field collision, windup and finite instance transforms
+ok 9 - elemental flame_field collision, windup and finite instance transforms
+  ---
+  duration_ms: 0.826194
+  type: 'test'
+  ...
+# Subtest: comfort steering, independent throttle stop and repair budget
+ok 10 - comfort steering, independent throttle stop and repair budget
+  ---
+  duration_ms: 2.105624
+  type: 'test'
+  ...
+# Subtest: three weapon meshes and range/stamina distinction
+ok 11 - three weapon meshes and range/stamina distinction
+  ---
+  duration_ms: 2.064844
+  type: 'test'
+  ...
+# Subtest: six real quest state projections, complete and dynamic progress
+ok 12 - six real quest state projections, complete and dynamic progress
+  ---
+  duration_ms: 1.306009
+  type: 'test'
+  ...
+# Subtest: room validates station proximity, exclusive controls, movement, shared battle state and disconnect
+ok 13 - room validates station proximity, exclusive controls, movement, shared battle state and disconnect
+  ---
+  duration_ms: 1.053538
+  type: 'test'
+  ...
+# Subtest: weapon and tool slots disjoint; actual equipment code does not steal 1/2/3
+ok 14 - weapon and tool slots disjoint; actual equipment code does not steal 1/2/3
+  ---
+  duration_ms: 2.961842
+  type: 'test'
+  ...
+# Subtest: real key edges, no repeats, ctrl descent, typing, focus loss
+ok 15 - real key edges, no repeats, ctrl descent, typing, focus loss
+  ---
+  duration_ms: 0.396883
+  type: 'test'
+  ...
+# Subtest: soft menu blocks walking and clicks, E closes catch without falling through
+ok 16 - soft menu blocks walking and clicks, E closes catch without falling through
+  ---
+  duration_ms: 0.477662
+  type: 'test'
+  ...
+# Subtest: inventory opens before movement; close discards stale pressed and held input
+ok 17 - inventory opens before movement; close discards stale pressed and held input
+  ---
+  duration_ms: 0.29959
+  type: 'test'
+  ...
+# Subtest: menus isolated from submarines; chart remains accessible at helm
+ok 18 - menus isolated from submarines; chart remains accessible at helm
+  ---
+  duration_ms: 0.549908
+  type: 'test'
+  ...
+# Subtest: weapon selection draws, queues during swing, stows tools, denies modal and stations
+ok 19 - weapon selection draws, queues during swing, stows tools, denies modal and stations
+  ---
+  duration_ms: 0.399036
+  type: 'test'
+  ...
+# Subtest: actual adventure update consumes 1/2/3 on land and deck, with queued switch
+ok 20 - actual adventure update consumes 1/2/3 on land and deck, with queued switch
+  ---
+  duration_ms: 426.853468
+  type: 'test'
+  ...
+# Subtest: deck fishing available, not when submarine is active
+ok 21 - deck fishing available, not when submarine is active
+  ---
+  duration_ms: 0.296816
+  type: 'test'
+  ...
+# Subtest: interior aim exactly matches moving cabin view
+ok 22 - interior aim exactly matches moving cabin view
+  ---
+  duration_ms: 5.710771
+  type: 'test'
+  ...
+# Subtest: HUD independent of input, persisted mode, F7 restore, F8 cycle, no typing shortcuts
+ok 23 - HUD independent of input, persisted mode, F7 restore, F8 cycle, no typing shortcuts
+  ---
+  duration_ms: 0.701781
+  type: 'test'
+  ...
+# Subtest: catch dialog is outside hidden gameplay HUD and pure style does not hide panels
+ok 24 - catch dialog is outside hidden gameplay HUD and pure style does not hide panels
+  ---
+  duration_ms: 0.571059
+  type: 'test'
+  ...
+# Subtest: surface actual force integrator, A turns port +X and D starboard -X
+ok 25 - surface actual force integrator, A turns port +X and D starboard -X
+  ---
+  duration_ms: 11.097896
+  type: 'test'
+  ...
+# Subtest: submarine A/D consistent with forward-facing camera ahead and astern
+ok 26 - submarine A/D consistent with forward-facing camera ahead and astern
+  ---
+  duration_ms: 0.893473
+  type: 'test'
+  ...
+# Subtest: side and forward viewport rays clear, adjacent steel remains solid, cabin cannot walk through openings
+not ok 27 - side and forward viewport rays clear, adjacent steel remains solid, cabin cannot walk through openings
+  ---
+  duration_ms: 44.193666
+  type: 'test'
+  location: '/mnt/data/work/STORMWAKE_V80/test/stormwake-v68-controls.mjs:22:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    side -1 z-1.4
+    
+    3 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 3
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///mnt/data/work/STORMWAKE_V80/test/stormwake-v68-controls.mjs:22:235)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: current guest driver owns input; departed, stale or wrong station input stops
+ok 28 - current guest driver owns input; departed, stale or wrong station input stops
+  ---
+  duration_ms: 0.899822
+  type: 'test'
+  ...
+# Subtest: teleport destination in detection, natural aggro and attacks without world event
+ok 29 - teleport destination in detection, natural aggro and attacks without world event
+  ---
+  duration_ms: 30.093598
+  type: 'test'
+  ...
+# Subtest: AI safe combat course and broadside real ballistic direction; no shooting dead targets
+ok 30 - AI safe combat course and broadside real ballistic direction; no shooting dead targets
+  ---
+  duration_ms: 0.8505
+  type: 'test'
+  ...
+# Subtest: AI walks to capstan, unfurls sails and fires without taking human helm
+ok 31 - AI walks to capstan, unfurls sails and fires without taking human helm
+  ---
+  duration_ms: 15.79641
+  type: 'test'
+  ...
+# Subtest: physical screen directions: bridge, chase, four heading quadrants, normal/inverted input
+ok 32 - physical screen directions: bridge, chase, four heading quadrants, normal/inverted input
+  ---
+  duration_ms: 5.069989
+  type: 'test'
+  ...
+# Subtest: interior stations, moving boat rotation, consistent look direction and sensitivity
+ok 33 - interior stations, moving boat rotation, consistent look direction and sensitivity
+  ---
+  duration_ms: 79.340198
+  type: 'test'
+  ...
+# Subtest: all species swim in 3D with bounded heading change, speed, depth and shoreline clearance
+ok 34 - all species swim in 3D with bounded heading change, speed, depth and shoreline clearance
+  ---
+  duration_ms: 54.642299
+  type: 'test'
+  ...
+# Subtest: host publishes depth, pitch and bank for every titan
+ok 35 - host publishes depth, pitch and bank for every titan
+  ---
+  duration_ms: 1.567933
+  type: 'test'
+  ...
+# Subtest: AI operates both actual sail stations without stealing human helm and can furl both
+ok 36 - AI operates both actual sail stations without stealing human helm and can furl both
+  ---
+  duration_ms: 26.514189
+  type: 'test'
+  ...
+# Subtest: actual V64 asset: all four cloth panels return exactly, trim moves vertices and normals stay finite
+ok 37 - actual V64 asset: all four cloth panels return exactly, trim moves vertices and normals stay finite
+  ---
+  duration_ms: 226.670142
+  type: 'test'
+  ...
+# Subtest: real cabin lid included in collision BVH; crossing roof and repeated jump landings remain above cabin
+ok 38 - real cabin lid included in collision BVH; crossing roof and repeated jump landings remain above cabin
+  ---
+  duration_ms: 663.878222
+  type: 'test'
+  ...
+# max route grade 0.295
+# Subtest: real terrain: both expedition routes continuous and traversable
+not ok 39 - real terrain: both expedition routes continuous and traversable
+  ---
+  duration_ms: 13.205955
+  type: 'test'
+  location: '/mnt/data/work/STORMWAKE_V80/test/stormwake-v70.mjs:14:1'
+  failureType: 'testCodeFailure'
+  error: 'grade 4.0516534957096155'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///mnt/data/work/STORMWAKE_V80/test/stormwake-v70.mjs:14:480)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: actual cave mesh: roof, side collision, open entrance, return route
+ok 40 - actual cave mesh: roof, side collision, open entrance, return route
+  ---
+  duration_ms: 9.236763
+  type: 'test'
+  ...
+# Subtest: three service rooms: station and aisle clear, counter and rear solid
+ok 41 - three service rooms: station and aisle clear, counter and rear solid
+  ---
+  duration_ms: 39.596061
+  type: 'test'
+  ...
+# Subtest: corsair has bounded turn, initialized strafe, locked dash, no remote melee
+ok 42 - corsair has bounded turn, initialized strafe, locked dash, no remote melee
+  ---
+  duration_ms: 1.959519
+  type: 'test'
+  ...
+# Subtest: actual V69 village plus four new service buildings: full-sized player can enter
+ok 43 - actual V69 village plus four new service buildings: full-sized player can enter
+  ---
+  duration_ms: 758.325719
+  type: 'test'
+  ...
+# merchant 34280 vertices 34349 triangles
+# shipwright 39429 vertices 37765 triangles
+# keeper 35120 vertices 34769 triangles
+# expedition-notice 13920 vertices 10852 triangles
+# Subtest: all eight selected artist scans physically present with texture and mesh data
+ok 44 - all eight selected artist scans physically present with texture and mesh data
+  ---
+  duration_ms: 4.660999
+  type: 'test'
+  ...
+# Subtest: scanned models fit measured local collider envelope including 90-degree rotation
+ok 45 - scanned models fit measured local collider envelope including 90-degree rotation
+  ---
+  duration_ms: 1.425885
+  type: 'test'
+  ...
+# Subtest: all four rooms build real PBR mesh with scan UVs, normals and texture layer indices
+ok 46 - all four rooms build real PBR mesh with scan UVs, normals and texture layer indices
+  ---
+  duration_ms: 278.33648
+  type: 'test'
+  ...
+# Subtest: cave scan supplies are outside central passage and inside rock arch
+ok 47 - cave scan supplies are outside central passage and inside rock arch
+  ---
+  duration_ms: 0.501767
+  type: 'test'
+  ...
+# Subtest: existing enemies cannot instantly turn or attack-turn, return to home outside territory
+ok 48 - existing enemies cannot instantly turn or attack-turn, return to home outside territory
+  ---
+  duration_ms: 2.168606
+  type: 'test'
+  ...
+# Subtest: survey records unique and return requires all three stations; malformed saves rejected
+ok 49 - survey records unique and return requires all three stations; malformed saves rejected
+  ---
+  duration_ms: 1.338868
+  type: 'test'
+  ...
+# Subtest: optional T. rex AI: locked telegraph, bounded angular velocity and acceleration, bite event and leash
+ok 50 - optional T. rex AI: locked telegraph, bounded angular velocity and acceleration, bite event and leash
+  ---
+  duration_ms: 6.403599
+  type: 'test'
+  ...
+# Subtest: uploaded GLB physically bundled, verified SHA256, source clips, full skin and texture count
+ok 51 - uploaded GLB physically bundled, verified SHA256, source clips, full skin and texture count
+  ---
+  duration_ms: 17.638413
+  type: 'test'
+  ...
+# Subtest: rigid eyes become two additional animated attachments without changing original bones
+ok 52 - rigid eyes become two additional animated attachments without changing original bones
+  ---
+  duration_ms: 9.210223
+  type: 'test'
+  ...
+# Subtest: calibration and all real animation samples produce finite 86-joint transforms
+ok 53 - calibration and all real animation samples produce finite 86-joint transforms
+  ---
+  duration_ms: 94.51748
+  type: 'test'
+  ...
+# Subtest: real jaw closure contacts standing player, not distant or flank player
+ok 54 - real jaw closure contacts standing player, not distant or flank player
+  ---
+  duration_ms: 14.994412
+  type: 'test'
+  ...
+# Subtest: full encounter real pose and collision proxies; exactly one bite at authored contact across rates
+ok 55 - full encounter real pose and collision proxies; exactly one bite at authored contact across rates
+  ---
+  duration_ms: 11069.157791
+  type: 'test'
+  ...
+# Subtest: blocked bite, far-player deactivation and quest navigation
+ok 56 - blocked bite, far-player deactivation and quest navigation
+  ---
+  duration_ms: 2638.845407
+  type: 'test'
+  ...
+# Subtest: NPC path cannot cross thin wall, stale clearance invalidated after new collision geometry
+ok 57 - NPC path cannot cross thin wall, stale clearance invalidated after new collision geometry
+  ---
+  duration_ms: 2.290776
+  type: 'test'
+  ...
+# Subtest: all four actual uploaded assets retain provenance and runtime hashes; no unsupported extensions
+ok 58 - all four actual uploaded assets retain provenance and runtime hashes; no unsupported extensions
+  ---
+  duration_ms: 316.274948
+  type: 'test'
+  ...
+# Subtest: real bear walking and trotting are in-place without losing paw movement
+ok 59 - real bear walking and trotting are in-place without losing paw movement
+  ---
+  duration_ms: 102.582983
+  type: 'test'
+  ...
+# Subtest: authored paw contact at 0.85s is spatial, not a generic circular damage area
+ok 60 - authored paw contact at 0.85s is spatial, not a generic circular damage area
+  ---
+  duration_ms: 37.325179
+  type: 'test'
+  ...
+# Subtest: bear patrol, bounded turning, contact and recovery at 30/60/144 Hz
+ok 61 - bear patrol, bounded turning, contact and recovery at 30/60/144 Hz
+  ---
+  duration_ms: 1.713527
+  type: 'test'
+  ...
+# Subtest: real building door and porch clearance: actual 0.3m/1.75m player walks inside and returns
+ok 62 - real building door and porch clearance: actual 0.3m/1.75m player walks inside and returns
+  ---
+  duration_ms: 34.757765
+  type: 'test'
+  ...
+# Subtest: building wall blocks capsule; site foundations remain flat and source house retains original mesh data
+ok 63 - building wall blocks capsule; site foundations remain flat and source house retains original mesh data
+  ---
+  duration_ms: 76.561986
+  type: 'test'
+  ...
+# Subtest: real captain original idle, bounded facing, E interaction and proximity claim
+ok 64 - real captain original idle, bounded facing, E interaction and proximity claim
+  ---
+  duration_ms: 39.403682
+  type: 'test'
+  ...
+# Subtest: real LandAdventure bear integration: body solid, one bone-timed damage event, no collision after death
+ok 65 - real LandAdventure bear integration: body solid, one bone-timed damage event, no collision after death
+  ---
+  duration_ms: 128.087952
+  type: 'test'
+  ...
+# grotto route end {
+#   x: 448,
+#   y: 58.618520084069054,
+#   z: -480.00000000001074,
+#   contacts: [],
+#   stepped: true,
+#   support: 58.618520084069054
+# } maxstep 0.08601786645606779
+# Subtest: four authored assets packed with matching SHA256, PBR maps and original triangle counts
+ok 66 - four authored assets packed with matching SHA256, PBR maps and original triangle counts
+  ---
+  duration_ms: 197.965701
+  type: 'test'
+  ...
+# Subtest: every original clip has finite pose and bounded actual skinned mesh vertices
+ok 67 - every original clip has finite pose and bounded actual skinned mesh vertices
+  ---
+  duration_ms: 262.536636
+  type: 'test'
+  ...
+# Subtest: continuous air and water simulation: bounded turns, vertical rates, terrain and surface constraints at 30/60/144Hz
+ok 68 - continuous air and water simulation: bounded turns, vertical rates, terrain and surface constraints at 30/60/144Hz
+  ---
+  duration_ms: 50.279514
+  type: 'test'
+  ...
+# Subtest: wolf patrol, avoidance, howl and authored gait use bounded velocity; no attack path
+ok 69 - wolf patrol, avoidance, howl and authored gait use bounded velocity; no attack path
+  ---
+  duration_ms: 6.313888
+  type: 'test'
+  ...
+# Subtest: actual grotto 10k triangles, entrance, safe interior floor and return through original mesh
+ok 70 - actual grotto 10k triangles, entrance, safe interior floor and return through original mesh
+  ---
+  duration_ms: 35.462862
+  type: 'test'
+  ...
+# Subtest: grotto side walls block player and source terrain clearance leaves walking corridor
+ok 71 - grotto side walls block player and source terrain clearance leaves walking corridor
+  ---
+  duration_ms: 5.533171
+  type: 'test'
+  ...
+# Subtest: grotto one-time interaction is registered only when loaded and in reach
+ok 72 - grotto one-time interaction is registered only when loaded and in reach
+  ---
+  duration_ms: 0.799024
+  type: 'test'
+  ...
+# Subtest: skinned PBR emissive maps retain texture binding and shader branch
+ok 73 - skinned PBR emissive maps retain texture binding and shader branch
+  ---
+  duration_ms: 42.43712
+  type: 'test'
+  ...
+# east-ridge {
+#   above: 54783,
+#   below: 5739,
+#   bounds: [
+#     [ 349.03829169491615, 69.62159690856933, -334.8753030291521 ],
+#     [ 361.300301356144, 77.34127469062804, -324.3274492473856 ]
+#   ]
+# }
+# high-pass {
+#   above: 54960,
+#   below: 5562,
+#   bounds: [
+#     [ 396.6912780361275, 69.0803050994873, -400.7892976178484 ],
+#     [ 408.2225935535236, 77.29802660942077, -387.61478805487883 ]
+#   ]
+# }
+# north-pass {
+#   above: 50392,
+#   below: 10130,
+#   bounds: [
+#     [ 426.75152012604906, 59.94844493865967, -428.1989030050882 ],
+#     [ 435.9105369657394, 66.4230134010315, -418.8709361902366 ]
+#   ]
+# }
+# fossil-approach {
+#   above: 42625,
+#   below: 17897,
+#   bounds: [
+#     [ 404.3583513605461, 45.39627380371094, -599.8895851295423 ],
+#     [ 414.6522734934803, 52.36888599395752, -589.4598583321266 ]
+#   ]
+# }
+# fossil-ridge {
+#   above: 51544,
+#   below: 8978,
+#   bounds: [
+#     [ 343.4065388451021, 45.81705722808838, -649.3184094063969 ],
+#     [ 353.6336131896314, 53.03869128227234, -639.4483080228932 ]
+#   ]
+# }
+# original {
+#   lo: [ -0.3144760154907066, -0.018142533345469763, -0.3548964544485512 ],
+#   hi: [ 0.31387915581073417, 1.7177603215602057, 0.2010692883319427 ]
+# }
+# V75_Idle_talking maxReach 0.2488435059785843
+# V75_Action_interact maxReach 0.40975093841552734
+# Subtest: original rock FBX converted to complete 20174 triangle PBR GLB
+ok 74 - original rock FBX converted to complete 20174 triangle PBR GLB
+  ---
+  duration_ms: 25.559396
+  type: 'test'
+  ...
+# Subtest: five rock sites use actual triangles, embedded base, visible height and terrain clearance
+ok 75 - five rock sites use actual triangles, embedded base, visible height and terrain clearance
+  ---
+  duration_ms: 46.978748
+  type: 'test'
+  ...
+# Subtest: rock wall blocks swept player capsule at a visible, steep source triangle on every site
+ok 76 - rock wall blocks swept player capsule at a visible, steep source triangle on every site
+  ---
+  duration_ms: 45.607763
+  type: 'test'
+  ...
+# Subtest: all original road centerlines stay outside every new collision world with >2m horizontal clearance
+ok 77 - all original road centerlines stay outside every new collision world with >2m horizontal clearance
+  ---
+  duration_ms: 1.736712
+  type: 'test'
+  ...
+# Subtest: captain motion has 13 reviewed rotation channels; rejects wrong skeleton or invalid quaternion without partial mutation
+ok 78 - captain motion has 13 reviewed rotation channels; rejects wrong skeleton or invalid quaternion without partial mutation
+  ---
+  duration_ms: 30.109282
+  type: 'test'
+  ...
+# Subtest: actual 63-bone skin, foot stability, arm reach and no extreme vertex stretch during both retargeted actions
+ok 79 - actual 63-bone skin, foot stability, arm reach and no extreme vertex stretch during both retargeted actions
+  ---
+  duration_ms: 91.328833
+  type: 'test'
+  ...
+# Subtest: conversation greeting -> talk -> idle, repeated E cannot restart, walking away cancels, 30/60/144Hz
+ok 80 - conversation greeting -> talk -> idle, repeated E cannot restart, walking away cancels, 30/60/144Hz
+  ---
+  duration_ms: 116.655948
+  type: 'test'
+  ...
+# fern instances 96
+# Subtest: all five actual source meshes and original PBR channels retained
+ok 81 - all five actual source meshes and original PBR channels retained
+  ---
+  duration_ms: 338.897003
+  type: 'test'
+  ...
+# Subtest: fern retains original four variants, aligned origin, alpha PNG and cutout material
+ok 82 - fern retains original four variants, aligned origin, alpha PNG and cutout material
+  ---
+  duration_ms: 3.530267
+  type: 'test'
+  ...
+# Subtest: six actual rock placements preserve original main road clearance and terrain contact
+ok 83 - six actual rock placements preserve original main road clearance and terrain contact
+  ---
+  duration_ms: 3910.151457
+  type: 'test'
+  ...
+# Subtest: fern patches avoid road, building footprints, steep ground, and sea
+ok 84 - fern patches avoid road, building footprints, steep ground, and sea
+  ---
+  duration_ms: 3.217238
+  type: 'test'
+  ...
+# Subtest: tavern source collision and actual player motor: entrance, service, return, floor support
+ok 85 - tavern source collision and actual player motor: entrance, service, return, floor support
+  ---
+  duration_ms: 6757.613463
+  type: 'test'
+  ...
+# Subtest: forge source collision and actual player motor: entrance, service, return, floor support
+ok 86 - forge source collision and actual player motor: entrance, service, return, floor support
+  ---
+  duration_ms: 431.913515
+  type: 'test'
+  ...
+# Subtest: service registers only loaded reachable position and dispatches to V77 panel
+ok 87 - service registers only loaded reachable position and dispatches to V77 panel
+  ---
+  duration_ms: 1.504832
+  type: 'test'
+  ...
+# Subtest: forge levels and wallet saved atomically, restored from v1 save and capped
+ok 88 - forge levels and wallet saved atomically, restored from v1 save and capped
+  ---
+  duration_ms: 1.642353
+  type: 'test'
+  ...
+# Subtest: failed write and invalid payment leave wallet and levels unchanged
+ok 89 - failed write and invalid payment leave wallet and levels unchanged
+  ---
+  duration_ms: 0.512383
+  type: 'test'
+  ...
+# Subtest: forge action rechecks site, wall, height, battle, loaded status and connection
+ok 90 - forge action rechecks site, wall, height, battle, loaded status and connection
+  ---
+  duration_ms: 0.688793
+  type: 'test'
+  ...
+# Subtest: tavern payment, bounded restore, 45-second cooldown and no repeated full-health purchase
+ok 91 - tavern payment, bounded restore, 45-second cooldown and no repeated full-health purchase
+  ---
+  duration_ms: 0.289005
+  type: 'test'
+  ...
+# Subtest: real swing snapshots forged damage without changing reach or timing, disabled online
+ok 92 - real swing snapshots forged damage without changing reach or timing, disabled online
+  ---
+  duration_ms: 0.384865
+  type: 'test'
+  ...
+# Subtest: service modal owns input and death keeps it disabled
+ok 93 - service modal owns input and death keeps it disabled
+  ---
+  duration_ms: 0.253373
+  type: 'test'
+  ...
+# deep gallery max grade 0.2140350835614237 min ground 37 triangles 6296
+# Subtest: unified collision at intersecting mesh seams, low FPS and diagonal motion
+ok 94 - unified collision at intersecting mesh seams, low FPS and diagonal motion
+  ---
+  duration_ms: 30.055537
+  type: 'test'
+  ...
+# Subtest: thin legacy solid cannot be tunneled through at 10Hz roll speed
+ok 95 - thin legacy solid cannot be tunneled through at 10Hz roll speed
+  ---
+  duration_ms: 4.166282
+  type: 'test'
+  ...
+# Subtest: swimming cannot cross triangle wall, invalid and teleport inputs fail closed
+ok 96 - swimming cannot cross triangle wall, invalid and teleport inputs fail closed
+  ---
+  duration_ms: 0.289295
+  type: 'test'
+  ...
+# Subtest: camera boom checks actual mesh and box
+ok 97 - camera boom checks actual mesh and box
+  ---
+  duration_ms: 0.414459
+  type: 'test'
+  ...
+# Subtest: malformed GLB lengths are rejected without unbounded parse
+ok 98 - malformed GLB lengths are rejected without unbounded parse
+  ---
+  duration_ms: 0.626541
+  type: 'test'
+  ...
+# Subtest: frame exception stops simulation and invokes failure handler exactly once
+ok 99 - frame exception stops simulation and invokes failure handler exactly once
+  ---
+  duration_ms: 0.438043
+  type: 'test'
+  ...
+# Subtest: lower cave is a single mesh, connected downhill gallery, roof, side walls, and round-trip actual land motor
+ok 100 - lower cave is a single mesh, connected downhill gallery, roof, side walls, and round-trip actual land motor
+  ---
+  duration_ms: 56.834328
+  type: 'test'
+  ...
+# Subtest: large collision build yields and publishes only the completed tree
+ok 101 - large collision build yields and publishes only the completed tree
+  ---
+  duration_ms: 56.038319
+  type: 'test'
+  ...
+# Subtest: tavern full original mesh including upper geometry; real land motor entrance/service/return
+ok 102 - tavern full original mesh including upper geometry; real land motor entrance/service/return
+  ---
+  duration_ms: 8823.463144
+  type: 'test'
+  ...
+# Subtest: forge full original mesh including upper geometry; real land motor entrance/service/return
+ok 103 - forge full original mesh including upper geometry; real land motor entrance/service/return
+  ---
+  duration_ms: 647.223327
+  type: 'test'
+  ...
+# Subtest: actual Player.updateWalk repeated running, jumping and wall collision at 30/60/144 Hz
+ok 104 - actual Player.updateWalk repeated running, jumping and wall collision at 30/60/144 Hz
+  ---
+  duration_ms: 34.823743
+  type: 'test'
+  ...
+# Subtest: short non-walkable prop cannot be stepped through; recovery checks mesh penetration
+ok 105 - short non-walkable prop cannot be stepped through; recovery checks mesh penetration
+  ---
+  duration_ms: 0.511702
+  type: 'test'
+  ...
+# Subtest: same completed one-shot can replay without stale animation timer
+ok 106 - same completed one-shot can replay without stale animation timer
+  ---
+  duration_ms: 0.150301
+  type: 'test'
+  ...
+# Subtest: OS repeat after modal, blur, or text focus cannot restart movement without new press
+ok 107 - OS repeat after modal, blur, or text focus cannot restart movement without new press
+  ---
+  duration_ms: 1.544901
+  type: 'test'
+  ...
+# Subtest: Shift+P not consumed by journal, regular P opens once
+ok 108 - Shift+P not consumed by journal, regular P opens once
+  ---
+  duration_ms: 0.447187
+  type: 'test'
+  ...
+# Subtest: invalid mouse deltas cannot poison view
+ok 109 - invalid mouse deltas cannot poison view
+  ---
+  duration_ms: 0.725496
+  type: 'test'
+  ...
+# Subtest: both interaction directors reject malformed coordinates and dispatch once per frame even if consumer repeats
+ok 110 - both interaction directors reject malformed coordinates and dispatch once per frame even if consumer repeats
+  ---
+  duration_ms: 8.976279
+  type: 'test'
+  ...
+# Subtest: wall-clock FPS measures a 500ms hitch rather than the 100ms capped simulation dt
+ok 111 - wall-clock FPS measures a 500ms hitch rather than the 100ms capped simulation dt
+  ---
+  duration_ms: 0.375912
+  type: 'test'
+  ...
+# Subtest: wallet rollback for failed spend, sale, release, gear purchase and fuel; reject invalid cost
+ok 112 - wallet rollback for failed spend, sale, release, gear purchase and fuel; reject invalid cost
+  ---
+  duration_ms: 0.867385
+  type: 'test'
+  ...
+# Subtest: reward receipts stay single-use and storage-less local session remains playable
+ok 113 - reward receipts stay single-use and storage-less local session remains playable
+  ---
+  duration_ms: 0.233083
+  type: 'test'
+  ...
+# Subtest: land reward outbox retries failed wallet save across reload and cannot double-credit
+ok 114 - land reward outbox retries failed wallet save across reload and cannot double-credit
+  ---
+  duration_ms: 0.709583
+  type: 'test'
+  ...
+1..114
+# tests 114
+# suites 0
+# pass 112
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 27576.328854

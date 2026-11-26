@@ -1,0 +1,9 @@
+import {Group,Vector3} from '../engine/index.js';
+import {loadLandRig,playLandRigAction} from '../land/LandRigRuntime.js';
+import {LandFootPlant} from '../land/LandGrounding.js';
+import {buildHarborRoom} from '../land/ExpeditionSites.js';
+const PEOPLE=[{role:'merchant',slot:'resident_harbor',x:56,z:-71,roomX:57.8,width:3.8},{role:'shipwright',slot:'resident_apprentice',x:62,z:-73},{role:'keeper',slot:'resident_herbalist',x:45,z:-80}];
+export class HarborQuestPeople{
+ constructor(app){this.app=app;this.people=PEOPLE.map(site=>{const room=buildHarborRoom(app,{...site,x:site.roomX??site.x});const root=new Group();root.name='Harbor quest '+site.role;root.position.copy(room.service);root.position.y=Math.max(root.position.y,app.terrainData.heightAt(root.position.x,root.position.z));app.colliders.resolveCapsule(root.position,.24,1.8,.20);app.scene.add(root);const person={...site,room,root,actor:null,footPlant:null,animation:''};loadLandRig(site.slot).then(actor=>{if(!actor)throw Error('Harbor quest character missing: '+site.slot);person.actor=actor;root.add(actor.rig.group);person.footPlant=new LandFootPlant(actor.rig);person.footPlant.update(0);}).catch(console.error);return person;});}
+ update(dt,clock){const player=this.app.player.position;for(const p of this.people){const dx=player.x-p.root.position.x,dz=player.z-p.root.position.z,near=Math.hypot(dx,dz)<3&&dz>-.1;const target=near?Math.atan2(dx,dz):0;const turn=Math.atan2(Math.sin(target-p.root.rotation.y),Math.cos(target-p.root.rotation.y));p.root.rotation.y+=Math.max(-2.6*dt,Math.min(2.6*dt,turn));if(p.actor){if(p.animation!=='idle'){playLandRigAction(p.actor,'idle',{fade:.3});p.animation='idle';}p.actor.rig.update(dt);p.footPlant.update(dt,{moving:false,root:p.root.position,yaw:p.root.rotation.y,groundProbe:(x,z)=>Math.max(p.room.floor,this.app.terrainData.heightAt(x,z))});}}}
+}

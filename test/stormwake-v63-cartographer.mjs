@@ -1,0 +1,13 @@
+import {ARSENAL_SITES} from '../src/ship/ArsenalSites.js';
+import assert from 'node:assert/strict';import {CartographerQuest,CARTOGRAPHER as C} from '../src/voyage/CartographerQuest.js';
+const q=new CartographerQuest(),ship={x:69.8,y:0,z:42,yaw:0},p={id:'a',x:69.3,y:.55,z:33.9,mode:'deck',deckLayer:'hold'};
+assert(!q.action('deliver',p,ship));assert(q.action('accept',p,ship));assert(!q.action('take_log',{...p,...C.log,mode:'swim'},ship));
+Object.assign(ship,{x:130,z:700});Object.assign(p,{x:130+ARSENAL_SITES.harpoon.x,y:ARSENAL_SITES.harpoon.y,z:700+ARSENAL_SITES.harpoon.z,deckLayer:'deck'});
+assert(!q.action('spot',p,ship,{spyglass:true,direction:{x:0,y:0,z:-1}}));assert(q.action('spot',p,ship,{spyglass:true,direction:{x:0,y:0,z:1}}));
+let dx=q.crate.x-p.x,dy=q.crate.y-(p.y+.65),dz=q.crate.z-p.z,n=Math.hypot(dx,dy,dz);const direction={x:dx/n,y:dy/n,z:dz/n};assert(q.action('fire',p,ship,{direction}));assert.equal(q.phase,'flying');for(let i=0;i<20;i++)q.update(.1,ship);assert.equal(q.phase,'latched');
+const before={...q.crate};for(let i=0;i<10;i++)q.update(.1,ship);assert.deepEqual(q.crate,before,'without held reel the crate must not move');
+for(let i=0;i<250&&q.phase==='latched';i++){assert(q.action('reel',p,ship));q.update(.1,ship);}assert.equal(q.phase,'salvaged');
+Object.assign(p,C.log,{mode:'swim'});assert(q.action('take_log',p,ship));q.disconnect('a');assert.equal(q.phase,'salvaged');assert(q.action('take_log',p,ship));
+Object.assign(ship,{x:69.8,z:42});Object.assign(p,{x:69.3,y:.55,z:33.9,mode:'deck',deckLayer:'hold'});assert(q.action('read_log',p,ship));
+const restored=new CartographerQuest();assert(restored.deserialize(q.serialize()));assert.equal(restored.phase,'island');Object.assign(p,C.island,{mode:'walk'});assert(restored.action('inspect',p,ship));Object.assign(p,C.broker);assert(restored.action('deliver',p,ship));assert.equal(restored.rewards,1);assert(!restored.action('deliver',p,ship));
+console.log('V63 cartographer full action sequence, missed aim, timed flight, held reeling, underwater recovery, disconnect, save/load and duplicate settlement PASS');

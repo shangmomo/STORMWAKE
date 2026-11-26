@@ -1,0 +1,4945 @@
+{
+  "version": "STORMWAKE V64",
+  "started_at": "2026-11-16T00:21:00.494092",
+  "build_sha256": "b007795b94b9c14778710537369e143c5dcbb9048538660114b13e314ff62cd2",
+  "seed": 61015,
+  "environment": {
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python": "3.8.18",
+    "browser": "msedge",
+    "headless": true
+  },
+  "browser_verified": true,
+  "simulation_verified": true,
+  "tests": [
+    {
+      "test": "server",
+      "status": "pass",
+      "detail": "本地 HTTP http://127.0.0.1:5193"
+    },
+    {
+      "test": "room_server",
+      "status": "pass",
+      "detail": "真实 WebSocket 房间服务器已启动"
+    },
+    {
+      "test": "browser_launch",
+      "status": "pass",
+      "detail": "Chromium 配置 {'channel': 'msedge'}"
+    },
+    {
+      "test": "game_initialization",
+      "status": "pass",
+      "detail": "游戏引擎初始化并已安装开发诊断接口"
+    },
+    {
+      "test": "start_overlay_dismissed",
+      "status": "pass",
+      "detail": "截图开始前确认开场遮罩已退出"
+    },
+    {
+      "test": "logic_startup",
+      "status": "pass",
+      "detail": "[]",
+      "data": {
+        "ready": true,
+        "version": "V64",
+        "playState": "playing",
+        "elapsedSeconds": 2.6582,
+        "rendering": {
+          "scale": 0.5,
+          "width": 1440,
+          "height": 900,
+          "seed": "61015",
+          "adapter": {
+            "vendor": "nvidia",
+            "device": "",
+            "description": ""
+          },
+          "displayedFps": 30,
+          "gpuProfile": null
+        },
+        "interaction": {
+          "overlayActive": false,
+          "inputEnabled": true,
+          "candidates": [],
+          "selected": null
+        },
+        "player": {
+          "mode": "walk",
+          "deckLayer": "deck",
+          "position": {
+            "x": 53.6,
+            "y": 2.8277,
+            "z": -77
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "deckPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "station": null,
+          "grounded": true,
+          "deckYaw": 0,
+          "climbing": false,
+          "collision": {
+            "triangles": 49179,
+            "bvh": true
+          }
+        },
+        "ship": {
+          "position": {
+            "x": 69.8058,
+            "y": -0.3147,
+            "z": 36.492
+          },
+          "rotation": {
+            "x": 0.0068,
+            "y": 0.0002,
+            "z": 0.0066,
+            "w": 1
+          },
+          "speed": 0.2222,
+          "moored": true,
+          "heritage": true,
+          "helmVisible": true,
+          "anchor": {
+            "down": true,
+            "travel": 1,
+            "turns": 0,
+            "hands": 0,
+            "hasRig": true,
+            "tether": {
+              "state": "HOLDING",
+              "chain": 34,
+              "depth": 4.089925841059854,
+              "tension": 0,
+              "point": {
+                "x": 71.3374,
+                "z": 43.15
+              }
+            },
+            "eyeLocal": {
+              "x": 1.4968,
+              "y": -2.4396,
+              "z": 6.692
+            },
+            "visibleSpan": 4.09
+          },
+          "throttle": 0,
+          "sails": 0
+        },
+        "world": {
+          "hour": 16.8054,
+          "weatherSeconds": 36.3245,
+          "night": 0,
+          "remoteWorld": {
+            "hour": 16.80565833333334,
+            "day": 1,
+            "speed": 0.016666666666666666,
+            "azimuth": 0,
+            "weatherSeconds": 36.3395,
+            "revision": 0
+          }
+        },
+        "water": {
+          "dryCamera": false,
+          "bilge": {
+            "stern": 0,
+            "mid": 0,
+            "bow": 0
+          },
+          "oceanVisible": true,
+          "underwaterPost": true,
+          "hullMaskActive": true,
+          "waterShaderReady": true
+        },
+        "multiplayer": {
+          "connected": true,
+          "peerCount": 0,
+          "peers": [],
+          "rttMs": 73,
+          "selfId": "9eb7afe4"
+        },
+        "bosses": [
+          {
+            "id": "lighthouse-warden",
+            "type": "warden",
+            "health": 520,
+            "dead": false,
+            "present": true,
+            "visible": false,
+            "rigLoaded": true,
+            "proceduralVisible": false,
+            "position": {
+              "x": -143,
+              "z": -275
+            }
+          },
+          {
+            "id": "island-corsair",
+            "type": "corsair",
+            "health": 720,
+            "dead": false,
+            "present": true,
+            "visible": false,
+            "rigLoaded": true,
+            "proceduralVisible": false,
+            "position": {
+              "x": -101,
+              "z": -185
+            }
+          }
+        ],
+        "offshore": {
+          "active": false,
+          "fleet": [
+            {
+              "id": "v44_ghost_0",
+              "x": -1030,
+              "z": 2160,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 210,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_1",
+              "x": -910,
+              "z": 2250,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 120,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_2",
+              "x": -915,
+              "z": 2380,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 120,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_3",
+              "x": -685,
+              "z": 2330,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_4",
+              "x": -565,
+              "z": 2260,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_5",
+              "x": -475,
+              "z": 2460,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_6",
+              "x": -595,
+              "z": 2550,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_7",
+              "x": -365,
+              "z": 2710,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_8",
+              "x": -225,
+              "z": 2630,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_9",
+              "x": -290,
+              "z": 2860,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            }
+          ],
+          "weather": {
+            "wind": {
+              "x": -5.007306105570958,
+              "z": 1.957034544339106
+            },
+            "windSpeed": 5.376160213630614,
+            "windDirection": 2.769011317376483,
+            "rain": 0,
+            "cloud": 0.27,
+            "visibility": 9000,
+            "seaState": 0,
+            "danger": 0,
+            "lightning": 0,
+            "waveScale": 1,
+            "fog": 0,
+            "spectral": 0,
+            "gust": -0.0
+          },
+          "animalsVisible": 0
+        },
+        "lighting": {
+          "active": 6,
+          "total": 84
+        },
+        "camera": {
+          "position": {
+            "x": 53.6,
+            "y": 4.4477,
+            "z": -77
+          }
+        },
+        "navigation": null
+      }
+    },
+    {
+      "test": "visual_captain_spawn",
+      "status": "captured",
+      "detail": "画面已获取，仍需视觉审阅；不能仅凭像素统计判断精美或无穿模",
+      "data": {
+        "file": "screenshots\\captain_spawn.png",
+        "width": 320,
+        "height": 200,
+        "luminanceStd": 51.72,
+        "blackRatio": 0.0015,
+        "whiteRatio": 0.0,
+        "cyanRatio": 0.0067
+      }
+    },
+    {
+      "test": "logic_captain_spawn",
+      "status": "pass",
+      "detail": "[]",
+      "data": {
+        "ready": true,
+        "version": "V64",
+        "playState": "playing",
+        "elapsedSeconds": 5.0805,
+        "rendering": {
+          "scale": 0.5,
+          "width": 1440,
+          "height": 900,
+          "seed": "61015",
+          "adapter": {
+            "vendor": "nvidia",
+            "device": "",
+            "description": ""
+          },
+          "displayedFps": 26.2516,
+          "gpuProfile": null
+        },
+        "interaction": {
+          "overlayActive": false,
+          "inputEnabled": true,
+          "candidates": [],
+          "selected": null
+        },
+        "player": {
+          "mode": "walk",
+          "deckLayer": "deck",
+          "position": {
+            "x": 53.6,
+            "y": 2.8277,
+            "z": -77
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "deckPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "station": null,
+          "grounded": true,
+          "deckYaw": 0,
+          "climbing": false,
+          "collision": {
+            "triangles": 49179,
+            "bvh": true
+          }
+        },
+        "ship": {
+          "position": {
+            "x": 69.8017,
+            "y": -0.101,
+            "z": 36.5014
+          },
+          "rotation": {
+            "x": -0.0007,
+            "y": 0,
+            "z": 0.0046,
+            "w": 1
+          },
+          "speed": 0.0539,
+          "moored": true,
+          "heritage": true,
+          "helmVisible": true,
+          "anchor": {
+            "down": true,
+            "travel": 1,
+            "turns": 0,
+            "hands": 0,
+            "hasRig": true,
+            "tether": {
+              "state": "HOLDING",
+              "chain": 34,
+              "depth": 4.398491017253401,
+              "tension": 0,
+              "point": {
+                "x": 71.3374,
+                "z": 43.15
+              }
+            },
+            "eyeLocal": {
+              "x": 1.5102,
+              "y": -2.7484,
+              "z": 6.6449
+            },
+            "visibleSpan": 4.3985
+          },
+          "throttle": 0,
+          "sails": 0
+        },
+        "world": {
+          "hour": 16.8454,
+          "weatherSeconds": 38.722,
+          "night": 0,
+          "remoteWorld": {
+            "hour": 16.84558333333333,
+            "day": 1,
+            "speed": 0.016666666666666666,
+            "azimuth": 0,
+            "weatherSeconds": 38.735,
+            "revision": 0
+          }
+        },
+        "water": {
+          "dryCamera": false,
+          "bilge": {
+            "stern": 0,
+            "mid": 0,
+            "bow": 0
+          },
+          "oceanVisible": true,
+          "underwaterPost": true,
+          "hullMaskActive": true,
+          "waterShaderReady": true
+        },
+        "multiplayer": {
+          "connected": true,
+          "peerCount": 0,
+          "peers": [],
+          "rttMs": 10,
+          "selfId": "9eb7afe4"
+        },
+        "bosses": [
+          {
+            "id": "lighthouse-warden",
+            "type": "warden",
+            "health": 520,
+            "dead": false,
+            "present": true,
+            "visible": false,
+            "rigLoaded": true,
+            "proceduralVisible": false,
+            "position": {
+              "x": -143,
+              "z": -275
+            }
+          },
+          {
+            "id": "island-corsair",
+            "type": "corsair",
+            "health": 720,
+            "dead": false,
+            "present": true,
+            "visible": false,
+            "rigLoaded": true,
+            "proceduralVisible": false,
+            "position": {
+              "x": -101,
+              "z": -185
+            }
+          }
+        ],
+        "offshore": {
+          "active": false,
+          "fleet": [
+            {
+              "id": "v44_ghost_0",
+              "x": -1030,
+              "z": 2160,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 210,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_1",
+              "x": -910,
+              "z": 2250,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 120,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_2",
+              "x": -915,
+              "z": 2380,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 120,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_3",
+              "x": -685,
+              "z": 2330,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_4",
+              "x": -565,
+              "z": 2260,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_5",
+              "x": -475,
+              "z": 2460,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_6",
+              "x": -595,
+              "z": 2550,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_7",
+              "x": -365,
+              "z": 2710,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_8",
+              "x": -225,
+              "z": 2630,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_9",
+              "x": -290,
+              "z": 2860,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            }
+          ],
+          "weather": {
+            "wind": {
+              "x": -4.94560723104294,
+              "z": 1.9145128285156363
+            },
+            "windSpeed": 5.303243371211165,
+            "windDirection": 2.7722441854254165,
+            "rain": 0,
+            "cloud": 0.27,
+            "visibility": 9000,
+            "seaState": 0,
+            "danger": 0,
+            "lightning": 0,
+            "waveScale": 1,
+            "fog": 0,
+            "spectral": 0,
+            "gust": -0.0
+          },
+          "animalsVisible": 0
+        },
+        "lighting": {
+          "active": 6,
+          "total": 84
+        },
+        "camera": {
+          "position": {
+            "x": 53.6,
+            "y": 4.4477,
+            "z": -77
+          }
+        },
+        "navigation": null
+      }
+    },
+    {
+      "test": "visual_captain_dock",
+      "status": "captured",
+      "detail": "画面已获取，仍需视觉审阅；不能仅凭像素统计判断精美或无穿模",
+      "data": {
+        "file": "screenshots\\captain_dock.png",
+        "width": 320,
+        "height": 200,
+        "luminanceStd": 39.95,
+        "blackRatio": 0.0562,
+        "whiteRatio": 0.0002,
+        "cyanRatio": 0.0042
+      }
+    },
+    {
+      "test": "logic_captain_dock",
+      "status": "pass",
+      "detail": "[]",
+      "data": {
+        "ready": true,
+        "version": "V64",
+        "playState": "playing",
+        "elapsedSeconds": 9.2303,
+        "rendering": {
+          "scale": 0.5,
+          "width": 1440,
+          "height": 900,
+          "seed": "61015",
+          "adapter": {
+            "vendor": "nvidia",
+            "device": "",
+            "description": ""
+          },
+          "displayedFps": 18,
+          "gpuProfile": null
+        },
+        "interaction": {
+          "overlayActive": false,
+          "inputEnabled": true,
+          "candidates": [],
+          "selected": null
+        },
+        "player": {
+          "mode": "swim",
+          "deckLayer": "deck",
+          "position": {
+            "x": 69.8,
+            "y": 0.1074,
+            "z": 36.5
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "deckPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "station": null,
+          "grounded": true,
+          "deckYaw": 0,
+          "climbing": false,
+          "collision": {
+            "triangles": 49179,
+            "bvh": true
+          }
+        },
+        "ship": {
+          "position": {
+            "x": 69.7978,
+            "y": 0.127,
+            "z": 36.493
+          },
+          "rotation": {
+            "x": 0.0125,
+            "y": 0.0034,
+            "z": -0.0193,
+            "w": 0.9997
+          },
+          "speed": 0.1557,
+          "moored": true,
+          "heritage": true,
+          "helmVisible": true,
+          "anchor": {
+            "down": true,
+            "travel": 1,
+            "turns": 0,
+            "hands": 0,
+            "hasRig": true,
+            "tether": {
+              "state": "HOLDING",
+              "chain": 34,
+              "depth": 4.374601284272776,
+              "tension": 0,
+              "point": {
+                "x": 71.3374,
+                "z": 43.15
+              }
+            },
+            "eyeLocal": {
+              "x": 1.6043,
+              "y": -2.7244,
+              "z": 6.7387
+            },
+            "visibleSpan": 4.3758
+          },
+          "throttle": 0,
+          "sails": 0
+        },
+        "world": {
+          "hour": 16.9126,
+          "weatherSeconds": 42.7565,
+          "night": 0,
+          "remoteWorld": {
+            "hour": 16.91299166666667,
+            "day": 1,
+            "speed": 0.016666666666666666,
+            "azimuth": 0,
+            "weatherSeconds": 42.7795,
+            "revision": 0
+          }
+        },
+        "water": {
+          "dryCamera": false,
+          "bilge": {
+            "stern": 0,
+            "mid": 0,
+            "bow": 0
+          },
+          "oceanVisible": true,
+          "underwaterPost": true,
+          "hullMaskActive": true,
+          "waterShaderReady": true
+        },
+        "multiplayer": {
+          "connected": true,
+          "peerCount": 0,
+          "peers": [],
+          "rttMs": 97,
+          "selfId": "9eb7afe4"
+        },
+        "bosses": [
+          {
+            "id": "lighthouse-warden",
+            "type": "warden",
+            "health": 520,
+            "dead": false,
+            "present": true,
+            "visible": false,
+            "rigLoaded": true,
+            "proceduralVisible": false,
+            "position": {
+              "x": -143,
+              "z": -275
+            }
+          },
+          {
+            "id": "island-corsair",
+            "type": "corsair",
+            "health": 720,
+            "dead": false,
+            "present": true,
+            "visible": false,
+            "rigLoaded": true,
+            "proceduralVisible": false,
+            "position": {
+              "x": -101,
+              "z": -185
+            }
+          }
+        ],
+        "offshore": {
+          "active": false,
+          "fleet": [
+            {
+              "id": "v44_ghost_0",
+              "x": -1030,
+              "z": 2160,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 210,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_1",
+              "x": -910,
+              "z": 2250,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 120,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_2",
+              "x": -915,
+              "z": 2380,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 120,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_3",
+              "x": -685,
+              "z": 2330,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_4",
+              "x": -565,
+              "z": 2260,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_5",
+              "x": -475,
+              "z": 2460,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_6",
+              "x": -595,
+              "z": 2550,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_7",
+              "x": -365,
+              "z": 2710,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_8",
+              "x": -225,
+              "z": 2630,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_9",
+              "x": -290,
+              "z": 2860,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            }
+          ],
+          "weather": {
+            "wind": {
+              "x": -4.861925115712234,
+              "z": 1.8519442838626612
+            },
+            "windSpeed": 5.202692904768164,
+            "windDirection": 2.777652793228624,
+            "rain": 0,
+            "cloud": 0.27,
+            "visibility": 9000,
+            "seaState": 0,
+            "danger": 0,
+            "lightning": 0,
+            "waveScale": 1,
+            "fog": 0,
+            "spectral": 0,
+            "gust": -0.0
+          },
+          "animalsVisible": 0
+        },
+        "lighting": {
+          "active": 6,
+          "total": 84
+        },
+        "camera": {
+          "position": {
+            "x": 69.8,
+            "y": 0.2694,
+            "z": 36.5
+          }
+        },
+        "navigation": null
+      }
+    },
+    {
+      "test": "visual_captain_anchor",
+      "status": "captured",
+      "detail": "画面已获取，仍需视觉审阅；不能仅凭像素统计判断精美或无穿模",
+      "data": {
+        "file": "screenshots\\captain_anchor.png",
+        "width": 320,
+        "height": 200,
+        "luminanceStd": 52.05,
+        "blackRatio": 0.0006,
+        "whiteRatio": 0.0001,
+        "cyanRatio": 0.0041
+      }
+    },
+    {
+      "test": "logic_captain_anchor",
+      "status": "pass",
+      "detail": "[]",
+      "data": {
+        "ready": true,
+        "version": "V64",
+        "playState": "playing",
+        "elapsedSeconds": 13.9194,
+        "rendering": {
+          "scale": 0.5,
+          "width": 1440,
+          "height": 900,
+          "seed": "61015",
+          "adapter": {
+            "vendor": "nvidia",
+            "device": "",
+            "description": ""
+          },
+          "displayedFps": 19.6734,
+          "gpuProfile": null
+        },
+        "interaction": {
+          "overlayActive": false,
+          "inputEnabled": true,
+          "candidates": [
+            {
+              "id": "anchor",
+              "priority": 330,
+              "distance": 0.2513
+            }
+          ],
+          "selected": "anchor"
+        },
+        "player": {
+          "mode": "deck",
+          "deckLayer": "deck",
+          "position": {
+            "x": 70.9837,
+            "y": 0.7664,
+            "z": 32.9506
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "deckPosition": {
+            "x": 1.22,
+            "y": 0.89,
+            "z": -3.53
+          },
+          "station": null,
+          "grounded": true,
+          "deckYaw": -2.1341,
+          "climbing": false,
+          "collision": {
+            "triangles": 49179,
+            "bvh": true
+          }
+        },
+        "ship": {
+          "position": {
+            "x": 69.8314,
+            "y": -0.0318,
+            "z": 36.5251
+          },
+          "rotation": {
+            "x": -0.0155,
+            "y": 0.0077,
+            "z": 0.0079,
+            "w": 0.9998
+          },
+          "speed": 0.1428,
+          "moored": true,
+          "heritage": true,
+          "helmVisible": true,
+          "anchor": {
+            "down": true,
+            "travel": 1,
+            "turns": 0,
+            "hands": 0,
+            "hasRig": true,
+            "tether": {
+              "state": "HOLDING",
+              "chain": 34,
+              "depth": 4.674329734164944,
+              "tension": 0,
+              "point": {
+                "x": 71.3374,
+                "z": 43.15
+              }
+            },
+            "eyeLocal": {
+              "x": 1.3591,
+              "y": -3.0215,
+              "z": 6.5565
+            },
+            "visibleSpan": 4.6758
+          },
+          "throttle": 0,
+          "sails": 0
+        },
+        "world": {
+          "hour": 16.9927,
+          "weatherSeconds": 47.561,
+          "night": 0,
+          "remoteWorld": {
+            "hour": 16.993116666666666,
+            "day": 1,
+            "speed": 0.016666666666666666,
+            "azimuth": 0,
+            "weatherSeconds": 47.586999999999996,
+            "revision": 0
+          }
+        },
+        "water": {
+          "dryCamera": false,
+          "bilge": {
+            "stern": 0,
+            "mid": 0,
+            "bow": 0
+          },
+          "oceanVisible": true,
+          "underwaterPost": true,
+          "hullMaskActive": true,
+          "waterShaderReady": true
+        },
+        "multiplayer": {
+          "connected": true,
+          "peerCount": 0,
+          "peers": [],
+          "rttMs": 20,
+          "selfId": "9eb7afe4"
+        },
+        "bosses": [
+          {
+            "id": "lighthouse-warden",
+            "type": "warden",
+            "health": 520,
+            "dead": false,
+            "present": true,
+            "visible": false,
+            "rigLoaded": true,
+            "proceduralVisible": false,
+            "position": {
+              "x": -143,
+              "z": -275
+            }
+          },
+          {
+            "id": "island-corsair",
+            "type": "corsair",
+            "health": 720,
+            "dead": false,
+            "present": true,
+            "visible": false,
+            "rigLoaded": true,
+            "proceduralVisible": false,
+            "position": {
+              "x": -101,
+              "z": -185
+            }
+          }
+        ],
+        "offshore": {
+          "active": false,
+          "fleet": [
+            {
+              "id": "v44_ghost_0",
+              "x": -1030,
+              "z": 2160,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 210,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_1",
+              "x": -910,
+              "z": 2250,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 120,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_2",
+              "x": -915,
+              "z": 2380,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 120,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_3",
+              "x": -685,
+              "z": 2330,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_4",
+              "x": -565,
+              "z": 2260,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_5",
+              "x": -475,
+              "z": 2460,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_6",
+              "x": -595,
+              "z": 2550,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_7",
+              "x": -365,
+              "z": 2710,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_8",
+              "x": -225,
+              "z": 2630,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_9",
+              "x": -290,
+              "z": 2860,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            }
+          ],
+          "weather": {
+            "wind": {
+              "x": -4.8095966207852525,
+              "z": 1.796811158062911
+            },
+            "windSpeed": 5.134272099568575,
+            "windDirection": 2.7840598230296703,
+            "rain": 0,
+            "cloud": 0.27,
+            "visibility": 9000,
+            "seaState": 0,
+            "danger": 0,
+            "lightning": 0,
+            "waveScale": 1,
+            "fog": 0,
+            "spectral": 0,
+            "gust": -0.0
+          },
+          "animalsVisible": 0
+        },
+        "lighting": {
+          "active": 6,
+          "total": 84
+        },
+        "camera": {
+          "position": {
+            "x": 70.9578,
+            "y": 2.3855,
+            "z": 32.9005
+          }
+        },
+        "navigation": null
+      }
+    },
+    {
+      "test": "visual_captain_helm",
+      "status": "captured",
+      "detail": "画面已获取，仍需视觉审阅；不能仅凭像素统计判断精美或无穿模",
+      "data": {
+        "file": "screenshots\\captain_helm.png",
+        "width": 320,
+        "height": 200,
+        "luminanceStd": 54.22,
+        "blackRatio": 0.0091,
+        "whiteRatio": 0.0012,
+        "cyanRatio": 0.0049
+      }
+    },
+    {
+      "test": "logic_captain_helm",
+      "status": "pass",
+      "detail": "[]",
+      "data": {
+        "ready": true,
+        "version": "V64",
+        "playState": "playing",
+        "elapsedSeconds": 16.1703,
+        "rendering": {
+          "scale": 0.5,
+          "width": 1440,
+          "height": 900,
+          "seed": "61015",
+          "adapter": {
+            "vendor": "nvidia",
+            "device": "",
+            "description": ""
+          },
+          "displayedFps": 30.0019,
+          "gpuProfile": null
+        },
+        "interaction": {
+          "overlayActive": false,
+          "inputEnabled": true,
+          "candidates": [
+            {
+              "id": "helm",
+              "priority": 40,
+              "distance": 0.4771
+            }
+          ],
+          "selected": "helm"
+        },
+        "player": {
+          "mode": "deck",
+          "deckLayer": "deck",
+          "position": {
+            "x": 70.5568,
+            "y": 1.9339,
+            "z": 29.485
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "deckPosition": {
+            "x": 0.7503,
+            "y": 1.9258,
+            "z": -6.9929
+          },
+          "station": null,
+          "grounded": true,
+          "deckYaw": -2.1341,
+          "climbing": false,
+          "collision": {
+            "triangles": 49179,
+            "bvh": true
+          }
+        },
+        "ship": {
+          "position": {
+            "x": 69.7867,
+            "y": 0.1342,
+            "z": 36.5093
+          },
+          "rotation": {
+            "x": -0.0047,
+            "y": 0.009,
+            "z": -0.0391,
+            "w": 0.9992
+          },
+          "speed": 0.2649,
+          "moored": true,
+          "heritage": true,
+          "helmVisible": true,
+          "anchor": {
+            "down": true,
+            "travel": 1,
+            "turns": 0,
+            "hands": 0,
+            "hasRig": true,
+            "tether": {
+              "state": "HOLDING",
+              "chain": 34,
+              "depth": 4.539831288239629,
+              "tension": 0,
+              "point": {
+                "x": 71.3374,
+                "z": 43.15
+              }
+            },
+            "eyeLocal": {
+              "x": 1.66,
+              "y": -2.8942,
+              "z": 6.6417
+            },
+            "visibleSpan": 4.5459
+          },
+          "throttle": 0,
+          "sails": 0
+        },
+        "world": {
+          "hour": 17.03,
+          "weatherSeconds": 49.802,
+          "night": 0,
+          "remoteWorld": {
+            "hour": 17.030416666666667,
+            "day": 1,
+            "speed": 0.016666666666666666,
+            "azimuth": 0,
+            "weatherSeconds": 49.825,
+            "revision": 0
+          }
+        },
+        "water": {
+          "dryCamera": false,
+          "bilge": {
+            "stern": 0,
+            "mid": 0,
+            "bow": 0
+          },
+          "oceanVisible": true,
+          "underwaterPost": true,
+          "hullMaskActive": true,
+          "waterShaderReady": true
+        },
+        "multiplayer": {
+          "connected": true,
+          "peerCount": 0,
+          "peers": [],
+          "rttMs": 10,
+          "selfId": "9eb7afe4"
+        },
+        "bosses": [
+          {
+            "id": "lighthouse-warden",
+            "type": "warden",
+            "health": 520,
+            "dead": false,
+            "present": true,
+            "visible": false,
+            "rigLoaded": true,
+            "proceduralVisible": false,
+            "position": {
+              "x": -143,
+              "z": -275
+            }
+          },
+          {
+            "id": "island-corsair",
+            "type": "corsair",
+            "health": 720,
+            "dead": false,
+            "present": true,
+            "visible": false,
+            "rigLoaded": true,
+            "proceduralVisible": false,
+            "position": {
+              "x": -101,
+              "z": -185
+            }
+          }
+        ],
+        "offshore": {
+          "active": false,
+          "fleet": [
+            {
+              "id": "v44_ghost_0",
+              "x": -1030,
+              "z": 2160,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 210,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_1",
+              "x": -910,
+              "z": 2250,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 120,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_2",
+              "x": -915,
+              "z": 2380,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 120,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_3",
+              "x": -685,
+              "z": 2330,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_4",
+              "x": -565,
+              "z": 2260,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_5",
+              "x": -475,
+              "z": 2460,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_6",
+              "x": -595,
+              "z": 2550,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_7",
+              "x": -365,
+              "z": 2710,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_8",
+              "x": -225,
+              "z": 2630,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_9",
+              "x": -290,
+              "z": 2860,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            }
+          ],
+          "weather": {
+            "wind": {
+              "x": -4.806284035700114,
+              "z": 1.779361695146224
+            },
+            "windSpeed": 5.125084806515831,
+            "windDirection": 2.7870230421109183,
+            "rain": 0,
+            "cloud": 0.27,
+            "visibility": 9000,
+            "seaState": 0,
+            "danger": 0,
+            "lightning": 0,
+            "waveScale": 1,
+            "fog": 0,
+            "spectral": 0,
+            "gust": -0.0
+          },
+          "animalsVisible": 0
+        },
+        "lighting": {
+          "active": 6,
+          "total": 84
+        },
+        "camera": {
+          "position": {
+            "x": 70.6831,
+            "y": 3.5501,
+            "z": 29.4685
+          }
+        },
+        "navigation": null
+      }
+    },
+    {
+      "test": "visual_captain_cabin",
+      "status": "captured",
+      "detail": "画面已获取，仍需视觉审阅；不能仅凭像素统计判断精美或无穿模",
+      "data": {
+        "file": "screenshots\\captain_cabin.png",
+        "width": 320,
+        "height": 200,
+        "luminanceStd": 53.85,
+        "blackRatio": 0.0013,
+        "whiteRatio": 0.0019,
+        "cyanRatio": 0.0041
+      }
+    },
+    {
+      "test": "logic_captain_cabin",
+      "status": "pass",
+      "detail": "[]",
+      "data": {
+        "ready": true,
+        "version": "V64",
+        "playState": "playing",
+        "elapsedSeconds": 18.3234,
+        "rendering": {
+          "scale": 0.5,
+          "width": 1440,
+          "height": 900,
+          "seed": "61015",
+          "adapter": {
+            "vendor": "nvidia",
+            "device": "",
+            "description": ""
+          },
+          "displayedFps": 26,
+          "gpuProfile": null
+        },
+        "interaction": {
+          "overlayActive": false,
+          "inputEnabled": true,
+          "candidates": [
+            {
+              "id": "cartographer_accept",
+              "priority": 260,
+              "distance": 0.8839
+            }
+          ],
+          "selected": "cartographer_accept"
+        },
+        "player": {
+          "mode": "deck",
+          "deckLayer": "hold",
+          "position": {
+            "x": 69.8182,
+            "y": -0.1195,
+            "z": 28.3701
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "deckPosition": {
+            "x": 0.15,
+            "y": -0.3467,
+            "z": -8.1
+          },
+          "station": null,
+          "grounded": true,
+          "deckYaw": -2.1341,
+          "climbing": false,
+          "collision": {
+            "triangles": 49179,
+            "bvh": true
+          }
+        },
+        "ship": {
+          "position": {
+            "x": 69.8115,
+            "y": -0.0085,
+            "z": 36.4781
+          },
+          "rotation": {
+            "x": 0.0145,
+            "y": 0.0091,
+            "z": 0.0079,
+            "w": 0.9998
+          },
+          "speed": 0.3315,
+          "moored": true,
+          "heritage": true,
+          "helmVisible": true,
+          "anchor": {
+            "down": true,
+            "travel": 1,
+            "turns": 0,
+            "hands": 0,
+            "hasRig": true,
+            "tether": {
+              "state": "HOLDING",
+              "chain": 34,
+              "depth": 4.305035951300149,
+              "tension": 0,
+              "point": {
+                "x": 71.3374,
+                "z": 43.15
+              }
+            },
+            "eyeLocal": {
+              "x": 1.3608,
+              "y": -2.6509,
+              "z": 6.7772
+            },
+            "visibleSpan": 4.3064
+          },
+          "throttle": 0,
+          "sails": 0
+        },
+        "world": {
+          "hour": 17.0661,
+          "weatherSeconds": 51.968,
+          "night": 0,
+          "remoteWorld": {
+            "hour": 17.066450000000003,
+            "day": 1,
+            "speed": 0.016666666666666666,
+            "azimuth": 0,
+            "weatherSeconds": 51.986999999999995,
+            "revision": 0
+          }
+        },
+        "water": {
+          "dryCamera": true,
+          "bilge": {
+            "stern": 0,
+            "mid": 0,
+            "bow": 0
+          },
+          "oceanVisible": true,
+          "underwaterPost": false,
+          "hullMaskActive": true,
+          "waterShaderReady": true
+        },
+        "multiplayer": {
+          "connected": true,
+          "peerCount": 0,
+          "peers": [],
+          "rttMs": 10,
+          "selfId": "9eb7afe4"
+        },
+        "bosses": [
+          {
+            "id": "lighthouse-warden",
+            "type": "warden",
+            "health": 520,
+            "dead": false,
+            "present": true,
+            "visible": false,
+            "rigLoaded": true,
+            "proceduralVisible": false,
+            "position": {
+              "x": -143,
+              "z": -275
+            }
+          },
+          {
+            "id": "island-corsair",
+            "type": "corsair",
+            "health": 720,
+            "dead": false,
+            "present": true,
+            "visible": false,
+            "rigLoaded": true,
+            "proceduralVisible": false,
+            "position": {
+              "x": -101,
+              "z": -185
+            }
+          }
+        ],
+        "offshore": {
+          "active": false,
+          "fleet": [
+            {
+              "id": "v44_ghost_0",
+              "x": -1030,
+              "z": 2160,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 210,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_1",
+              "x": -910,
+              "z": 2250,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 120,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_2",
+              "x": -915,
+              "z": 2380,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 120,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_3",
+              "x": -685,
+              "z": 2330,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_4",
+              "x": -565,
+              "z": 2260,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_5",
+              "x": -475,
+              "z": 2460,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_6",
+              "x": -595,
+              "z": 2550,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_7",
+              "x": -365,
+              "z": 2710,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_8",
+              "x": -225,
+              "z": 2630,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_9",
+              "x": -290,
+              "z": 2860,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            }
+          ],
+          "weather": {
+            "wind": {
+              "x": -4.816549867916861,
+              "z": 1.7675747291442463
+            },
+            "windSpeed": 5.130640608465895,
+            "windDirection": 2.7898721893638854,
+            "rain": 0,
+            "cloud": 0.27,
+            "visibility": 9000,
+            "seaState": 0,
+            "danger": 0,
+            "lightning": 0,
+            "waveScale": 1,
+            "fog": 0,
+            "spectral": 0,
+            "gust": -0.0
+          },
+          "animalsVisible": 0
+        },
+        "lighting": {
+          "active": 6,
+          "total": 84
+        },
+        "camera": {
+          "position": {
+            "x": 69.7931,
+            "y": 1.4996,
+            "z": 28.4171
+          }
+        },
+        "navigation": null
+      }
+    },
+    {
+      "test": "visual_captain_lower_hold",
+      "status": "captured",
+      "detail": "画面已获取，仍需视觉审阅；不能仅凭像素统计判断精美或无穿模",
+      "data": {
+        "file": "screenshots\\captain_lower_hold.png",
+        "width": 320,
+        "height": 200,
+        "luminanceStd": 40.9,
+        "blackRatio": 0.002,
+        "whiteRatio": 0.0003,
+        "cyanRatio": 0.0041
+      }
+    },
+    {
+      "test": "logic_captain_lower_hold",
+      "status": "pass",
+      "detail": "[]",
+      "data": {
+        "ready": true,
+        "version": "V64",
+        "playState": "playing",
+        "elapsedSeconds": 20.368,
+        "rendering": {
+          "scale": 0.5,
+          "width": 1440,
+          "height": 900,
+          "seed": "61015",
+          "adapter": {
+            "vendor": "nvidia",
+            "device": "",
+            "description": ""
+          },
+          "displayedFps": 30.0019,
+          "gpuProfile": null
+        },
+        "interaction": {
+          "overlayActive": false,
+          "inputEnabled": true,
+          "candidates": [],
+          "selected": null
+        },
+        "player": {
+          "mode": "deck",
+          "deckLayer": "lowerHold",
+          "position": {
+            "x": 69.5756,
+            "y": -0.6746,
+            "z": 33.5236
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "deckPosition": {
+            "x": -0.25,
+            "y": -0.6375,
+            "z": -2.9459
+          },
+          "station": null,
+          "grounded": true,
+          "deckYaw": -2.1341,
+          "climbing": false,
+          "collision": {
+            "triangles": 49179,
+            "bvh": true
+          }
+        },
+        "ship": {
+          "position": {
+            "x": 69.8314,
+            "y": -0.0397,
+            "z": 36.4696
+          },
+          "rotation": {
+            "x": 0.004,
+            "y": 0.0101,
+            "z": 0.042,
+            "w": 0.9991
+          },
+          "speed": 0.1139,
+          "moored": true,
+          "heritage": true,
+          "helmVisible": true,
+          "anchor": {
+            "down": true,
+            "travel": 1,
+            "turns": 0,
+            "hands": 0,
+            "hasRig": true,
+            "tether": {
+              "state": "HOLDING",
+              "chain": 34,
+              "depth": 4.508576231567665,
+              "tension": 0,
+              "point": {
+                "x": 71.3374,
+                "z": 43.15
+              }
+            },
+            "eyeLocal": {
+              "x": 1.1347,
+              "y": -2.8402,
+              "z": 6.7298
+            },
+            "visibleSpan": 4.5089
+          },
+          "throttle": 0,
+          "sails": 0
+        },
+        "world": {
+          "hour": 17.1,
+          "weatherSeconds": 54.003,
+          "night": 0,
+          "remoteWorld": {
+            "hour": 17.10048333333333,
+            "day": 1,
+            "speed": 0.016666666666666666,
+            "azimuth": 0,
+            "weatherSeconds": 54.029,
+            "revision": 0
+          }
+        },
+        "water": {
+          "dryCamera": true,
+          "bilge": {
+            "stern": 0,
+            "mid": 0,
+            "bow": 0
+          },
+          "oceanVisible": true,
+          "underwaterPost": false,
+          "hullMaskActive": true,
+          "waterShaderReady": true
+        },
+        "multiplayer": {
+          "connected": true,
+          "peerCount": 0,
+          "peers": [],
+          "rttMs": 10,
+          "selfId": "9eb7afe4"
+        },
+        "bosses": [
+          {
+            "id": "lighthouse-warden",
+            "type": "warden",
+            "health": 520,
+            "dead": false,
+            "present": true,
+            "visible": false,
+            "rigLoaded": true,
+            "proceduralVisible": false,
+            "position": {
+              "x": -143,
+              "z": -275
+            }
+          },
+          {
+            "id": "island-corsair",
+            "type": "corsair",
+            "health": 720,
+            "dead": false,
+            "present": true,
+            "visible": false,
+            "rigLoaded": true,
+            "proceduralVisible": false,
+            "position": {
+              "x": -101,
+              "z": -185
+            }
+          }
+        ],
+        "offshore": {
+          "active": false,
+          "fleet": [
+            {
+              "id": "v44_ghost_0",
+              "x": -1030,
+              "z": 2160,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 210,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_1",
+              "x": -910,
+              "z": 2250,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 120,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_2",
+              "x": -915,
+              "z": 2380,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 120,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_3",
+              "x": -685,
+              "z": 2330,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_4",
+              "x": -565,
+              "z": 2260,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_5",
+              "x": -475,
+              "z": 2460,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_6",
+              "x": -595,
+              "z": 2550,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_7",
+              "x": -365,
+              "z": 2710,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_8",
+              "x": -225,
+              "z": 2630,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_9",
+              "x": -290,
+              "z": 2860,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            }
+          ],
+          "weather": {
+            "wind": {
+              "x": -4.838151172211459,
+              "z": 1.7608537372458335
+            },
+            "windSpeed": 5.148622403045667,
+            "windDirection": 2.7925430976812304,
+            "rain": 0,
+            "cloud": 0.27,
+            "visibility": 9000,
+            "seaState": 0,
+            "danger": 0,
+            "lightning": 0,
+            "waveScale": 1,
+            "fog": 0,
+            "spectral": 0,
+            "gust": -0.0
+          },
+          "animalsVisible": 0
+        },
+        "lighting": {
+          "active": 6,
+          "total": 84
+        },
+        "camera": {
+          "position": {
+            "x": 69.471,
+            "y": 0.5684,
+            "z": 33.5347
+          }
+        },
+        "navigation": null
+      }
+    },
+    {
+      "test": "visual_captain_beach",
+      "status": "captured",
+      "detail": "画面已获取，仍需视觉审阅；不能仅凭像素统计判断精美或无穿模",
+      "data": {
+        "file": "screenshots\\captain_beach.png",
+        "width": 320,
+        "height": 200,
+        "luminanceStd": 63.34,
+        "blackRatio": 0.0,
+        "whiteRatio": 0.0,
+        "cyanRatio": 0.0055
+      }
+    },
+    {
+      "test": "logic_captain_beach",
+      "status": "pass",
+      "detail": "[]",
+      "data": {
+        "ready": true,
+        "version": "V64",
+        "playState": "playing",
+        "elapsedSeconds": 22.4121,
+        "rendering": {
+          "scale": 0.5,
+          "width": 1440,
+          "height": 900,
+          "seed": "61015",
+          "adapter": {
+            "vendor": "nvidia",
+            "device": "",
+            "description": ""
+          },
+          "displayedFps": 26.2566,
+          "gpuProfile": null
+        },
+        "interaction": {
+          "overlayActive": false,
+          "inputEnabled": true,
+          "candidates": [],
+          "selected": null
+        },
+        "player": {
+          "mode": "walk",
+          "deckLayer": "deck",
+          "position": {
+            "x": 18.7078,
+            "y": 1.3169,
+            "z": -60.4339
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "deckPosition": {
+            "x": -0.25,
+            "y": -0.6375,
+            "z": -2.9459
+          },
+          "station": null,
+          "grounded": true,
+          "deckYaw": -2.1341,
+          "climbing": false,
+          "collision": {
+            "triangles": 49179,
+            "bvh": true
+          }
+        },
+        "ship": {
+          "position": {
+            "x": 69.773,
+            "y": -0.2994,
+            "z": 36.4678
+          },
+          "rotation": {
+            "x": -0.0022,
+            "y": 0.0093,
+            "z": -0.007,
+            "w": 0.9999
+          },
+          "speed": 0.0314,
+          "moored": true,
+          "heritage": true,
+          "helmVisible": true,
+          "anchor": {
+            "down": true,
+            "travel": 1,
+            "turns": 0,
+            "hands": 0,
+            "hasRig": true,
+            "tether": {
+              "state": "HOLDING",
+              "chain": 34,
+              "depth": 4.184043826993513,
+              "tension": 0,
+              "point": {
+                "x": 71.3374,
+                "z": 43.15
+              }
+            },
+            "eyeLocal": {
+              "x": 1.4749,
+              "y": -2.5356,
+              "z": 6.6993
+            },
+            "visibleSpan": 4.1864
+          },
+          "throttle": 0,
+          "sails": 0
+        },
+        "world": {
+          "hour": 17.1341,
+          "weatherSeconds": 56.049,
+          "night": 0,
+          "remoteWorld": {
+            "hour": 17.134366666666665,
+            "day": 1,
+            "speed": 0.016666666666666666,
+            "azimuth": 0,
+            "weatherSeconds": 56.062,
+            "revision": 0
+          }
+        },
+        "water": {
+          "dryCamera": false,
+          "bilge": {
+            "stern": 0,
+            "mid": 0,
+            "bow": 0
+          },
+          "oceanVisible": true,
+          "underwaterPost": true,
+          "hullMaskActive": true,
+          "waterShaderReady": true
+        },
+        "multiplayer": {
+          "connected": true,
+          "peerCount": 0,
+          "peers": [],
+          "rttMs": 8,
+          "selfId": "9eb7afe4"
+        },
+        "bosses": [
+          {
+            "id": "lighthouse-warden",
+            "type": "warden",
+            "health": 520,
+            "dead": false,
+            "present": true,
+            "visible": false,
+            "rigLoaded": true,
+            "proceduralVisible": false,
+            "position": {
+              "x": -143,
+              "z": -275
+            }
+          },
+          {
+            "id": "island-corsair",
+            "type": "corsair",
+            "health": 720,
+            "dead": false,
+            "present": true,
+            "visible": false,
+            "rigLoaded": true,
+            "proceduralVisible": false,
+            "position": {
+              "x": -101,
+              "z": -185
+            }
+          }
+        ],
+        "offshore": {
+          "active": false,
+          "fleet": [
+            {
+              "id": "v44_ghost_0",
+              "x": -1030,
+              "z": 2160,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 210,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_1",
+              "x": -910,
+              "z": 2250,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 120,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_2",
+              "x": -915,
+              "z": 2380,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 120,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_3",
+              "x": -685,
+              "z": 2330,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_4",
+              "x": -565,
+              "z": 2260,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_5",
+              "x": -475,
+              "z": 2460,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_6",
+              "x": -595,
+              "z": 2550,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_7",
+              "x": -365,
+              "z": 2710,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_8",
+              "x": -225,
+              "z": 2630,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_9",
+              "x": -290,
+              "z": 2860,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            }
+          ],
+          "weather": {
+            "wind": {
+              "x": -4.8709732564336825,
+              "z": 1.7580498494147585
+            },
+            "windSpeed": 5.1785248611858,
+            "windDirection": 2.7952195618543962,
+            "rain": 0,
+            "cloud": 0.27,
+            "visibility": 9000,
+            "seaState": 0,
+            "danger": 0,
+            "lightning": 0,
+            "waveScale": 1,
+            "fog": 0,
+            "spectral": 0,
+            "gust": -0.0
+          },
+          "animalsVisible": 0
+        },
+        "lighting": {
+          "active": 6,
+          "total": 84
+        },
+        "camera": {
+          "position": {
+            "x": 18.7078,
+            "y": 2.9679,
+            "z": -60.4339
+          }
+        },
+        "navigation": null
+      }
+    },
+    {
+      "test": "visual_captain_boss",
+      "status": "captured",
+      "detail": "画面已获取，仍需视觉审阅；不能仅凭像素统计判断精美或无穿模",
+      "data": {
+        "file": "screenshots\\captain_boss.png",
+        "width": 320,
+        "height": 200,
+        "luminanceStd": 32.29,
+        "blackRatio": 0.0203,
+        "whiteRatio": 0.0,
+        "cyanRatio": 0.0008
+      }
+    },
+    {
+      "test": "logic_captain_boss",
+      "status": "pass",
+      "detail": "[]",
+      "data": {
+        "ready": true,
+        "version": "V64",
+        "playState": "playing",
+        "elapsedSeconds": 24.4478,
+        "rendering": {
+          "scale": 0.5,
+          "width": 1440,
+          "height": 900,
+          "seed": "61015",
+          "adapter": {
+            "vendor": "nvidia",
+            "device": "",
+            "description": ""
+          },
+          "displayedFps": 26.2516,
+          "gpuProfile": null
+        },
+        "interaction": {
+          "overlayActive": false,
+          "inputEnabled": true,
+          "candidates": [],
+          "selected": null
+        },
+        "player": {
+          "mode": "walk",
+          "deckLayer": "deck",
+          "position": {
+            "x": -94,
+            "y": 7.3316,
+            "z": -176
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "deckPosition": {
+            "x": -0.25,
+            "y": -0.6375,
+            "z": -2.9459
+          },
+          "station": null,
+          "grounded": true,
+          "deckYaw": -2.1341,
+          "climbing": false,
+          "collision": {
+            "triangles": 49179,
+            "bvh": true
+          }
+        },
+        "ship": {
+          "position": {
+            "x": 69.7452,
+            "y": 0.3459,
+            "z": 36.4877
+          },
+          "rotation": {
+            "x": -0.0187,
+            "y": 0.0083,
+            "z": -0.0271,
+            "w": 0.9994
+          },
+          "speed": 0.1711,
+          "moored": true,
+          "heritage": true,
+          "helmVisible": true,
+          "anchor": {
+            "down": true,
+            "travel": 1,
+            "turns": 0,
+            "hands": 0,
+            "hasRig": true,
+            "tether": {
+              "state": "HOLDING",
+              "chain": 34,
+              "depth": 4.980133082758446,
+              "tension": 0,
+              "point": {
+                "x": 71.3374,
+                "z": 43.15
+              }
+            },
+            "eyeLocal": {
+              "x": 1.6578,
+              "y": -3.3313,
+              "z": 6.5676
+            },
+            "visibleSpan": 4.9835
+          },
+          "throttle": 0,
+          "sails": 0
+        },
+        "world": {
+          "hour": 17.1683,
+          "weatherSeconds": 58.096,
+          "night": 0,
+          "remoteWorld": {
+            "hour": 17.1685,
+            "day": 1,
+            "speed": 0.016666666666666666,
+            "azimuth": 0,
+            "weatherSeconds": 58.11,
+            "revision": 0
+          }
+        },
+        "water": {
+          "dryCamera": false,
+          "bilge": {
+            "stern": 0,
+            "mid": 0,
+            "bow": 0
+          },
+          "oceanVisible": true,
+          "underwaterPost": true,
+          "hullMaskActive": true,
+          "waterShaderReady": true
+        },
+        "multiplayer": {
+          "connected": true,
+          "peerCount": 0,
+          "peers": [],
+          "rttMs": 6,
+          "selfId": "9eb7afe4"
+        },
+        "bosses": [
+          {
+            "id": "lighthouse-warden",
+            "type": "warden",
+            "health": 520,
+            "dead": false,
+            "present": true,
+            "visible": false,
+            "rigLoaded": true,
+            "proceduralVisible": false,
+            "position": {
+              "x": -143,
+              "z": -275
+            }
+          },
+          {
+            "id": "island-corsair",
+            "type": "corsair",
+            "health": 720,
+            "dead": false,
+            "present": true,
+            "visible": false,
+            "rigLoaded": true,
+            "proceduralVisible": false,
+            "position": {
+              "x": -101,
+              "z": -185
+            }
+          }
+        ],
+        "offshore": {
+          "active": false,
+          "fleet": [
+            {
+              "id": "v44_ghost_0",
+              "x": -1030,
+              "z": 2160,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 210,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_1",
+              "x": -910,
+              "z": 2250,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 120,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_2",
+              "x": -915,
+              "z": 2380,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 120,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_3",
+              "x": -685,
+              "z": 2330,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_4",
+              "x": -565,
+              "z": 2260,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_5",
+              "x": -475,
+              "z": 2460,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_6",
+              "x": -595,
+              "z": 2550,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_7",
+              "x": -365,
+              "z": 2710,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_8",
+              "x": -225,
+              "z": 2630,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_9",
+              "x": -290,
+              "z": 2860,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            }
+          ],
+          "weather": {
+            "wind": {
+              "x": -4.914071358926108,
+              "z": 1.7587788615823352
+            },
+            "windSpeed": 5.21932949760472,
+            "windDirection": 2.797891478287115,
+            "rain": 0,
+            "cloud": 0.27,
+            "visibility": 9000,
+            "seaState": 0,
+            "danger": 0,
+            "lightning": 0,
+            "waveScale": 1,
+            "fog": 0,
+            "spectral": 0,
+            "gust": -0.0
+          },
+          "animalsVisible": 0
+        },
+        "lighting": {
+          "active": 6,
+          "total": 84
+        },
+        "camera": {
+          "position": {
+            "x": -94,
+            "y": 8.9826,
+            "z": -176
+          }
+        },
+        "navigation": null
+      }
+    },
+    {
+      "test": "visual_captain_open_sea",
+      "status": "captured",
+      "detail": "画面已获取，仍需视觉审阅；不能仅凭像素统计判断精美或无穿模",
+      "data": {
+        "file": "screenshots\\captain_open_sea.png",
+        "width": 320,
+        "height": 200,
+        "luminanceStd": 29.65,
+        "blackRatio": 0.0017,
+        "whiteRatio": 0.0,
+        "cyanRatio": 0.0008
+      }
+    },
+    {
+      "test": "logic_captain_open_sea",
+      "status": "pass",
+      "detail": "[]",
+      "data": {
+        "ready": true,
+        "version": "V64",
+        "playState": "playing",
+        "elapsedSeconds": 26.4802,
+        "rendering": {
+          "scale": 0.5,
+          "width": 1440,
+          "height": 900,
+          "seed": "61015",
+          "adapter": {
+            "vendor": "nvidia",
+            "device": "",
+            "description": ""
+          },
+          "displayedFps": 30.0075,
+          "gpuProfile": null
+        },
+        "interaction": {
+          "overlayActive": false,
+          "inputEnabled": true,
+          "candidates": [
+            {
+              "id": "anchor",
+              "priority": 330,
+              "distance": 0.1689
+            },
+            {
+              "id": "arsenal_musket",
+              "priority": 235,
+              "distance": 1.6757
+            }
+          ],
+          "selected": "anchor"
+        },
+        "player": {
+          "mode": "deck",
+          "deckLayer": "deck",
+          "position": {
+            "x": 496.9173,
+            "y": 1.0978,
+            "z": 696.8595
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "deckPosition": {
+            "x": 0.0002,
+            "y": 1.6544,
+            "z": -4.504
+          },
+          "station": null,
+          "grounded": true,
+          "deckYaw": -3.2805,
+          "climbing": false,
+          "collision": {
+            "triangles": 49179,
+            "bvh": true
+          }
+        },
+        "ship": {
+          "position": {
+            "x": 499.9687,
+            "y": -0.8224,
+            "z": 700.0257
+          },
+          "rotation": {
+            "x": 0.0142,
+            "y": 0.3871,
+            "z": -0.0446,
+            "w": 0.9208
+          },
+          "speed": 0.3325,
+          "moored": false,
+          "heritage": true,
+          "helmVisible": true,
+          "anchor": {
+            "down": true,
+            "travel": 1,
+            "turns": 0,
+            "hands": 0,
+            "hasRig": true,
+            "tether": {
+              "state": "HOLDING",
+              "chain": 34,
+              "depth": 23.08135602657751,
+              "tension": 0,
+              "point": {
+                "x": 505.84153489943213,
+                "z": 703.5302363630097
+              }
+            },
+            "eyeLocal": {
+              "x": 3.1465,
+              "y": -21.3379,
+              "z": 7.9634
+            },
+            "visibleSpan": 23.0815
+          },
+          "throttle": 0,
+          "sails": 0
+        },
+        "world": {
+          "hour": 17.2021,
+          "weatherSeconds": 60.1255,
+          "night": 0,
+          "remoteWorld": {
+            "hour": 17.202391666666664,
+            "day": 1,
+            "speed": 0.016666666666666666,
+            "azimuth": 0,
+            "weatherSeconds": 60.1435,
+            "revision": 0
+          }
+        },
+        "water": {
+          "dryCamera": false,
+          "bilge": {
+            "stern": 0,
+            "mid": 0,
+            "bow": 0
+          },
+          "oceanVisible": true,
+          "underwaterPost": true,
+          "hullMaskActive": true,
+          "waterShaderReady": true
+        },
+        "multiplayer": {
+          "connected": true,
+          "peerCount": 0,
+          "peers": [],
+          "rttMs": 9,
+          "selfId": "9eb7afe4"
+        },
+        "bosses": [
+          {
+            "id": "lighthouse-warden",
+            "type": "warden",
+            "health": 520,
+            "dead": false,
+            "present": true,
+            "visible": false,
+            "rigLoaded": true,
+            "proceduralVisible": false,
+            "position": {
+              "x": -143,
+              "z": -275
+            }
+          },
+          {
+            "id": "island-corsair",
+            "type": "corsair",
+            "health": 720,
+            "dead": false,
+            "present": true,
+            "visible": false,
+            "rigLoaded": true,
+            "proceduralVisible": false,
+            "position": {
+              "x": -101,
+              "z": -185
+            }
+          }
+        ],
+        "offshore": {
+          "active": true,
+          "fleet": [
+            {
+              "id": "v44_ghost_0",
+              "x": -1030,
+              "z": 2160,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 210,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_1",
+              "x": -910,
+              "z": 2250,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 120,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_2",
+              "x": -915,
+              "z": 2380,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 120,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_3",
+              "x": -685,
+              "z": 2330,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_4",
+              "x": -565,
+              "z": 2260,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_5",
+              "x": -475,
+              "z": 2460,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_6",
+              "x": -595,
+              "z": 2550,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_7",
+              "x": -365,
+              "z": 2710,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_8",
+              "x": -225,
+              "z": 2630,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_9",
+              "x": -290,
+              "z": 2860,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            }
+          ],
+          "weather": {
+            "wind": {
+              "x": -5.801258550682159,
+              "z": 1.2679603695639106
+            },
+            "windSpeed": 5.938208843636902,
+            "windDirection": 2.926410147855768,
+            "rain": 0,
+            "cloud": 0.27216318500607867,
+            "visibility": 8977,
+            "seaState": 0,
+            "danger": 0.0028462960606298027,
+            "lightning": 0,
+            "waveScale": 1.0035578700757872,
+            "fog": 0.0022770368485038424,
+            "spectral": 0,
+            "gust": 0.0042423551139923335
+          },
+          "animalsVisible": 16
+        },
+        "lighting": {
+          "active": 6,
+          "total": 84
+        },
+        "camera": {
+          "position": {
+            "x": 497.0697,
+            "y": 2.7281,
+            "z": 696.8458
+          }
+        },
+        "navigation": null
+      }
+    },
+    {
+      "test": "offshore_wildlife",
+      "status": "pass",
+      "detail": "远海生物激活=True；可见数量=16"
+    },
+    {
+      "test": "route_cargo_repeated",
+      "status": "pass",
+      "detail": "5 held W/S round trips; no E or position resets"
+    },
+    {
+      "test": "route_cabin_repeated",
+      "status": "pass",
+      "detail": "5 complete cabin-to-desk-to-deck keyboard trips; E only opens door"
+    },
+    {
+      "test": "interact_anchor",
+      "status": "pass",
+      "detail": "真实按键 E 取得岗位='anchor'"
+    },
+    {
+      "test": "anchor_winding",
+      "status": "pass",
+      "detail": "真实按键 W 绞盘行程：1.000 -> 0.615"
+    },
+    {
+      "test": "interact_helm",
+      "status": "pass",
+      "detail": "真实按键 E 取得岗位='helm'"
+    },
+    {
+      "test": "logic_captain_connected",
+      "status": "pass",
+      "detail": "[]",
+      "data": {
+        "ready": true,
+        "version": "V64",
+        "playState": "playing",
+        "elapsedSeconds": 110.4016,
+        "rendering": {
+          "scale": 0.5,
+          "width": 1440,
+          "height": 900,
+          "seed": "61015",
+          "adapter": {
+            "vendor": "nvidia",
+            "device": "",
+            "description": ""
+          },
+          "displayedFps": 30.0075,
+          "gpuProfile": null
+        },
+        "interaction": {
+          "overlayActive": false,
+          "inputEnabled": true,
+          "candidates": [
+            {
+              "id": "helm",
+              "priority": 40,
+              "distance": 0.0157
+            }
+          ],
+          "selected": "helm"
+        },
+        "player": {
+          "mode": "deck",
+          "deckLayer": "deck",
+          "position": {
+            "x": 490.0988,
+            "y": 2.0155,
+            "z": 686.4115
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "deckPosition": {
+            "x": 0.7416,
+            "y": 1.8556,
+            "z": -7.4699
+          },
+          "station": null,
+          "grounded": true,
+          "deckYaw": 3.1416,
+          "climbing": false,
+          "collision": {
+            "triangles": 49179,
+            "bvh": true
+          }
+        },
+        "ship": {
+          "position": {
+            "x": 495.8593,
+            "y": 0.3309,
+            "z": 691.2872
+          },
+          "rotation": {
+            "x": -0.0285,
+            "y": 0.4744,
+            "z": -0.0401,
+            "w": 0.8789
+          },
+          "speed": 0.6501,
+          "moored": false,
+          "heritage": true,
+          "helmVisible": true,
+          "anchor": {
+            "down": true,
+            "travel": 0.6148,
+            "turns": 2.0798,
+            "hands": 0,
+            "hasRig": true,
+            "tether": {
+              "state": "NO_BOTTOM_CONTACT",
+              "chain": 20.904711111111162,
+              "depth": 22.347775417480072,
+              "tension": 0,
+              "point": {
+                "x": 502.3371568692718,
+                "z": 693.5139783920564
+              }
+            },
+            "eyeLocal": {
+              "x": 3.575,
+              "y": -19.1537,
+              "z": 6.3988
+            },
+            "visibleSpan": 20.9047
+          },
+          "throttle": 0,
+          "sails": 0
+        },
+        "world": {
+          "hour": 18.6007,
+          "weatherSeconds": 144.044,
+          "night": 0,
+          "remoteWorld": {
+            "hour": 18.60096666666667,
+            "day": 1,
+            "speed": 0.016666666666666666,
+            "azimuth": 0,
+            "weatherSeconds": 144.058,
+            "revision": 0
+          }
+        },
+        "water": {
+          "dryCamera": false,
+          "bilge": {
+            "stern": 0,
+            "mid": 0,
+            "bow": 0
+          },
+          "oceanVisible": true,
+          "underwaterPost": true,
+          "hullMaskActive": true,
+          "waterShaderReady": true
+        },
+        "multiplayer": {
+          "connected": true,
+          "peerCount": 1,
+          "peers": [
+            {
+              "id": "ac14d8d1",
+              "mode": "walk",
+              "activity": "idle",
+              "visible": true,
+              "position": {
+                "x": 53.6,
+                "y": 2.83,
+                "z": -77
+              },
+              "target": {
+                "x": 53.6,
+                "y": 2.83,
+                "z": -77
+              },
+              "animationTime": 11.7148,
+              "legAngle": 0
+            }
+          ],
+          "rttMs": 8,
+          "selfId": "9eb7afe4"
+        },
+        "bosses": [
+          {
+            "id": "lighthouse-warden",
+            "type": "warden",
+            "health": 520,
+            "dead": false,
+            "present": true,
+            "visible": false,
+            "rigLoaded": true,
+            "proceduralVisible": false,
+            "position": {
+              "x": -143,
+              "z": -275
+            }
+          },
+          {
+            "id": "island-corsair",
+            "type": "corsair",
+            "health": 720,
+            "dead": false,
+            "present": true,
+            "visible": false,
+            "rigLoaded": true,
+            "proceduralVisible": false,
+            "position": {
+              "x": -101,
+              "z": -185
+            }
+          }
+        ],
+        "offshore": {
+          "active": true,
+          "fleet": [
+            {
+              "id": "v44_ghost_0",
+              "x": -1030,
+              "z": 2160,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 210,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_1",
+              "x": -910,
+              "z": 2250,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 120,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_2",
+              "x": -915,
+              "z": 2380,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 120,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_3",
+              "x": -685,
+              "z": 2330,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_4",
+              "x": -565,
+              "z": 2260,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_5",
+              "x": -475,
+              "z": 2460,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_6",
+              "x": -595,
+              "z": 2550,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_7",
+              "x": -365,
+              "z": 2710,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_8",
+              "x": -225,
+              "z": 2630,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_9",
+              "x": -290,
+              "z": 2860,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            }
+          ],
+          "weather": {
+            "wind": {
+              "x": -5.5900660133065685,
+              "z": 1.0275020668605925
+            },
+            "windSpeed": 5.683713445497405,
+            "windDirection": 2.9598131304913418,
+            "rain": 0,
+            "cloud": 0.27082608234375777,
+            "visibility": 8991,
+            "seaState": 0,
+            "danger": 0.0010869504523127954,
+            "lightning": 0,
+            "waveScale": 1.001358688065391,
+            "fog": 0.0008695603618502364,
+            "spectral": 0,
+            "gust": 0.0006926729343225342
+          },
+          "animalsVisible": 16
+        },
+        "lighting": {
+          "active": 7,
+          "total": 84
+        },
+        "camera": {
+          "position": {
+            "x": 490.1686,
+            "y": 3.6141,
+            "z": 686.27
+          }
+        },
+        "navigation": null
+      }
+    },
+    {
+      "test": "logic_crew_connected",
+      "status": "pass",
+      "detail": "[]",
+      "data": {
+        "ready": true,
+        "version": "V64",
+        "playState": "playing",
+        "elapsedSeconds": 3.3111,
+        "rendering": {
+          "scale": 0.5,
+          "width": 1440,
+          "height": 900,
+          "seed": "61015",
+          "adapter": {
+            "vendor": "nvidia",
+            "device": "",
+            "description": ""
+          },
+          "displayedFps": 30.0075,
+          "gpuProfile": null
+        },
+        "interaction": {
+          "overlayActive": false,
+          "inputEnabled": true,
+          "candidates": [],
+          "selected": null
+        },
+        "player": {
+          "mode": "walk",
+          "deckLayer": "deck",
+          "position": {
+            "x": 53.6,
+            "y": 2.8277,
+            "z": -77
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "deckPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "station": null,
+          "grounded": true,
+          "deckYaw": 0,
+          "climbing": false,
+          "collision": {
+            "triangles": 49179,
+            "bvh": true
+          }
+        },
+        "ship": {
+          "position": {
+            "x": 495.8986,
+            "y": 0.2789,
+            "z": 691.3244
+          },
+          "rotation": {
+            "x": -0.0218,
+            "y": 0.4745,
+            "z": -0.0428,
+            "w": 0.8789
+          },
+          "speed": 0.1067,
+          "moored": true,
+          "heritage": true,
+          "helmVisible": true,
+          "anchor": {
+            "down": true,
+            "travel": 0.6148,
+            "turns": 2.0798,
+            "hands": 0,
+            "hasRig": true,
+            "tether": {
+              "state": "NO_BOTTOM_CONTACT",
+              "chain": 20.904711111111162,
+              "depth": 22.179280890709276,
+              "tension": 0,
+              "point": {
+                "x": 503.5186246654289,
+                "z": 695.4634685897174
+              }
+            },
+            "eyeLocal": {
+              "x": 3.5434,
+              "y": -19.1582,
+              "z": 6.6966
+            },
+            "visibleSpan": 20.9047
+          },
+          "throttle": 0,
+          "sails": 0
+        },
+        "world": {
+          "hour": 18.602,
+          "weatherSeconds": 144.1185,
+          "night": 0,
+          "remoteWorld": {
+            "hour": 18.602291666666673,
+            "day": 1,
+            "speed": 0.016666666666666666,
+            "azimuth": 0,
+            "weatherSeconds": 144.1375,
+            "revision": 0
+          }
+        },
+        "water": {
+          "dryCamera": false,
+          "bilge": {
+            "stern": 0,
+            "mid": 0,
+            "bow": 0
+          },
+          "oceanVisible": true,
+          "underwaterPost": true,
+          "hullMaskActive": true,
+          "waterShaderReady": true
+        },
+        "multiplayer": {
+          "connected": true,
+          "peerCount": 1,
+          "peers": [
+            {
+              "id": "9eb7afe4",
+              "mode": "deck",
+              "activity": "walk",
+              "visible": true,
+              "position": {
+                "x": 490.1612,
+                "y": 2.0764,
+                "z": 686.4622
+              },
+              "target": {
+                "x": 490.1,
+                "y": 2.02,
+                "z": 686.41
+              },
+              "animationTime": 8.4431,
+              "legAngle": 0.1912
+            }
+          ],
+          "rttMs": 10,
+          "selfId": "ac14d8d1"
+        },
+        "bosses": [
+          {
+            "id": "lighthouse-warden",
+            "type": "warden",
+            "health": 520,
+            "dead": false,
+            "present": true,
+            "visible": false,
+            "rigLoaded": true,
+            "proceduralVisible": false,
+            "position": {
+              "x": -143,
+              "z": -275
+            }
+          },
+          {
+            "id": "island-corsair",
+            "type": "corsair",
+            "health": 720,
+            "dead": false,
+            "present": true,
+            "visible": false,
+            "rigLoaded": true,
+            "proceduralVisible": false,
+            "position": {
+              "x": -101,
+              "z": -185
+            }
+          }
+        ],
+        "offshore": {
+          "active": true,
+          "fleet": [
+            {
+              "id": "v44_ghost_0",
+              "x": -1030,
+              "z": 2160,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 210,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_1",
+              "x": -910,
+              "z": 2250,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 120,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_2",
+              "x": -915,
+              "z": 2380,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 120,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_3",
+              "x": -685,
+              "z": 2330,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_4",
+              "x": -565,
+              "z": 2260,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_5",
+              "x": -475,
+              "z": 2460,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_6",
+              "x": -595,
+              "z": 2550,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_7",
+              "x": -365,
+              "z": 2710,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_8",
+              "x": -225,
+              "z": 2630,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            },
+            {
+              "id": "v44_ghost_9",
+              "x": -290,
+              "z": 2860,
+              "heave": 0,
+              "pitch": 0,
+              "roll": 0,
+              "yaw": 0,
+              "hp": 70,
+              "state": "patrol",
+              "vx": 0,
+              "vz": 0,
+              "turnRate": 0,
+              "cooldown": 3,
+              "target": 1,
+              "shots": 0,
+              "rigDamage": 0
+            }
+          ],
+          "weather": {
+            "wind": {
+              "x": -5.587953956420327,
+              "z": 1.0270377005218494
+            },
+            "windSpeed": 5.681552240133571,
+            "windDirection": 2.959826313060441,
+            "rain": 0,
+            "cloud": 0.2708320219728654,
+            "visibility": 8991,
+            "seaState": 0,
+            "danger": 0.001094765753770195,
+            "lightning": 0,
+            "waveScale": 1.0013684571922128,
+            "fog": 0.0008758126030161561,
+            "spectral": 0,
+            "gust": 0.0006874523611322313
+          },
+          "animalsVisible": 16
+        },
+        "lighting": {
+          "active": 8,
+          "total": 84
+        },
+        "camera": {
+          "position": {
+            "x": 53.6,
+            "y": 4.4477,
+            "z": -77
+          }
+        },
+        "navigation": null
+      }
+    },
+    {
+      "test": "two_clients",
+      "status": "pass",
+      "detail": "两个真正的 WebGPU 游戏上下文都已接入同一房间"
+    },
+    {
+      "test": "keyboard_movement",
+      "status": "pass",
+      "detail": "真实键盘移动距离 2.60 米"
+    },
+    {
+      "test": "remote_avatar",
+      "status": "pass",
+      "detail": "双方玩家都有真实可见的远端角色对象（需视频检查动作质量）"
+    },
+    {
+      "test": "remote_live_motion",
+      "status": "pass",
+      "detail": "远端目标更新位移 2.60m；与真实玩家位置误差 0.00m",
+      "data": {
+        "before": {
+          "x": 53.6,
+          "y": 2.83,
+          "z": -77
+        },
+        "after": {
+          "x": 53.6,
+          "y": 2.65,
+          "z": -74.4
+        },
+        "real": {
+          "x": 53.6,
+          "y": 2.6451,
+          "z": -74.4007
+        }
+      }
+    },
+    {
+      "test": "shared_world_time_weather",
+      "status": "pass",
+      "detail": "房间昼夜偏差 0.0004 小时；天气时轴偏差 0.023 秒",
+      "data": {
+        "host": {
+          "hour": 21.4269,
+          "weatherSeconds": 148.311,
+          "night": 0,
+          "remoteWorld": {
+            "hour": 21.4272,
+            "day": 1,
+            "speed": 0.016666666666666666,
+            "azimuth": 0,
+            "weatherSeconds": 148.32899999999998,
+            "revision": 1
+          }
+        },
+        "peer": {
+          "hour": 21.4273,
+          "weatherSeconds": 148.3345,
+          "night": 0,
+          "remoteWorld": {
+            "hour": 21.427558333333323,
+            "day": 1,
+            "speed": 0.016666666666666666,
+            "azimuth": 0,
+            "weatherSeconds": 148.35049999999998,
+            "revision": 1
+          }
+        }
+      }
+    },
+    {
+      "test": "night_captain",
+      "status": "captured",
+      "detail": "双机夜景截图已采样",
+      "data": {
+        "width": 320,
+        "height": 200,
+        "luminanceStd": 62.6,
+        "blackRatio": 0.0033,
+        "whiteRatio": 0.002,
+        "cyanRatio": 0.0008
+      }
+    },
+    {
+      "test": "night_crew",
+      "status": "captured",
+      "detail": "双机夜景截图已采样",
+      "data": {
+        "width": 320,
+        "height": 200,
+        "luminanceStd": 47.86,
+        "blackRatio": 0.0056,
+        "whiteRatio": 0.0001,
+        "cyanRatio": 0.0047
+      }
+    },
+    {
+      "test": "real_4_clients",
+      "status": "pass",
+      "detail": "4 个独立 WebGPU 页面同房间，各有 3 名远端角色"
+    },
+    {
+      "test": "capstan_distinct_seats",
+      "status": "pass",
+      "detail": "['anchor', 'anchor_2', 'anchor_3', 'anchor_4']"
+    },
+    {
+      "test": "cooperative_capstan",
+      "status": "pass",
+      "detail": "实按 W：hands=4，行程 0.615 -> 0.387"
+    },
+    {
+      "test": "capstan_release_stops",
+      "status": "pass",
+      "detail": "松键后 hands=0，绞盘转角变化 0.0000"
+    },
+    {
+      "test": "physical_anchor_all_clients",
+      "status": "pass",
+      "detail": "全部实际 WebGPU 页面已装载实体锚和锚链"
+    },
+    {
+      "test": "spectral_hp_replication",
+      "status": "pass",
+      "detail": "[63, 63, 63, 63]"
+    },
+    {
+      "test": "host_handoff",
+      "status": "pass",
+      "detail": "剩余客户端房主数 1；船位变化 0.042m"
+    },
+    {
+      "test": "spectral_handoff",
+      "status": "pass",
+      "detail": "迁移后幽灵舰 HP=63"
+    }
+  ],
+  "console_errors": [],
+  "page_errors": [],
+  "network_errors": [],
+  "limitations": [
+    "截图异常检测只筛选可疑画面，不代表达到商业 3A 美术品质",
+    "动态 WebGPU 画面及船体隔水需要在真实 GPU 驱动上执行"
+  ],
+  "finished_at": "2026-11-16T00:25:06.495663",
+  "counts": {
+    "pass": 36,
+    "fail": 0,
+    "suspect": 0,
+    "captured": 11,
+    "unverified": 0
+  }
+}

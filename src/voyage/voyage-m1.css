@@ -1,0 +1,60 @@
+.sw-v39-hud{position:fixed;z-index:17;top:176px;left:13px;max-width:min(330px,calc(100vw - 28px));pointer-events:none;background:linear-gradient(125deg,rgba(9,31,42,.92),rgba(18,43,47,.83));border:1px solid rgba(119,208,198,.42);border-radius:13px;padding:13px 15px;color:#e6f6e8;font:500 13px/1.5 system-ui,'Microsoft YaHei',sans-serif;box-shadow:0 5px 22px #0007;backdrop-filter:blur(8px)}
+.sw-v39-heading{color:#f2ce83;font-weight:800;letter-spacing:.12em;border-bottom:1px solid #95bbad53;padding-bottom:5px;margin-bottom:7px;font-size:13px}.sw-v39-heading span{font-weight:600;letter-spacing:0;color:#72dfcb}
+.sw-v39-detail{font-size:11px;color:#d6e5d2;margin-top:6px}.sw-v39-prompt{margin-top:9px;color:#ecdfad;font-size:12px;max-height:75px;overflow:hidden}.sw-v39-message{color:#f9b07c;min-height:5px;margin-top:3px}.sw-v39-help{font-size:10px;margin-top:8px;color:#9db8b4;border-top:1px solid #567a774c;padding-top:6px}.sw-v39-danger{border-color:#e87863}
+@media(max-width:860px){.sw-v39-hud{top:165px;left:8px;padding:8px 10px;max-width:230px;font-size:11px}.sw-v39-detail{font-size:10px}.sw-v39-help{display:none}}
+/* V40: a usable recovery control for a sunk solo ship. The HUD normally
+   ignores pointer input, so the actual button opts in explicitly. */
+.sw-v39-hud [data-v40-rescue]{pointer-events:auto;display:block;width:100%;margin-top:9px;padding:8px 10px;border:1px solid #f0b97b;border-radius:7px;background:#59311d;color:#fff0ce;font-weight:700;cursor:pointer}
+.sw-v39-hud [data-v40-rescue][hidden]{display:none}
+.sw-v39-hud [data-v40-rescue]:focus-visible{outline:3px solid #fff4b3;outline-offset:2px}
+
+/* Shipboard instruments show authoritative gameplay state, not decorative values. */
+.sw-v41-instruments{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:9px 0 6px}
+.sw-v41-instruments[hidden]{display:none}
+.sw-v41-instruments>div{min-width:0;padding:6px 7px;border:1px solid #91c4b544;background:rgba(0,0,0,.20);border-radius:6px}
+.sw-v41-instruments small{display:block;color:#9bd3c5;font-size:10px;line-height:1.2}
+.sw-v41-instruments strong{display:block;color:#fff3cd;font-size:12px;font-variant-numeric:tabular-nums;white-space:nowrap;margin-top:2px}
+@media(max-width:860px){.sw-v41-instruments{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* V42: compact real equipment state and voyage bearing, hidden only by the existing HUD. */
+.sw-v42-equipment{display:flex;gap:8px;justify-content:space-between;align-items:baseline;border-top:1px solid #91c4b544;margin-top:7px;padding-top:6px;color:#f2d99c;font-size:11px}
+.sw-v42-equipment span{color:#afcfca;flex:1;text-align:right}.sw-v42-navigation{color:#a6dfd8;margin:4px 0;font-size:11px}
+
+.sw-v42-camera{font-size:11px;color:#ffd6a5;margin-top:3px}
+
+/* V42 voyage journal: source-derived task states, with full input isolation. */
+.sw-v39-hud [data-v42-journal-toggle]{pointer-events:auto;margin-top:7px;padding:5px 9px;border:1px solid #cba87977;border-radius:7px;background:#3e423b;color:#ffdc9d;font:600 11px system-ui;cursor:pointer}
+.sw-v42-journal[hidden]{display:none}
+.sw-v42-journal{position:fixed;inset:0;z-index:160;display:flex;align-items:center;justify-content:center;background:rgba(2,17,20,.72);pointer-events:auto;padding:12px}
+.sw-v42-journal-page{box-sizing:border-box;width:min(540px,96vw);max-height:min(740px,92vh);overflow-y:auto;padding:24px 28px;background:linear-gradient(125deg,#283932,#453d2d);border:2px solid #b89b6c;border-radius:12px;color:#efdfbd;box-shadow:0 18px 70px #000c;font:14px/1.6 system-ui,'Microsoft YaHei',sans-serif}
+.sw-v42-journal-page header{display:flex;justify-content:space-between;align-items:center;color:#c6bf91;letter-spacing:.15em}
+.sw-v42-journal-page button{border:1px solid #c3a67f;background:#342c26;color:#ffe4b1;border-radius:5px;padding:4px 11px;cursor:pointer;font-size:19px}
+.sw-v42-journal-page h2{font-size:23px;line-height:1.3;color:#f5ce82;margin:14px 0 2px}
+.sw-v42-journal-page p{color:#c9d4bd;font-size:12px}
+.sw-v42-journal-page ol{list-style:none;padding:0;display:grid;gap:8px}
+.sw-v42-journal-page li{padding:9px 13px;border-left:3px solid #88816c;background:#1c242478;border-radius:4px}
+.sw-v42-journal-page li.active{border-color:#f3c972;background:#8c6f3644}
+.sw-v42-journal-page li.done{border-color:#74bd9c;opacity:.8}
+.sw-v42-journal-page li b{display:block;font-size:13px}.sw-v42-journal-page li span{font-size:12px;color:#c2cbbf}
+.sw-v42-journal-page footer{border-top:1px solid #b99e765c;padding-top:12px;margin-top:14px;color:#f6d895;font-weight:700}
+
+/* V61: keep the working area visible; full telemetry remains one click away. */
+.sw-v39-hud{box-sizing:border-box;width:280px;max-width:calc(100vw - 32px);padding:11px 13px;background:rgba(9,28,35,.86);backdrop-filter:none;font-size:12px}
+.sw-v39-hud:not(.is-expanded) .sw-v39-detail,
+.sw-v39-hud:not(.is-expanded) .sw-v39-help,
+.sw-v39-hud:not(.is-expanded) .sw-v43-hold{display:none}
+.sw-v39-hud:not(.is-expanded) .sw-v41-instruments>div{display:none}
+.sw-v39-hud:not(.is-expanded) .sw-v41-instruments>div:has([data-v41-anchor]),
+.sw-v39-hud:not(.is-expanded) .sw-v41-instruments>div:has([data-v41-sail]),
+.sw-v39-hud:not(.is-expanded) .sw-v41-instruments>div:has([data-v41-water]){display:block}
+.sw-v39-hud:not(.is-expanded)[data-station^="cannon"] .sw-v41-instruments>div:has([data-v41-port]),
+.sw-v39-hud:not(.is-expanded)[data-station^="cannon"] .sw-v41-instruments>div:has([data-v41-starboard]),
+.sw-v39-hud:not(.is-expanded)[data-station="helm"] .sw-v41-instruments>div:has([data-v41-rudder]){display:block}
+.sw-v61-details{pointer-events:auto;margin:7px 0 0 7px;border:1px solid #88afa655;border-radius:7px;padding:5px 8px;background:#152e34;color:#bdd9d2;font:600 11px system-ui;cursor:pointer}
+.sw-v39-prompt{position:fixed;left:50%;bottom:106px;transform:translateX(-50%);box-sizing:border-box;width:max-content;max-width:min(540px,calc(100vw - 36px));padding:10px 16px;border:1px solid #a2d6c958;border-radius:8px;background:rgba(5,24,30,.91);text-align:center;color:#fff0c9;font-size:13px;line-height:1.5;white-space:normal;max-height:100px;box-shadow:0 4px 18px #0005}
+.sw-v39-message:empty,.sw-v42-camera:empty{display:none}
+.sw-v39-hud.is-expanded{max-height:calc(100vh - 230px);overflow-y:auto}
+@media(max-height:720px){.sw-v39-hud{top:112px}.sw-v39-heading{font-size:11px}.sw-v39-prompt{bottom:82px}}
+.sw-v61-aboard .hl-home,.sw-v61-aboard .gm-purse{display:none}
+/* V66 unified mission journal. */
+.sw-v66-mission-page{width:min(830px,96vw);background:linear-gradient(140deg,#142f38,#263639);border:1px solid #8a9e94;color:#e4e9da;max-height:90vh}.sw-v66-mission-layout{display:grid;grid-template-columns:minmax(160px,32%) minmax(0,1fr);gap:20px;align-items:start;margin-top:12px}.sw-v66-mission-nav{display:grid;gap:6px}.sw-v66-mission-nav button{display:grid;gap:3px;text-align:left;padding:10px 12px;font-size:13px;background:#203c42;color:#dce6dd;border-color:#4b6669}.sw-v66-mission-nav button small{font-size:11px;color:#aabeb7}.sw-v66-mission-nav button.selected{background:#315761;border-color:#e5c27c;color:#ffdea2}.sw-v66-mission-page h2{margin-top:0}.sw-v66-mission-progress{height:5px;background:#0c2028;overflow:hidden;border-radius:4px}.sw-v66-mission-progress i{height:100%;display:block;background:#8ac4ad}.sw-v66-mission-page [data-v66-track]{font-size:13px;background:#395a59;border-color:#a0b2a5}.sw-v66-mission-page [data-v66-track]:disabled{opacity:.45;cursor:default}.sw-v66-mission-page li.locked{opacity:.55}.sw-v66-mission-page li.active{background:#3e5050;color:#f4d89a}@media(max-width:550px){.sw-v66-mission-page{padding:12px}.sw-v66-mission-layout{grid-template-columns:1fr;gap:10px}.sw-v66-mission-nav{grid-template-columns:repeat(2,minmax(0,1fr))}.sw-v66-mission-nav button{padding:6px}}

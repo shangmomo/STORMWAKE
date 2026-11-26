@@ -1,0 +1,46 @@
+﻿系统,验收项,状态,说明
+船体,23m工程预览与旧船回退,PASSED_AUTOMATED,V44 P2 模型尺度与浮力参数测试
+船体,海上30秒静水航行数值稳定,PASSED_AUTOMATED,1800帧静水积分，未翻覆
+船体,精细复古CC0 GLB导入,NOT_IMPLEMENTED,Poly Haven 原始文件尚未集成
+船体,复古船视觉与LOD,NOT_IMPLEMENTED,仍是旧船几何放大
+船体,风暴浪中完整船舶操控,PENDING,尚未有区域FFT浪谱
+船舱,内舱宽高可供站立,PASSED_AUTOMATED,工程型容积测试，不代表最终视觉
+船舱,真实双层结构与水密门,NOT_IMPLEMENTED,需要完整模型/碰撞/门动画
+船舱,玩家从甲板连续攀梯进入船舱,PASSED_AUTOMATED,持续插值防重复，未做IK
+船舱,角色真实攀爬动作/脚手IK,NOT_IMPLEMENTED,待动画资产
+船舱,上层和下层碰撞镜头不卡墙,PENDING,需要浏览器实机
+船舱,船大幅横摇时角色无浮空,PENDING,需要浏览器实机
+物品,宝箱存放米制局部坐标,PASSED_AUTOMATED,位置不随船航行漂移（数据层）
+物品,舱底宝箱可拾取和取回,PASSED_AUTOMATED,交互逻辑及位置序列化
+物品,箱体最小间距与楼梯净空,PASSED_AUTOMATED,ShipStorageSpace
+物品,所有道具可自由取放/堆叠,NOT_IMPLEMENTED,目前只有任务箱
+物品,多层货架/高度稳定检测,NOT_IMPLEMENTED,当前二维空间检测
+物品,单机存档重载货物不丢失,PASSED_AUTOMATED,Cargo 序列化测试
+物品,联机多人抓取同一物品只有一个成功,PENDING,新系统尚未网络同步
+船机,舵帆炮锚操作旧版本回归,PASSED_AUTOMATED,V43/V42/V41 历史链
+船机,新船所有设备高精细动画与索具,NOT_IMPLEMENTED,缺最终船模型与pivot
+船机,新船炮弹碰撞覆盖舰首舰尾,PASSED_AUTOMATED,旋转船体盒扫掠碰撞
+船机,大船破口不被旧尺寸截断,PASSED_AUTOMATED,HullCompartments 尺寸测试
+船机,船体破口与内部修理目标视觉一致,PENDING,仅数学坐标换算，未浏览器目测
+船员,AI旧岗位优先级与修理基本流程,PASSED_AUTOMATED,V43 历史功能回归
+船员,AI新船全层寻路和动画足底,PENDING,需要重新构建米制导航网格与实机
+船员,AI真的搬箱/拉绞盘/扑火,NOT_IMPLEMENTED,待统一物品实体
+远洋,外围风暴与舰队区域距港数公里,PASSED_AUTOMATED,P1坐标约束/区域测试
+远洋,天气风场按空间变化,PASSED_AUTOMATED,P1纯逻辑测试
+远洋,真实分区巨浪影响FFT与浮力,NOT_IMPLEMENTED,必须共用波谱
+远洋,降雨GPU雨幕,PASSED_AUTOMATED,模块存在与逻辑测试，未实机视觉
+远洋,近远海云/光/雷音完全联动,NOT_IMPLEMENTED,需空间环境一致性
+龙卷,龙卷径向吸力与切向加速度,PASSED_AUTOMATED,P1数值受力测试
+龙卷,龙卷环浪/体积云/水花,NOT_IMPLEMENTED,当前原型视觉
+龙卷,真实吸动玩家与放置货物,NOT_IMPLEMENTED,当前主要作用于船体
+龙卷,驾驶逃脱4情景实机测试,PENDING,需要完整海况与浏览器
+幽灵,10艘幽灵舰实体具有受击血量,PASSED_AUTOMATED,P1舰队专项
+幽灵,幽灵舰队在外围而非近海,PASSED_AUTOMATED,P1安全距离规则
+幽灵,透骨船体/破帆/魂火高品质美术,NOT_IMPLEMENTED,现有程序化原型
+幽灵,舰队阵型包抄与旗舰多阶段,NOT_IMPLEMENTED,目前基础AI
+幽灵,消融动画/浮动物品/拾取奖励,NOT_IMPLEMENTED,目前击沉隐藏
+幽灵,多人舰队状态复制,NOT_IMPLEMENTED,需权威网络支持
+任务,原金潮任务可完整回港兑现,PASSED_AUTOMATED,V43/V40历史链
+任务,5条新的远洋任务全闭环,NOT_IMPLEMENTED,有详细设计，未开发完成
+实机,Windows Chrome/Edge WebGPU游玩30–60分钟,BLOCKED,当前环境 localhost 被浏览器策略阻止
+实机,1080p帧率、显存、画面真实性测量,PENDING,没有实机数据，不作性能承诺

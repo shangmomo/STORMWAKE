@@ -1,0 +1,40 @@
+
+> tidewater@1.0.0 test:v54
+> node test/stormwake-v54-systems.mjs && node test/stormwake-voyage-m1.mjs && node test/stormwake-voyage-m1-ws.mjs && node test/stormwake-v41-ws-cannons.mjs && node test/coop-v13.mjs && node test/coop-v14.mjs
+
+PASS V54 1 source hull mesh recut in new lateral passage with no overlap over capstan
+PASS V54 2 new hatch clearance, side-of-hole reachable from actual supported deck
+PASS V54 3 cargo deck -> hold -> walk -> deck, end at supported plank and never fall into hole
+PASS V54 4 quarters roof hatch is sealed; source bulkhead door remains bidirectional
+PASS V54 5 ocean water sheet hidden only while camera is in a sealed ship compartment
+PASS V54 6 capstan split from ORIGINAL GLB and animated by same multiplayer authority as anchor
+PASS V54 7 multiplayer free-moving deck avatar reports its own position, not ship centre
+PASS V54 8 two and four simultaneous windlass operators move more chain per second, stop on release
+PASS V54 real TCP WebSocket 3-player join + 3 simultaneous station claims + shared turn + chat + door sync + late join + host ship replication
+PASS V54 8 focused tests + live WebSocket networking integration. Browser/WebGPU rendering NOT covered.
+✓ 岗位互斥、释放、同人不可占两岗
+✓ AI 让岗但不能踢掉真人
+✓ 岗位输入隔离、舵轮回中、帆位保持
+✓ 舷炮装弹与冷却、一枪只触发一次
+✓ 顺风满帆推力明显强于纯辅机与逆风帆
+✓ 船体破损、进水、修复、火灾、沉船
+✓ 4s 连续挖掘、离开重置、一处只能完成一次
+✓ 宝箱搬运→船舱→兑现，只发一次奖励
+✓ 完整状态可持久化且损坏存档安全回退
+✓ AI 在无人时补 helm/sail_main/cannon_starboard，真人优先
+✓ AI 炮艇巡航接敌、开火、低血量撤退和沉船
+✓ E 交互按优先级每帧只派发一次
+✓ 坐标集中定义，藏宝与海港位置不同
+✓ 服务器禁止非法 stationId、重复 claim、越权释放
+✓ 服务器拒绝非房主船状态、非法数字与倒序 seq
+✓ 服务器 station_input 必须归属、限频并正确转发
+✓ 服务端防重复发奖：接受→4秒挖→拾取→入舱→港口兑现
+✓ 服务端挖掘必须连续长按：松开、超时均不能白嫖4秒
+✓ 单人AI航程启动时起锚，抵达登陆点自动抛锚
+✓ 跨历史模块不改 WGSL/FFT 内核
+
+M1 逻辑与网络验收：20 项通过
+V39 real WebSocket PASS: two-player helm+sail, messages, conflict, host authority, release
+V41 WebSocket PASS: remote gun aim, host-authoritative projectile, spoofing rejected, ship throttle synchronized
+V13 coop: PASS four simultaneous RFC6455 players, fifth refused, position sync, chat, shared boss damage, cooldown/security, leave, HTTP status
+V14 coop: PASS remote cannon visuals via real sockets, correct ship skin, sender de-dup, cooldown, muzzle validation, server-authoritative hit feedback

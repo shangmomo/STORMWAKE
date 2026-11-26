@@ -1,0 +1,76 @@
+TAP version 13
+# Subtest: weapon and tool slots disjoint; actual equipment code does not steal 1/2/3
+ok 1 - weapon and tool slots disjoint; actual equipment code does not steal 1/2/3
+  ---
+  duration_ms: 2.552902
+  type: 'test'
+  ...
+# Subtest: real key edges, no repeats, ctrl descent, typing, focus loss
+ok 2 - real key edges, no repeats, ctrl descent, typing, focus loss
+  ---
+  duration_ms: 0.26522
+  type: 'test'
+  ...
+# Subtest: soft menu blocks walking and clicks, E closes catch without falling through
+ok 3 - soft menu blocks walking and clicks, E closes catch without falling through
+  ---
+  duration_ms: 0.456561
+  type: 'test'
+  ...
+# Subtest: inventory opens before movement; close discards stale pressed and held input
+ok 4 - inventory opens before movement; close discards stale pressed and held input
+  ---
+  duration_ms: 0.196129
+  type: 'test'
+  ...
+# Subtest: menus isolated from submarines; chart remains accessible at helm
+ok 5 - menus isolated from submarines; chart remains accessible at helm
+  ---
+  duration_ms: 0.43556
+  type: 'test'
+  ...
+# Subtest: weapon selection draws, queues during swing, stows tools, denies modal and stations
+ok 6 - weapon selection draws, queues during swing, stows tools, denies modal and stations
+  ---
+  duration_ms: 0.354411
+  type: 'test'
+  ...
+# Subtest: actual adventure update consumes 1/2/3 on land and deck, with queued switch
+ok 7 - actual adventure update consumes 1/2/3 on land and deck, with queued switch
+  ---
+  duration_ms: 256.50738
+  type: 'test'
+  ...
+# Subtest: deck fishing available, not when submarine is active
+ok 8 - deck fishing available, not when submarine is active
+  ---
+  duration_ms: 0.25179
+  type: 'test'
+  ...
+# Subtest: interior aim exactly matches moving cabin view
+ok 9 - interior aim exactly matches moving cabin view
+  ---
+  duration_ms: 4.070712
+  type: 'test'
+  ...
+# Subtest: HUD independent of input, persisted mode, F7 restore, F8 cycle, no typing shortcuts
+ok 10 - HUD independent of input, persisted mode, F7 restore, F8 cycle, no typing shortcuts
+  ---
+  duration_ms: 0.647883
+  type: 'test'
+  ...
+# Subtest: catch dialog is outside hidden gameplay HUD and pure style does not hide panels
+ok 11 - catch dialog is outside hidden gameplay HUD and pure style does not hide panels
+  ---
+  duration_ms: 0.602135
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 478.08705

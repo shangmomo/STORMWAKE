@@ -1,0 +1,7 @@
+import assert from 'node:assert/strict';
+import {Group,Vector3,Mesh} from '../src/engine/index.js';
+import {prepare,box} from '../src/world/boat/GeoKit.js';
+import {MovingSurfaceWorld} from '../src/systems/MovingSurfaceWorld.js';
+const root=new Group();root.position.set(20,.7,-50);root.rotation.set(.14,.6,-.18,'YXZ');root.scale.setScalar(1.5);root.add(new Mesh(prepare(box(5,.2,10)),{transparent:false}));const surface=new MovingSurfaceWorld(root),at=root.localToWorld(new Vector3(.7,.1,1.2)),height=surface.floorAt(at.x,at.z,at.y+2,at.y-2);assert.ok(Math.abs(height-at.y)<1e-6,'world vertical floor ray must account for pitch, roll and vessel scale');const p=surface.local(surface.global({x:1,y:2,z:3}));assert.ok(p.distanceTo(new Vector3(1,2,3))<1e-6);assert.equal(surface.floorAt(1000,1000,3),null);
+const a=root.localToWorld(new Vector3(-5,0,0)),b=root.localToWorld(new Vector3(5,0,0)),hit=surface.segmentHit(a,b);assert.ok(hit);assert.ok(Math.abs(surface.local(hit).x+2.5)<1e-6);assert.equal(surface.segmentHit(root.localToWorld(new Vector3(-5,3,0)),root.localToWorld(new Vector3(5,3,0))),null,'a shot above the real mesh misses');const other=new MovingSurfaceWorld(new Group(),{world:surface.world});assert.equal(other.world,surface.world,'fleet copies reuse one exact local hull BVH');
+console.log('V63 moving ship surfaces: exact world floor rays under full heel/pitch/scale, rigid frame conversion, real triangle projectile contact, above-hull miss and shared BVH PASS');

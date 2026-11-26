@@ -1,0 +1,582 @@
+{
+  "results": {
+    "front": {
+      "pass": true,
+      "corrections": [
+        0,
+        0,
+        0
+      ]
+    },
+    "fore": {
+      "pass": true,
+      "cycles": 5,
+      "trail": [
+        {
+          "x": 0.9261,
+          "y": 1.685,
+          "z": 6.6452
+        },
+        {
+          "x": 0.9261,
+          "y": 1.8464,
+          "z": 3.8454
+        },
+        {
+          "x": 0.9261,
+          "y": 1.685,
+          "z": 6.6712
+        },
+        {
+          "x": 0.9261,
+          "y": 1.8457,
+          "z": 3.8135
+        },
+        {
+          "x": 0.9261,
+          "y": 1.685,
+          "z": 6.6943
+        },
+        {
+          "x": 0.9261,
+          "y": 1.8463,
+          "z": 3.8415
+        },
+        {
+          "x": 0.9261,
+          "y": 1.685,
+          "z": 6.6651
+        },
+        {
+          "x": 0.9261,
+          "y": 1.8455,
+          "z": 3.8078
+        },
+        {
+          "x": 0.9261,
+          "y": 1.685,
+          "z": 6.6902
+        },
+        {
+          "x": 0.9261,
+          "y": 1.8461,
+          "z": 3.8349
+        }
+      ]
+    },
+    "cabin": {
+      "pass": true,
+      "inside": {
+        "player": {
+          "mode": "deck",
+          "deckLayer": "hold",
+          "position": {
+            "x": 67.6825,
+            "y": 0.7029,
+            "z": 29.0325
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "deckPosition": {
+            "x": -0.88,
+            "y": 0.1571,
+            "z": -7.6692
+          },
+          "station": null,
+          "grounded": true,
+          "deckYaw": 3.1416,
+          "climbing": false,
+          "collision": {
+            "triangles": 49179,
+            "bvh": true
+          }
+        },
+        "contacts": [],
+        "velocity": {
+          "x": 2.1283377118532972e-17,
+          "y": 0,
+          "z": -0.12596159614240565
+        },
+        "climb": null,
+        "mast": null,
+        "trace": {
+          "playerLocal": {
+            "x": -0.88,
+            "y": 0.1571,
+            "z": -7.6692
+          },
+          "focusOwner": null,
+          "overlayActive": false,
+          "playState": "playing",
+          "frame": 695,
+          "selectedId": "cabin_door",
+          "candidates": [
+            {
+              "id": "cabin_door",
+              "distance": 1.062975394152341,
+              "priority": 299,
+              "facing": -0.9996859915699624,
+              "aimed": false
+            },
+            {
+              "id": "cartographer_accept",
+              "distance": 1.3826610287478434,
+              "priority": 260,
+              "facing": 0.8878685903353712,
+              "aimed": false
+            }
+          ],
+          "history": [
+            {
+              "frame": 644,
+              "selectedId": "dutch_original_door",
+              "inputConsumed": true,
+              "accepted": true,
+              "focusOwner": "voyage"
+            }
+          ]
+        }
+      },
+      "desk": {
+        "player": {
+          "mode": "deck",
+          "deckLayer": "hold",
+          "position": {
+            "x": 68.4173,
+            "y": -0.1757,
+            "z": 28.3539
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "deckPosition": {
+            "x": -0.1747,
+            "y": -0.3183,
+            "z": -8.2222
+          },
+          "station": null,
+          "grounded": true,
+          "deckYaw": 3.1416,
+          "climbing": false,
+          "collision": {
+            "triangles": 49179,
+            "bvh": true
+          }
+        },
+        "contacts": [],
+        "velocity": {
+          "x": 0.0003913148130677438,
+          "y": 0,
+          "z": -0.12402333787499895
+        },
+        "climb": null,
+        "mast": null,
+        "trace": {
+          "playerLocal": {
+            "x": -0.1747,
+            "y": -0.3183,
+            "z": -8.2222
+          },
+          "focusOwner": null,
+          "overlayActive": false,
+          "playState": "playing",
+          "frame": 748,
+          "selectedId": "cartographer_accept",
+          "candidates": [
+            {
+              "id": "cartographer_accept",
+              "distance": 0.6742295716780153,
+              "priority": 260,
+              "facing": 0.9927234209141571,
+              "aimed": true
+            },
+            {
+              "id": "captain_chart",
+              "distance": 1.0729311548263178,
+              "priority": 260,
+              "facing": 0.4736475292886676,
+              "aimed": false
+            }
+          ],
+          "history": [
+            {
+              "frame": 644,
+              "selectedId": "dutch_original_door",
+              "inputConsumed": true,
+              "accepted": true,
+              "focusOwner": "voyage"
+            }
+          ]
+        }
+      },
+      "outside": {
+        "player": {
+          "mode": "deck",
+          "deckLayer": "deck",
+          "position": {
+            "x": 68.3641,
+            "y": 0.4921,
+            "z": 30.3828
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "deckPosition": {
+            "x": -0.7936,
+            "y": 0.86,
+            "z": -6.2125
+          },
+          "station": null,
+          "grounded": true,
+          "deckYaw": 3.1416,
+          "climbing": false,
+          "collision": {
+            "triangles": 49179,
+            "bvh": true
+          }
+        },
+        "contacts": [],
+        "velocity": {
+          "x": -6.08121628110893e-08,
+          "y": 0,
+          "z": 0.19811290299434475
+        },
+        "climb": null,
+        "mast": null,
+        "trace": {
+          "playerLocal": {
+            "x": -0.7936,
+            "y": 0.86,
+            "z": -6.2125
+          },
+          "focusOwner": null,
+          "overlayActive": false,
+          "playState": "playing",
+          "frame": 861,
+          "selectedId": "dutch_original_door",
+          "candidates": [
+            {
+              "id": "dutch_original_door",
+              "distance": 0.45892481860734224,
+              "priority": 265,
+              "facing": 0.9366557669352074,
+              "aimed": true
+            },
+            {
+              "id": "anchor",
+              "distance": 1.7089572389123084,
+              "priority": 330,
+              "facing": -0.8795029509821547,
+              "aimed": false
+            },
+            {
+              "id": "arsenal_musket",
+              "distance": 1.3217415478054506,
+              "priority": 235,
+              "facing": -0.826408346882277,
+              "aimed": false
+            }
+          ],
+          "history": [
+            {
+              "frame": 644,
+              "selectedId": "dutch_original_door",
+              "inputConsumed": true,
+              "accepted": true,
+              "focusOwner": "voyage"
+            }
+          ]
+        }
+      }
+    },
+    "hold": {
+      "pass": true,
+      "paused": 0.22224999999999756,
+      "exit": {
+        "player": {
+          "mode": "deck",
+          "deckLayer": "deck",
+          "position": {
+            "x": 69.7382,
+            "y": 1.2785,
+            "z": 34.3417
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "deckPosition": {
+            "x": 0.0468,
+            "y": 1.0296,
+            "z": -2.18
+          },
+          "station": null,
+          "grounded": true,
+          "deckYaw": 3.1416,
+          "climbing": false,
+          "collision": {
+            "triangles": 49179,
+            "bvh": true
+          }
+        },
+        "contacts": [
+          {
+            "t": 0,
+            "normal": [
+              0.1060266526833796,
+              0.9943632882004233,
+              -8.013142699215032e-09
+            ],
+            "id": "Artist mesh dutch_ship_medium_hull"
+          }
+        ],
+        "velocity": {
+          "x": 0.02331595155664321,
+          "y": 0,
+          "z": 0
+        },
+        "climb": null,
+        "mast": null,
+        "trace": {
+          "playerLocal": {
+            "x": 0.0468,
+            "y": 1.0296,
+            "z": -2.18
+          },
+          "focusOwner": null,
+          "overlayActive": false,
+          "playState": "playing",
+          "frame": 968,
+          "selectedId": "anchor",
+          "candidates": [
+            {
+              "id": "anchor",
+              "distance": 0.44929029500659884,
+              "priority": 330,
+              "facing": 0.999278025033021,
+              "aimed": true
+            }
+          ],
+          "history": [
+            {
+              "frame": 644,
+              "selectedId": "dutch_original_door",
+              "inputConsumed": true,
+              "accepted": true,
+              "focusOwner": "voyage"
+            }
+          ]
+        }
+      }
+    },
+    "masts": {
+      "pass": true,
+      "lookouts": [
+        {
+          "player": {
+            "mode": "deck",
+            "deckLayer": "deck",
+            "position": {
+              "x": 70.7408,
+              "y": 12.9957,
+              "z": 33.7208
+            },
+            "velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "deckPosition": {
+              "x": 0,
+              "y": 13,
+              "z": -2.34
+            },
+            "station": null,
+            "grounded": true,
+            "deckYaw": 0,
+            "climbing": false,
+            "collision": {
+              "triangles": 49179,
+              "bvh": true
+            }
+          },
+          "contacts": [],
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "climb": null,
+          "mast": null,
+          "trace": {
+            "playerLocal": {
+              "x": 0,
+              "y": 13,
+              "z": -2.34
+            },
+            "focusOwner": null,
+            "overlayActive": false,
+            "playState": "playing",
+            "frame": 1183,
+            "selectedId": null,
+            "candidates": [],
+            "history": [
+              {
+                "frame": 644,
+                "selectedId": "dutch_original_door",
+                "inputConsumed": true,
+                "accepted": true,
+                "focusOwner": "voyage"
+              }
+            ]
+          }
+        },
+        {
+          "player": {
+            "mode": "deck",
+            "deckLayer": "deck",
+            "position": {
+              "x": 69.3422,
+              "y": 11.9208,
+              "z": 42.2565
+            },
+            "velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "deckPosition": {
+              "x": 0,
+              "y": 12.2,
+              "z": 5.5
+            },
+            "station": null,
+            "grounded": true,
+            "deckYaw": 0,
+            "climbing": false,
+            "collision": {
+              "triangles": 49179,
+              "bvh": true
+            }
+          },
+          "contacts": [],
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "climb": null,
+          "mast": null,
+          "trace": {
+            "playerLocal": {
+              "x": 0,
+              "y": 12.2,
+              "z": 5.5
+            },
+            "focusOwner": null,
+            "overlayActive": false,
+            "playState": "playing",
+            "frame": 1565,
+            "selectedId": null,
+            "candidates": [],
+            "history": [
+              {
+                "frame": 644,
+                "selectedId": "dutch_original_door",
+                "inputConsumed": true,
+                "accepted": true,
+                "focusOwner": "voyage"
+              }
+            ]
+          }
+        }
+      ],
+      "end": {
+        "player": {
+          "mode": "deck",
+          "deckLayer": "deck",
+          "position": {
+            "x": 70.0154,
+            "y": 2.3497,
+            "z": 41.7255
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "deckPosition": {
+            "x": 0.006,
+            "y": 1.923,
+            "z": 5.2867
+          },
+          "station": null,
+          "grounded": true,
+          "deckYaw": 0,
+          "climbing": false,
+          "collision": {
+            "triangles": 49179,
+            "bvh": true
+          }
+        },
+        "contacts": [
+          {
+            "t": 0,
+            "normal": [
+              0.3655722790773096,
+              0.22685182149558097,
+              -0.9027154368096065
+            ],
+            "id": "Artist mesh dutch_ship_medium_hull"
+          }
+        ],
+        "velocity": {
+          "x": 0.00681884785784334,
+          "y": 0,
+          "z": -0.013175533550101015
+        },
+        "climb": null,
+        "mast": null,
+        "trace": {
+          "playerLocal": {
+            "x": 0.006,
+            "y": 1.923,
+            "z": 5.2867
+          },
+          "focusOwner": null,
+          "overlayActive": false,
+          "playState": "playing",
+          "frame": 1732,
+          "selectedId": "sail_jib",
+          "candidates": [
+            {
+              "id": "sail_jib",
+              "distance": 0.8862613717477578,
+              "priority": 40,
+              "facing": -0.5050599852979836,
+              "aimed": false
+            }
+          ],
+          "history": [
+            {
+              "frame": 644,
+              "selectedId": "dutch_original_door",
+              "inputConsumed": true,
+              "accepted": true,
+              "focusOwner": "voyage"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "errors": []
+}

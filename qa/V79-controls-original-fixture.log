@@ -1,0 +1,92 @@
+TAP version 13
+# Subtest: weapon and tool slots disjoint; actual equipment code does not steal 1/2/3
+ok 1 - weapon and tool slots disjoint; actual equipment code does not steal 1/2/3
+  ---
+  duration_ms: 2.806135
+  type: 'test'
+  ...
+# Subtest: real key edges, no repeats, ctrl descent, typing, focus loss
+ok 2 - real key edges, no repeats, ctrl descent, typing, focus loss
+  ---
+  duration_ms: 0.410103
+  type: 'test'
+  ...
+# Subtest: soft menu blocks walking and clicks, E closes catch without falling through
+ok 3 - soft menu blocks walking and clicks, E closes catch without falling through
+  ---
+  duration_ms: 0.419126
+  type: 'test'
+  ...
+# Subtest: inventory opens before movement; close discards stale pressed and held input
+ok 4 - inventory opens before movement; close discards stale pressed and held input
+  ---
+  duration_ms: 0.187085
+  type: 'test'
+  ...
+# Subtest: menus isolated from submarines; chart remains accessible at helm
+ok 5 - menus isolated from submarines; chart remains accessible at helm
+  ---
+  duration_ms: 0.555696
+  type: 'test'
+  ...
+# Subtest: weapon selection draws, queues during swing, stows tools, denies modal and stations
+ok 6 - weapon selection draws, queues during swing, stows tools, denies modal and stations
+  ---
+  duration_ms: 0.356344
+  type: 'test'
+  ...
+# Subtest: actual adventure update consumes 1/2/3 on land and deck, with queued switch
+not ok 7 - actual adventure update consumes 1/2/3 on land and deck, with queued switch
+  ---
+  duration_ms: 22.333601
+  type: 'test'
+  location: '/mnt/data/work/STORMWAKE_V78/test/stormwake-v67-controls.mjs:22:1'
+  failureType: 'testCodeFailure'
+  error: 'c.addBox is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    add (file:///mnt/data/work/STORMWAKE_V78/src/land/ExpeditionSites.js:59:14)
+    buildHarborRoom (file:///mnt/data/work/STORMWAKE_V78/src/land/ExpeditionSites.js:65:2)
+    new LandAdventure (file:///mnt/data/work/STORMWAKE_V78/src/land/LandAdventure.js:92:19)
+    TestContext.<anonymous> (file:///mnt/data/work/STORMWAKE_V78/test/stormwake-v67-controls.mjs:22:721)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: deck fishing available, not when submarine is active
+ok 8 - deck fishing available, not when submarine is active
+  ---
+  duration_ms: 0.360761
+  type: 'test'
+  ...
+# Subtest: interior aim exactly matches moving cabin view
+ok 9 - interior aim exactly matches moving cabin view
+  ---
+  duration_ms: 28.949898
+  type: 'test'
+  ...
+# Subtest: HUD independent of input, persisted mode, F7 restore, F8 cycle, no typing shortcuts
+ok 10 - HUD independent of input, persisted mode, F7 restore, F8 cycle, no typing shortcuts
+  ---
+  duration_ms: 0.93857
+  type: 'test'
+  ...
+# Subtest: catch dialog is outside hidden gameplay HUD and pure style does not hide panels
+ok 11 - catch dialog is outside hidden gameplay HUD and pure style does not hide panels
+  ---
+  duration_ms: 0.976105
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 10
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 292.979061

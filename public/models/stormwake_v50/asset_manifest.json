@@ -1,0 +1,20 @@
+[
+  {
+    "file": "captain_sea_chart.glb",
+    "bytes": 23988,
+    "sha256": "e01f3a15a403b71347408022b48132e11173b60c12f6f97edda3400cd53db422",
+    "attribution": "STORMWAKE V50 original chart"
+  },
+  {
+    "file": "captains_quarters_access.glb",
+    "bytes": 28021904,
+    "sha256": "6971700499704fc4fd31384edf85a861b7b89965c98e702a649c2af84b60f77f",
+    "attribution": "TheMadraver / Sketchfab CC BY 4.0"
+  },
+  {
+    "file": "dutch_ship_cabin_access.glb",
+    "bytes": 23829576,
+    "sha256": "562a1c9d4e22f6e414d0fd6a911ee76cd57ef0228c2a13a5a153cec989e04810",
+    "attribution": "Poly Haven / CC0"
+  }
+]

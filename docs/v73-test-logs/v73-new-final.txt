@@ -1,0 +1,58 @@
+TAP version 13
+# Subtest: all four actual uploaded assets retain provenance and runtime hashes; no unsupported extensions
+ok 1 - all four actual uploaded assets retain provenance and runtime hashes; no unsupported extensions
+  ---
+  duration_ms: 610.618907
+  type: 'test'
+  ...
+# Subtest: real bear walking and trotting are in-place without losing paw movement
+ok 2 - real bear walking and trotting are in-place without losing paw movement
+  ---
+  duration_ms: 106.419139
+  type: 'test'
+  ...
+# Subtest: authored paw contact at 0.85s is spatial, not a generic circular damage area
+ok 3 - authored paw contact at 0.85s is spatial, not a generic circular damage area
+  ---
+  duration_ms: 43.151686
+  type: 'test'
+  ...
+# Subtest: bear patrol, bounded turning, contact and recovery at 30/60/144 Hz
+ok 4 - bear patrol, bounded turning, contact and recovery at 30/60/144 Hz
+  ---
+  duration_ms: 2.133353
+  type: 'test'
+  ...
+# Subtest: real building door and porch clearance: actual 0.3m/1.75m player walks inside and returns
+ok 5 - real building door and porch clearance: actual 0.3m/1.75m player walks inside and returns
+  ---
+  duration_ms: 21.573629
+  type: 'test'
+  ...
+# Subtest: building wall blocks capsule; site foundations remain flat and source house retains original mesh data
+ok 6 - building wall blocks capsule; site foundations remain flat and source house retains original mesh data
+  ---
+  duration_ms: 57.265347
+  type: 'test'
+  ...
+# Subtest: real captain original idle, bounded facing, E interaction and proximity claim
+ok 7 - real captain original idle, bounded facing, E interaction and proximity claim
+  ---
+  duration_ms: 26.429336
+  type: 'test'
+  ...
+# Subtest: real LandAdventure bear integration: body solid, one bone-timed damage event, no collision after death
+ok 8 - real LandAdventure bear integration: body solid, one bone-timed damage event, no collision after death
+  ---
+  duration_ms: 115.233179
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4670.431134

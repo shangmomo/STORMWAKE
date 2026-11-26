@@ -1,0 +1,17 @@
+{
+  "source": "public/models/stormwake_v52/dutch_ship_passable.glb",
+  "file": "public/models/stormwake_v54/dutch_ship_lower_hold.glb",
+  "sha256": "e26746ab6a92720146b653475b7403055e50e8f75eed33854e6dd33ba49c6078",
+  "source_triangles": 27624,
+  "horizontal_deck_faces_examined": 22,
+  "hatch_faces_removed": 22,
+  "output_triangles": 27534,
+  "new_split_vertices": 148,
+  "source_capstan_rotatable_faces": 132,
+  "source_hatch_xy_z": [
+    -1.1748120300751879,
+    -0.44172932330827064,
+    -1.842105263157895,
+    -0.9398496240601504
+  ]
+}

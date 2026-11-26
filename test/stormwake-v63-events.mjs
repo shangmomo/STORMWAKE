@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {WorldEventDirector} from '../src/offshore/WorldEventDirector.js';
+import {spawnMonsterSpoil,sellMonsterSpoils} from '../src/voyage/MonsterSpoils.js';
+import {Cargo} from '../src/voyage/Cargo.js';
+import {VoyageDirector} from '../src/voyage/VoyageDirector.js';
+import {heritageCrewRoute,heritageCrewNodes} from '../src/ship/CrewNavigation.js';
+const d=new WorldEventDirector(42),ship={x:0,z:0},candidates=[{id:'shark',x:200,z:0,hp:100},{id:'squid',x:201,z:0,hp:100}],input={ship,candidates,crew:4};
+for(let i=0;i<599;i++)d.update(1,input);assert.equal(d.event,null,'no lethal threat during the first ten minutes');d.update(1,input);assert.equal(d.event.phase,'sighting');assert(!d.permits('shark'));
+for(let i=0;i<30;i++)d.update(1,input);assert.equal(d.event.phase,'engaged');assert(d.permits('shark'));assert(!d.permits('squid'),'only one giant threat');
+ship.x=-800;d.update(1,input);assert.equal(d.event.phase,'aftermath');assert(d.next-d.clock>=480&&d.next-d.clock<=900);const copy=new WorldEventDirector();assert(copy.deserialize(d.serialize()));assert.deepEqual(copy.serialize(),d.serialize());
+const damaged=new WorldEventDirector();damaged.clock=700;damaged.update(1,{...input,ship:{x:0,z:0},water:.6});assert.equal(damaged.event,null,'do not stack a giant on a sinking crew');
+const cargo=new Cargo(),voyage=new VoyageDirector({storage:null});assert(spawnMonsterSpoil(cargo,'shark','life_1',{x:10,z:20}));assert(!spawnMonsterSpoil(cargo,'shark','life_1',{x:10,z:20}));assert.equal(voyage.tideCoin,0,'no money when monster dies');const id=cargo.serialize()[0].id;assert.equal(cargo.get(id).state,'world');assert.equal(sellMonsterSpoils(cargo,voyage).count,0,'floating loot must reach the ship');assert(cargo.tryPick('a',id,{x:10,y:0,z:20}));assert(cargo.tryStow('a','stormwake'));const sold=sellMonsterSpoils(cargo,voyage);assert.equal(sold.reward,450);assert.equal(sold.receipts[0].boss,'shark');assert.equal(sellMonsterSpoils(cargo,voyage).reward,0);const saved=new VoyageDirector({storage:null});assert(saved.deserialize(voyage.serialize()));assert(saved.redeemedSpectral.has(id),'monster delivery receipt survives reload');assert(!spawnMonsterSpoil(cargo,'shark','life_1',{x:10,z:20},voyage.redeemedSpectral),'redeemed drop cannot respawn');
+const route=heritageCrewRoute('helm','sail_jib');assert(route.includes('aft_ladder'));assert(route.includes('fore_step'),'AI reaches the raised bow by real stairs');const nodes=heritageCrewNodes({x:1,y:1,z:1});for(const node of route)assert(nodes[node]);
+console.log('V63 event warnings, ten-minute novice protection, one-giant budget, retreat/cooldown, seeded save, physical boss loot and actual fore/aft crew stair routes PASS');

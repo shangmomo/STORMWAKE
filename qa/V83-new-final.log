@@ -1,0 +1,78 @@
+TAP version 13
+# actual cut triangles public/models/abyss/deepsea-demon-whale.glb 208
+# actual cut triangles public/models/abyss/external/nautilus-sdc.glb 14
+# Subtest: host migration commits snapshot before host announcement, keeps resources and rejects former host
+ok 1 - host migration commits snapshot before host announcement, keeps resources and rejects former host
+  ---
+  duration_ms: 2.382932
+  type: 'test'
+  ...
+# Subtest: authoritative lift rejects remote calls, occupied threshold, races and late obstruction
+ok 2 - authoritative lift rejects remote calls, occupied threshold, races and late obstruction
+  ---
+  duration_ms: 0.792896
+  type: 'test'
+  ...
+# Subtest: remote lift snapshots carry passenger without stale updates or wrong-dock gates
+ok 3 - remote lift snapshots carry passenger without stale updates or wrong-dock gates
+  ---
+  duration_ms: 5.10985
+  type: 'test'
+  ...
+# Subtest: dry ledge route repeated twenty times around actual cave support, no lost elevation
+ok 4 - dry ledge route repeated twenty times around actual cave support, no lost elevation
+  ---
+  duration_ms: 264.40237
+  type: 'test'
+  ...
+# Subtest: Lurker first and second phase: locked attacks, one contact, retreat, finite procedural rig
+ok 5 - Lurker first and second phase: locked attacks, one contact, retreat, finite procedural rig
+  ---
+  duration_ms: 8.716409
+  type: 'test'
+  ...
+# Subtest: Lurker requires gallery and single-player, exact reward once across save reload
+ok 6 - Lurker requires gallery and single-player, exact reward once across save reload
+  ---
+  duration_ms: 0.868296
+  type: 'test'
+  ...
+# Subtest: hatch phases at 30/60/144 Hz: physical travel, never both doors, return on timeout
+ok 7 - hatch phases at 30/60/144 Hz: physical travel, never both doors, return on timeout
+  ---
+  duration_ms: 6.370982
+  type: 'test'
+  ...
+# Subtest: hatch permission rejects combat, pressure, motion, role and multiplayer
+ok 8 - hatch permission rejects combat, pressure, motion, role and multiplayer
+  ---
+  duration_ms: 0.411405
+  type: 'test'
+  ...
+# Subtest: real GLB hatch aperture public/models/abyss/deepsea-demon-whale.glb
+ok 9 - real GLB hatch aperture public/models/abyss/deepsea-demon-whale.glb
+  ---
+  duration_ms: 83.77441
+  type: 'test'
+  ...
+# Subtest: real GLB hatch aperture public/models/abyss/external/nautilus-sdc.glb
+ok 10 - real GLB hatch aperture public/models/abyss/external/nautilus-sdc.glb
+  ---
+  duration_ms: 235.662726
+  type: 'test'
+  ...
+# Subtest: actual raid client promotion restores exact snapshot and clears stale local projectiles
+ok 11 - actual raid client promotion restores exact snapshot and clears stale local projectiles
+  ---
+  duration_ms: 11.082045
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4224.468445

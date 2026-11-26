@@ -1,0 +1,22 @@
+{
+  "rock02.glb": {
+    "sha256": "95d5c6a7ddbc5a29a9632696739caed21b4a1fa6fa43d03e102b715e7b8da108",
+    "bytes": 11100900
+  },
+  "mountain.glb": {
+    "sha256": "ab06c706a0f0c89a03f2f3cf4c941b00046bdad869f7d6286d5e26f90ee65b48",
+    "bytes": 15366260
+  },
+  "tavern.glb": {
+    "sha256": "8556304429452b816f1ff15c4c9ca91238d36ba794f328037cb428654c15d727",
+    "bytes": 28246976
+  },
+  "fern.glb": {
+    "sha256": "80b644638dfc79c7c5af7b4eaa3f3ec5b5017e64d4395bdb87bd4aee8c1730f4",
+    "bytes": 5149508
+  },
+  "forge.glb": {
+    "sha256": "14da8567bd2d49df41171c44b92d50debce07008293611f4b982d2b1873ea00f",
+    "bytes": 17867420
+  }
+}

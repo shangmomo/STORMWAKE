@@ -1,0 +1,89 @@
+TAP version 13
+# deep gallery max grade 0.2140350835614237 min ground 37 triangles 5496
+# Subtest: unified collision at intersecting mesh seams, low FPS and diagonal motion
+ok 1 - unified collision at intersecting mesh seams, low FPS and diagonal motion
+  ---
+  duration_ms: 35.667451
+  type: 'test'
+  ...
+# Subtest: thin legacy solid cannot be tunneled through at 10Hz roll speed
+ok 2 - thin legacy solid cannot be tunneled through at 10Hz roll speed
+  ---
+  duration_ms: 3.390581
+  type: 'test'
+  ...
+# Subtest: swimming cannot cross triangle wall, invalid and teleport inputs fail closed
+ok 3 - swimming cannot cross triangle wall, invalid and teleport inputs fail closed
+  ---
+  duration_ms: 0.319509
+  type: 'test'
+  ...
+# Subtest: camera boom checks actual mesh and box
+ok 4 - camera boom checks actual mesh and box
+  ---
+  duration_ms: 0.66976
+  type: 'test'
+  ...
+# Subtest: malformed GLB lengths are rejected without unbounded parse
+ok 5 - malformed GLB lengths are rejected without unbounded parse
+  ---
+  duration_ms: 0.744114
+  type: 'test'
+  ...
+# Subtest: frame exception stops simulation and invokes failure handler exactly once
+ok 6 - frame exception stops simulation and invokes failure handler exactly once
+  ---
+  duration_ms: 0.494232
+  type: 'test'
+  ...
+# Subtest: lower cave is a single mesh, connected downhill gallery, roof, side walls, and round-trip actual land motor
+ok 7 - lower cave is a single mesh, connected downhill gallery, roof, side walls, and round-trip actual land motor
+  ---
+  duration_ms: 64.209728
+  type: 'test'
+  ...
+# Subtest: large collision build yields and publishes only the completed tree
+ok 8 - large collision build yields and publishes only the completed tree
+  ---
+  duration_ms: 51.041247
+  type: 'test'
+  ...
+# Subtest: tavern full original mesh including upper geometry; real land motor entrance/service/return
+ok 9 - tavern full original mesh including upper geometry; real land motor entrance/service/return
+  ---
+  duration_ms: 6306.542563
+  type: 'test'
+  ...
+# Subtest: forge full original mesh including upper geometry; real land motor entrance/service/return
+ok 10 - forge full original mesh including upper geometry; real land motor entrance/service/return
+  ---
+  duration_ms: 431.498051
+  type: 'test'
+  ...
+# Subtest: actual Player.updateWalk repeated running, jumping and wall collision at 30/60/144 Hz
+ok 11 - actual Player.updateWalk repeated running, jumping and wall collision at 30/60/144 Hz
+  ---
+  duration_ms: 29.255784
+  type: 'test'
+  ...
+# Subtest: short non-walkable prop cannot be stepped through; recovery checks mesh penetration
+ok 12 - short non-walkable prop cannot be stepped through; recovery checks mesh penetration
+  ---
+  duration_ms: 0.442104
+  type: 'test'
+  ...
+# Subtest: same completed one-shot can replay without stale animation timer
+ok 13 - same completed one-shot can replay without stale animation timer
+  ---
+  duration_ms: 0.143584
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 10974.126949

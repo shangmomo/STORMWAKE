@@ -1,0 +1,30 @@
+{
+  "primary_assets": [
+    {
+      "path": "public/models/stormwake_v54/dutch_ship_lower_hold.glb",
+      "sha256": "e26746ab6a92720146b653475b7403055e50e8f75eed33854e6dd33ba49c6078",
+      "unchanged_from_v60": true,
+      "license_as_documented": "CC0",
+      "credits": "public/models/stormwake_v54/hatch_manifest.json"
+    },
+    {
+      "path": "public/models/stormwake_v50/captains_quarters_access.glb",
+      "sha256": "6971700499704fc4fd31384edf85a861b7b89965c98e702a649c2af84b60f77f",
+      "unchanged_from_v60": true,
+      "license_as_documented": "CC BY 4.0 TheMadraver",
+      "credits": "public/models/stormwake_v50/CREDITS_V50.md"
+    },
+    {
+      "path": "public/models/stormwake_v50/captain_sea_chart.glb",
+      "sha256": "e01f3a15a403b71347408022b48132e11173b60c12f6f97edda3400cd53db422",
+      "unchanged_from_v60": true,
+      "license_as_documented": "Project original",
+      "credits": "public/models/stormwake_v50/CREDITS_V50.md"
+    }
+  ],
+  "new_models_or_audio": [],
+  "procedural_additions": [
+    "InteriorLanterns.js"
+  ],
+  "license_note": "Existing source credits retained; no external licensing re-audit claimed."
+}

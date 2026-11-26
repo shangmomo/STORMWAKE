@@ -1,0 +1,93 @@
+{
+  "version": 43,
+  "note": "Installed assets are bundled unchanged from V42. No new downloads were completed. Do not describe Quaternius Pirate Kit, Kenney Pirate Kit or KayKit Character Animations as installed.",
+  "installed": [
+    {
+      "crewSlot": "resident_watchman",
+      "path": "public/models/land/pirate_sailor.glb",
+      "license": "CC0",
+      "source": "Quaternius CC0: Animated Man; generated recoloring V38, see v38_pirate_cast_sources.json",
+      "bytes": 480296,
+      "sha256": "512fa33096664e429a2115d77c66f27ee7ddce148cf9b9401ca218266885ab86",
+      "skins": 1,
+      "animationClips": [
+        "HumanArmature|Man_Clapping",
+        "HumanArmature|Man_Death",
+        "HumanArmature|Man_Idle",
+        "HumanArmature|Man_Jump",
+        "HumanArmature|Man_Punch",
+        "HumanArmature|Man_Run",
+        "HumanArmature|Man_RunningJump",
+        "HumanArmature|Man_Sitting",
+        "HumanArmature|Man_Standing",
+        "HumanArmature|Man_SwordSlash",
+        "HumanArmature|Man_Walk"
+      ],
+      "status": "bundled and GLB metadata verified; WebGPU render not verified"
+    },
+    {
+      "crewSlot": "resident_herbalist",
+      "path": "public/models/land/pirate_innkeeper.glb",
+      "license": "CC0",
+      "source": "Quaternius CC0: Animated Man; generated recoloring V38, see v38_pirate_cast_sources.json",
+      "bytes": 480296,
+      "sha256": "46eee22474ea4107b02b3ef1d3eee40bd9607330e2e93fa83038f89be3035b83",
+      "skins": 1,
+      "animationClips": [
+        "HumanArmature|Man_Clapping",
+        "HumanArmature|Man_Death",
+        "HumanArmature|Man_Idle",
+        "HumanArmature|Man_Jump",
+        "HumanArmature|Man_Punch",
+        "HumanArmature|Man_Run",
+        "HumanArmature|Man_RunningJump",
+        "HumanArmature|Man_Sitting",
+        "HumanArmature|Man_Standing",
+        "HumanArmature|Man_SwordSlash",
+        "HumanArmature|Man_Walk"
+      ],
+      "status": "bundled and GLB metadata verified; WebGPU render not verified"
+    },
+    {
+      "crewSlot": "resident_apprentice",
+      "path": "public/models/land/pirate_shipwright.glb",
+      "license": "CC0",
+      "source": "Quaternius CC0: RPG Characters Pack; generated recoloring V38, see v38_pirate_cast_sources.json",
+      "bytes": 645184,
+      "sha256": "bc49db1eb8e372528c1ec883e393bce7311ac0997f0959126dcf7354ced5026d",
+      "skins": 1,
+      "animationClips": [
+        "CharacterArmature|Attacking_Idle",
+        "CharacterArmature|Dagger_Attack2",
+        "CharacterArmature|Dagger_Attack",
+        "CharacterArmature|Death",
+        "CharacterArmature|Idle",
+        "CharacterArmature|PickUp",
+        "CharacterArmature|Punch",
+        "CharacterArmature|RecieveHit_Attacking",
+        "CharacterArmature|RecieveHit",
+        "CharacterArmature|Roll",
+        "CharacterArmature|Run",
+        "CharacterArmature|Walk"
+      ],
+      "status": "bundled and GLB metadata verified; WebGPU render not verified"
+    }
+  ],
+  "externalCandidates": [
+    {
+      "url": "https://quaternius.com/packs/piratekit.html",
+      "status": "not installed: external download unavailable in build environment",
+      "licenseAsResearched": "CC0"
+    },
+    {
+      "url": "https://kenney.nl/assets/pirate-kit",
+      "status": "not installed: external download unavailable in build environment",
+      "licenseAsResearched": "CC0"
+    },
+    {
+      "url": "https://kaylousberg.itch.io/kaykit-character-animations",
+      "status": "not installed: external download unavailable in build environment",
+      "licenseAsResearched": "CC0"
+    }
+  ]
+}

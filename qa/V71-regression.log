@@ -1,0 +1,159 @@
+
+> tidewater@1.0.0 test:v71
+> node --test test/stormwake-v71.mjs && npm run test:v70
+
+TAP version 13
+# merchant 34280 vertices 34349 triangles
+# shipwright 39429 vertices 37765 triangles
+# keeper 35120 vertices 34769 triangles
+# expedition-notice 13920 vertices 10852 triangles
+# Subtest: all eight selected artist scans physically present with texture and mesh data
+ok 1 - all eight selected artist scans physically present with texture and mesh data
+  ---
+  duration_ms: 7.358565
+  type: 'test'
+  ...
+# Subtest: scanned models fit measured local collider envelope including 90-degree rotation
+ok 2 - scanned models fit measured local collider envelope including 90-degree rotation
+  ---
+  duration_ms: 1.815889
+  type: 'test'
+  ...
+# Subtest: all four rooms build real PBR mesh with scan UVs, normals and texture layer indices
+ok 3 - all four rooms build real PBR mesh with scan UVs, normals and texture layer indices
+  ---
+  duration_ms: 188.315915
+  type: 'test'
+  ...
+# Subtest: cave scan supplies are outside central passage and inside rock arch
+ok 4 - cave scan supplies are outside central passage and inside rock arch
+  ---
+  duration_ms: 0.447726
+  type: 'test'
+  ...
+# Subtest: existing enemies cannot instantly turn or attack-turn, return to home outside territory
+ok 5 - existing enemies cannot instantly turn or attack-turn, return to home outside territory
+  ---
+  duration_ms: 1.367568
+  type: 'test'
+  ...
+# Subtest: survey records unique and return requires all three stations; malformed saves rejected
+ok 6 - survey records unique and return requires all three stations; malformed saves rejected
+  ---
+  duration_ms: 0.816333
+  type: 'test'
+  ...
+# Subtest: optional T. rex AI: locked telegraph, bounded angular velocity and acceleration, bite event and leash
+ok 7 - optional T. rex AI: locked telegraph, bounded angular velocity and acceleration, bite event and leash
+  ---
+  duration_ms: 4.55224
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3468.478407
+
+> tidewater@1.0.0 test:v70
+> node --test test/stormwake-v70.mjs && node --test test/stormwake-v69.mjs && node test/stormwake-v37.mjs
+
+TAP version 13
+# max route grade 0.288
+# max route grade 0.111
+# Subtest: real terrain: both expedition routes continuous and traversable
+ok 1 - real terrain: both expedition routes continuous and traversable
+  ---
+  duration_ms: 3.862506
+  type: 'test'
+  ...
+# Subtest: actual cave mesh: roof, side collision, open entrance, return route
+ok 2 - actual cave mesh: roof, side collision, open entrance, return route
+  ---
+  duration_ms: 5.98511
+  type: 'test'
+  ...
+# Subtest: three service rooms: station and aisle clear, counter and rear solid
+ok 3 - three service rooms: station and aisle clear, counter and rear solid
+  ---
+  duration_ms: 32.606969
+  type: 'test'
+  ...
+# Subtest: corsair has bounded turn, initialized strafe, locked dash, no remote melee
+ok 4 - corsair has bounded turn, initialized strafe, locked dash, no remote melee
+  ---
+  duration_ms: 2.897268
+  type: 'test'
+  ...
+# Subtest: actual V69 village plus four new service buildings: full-sized player can enter
+ok 5 - actual V69 village plus four new service buildings: full-sized player can enter
+  ---
+  duration_ms: 873.787696
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4045.946276
+TAP version 13
+# Subtest: physical screen directions: bridge, chase, four heading quadrants, normal/inverted input
+ok 1 - physical screen directions: bridge, chase, four heading quadrants, normal/inverted input
+  ---
+  duration_ms: 4.59768
+  type: 'test'
+  ...
+# Subtest: interior stations, moving boat rotation, consistent look direction and sensitivity
+ok 2 - interior stations, moving boat rotation, consistent look direction and sensitivity
+  ---
+  duration_ms: 81.365523
+  type: 'test'
+  ...
+# Subtest: all species swim in 3D with bounded heading change, speed, depth and shoreline clearance
+ok 3 - all species swim in 3D with bounded heading change, speed, depth and shoreline clearance
+  ---
+  duration_ms: 62.197227
+  type: 'test'
+  ...
+# Subtest: host publishes depth, pitch and bank for every titan
+ok 4 - host publishes depth, pitch and bank for every titan
+  ---
+  duration_ms: 1.026406
+  type: 'test'
+  ...
+# Subtest: AI operates both actual sail stations without stealing human helm and can furl both
+ok 5 - AI operates both actual sail stations without stealing human helm and can furl both
+  ---
+  duration_ms: 30.097062
+  type: 'test'
+  ...
+# Subtest: actual V64 asset: all four cloth panels return exactly, trim moves vertices and normals stay finite
+ok 6 - actual V64 asset: all four cloth panels return exactly, trim moves vertices and normals stay finite
+  ---
+  duration_ms: 106.854137
+  type: 'test'
+  ...
+# Subtest: real cabin lid included in collision BVH; crossing roof and repeated jump landings remain above cabin
+ok 7 - real cabin lid included in collision BVH; crossing roof and repeated jump landings remain above cabin
+  ---
+  duration_ms: 619.322165
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1063.526857
+V37 PASS: 4 unique grounded GLBs, 4 pirate hat styles, 7 region landmarks, input exclusivity, sidequest save isolation, 30/60/144Hz boss AI (11/11/11)

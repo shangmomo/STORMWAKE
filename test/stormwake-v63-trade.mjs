@@ -1,0 +1,6 @@
+import assert from 'node:assert/strict';
+import {buyHarborItem,unpackHarborSupply} from '../src/voyage/HarborTrade.js';
+import {Cargo} from '../src/voyage/Cargo.js';
+import {ShipInventory} from '../src/ship/ShipInventory.js';
+import {VoyageDirector} from '../src/voyage/VoyageDirector.js';
+const cargo=new Cargo(),v=new VoyageDirector({storage:null}),stock=new ShipInventory({plank:0});assert(!buyHarborItem(v,cargo,'planks').ok);v.tideCoin=1000;const bought=buyHarborItem(v,cargo,'planks');assert(bought.ok);assert.equal(v.tideCoin,970);assert.equal(stock.count('plank'),0,'buying creates a crate, not inventory');assert(!unpackHarborSupply(cargo,bought.id,stock).ok);assert(cargo.tryPick('a',bought.id));assert(cargo.tryStow('a','stormwake'));assert(unpackHarborSupply(cargo,bought.id,stock).ok);assert.equal(stock.count('plank'),3);assert(!unpackHarborSupply(cargo,bought.id,stock).ok,'same crate cannot be unpacked twice');assert(buyHarborItem(v,cargo,'deep_optics').ok);const coins=v.tideCoin;assert(!buyHarborItem(v,cargo,'deep_optics').ok);assert.equal(v.tideCoin,coins);console.log('V63 harbor economy: finite costs, physical supply crates, actual stow before unpack and upgrade duplicate rejection PASS');

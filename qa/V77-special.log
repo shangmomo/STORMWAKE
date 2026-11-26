@@ -1,0 +1,46 @@
+TAP version 13
+# Subtest: forge levels and wallet saved atomically, restored from v1 save and capped
+ok 1 - forge levels and wallet saved atomically, restored from v1 save and capped
+  ---
+  duration_ms: 1.397793
+  type: 'test'
+  ...
+# Subtest: failed write and invalid payment leave wallet and levels unchanged
+ok 2 - failed write and invalid payment leave wallet and levels unchanged
+  ---
+  duration_ms: 0.248198
+  type: 'test'
+  ...
+# Subtest: forge action rechecks site, wall, height, battle, loaded status and connection
+ok 3 - forge action rechecks site, wall, height, battle, loaded status and connection
+  ---
+  duration_ms: 0.604224
+  type: 'test'
+  ...
+# Subtest: tavern payment, bounded restore, 45-second cooldown and no repeated full-health purchase
+ok 4 - tavern payment, bounded restore, 45-second cooldown and no repeated full-health purchase
+  ---
+  duration_ms: 0.248842
+  type: 'test'
+  ...
+# Subtest: real swing snapshots forged damage without changing reach or timing, disabled online
+ok 5 - real swing snapshots forged damage without changing reach or timing, disabled online
+  ---
+  duration_ms: 0.366437
+  type: 'test'
+  ...
+# Subtest: service modal owns input and death keeps it disabled
+ok 6 - service modal owns input and death keeps it disabled
+  ---
+  duration_ms: 0.249968
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 118.893842

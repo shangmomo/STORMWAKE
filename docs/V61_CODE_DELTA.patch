@@ -1,0 +1,1648 @@
+--- V60/src/App.js
++++ V61/src/App.js
+@@ -228,7 +228,7 @@
+ 		// how much of the underwater lighting each group needs (sampler budget, see UnderwaterLighting)
+ 		const underwaterMode = ( root, m ) => root && root.traverse( ( o ) => {
+ 
+-			if ( o.material ) for ( const mat of Array.isArray( o.material ) ? o.material : [ o.material ] ) mat.underwaterLighting = m;
++			if ( o.material ) for ( const mat of Array.isArray( o.material ) ? o.material : [ o.material ] ) mat.underwaterLighting = o.userData?.dryInterior?'none':m;
+ 
+ 		} );
+ 		underwaterMode( this.village.group, 'lite' );
+--- V60/src/core/BenchSeed.js
++++ V61/src/core/BenchSeed.js
+@@ -1,8 +1,8 @@
+ // ?bench: a seeded Math.random (imported first by main.js, before any module that draws random
+ // numbers), so the world is laid out the same on every load and reference shots can be compared.
+-if ( typeof location !== 'undefined' && /[?&]bench\b/.test( location.search ) ) {
++if ( typeof location !== 'undefined' && (/[?&]bench\b/.test(location.search)||(/[?&]qa\b/.test(location.search)&&/[?&]seed=/.test(location.search))) ) {
+ 
+-	let s = 0x9e3779b9;
++	let s = Number(new URLSearchParams(location.search).get('seed')) || 0x9e3779b9;
+ 	Math.random = () => {
+ 
+ 		// mulberry32
+--- V60/src/engine/Engine.js
++++ V61/src/engine/Engine.js
+@@ -78,8 +78,14 @@
+ 	}
+ 
+ 	start( update ) {
++		const requested=Number(new URLSearchParams(location.search).get('maxFps'));
++		this.maxFps=Number.isFinite(requested)&&requested>=15?Math.min(240,requested):0;
++		let previousFrame=null;
+ 
+ 		const loop = ( t ) => {
++			const limit=document.hidden?Math.min(this.maxFps||20,20):this.maxFps;
++			if(limit&&previousFrame!==null&&t-previousFrame<1000/limit-.5){this._raf=requestAnimationFrame(loop);return;}
++			previousFrame=t;
+ 
+ 			this.clock.update( t );
+ 			let dt = this.clock.getDelta();
+--- V60/src/game/Game.js
++++ V61/src/game/Game.js
+@@ -152,8 +152,10 @@
+ 			this.hud = new GameHUD( ui, this );
+ 			// the minimap (lower right) and the first-play guide (intro, one-time tips; replay from F1)
+ 			this.minimap = new Minimap( ui.hud || ui.root, this );
+-			this.guide = new Guide( ui, this, this.minimap );
+-			ui.onReplayGuide = () => this.guide.replay();
++			if(!app.voyageM1){
++				this.guide = new Guide( ui, this, this.minimap );
++				ui.onReplayGuide = () => this.guide.replay();
++			}else ui.onReplayGuide = () => app.voyageM1._toggleJournal(true);
+ 
+ 		}
+ 
+--- V60/src/interact/InteractionDirector.js
++++ V61/src/interact/InteractionDirector.js
+@@ -1,9 +1,17 @@
+ export class InteractionDirector {
+- constructor(){this.candidates=[];this.selected=null;}
+- beginFrame(){this.candidates=[];this.selected=null;}
++ constructor(){this.candidates=[];this.selected=null;this.context={};this.history=[];this.frame=0;}
++ beginFrame(context={}){this.candidates=[];this.selected=null;this.context=context;this.frame++;}
+  add({id,label,position,range=3.2,priority=0,perform},point){if(!point||!position||typeof perform!=='function')return false;
+   const d=Math.hypot(position.x-point.x,position.z-point.z);if(d>range||Math.abs((position.y||0)-(point.y||0))>4.0)return false;
+-  this.candidates.push({id,label,position,range,priority,perform,distance:d});return true;}
+- select(){this.selected=this.candidates.sort((a,b)=>b.priority-a.priority||a.distance-b.distance)[0]||null;return this.selected;}
+- dispatch(input,owner='voyage'){const selected=this.select();if(!selected)return false;if(!input.consume('KeyE',owner))return false;selected.perform();return true;}
++  const context=this.context;
++  if(context.occluded?.(position,id))return false;
++  const view=context.view,dx=position.x-point.x,dz=position.z-point.z;
++  const facing=view&&d>.05?(view.x*dx+view.z*dz)/(Math.hypot(view.x,view.z)*d||1):0;
++  const aimed=facing>.92&&d>.15;
++  this.candidates.push({id,label,position,range,priority,perform,distance:d,facing,aimed});return true;}
++ select(){this.selected=this.candidates.sort((a,b)=>Number(b.aimed)-Number(a.aimed)||b.priority-a.priority||a.distance-b.distance)[0]||null;return this.selected;}
++ dispatch(input,owner='voyage'){const selected=this.select();if(!selected)return false;if(!input.consume('KeyE',owner))return false;
++  const accepted=selected.perform();this.record({selectedId:selected.id,inputConsumed:true,accepted:accepted!==false,focusOwner:owner});return true;}
++ record(event){this.history.push({frame:this.frame,...event});if(this.history.length>80)this.history.shift();}
++ trace(){return {frame:this.frame,selectedId:this.selected?.id||null,candidates:this.candidates.map(c=>({id:c.id,distance:c.distance,priority:c.priority,facing:c.facing,aimed:c.aimed})),history:this.history.slice()};}
+ }
+--- V60/src/main.js
++++ V61/src/main.js
+@@ -35,6 +35,7 @@
+ initLocalization();
+ const ui = new UI();
+ const app = new App();
++app.playState = 'loading';
+ window.__ui = ui;
+ 
+ app.init( ( p, text, until ) => ui.setLoading( p, text, until ) ).then( async () => {
+@@ -76,8 +77,12 @@
+ 		if ( app.qs.has( 'shots' ) ) window.__job = window.__bench.shots( app.qs.get( 'shots' ).split( ',' ), { tag: app.qs.get( 'tag' ) || 'shot', dt: Number( app.qs.get( 'dt' ) ) || 0, seq: Number( app.qs.get( 'seq' ) ) || 1, every: Number( app.qs.get( 'every' ) ) || 1 } );
+ 
+ 	} else app.start();
++	app.playState = 'awaiting_start';
++	app.input.enabled = false;
+ 	ui.showStartOverlay( () => {
+ 
++		app.playState = 'playing';
++		app.input.enabled = true;
+ 		app.input.requestLock();
+ 		if ( app.audio ) app.audio.resume();
+ 
+--- V60/src/materials/LocalLights.js
++++ V61/src/materials/LocalLights.js
+@@ -4,6 +4,7 @@
+ import { surfaceModule } from '../engine/render/wgsl/lighting.js';
+ import { G } from '../engine/render/Frame.js';
+ import { SceneLighting } from './SceneLighting.js';
++import {INTERIOR_LAMPS} from '../ship/InteriorLanterns.js';
+ 
+ // Local lights (lanterns, lamp posts, path lights, lit windows, the boat's cabin and navigation
+ // lights, the handheld flashlight) without a light object per lamp: unrolling every light into every
+@@ -267,10 +268,7 @@
+         {p:[0,3.95,-11.08],color:[1,.68,.39],intensity:7.8,range:11,kind:'boatDome'},
+         // Below-deck cabins and open hold remain readable at night; shadow
+         // gradients are still evaluated in the regular physical BRDF path.
+-        {p:[-.65,.35,-8.5],color:[1,.69,.4],intensity:9.2,range:8.5,kind:'boatDome'},
+-        {p:[.65,.48,-8.1],color:[1,.72,.43],intensity:9.0,range:8.5,kind:'boatDome'},
+-        {p:[0,.55,-1.8],color:[1,.67,.35],intensity:8.0,range:7,kind:'boatDome'},
+-        {p:[0,.20,2.6],color:[1,.69,.35],intensity:8.0,range:7,kind:'boatDome'},
++        ...INTERIOR_LAMPS,
+         // Distinct maritime navigation lights, deliberately less bright than
+         // the actual deck lamps and never tinted with neon cyan.
+         {p:[1.95,2.95,5.0],color:[.10,.84,.24],intensity:2.5,range:7,kind:'boatNav'},
+@@ -292,7 +290,7 @@
+ 		const localDir = d.side ? new THREE.Vector3( ...d.side ) : null;
+ 		const src = {
+ 			position: new THREE.Vector3(), color: new THREE.Color( ...d.color ), intensity: d.intensity, range: d.range, kind: d.kind, flicker:d.flicker??0,
+-            enabled:true,
++            enabled:true,alwaysOn:!!d.alwaysOn,
+ 			dir: localDir ? new THREE.Vector3() : null, cosInner: localDir ? 0.25 : undefined, cosOuter: localDir ? - 0.2 : undefined,
+ 			update() {
+                 // The native mesh remains mounted; its illumination can be
+--- V60/src/net/ShipNetBridge.js
++++ V61/src/net/ShipNetBridge.js
+@@ -1,4 +1,5 @@
+ // Same messages in offline and LAN mode. Only the server may mint currency.
++import {Quaternion} from '../engine/index.js';
+ export class ShipNetBridge {
+  constructor(runtime){this.runtime=runtime;this.app=runtime.app;this.seq=0;this.hostId=null;this.remoteShip=null;this.remoteInputs=new Map();this.lastStateSent=0;this.lastInputSent=0;}
+  get peer(){return this.app.crew;}
+@@ -6,7 +7,13 @@
+  get actorId(){return this.peer?.selfId||'local';}
+  get isHost(){return !this.connected||this.actorId===this.hostId;}
+  send(type,payload={}){if(!this.connected)return false;this.peer.send({type,seq:++this.seq,...payload});return true;}
+- claim(id){if(this.connected){this.send('station_claim',{stationId:id});return true;}return this.runtime.stations.claim(id,this.actorId,{replaceAI:true});}
++ claim(id){if(this.pendingClaim)return false;
++  if(this.connected){this.pendingClaim={id,elapsed:0,waiting:false};this.cancelledClaim=null;
++    this.app.player.pendingStation=id;this.runtime.interact?.record({claimSent:id});
++    this.send('station_claim',{stationId:id});return true;}return this.runtime.stations.claim(id,this.actorId,{replaceAI:true});}
++ cancelClaim(){const pending=this.pendingClaim;if(!pending)return false;
++  this.send('station_release',{stationId:pending.id});this.cancelledClaim=pending.id;
++  this.runtime.interact?.record({claimCancelled:pending.id});this.pendingClaim=null;this.app.player.pendingStation=null;return true;}
+  release(id){if(this.connected){this.send('station_release',{stationId:id});return true;}return this.runtime.stations.release(id,this.actorId);}
+  input(id,cmd){if(!this.connected){return this.runtime.stations.setInput(id,this.actorId,cmd);}
+   // The host should apply its own controls immediately; remote claims always wait for server ACK.
+@@ -34,8 +41,10 @@
+     if(!wasHost&&this.isHost&&this.remoteShip){
+       const s=this.remoteShip,b=this.app.boatCtl;
+       if([s.x,s.y,s.z,s.yaw,s.vx,s.vz].every(Number.isFinite)) {
+-        b.position.set(s.x,s.y,s.z);b.velocity.set(s.vx,0,s.vz);
+-        b.quaternion.setFromAxisAngle({x:0,y:1,z:0},s.yaw);b.apply();
++        b.position.set(s.x,s.y,s.z);b.velocity.set(s.vx,s.vy||0,s.vz);
++        if(s.rotation)b.quaternion.set(s.rotation.x,s.rotation.y,s.rotation.z,s.rotation.w).normalize();
++        else b.quaternion.setFromAxisAngle({x:0,y:1,z:0},s.yaw);
++        if(s.angular)b.angular.set(s.angular.x,s.angular.y,s.angular.z);b.apply();
+       }
+       v.stations.anchorDown=!!s.anchor;
+       if(Number.isFinite(s.anchorTravel))v.stations.anchorTravel=s.anchorTravel;
+@@ -46,11 +55,18 @@
+     }
+   }else if(msg.type==='station_update'){
+     v.stations.setRemoteOccupant(msg.stationId,msg.actorId);
+-    if(msg.actorId===this.actorId){v.app.player.stationId=msg.stationId;if(msg.stationId)v._faceStation(msg.stationId);}
++    if(msg.actorId===this.actorId){
++      if(this.cancelledClaim===msg.stationId){this.send('station_release',{stationId:msg.stationId});return;}
++      this.pendingClaim=null;this.app.player.pendingStation=null;
++      v.interact?.record({ack:true,finalStation:msg.stationId});
++      v.app.player.stationId=msg.stationId;if(msg.stationId)v._faceStation(msg.stationId);}
+     else if(v.app.player.stationId===msg.stationId && v.stations.getOccupant(msg.stationId)!==this.actorId)v.app.player.stationId=null;
+   }else if(msg.type==='station_input'){
+-    if(this.isHost&&msg.actorId!==this.actorId)v.stations.setInput(msg.stationId,msg.actorId,{axis:msg.axis||0,throttleAxis:msg.throttleAxis||0,trimAxis:msg.trimAxis||0,aimYaw:msg.aimYaw,aimPitch:msg.aimPitch,fire:!!(msg.buttons&1),reload:!!(msg.buttons&2),repair:!!(msg.buttons&4),bucket:!!(msg.buttons&8)});
++    if(this.isHost&&msg.actorId!==this.actorId){this.remoteInputs.set(msg.actorId,{id:msg.stationId,age:0});
++      v.stations.setInput(msg.stationId,msg.actorId,{axis:msg.axis||0,throttleAxis:msg.throttleAxis||0,trimAxis:msg.trimAxis||0,aimYaw:msg.aimYaw,aimPitch:msg.aimPitch,fire:!!(msg.buttons&1),reload:!!(msg.buttons&2),repair:!!(msg.buttons&4),bucket:!!(msg.buttons&8)});}
+   }else if(msg.type==='station_rejected'){
++    if(this.pendingClaim?.id===msg.stationId){this.pendingClaim=null;this.app.player.pendingStation=null;}
++    v.interact?.record({ack:false,station:msg.stationId,reason:msg.reason});
+     v.toast('岗位占领失败：'+(msg.reason==='occupied'?'已有船员占用':'当前不可用'));
+   }else if(msg.type==='ship_state'){
+     if(!this.isHost){this.remoteShip=msg;this.applyShipExtra(msg);}
+@@ -112,16 +128,28 @@
+   const t=Math.min(.42,dt*10);
+   b.position.x+=(s.x-b.position.x)*t;b.position.y+=(s.y-b.position.y)*t;b.position.z+=(s.z-b.position.z)*t;
+   b.velocity.x+=(s.vx-b.velocity.x)*t;b.velocity.z+=(s.vz-b.velocity.z)*t;
++  b.velocity.y+=((s.vy||0)-b.velocity.y)*t;
+   const angle=Math.atan2(Math.sin(s.yaw-b.getYaw()),Math.cos(s.yaw-b.getYaw()));
+-  b.quaternion.setFromAxisAngle({x:0,y:1,z:0},b.getYaw()+angle*t);
++  if(s.rotation){this.rotationTarget=this.rotationTarget||new Quaternion();
++    this.rotationTarget.set(s.rotation.x,s.rotation.y,s.rotation.z,s.rotation.w).normalize();b.quaternion.slerp(this.rotationTarget,t);}
++  else b.quaternion.setFromAxisAngle({x:0,y:1,z:0},b.getYaw()+angle*t);
+   b.throttle=0;b.rpm=0;b.angular.set(0,0,0);
+   b.apply();
+  }
+- update(dt){if(!this.connected)return;const v=this.runtime;
++ update(dt){const v=this.runtime;
++  if(!this.connected){
++    if(this.wasConnected){v.stations.releaseActor(this.networkActor);this.app.player.stationId=null;this.remoteInputs.clear();this.wasConnected=false;}
++    if(this.pendingClaim){this.pendingClaim=null;this.app.player.pendingStation=null;}return;}
++  this.wasConnected=true;this.networkActor=this.actorId;
++  if(this.pendingClaim){const p=this.pendingClaim;p.elapsed+=Math.max(0,dt);
++    if(p.elapsed>=.5&&!p.waiting){p.waiting=true;v.toast('正在等待房间确认岗位…',1);}
++    if(p.elapsed>=1.5){this.cancelClaim();v.toast('岗位请求超时，请靠近设备后重试。',2);}}
++  for(const [actor,entry] of this.remoteInputs){entry.age+=Math.max(0,dt);
++    if(entry.age>.35){v.stations.inputs.delete(actor);this.remoteInputs.delete(actor);}}
+   if(this.isHost){
+     this.lastStateSent-=dt;
+     if(this.lastStateSent<=0){this.lastStateSent=1/12;const b=this.app.boatCtl;
+-      this.send('ship_state_host',{ammo:v.inventory.serialize(),holes:v.damage.hull.serialize().holes,crew:[...v.crew.actors.values()].map(a=>({id:a.id,x:a.x,y:a.y,z:a.z,yaw:a.yaw,job:a.job})),cannons:Object.fromEntries(Object.entries(v.cannons).map(([id,c])=>[id,c.snapshot()])),x:b.position.x,y:b.position.y,z:b.position.z,yaw:b.getYaw(),vx:b.velocity.x,vz:b.velocity.z,
++      this.send('ship_state_host',{rotation:{x:b.quaternion.x,y:b.quaternion.y,z:b.quaternion.z,w:b.quaternion.w},vy:b.velocity.y,angular:{x:b.angular.x,y:b.angular.y,z:b.angular.z},shipClass:this.app.boat?.heritageDeck?'heritage':'legacy',ammo:v.inventory.serialize(),holes:v.damage.hull.serialize().holes,crew:[...v.crew.actors.values()].map(a=>({id:a.id,x:a.x,y:a.y,z:a.z,yaw:a.yaw,job:a.job})),cannons:Object.fromEntries(Object.entries(v.cannons).map(([id,c])=>[id,c.snapshot()])),x:b.position.x,y:b.position.y,z:b.position.z,yaw:b.getYaw(),vx:b.velocity.x,vz:b.velocity.z,
+         sailMain:v.stations.sailMain,sailJib:v.stations.sailJib,sailTrim:v.stations.sailTrim,water:v.damage.water,bilgeSections:{...v.damage.hull.sections},anchorTravel:v.stations.anchorTravel,anchorCrankTurns:v.stations.anchorCrankTurns,anchorHands:v.stations.anchorHands,anchorState:b.anchorTether?.state,anchorTension:b.anchorTether?.tension,repairStock:v.repairStock,helmThrottle:v.stations.helmThrottle,anchor:v.stations.anchorDown,integrity:v.damage.integrity,breach:v.damage.breach,fire:v.damage.fire});
+       this.send('enemy_ship_host',v.enemy.snapshot());
+     }
+--- V60/src/oceanhunt/HuntCombat.js
++++ V61/src/oceanhunt/HuntCombat.js
+@@ -266,8 +266,9 @@
+ 		if ( this.muzzleClock <= 0 ) this.reticle.classList.remove( 'firing' );
+ 		this.ink.hidden = this.bosses.inkClock <= 0;
+ 		this.updateProjectiles( dt );
+-		const input = this.app.input, usable = this.available && this.aboard && !this.app.player?.stationId && ! this.opened;
+-		this.launch.hidden = ! this.available;
++		const indoors=this.app.player?.mode==='deck'&&['hold','lowerHold'].includes(this.app.player.deckLayer);
++		const input = this.app.input, usable = this.available && this.aboard && !indoors && !this.app.player?.stationId && ! this.opened;
++		this.launch.hidden = ! this.available || indoors;
+ 		this.hud.hidden = ! usable;
+ 		this.reticle.hidden = ! usable;
+ 		this.reticle.classList.toggle( 'is-scope', this.zooming );
+--- V60/src/player/Player.js
++++ V61/src/player/Player.js
+@@ -733,6 +733,10 @@
+ 		const inHold = (this.deckLayer==='hold' && !!this.shipInterior)||inLowerHold;
+ 		const activeInterior=inLowerHold?this.lowerHold:this.shipInterior;
+ 		const heritage=!!b.model.heritageDeck;
++		if(this.pendingStation){
++			this.deckVel.set(0,0,0);this.deckToWorld();
++			this.prompt={key:'Esc',text:'等待房间确认岗位…'};return;
++		}
+ 		this.deckYaw -= look.x * 0.0022;
+ 		this.pitch = THREE.MathUtils.clamp( this.pitch - look.y * 0.0022, - 1.5, 1.5 );
+         // V53: physical cannon traverse/elevation can be driven with the mouse
+@@ -759,7 +763,7 @@
+ 			if (site) this.deckPos.set(site.x,Math.max(site.y,this.deckGroundAt(site.x,site.z,site.y+.5)),site.z);
+ 			this.deckVel.set(0,0,0); this.deckGrounded = true;
+ 			this.deckToWorld();
+-			const eye = _v.set(this.deckPos.x,this.deckPos.y+EYE,this.deckPos.z);
++			const eye = _v.set(this.deckPos.x,this.deckPos.y+(heritage?DUTCH_SAILOR.eye:EYE),this.deckPos.z);
+ 			b.toWorld(eye,this.camera.position);
+ 			this.deckBase(_q);
+ 			this.camera.quaternion.copy(_q).multiply(_qa.setFromEuler(_e.set(this.pitch,this.deckYaw,0)));
+@@ -879,15 +883,26 @@
+ 
+ 		v.y -= 9.81 * dt;
+ 		const p = this.deckPos;
++		const previousFeet={x:p.x,y:p.y,z:p.z};
+ 		const oldX = p.x, oldZ = p.z;
+ 		// Limit a single collision step; a tab returning from background must
+         // never tunnel the avatar through an interior bulkhead.
+ 		p.addScaledVector( v, Math.min(dt, .05) );
++		if(heritage&&b.model.collisionWorld){
++			const hit=b.model.collisionWorld.move(previousFeet,p,{
++				radius:DUTCH_SAILOR.radius,height:doorEyeHeight(p)<DUTCH_SAILOR.eye?DUTCH_SAILOR.doorwayHeight:DUTCH_SAILOR.height,
++				step:inHold?.08:.15,dynamic:b.model.originalDoor?.collider?[b.model.originalDoor.collider]:[]
++			});
++			p.set(hit.x,hit.y,hit.z);
++			for(const {normal:n} of hit.contacts){const inward=v.x*n[0]+v.y*n[1]+v.z*n[2];
++				if(inward<0){v.x-=inward*n[0];v.y-=inward*n[1];v.z-=inward*n[2];}}
++			this.collisionContacts=hit.contacts;
++		}
+ 
+ 		if ( inHold ) {
+ 			// Low crawl-space is rigidly attached to the hull. Deck-level cannons,
+ 			// mast and bulwark colliders must not push a sailor through hold walls.
+-			activeInterior.constrain(p);
++			activeInterior.constrain(p,previousFeet);
+ 			p.y=activeInterior.floorAt(p.z);
+ 			v.y=0;this.deckGrounded=true;
+ 			this.stepDist+=Math.hypot(p.x-oldX,p.z-oldZ);
+--- V60/src/post/Underwater.js
++++ V61/src/post/Underwater.js
+@@ -199,6 +199,8 @@
+ // the surface fragments on one side end right there, and the far ends on the other side agree.
+ // Farther than STRADDLE from the surface the near plane can't reach it: the camera's medium.
+ fn underwaterMedium( uv: vec2f ) -> f32 {
++	// A sealed dry room contains air even below the exterior wave height.
++	if ( underwaterParams.enabled < 0.5 ) { return 0.0; }
+ 	let size = vec2f( textureDimensions( underwaterMask ) );
+ 	let px = vec2i( clamp( uv, vec2f( 0.0 ), vec2f( 0.9999 ) ) * size );
+ 	let m = textureLoad( underwaterMask, px, 0 );
+@@ -327,6 +329,10 @@
+ 
+ // pixel: fragment coordinate of the composite (screenCoordinate)
+ fn underwaterComposite( uv: vec2f, pixel: vec2f ) -> vec4f {
++	// Skip the entire lens interface, including refraction and bright meniscus.
++	// Previously only the blue attenuation respected enabled, leaving a white
++	// ocean line drawn over opaque cabin walls. The world ocean still renders.
++	if ( underwaterParams.enabled < 0.5 ) { return vec4f( postSceneSample( uv ), 1.0 ); }
+ 	let mSize = vec2i( textureDimensions( underwaterMediumTex ) );
+ 	let pc = clamp( vec2i( uv * vec2f( mSize ) ), vec2i( 0 ), mSize - 1 );
+ 	let here = _uwMed( pc, 0, mSize );
+--- V60/src/qa/AutoQA.js
++++ V61/src/qa/AutoQA.js
+@@ -4,6 +4,7 @@
+ import {stationLocalMeters} from '../ship/StationSites.js';
+ import {isDryHoldCamera} from '../ship/DryHoldCamera.js';
+ import {checkSnapshot} from './Assertions.js';
++import {GPU} from '../engine/gpu/GPU.js';
+ const finite = x => Number.isFinite(x) ? +x.toFixed(4) : null;
+ const point = p => p ? {x:finite(p.x),y:finite(p.y),z:finite(p.z)} : null;
+ const LOG_LIMIT=150;
+@@ -32,13 +33,18 @@
+     const peers=[...(c?.peers?.values()||[])].map(peer=>({id:peer.id,mode:peer.mode,activity:peer.activity,
+       visible:!!peer.root?.visible,position:point(peer.root?.position),target:point(peer.target),activity:peer.activity,animationTime:finite(peer.animationTime),legAngle:finite(peer.rig?.legs?.[0]?.rotation.x)}));
+     return {
+-      ready:!!(app.scene && app.player && app.engine),version:'V60',elapsedSeconds:finite((performance.now()-started)/1000),
++      ready:!!(app.scene && app.player && app.engine),version:'V61',playState:app.playState,elapsedSeconds:finite((performance.now()-started)/1000),
++      rendering:{scale:app.settings.renderScale,width:app.engine?.width,height:app.engine?.height,
++        seed:app.qs.get('seed'),adapter:GPU.adapter?.info?{vendor:GPU.adapter.info.vendor,device:GPU.adapter.info.device,description:GPU.adapter.info.description}:null,
++        displayedFps:finite(app.fps),gpuProfile:app.profiler?.enabled?app.profiler.result:null},
+       interaction:{overlayActive:!!document.querySelector('.tw-start.is-on'),inputEnabled:!!app.input?.enabled,
+         candidates:app.voyageM1?.interact?.candidates?.map(c=>({id:c.id,priority:c.priority,distance:finite(c.distance)}))||[],
+         selected:app.voyageM1?.selected?.id||null},
+       player:{mode:p?.mode,deckLayer:p?.deckLayer,position:point(p?.position),velocity:point(p?.velocity),
+-        deckPosition:point(p?.deckPos),station:p?.stationId||null,grounded:!!p?.grounded},
+-      ship:{position:point(b?.position),speed:finite(b?.speed),moored:!!b?.moored,heritage:!!app.boat?.shipScale,helmVisible:!!app.boat?.heritageDeck?.helmWheel?.visible,
++        deckPosition:point(p?.deckPos),station:p?.stationId||null,grounded:!!p?.grounded,
++        deckYaw:finite(p?.deckYaw),
++        climbing:!!p?.shipClimb,collision:app.boat?.collisionWorld?.stats||null},
++      ship:{position:point(b?.position),rotation:b?{x:finite(b.quaternion.x),y:finite(b.quaternion.y),z:finite(b.quaternion.z),w:finite(b.quaternion.w)}:null,speed:finite(b?.speed),moored:!!b?.moored,heritage:!!app.boat?.shipScale,helmVisible:!!app.boat?.heritageDeck?.helmWheel?.visible,
+         anchor:v?.stations?{down:!!v.stations.anchorDown,travel:finite(v.stations.anchorTravel),turns:finite(v.stations.anchorCrankTurns),
+           hands:v.stations.anchorHands,hasRig:!!app.boat?.heritageArt?.anchorRig,
+           tether:b?.anchorTether?.snapshot?.()}:null,
+@@ -46,7 +52,7 @@
+       world:{hour:finite(hour),weatherSeconds:finite(app.fft?.time?.value ?? 0),night:finite(app.sky?.night ?? 0),
+         remoteWorld:c?.getWorldState?.() || null},
+       water:{dryCamera:isDryHoldCamera(p),bilge:{...v?.damage?.hull?.sections},
+-        oceanVisible:!!app.ocean?.visible,underwaterPost:!!app.post?.underwater?.active,
++        oceanVisible:!!app.ocean?.visible,underwaterPost:(app.underwater?.enabled?.value??1)>.5,
+         hullMaskActive:!!app.sceneRenderer?.hullMaskActive,waterShaderReady:!!app.waterMaterial},
+       multiplayer:{connected:!!c?.connected,peerCount:c?.peers?.size||0,peers,rttMs:finite(c?.rtt||0),selfId:c?.selfId||null},
+       bosses,offshore:{active:!!app.offshoreLife?.active,
+@@ -58,10 +64,14 @@
+   function moveTo(name){
+     const p=app.player,b=app.boatCtl;
+     if(p.stationId && app.voyageM1)app.voyageM1.leaveStation();
+-    if(['boat','helm','anchor','cabin','lower_hold'].includes(name)){
++    if(['boat','helm','anchor','cabin','lower_hold','lower_entry','cabin_entry'].includes(name)){
+       if(p.mode!=='deck')p.boardBoat();
+       p.stationId=null;
+-      if(name==='anchor'){
++      if(name==='lower_entry'){
++        const h=app.voyageM1.lowerHold.layout;p.deckPos.set(h.deckExit.x,h.deckY,h.deckExit.z);p.deckLayer='deck';p.deckYaw=0;p.pitch=-.1;
++      }else if(name==='cabin_entry'){
++        p.deckPos.set(-.88,1.06,-6.0);p.deckLayer='deck';p.deckYaw=Math.PI;p.pitch=-.1;
++      }else if(name==='anchor'){
+         const loc=stationLocalMeters(app.boat,'anchor');if(!loc)throw Error('No anchor station');
+         p.deckPos.set(loc.x,loc.y,loc.z+.12);p.deckLayer='deck';
+       } else if(name==='helm') {
+@@ -100,8 +110,11 @@
+     app.settings.timeOfDay=hour;return true;
+   }
+   const probe={
+-    version:'V60',ready:true,snapshot,events:()=>events.slice(),check:opts=>checkSnapshot(snapshot(),opts),
++    version:'V61',get ready(){return ['awaiting_start','playing'].includes(app.playState);},snapshot,events:()=>events.slice(),check:opts=>checkSnapshot(snapshot(),opts),
+     go:moveTo,setHour,view:name=>window.__view?.(name)||null,
++    interactionTrace:()=>({playerLocal:point(app.player?.deckPos),focusOwner:app.input?.interactionOwner,
++      overlayActive:!!document.querySelector('.tw-start.is-on'),playState:app.playState,
++      ...app.voyageM1?.interact?.trace?.()}),
+     checkAnchor:()=>{const s=snapshot();return s.ship.anchor;},
+     checkBosses:()=>snapshot().bosses,
+     clearEvents:()=>{events.length=0;},
+--- V60/src/ship/CaptainCabinInterior.js
++++ V61/src/ship/CaptainCabinInterior.js
+@@ -36,6 +36,7 @@
+     align.rotation.y=-Math.PI/2;
+     align.scale.set(CAPTAIN_ROOM.scaleXZ,CAPTAIN_ROOM.scaleY,CAPTAIN_ROOM.scaleXZ);
+     align.add(room.root);this.root.add(align);this.room=align;
++    room.root.traverse(o=>{o.userData.dryInterior=true;if(o.material)o.material.underwaterLighting='none';});
+     // A visible, climbable ladder connects both real openings; unlike the V48
+     // hatch trigger it has individual rungs and remains boat-local in storms.
+     const bottom=CAPTAIN_ROOM.floorY+.08,top=this.layout.deckY+.14;
+@@ -75,7 +76,15 @@
+   inHatch(_p){return false;} // sealed quarterdeck hatch; use original aft bulkhead door
+   inside(p){return cabinInside(p);}
+   setHatchOpen(_open){this.hatchOpen=false;if(this.hatchCover)this.hatchCover.visible=true;}
+-  constrain(p){
++  constrain(p,previousFeet=null){
++    if(previousFeet&&this.boat.collisionWorld){
++      // Normal movement already passed the shared triangle sweep. Keep the
++      // enclosure guard, but never invoke the legacy nearest-free-cell search
++      // to teleport a walking player past furniture.
++      const radius=.215;
++      p.x=Math.max(-CAPTAIN_ROOM.halfW+radius,Math.min(CAPTAIN_ROOM.halfW-radius,p.x));
++      p.z=Math.max(CAPTAIN_ROOM.z0+radius,Math.min(CAPTAIN_ROOM.z1-radius,p.z));return;
++    }
+     // An independent collision enclosure follows the ship's single rigid-body
+     // frame. The supplied model is decoration, NOT a magical walk-through shell.
+     const radius=.23; // shoulder/body collision radius in the fitted historic room
+--- V60/src/ship/DoorSweep.js
++++ V61/src/ship/DoorSweep.js
+@@ -0,0 +1,23 @@
++import {DUTCH_AFT_DOOR as D,DUTCH_SAILOR as S} from './HeritageDeck.js';
++// Physical leaf rotates about its original port hinge, in metric ship space.
++function touches(angle,p){
++  if(!p||p.y>=D.roof||p.y+S.height<=D.footMin)return false;
++  const length=D.xMax-D.xMin,dx=Math.cos(angle)*length,dz=-Math.sin(angle)*length;
++  const t=Math.max(0,Math.min(1,((p.x-D.xMin)*dx+(p.z-D.z)*dz)/(length*length)));
++  return Math.hypot(p.x-D.xMin-t*dx,p.z-D.z-t*dz)<(p.radius??S.radius)+.045;
++}
++export function safeDoorAngle(current,next,blockers=[]){
++  const steps=Math.max(1,Math.ceil(Math.abs(next-current)/.015));let safe=current;
++  for(let i=1;i<=steps;i++){
++    const a=current+(next-current)*i/steps;
++    // An already touching body must still be able to move away from the leaf.
++    if(blockers.some(p=>touches(a,p)&&!touches(safe,p)))return {angle:safe,blocked:true};
++    if(blockers.some(p=>touches(a,p)&&touches(safe,p)))return {angle:safe,blocked:true};
++    safe=a;
++  }return {angle:safe,blocked:false};
++}
++export function doorTriangles(angle){
++  const length=D.xMax-D.xMin,x=D.xMin+Math.cos(angle)*length,z=D.z-Math.sin(angle)*length;
++  const a=[D.xMin,D.footMin,D.z],b=[x,D.footMin,z],c=[x,D.roof,z],d=[D.xMin,D.roof,D.z];
++  return [[a,b,c],[a,c,d]];
++}
+--- V60/src/ship/DutchLowerHold.js
++++ V61/src/ship/DutchLowerHold.js
+@@ -27,7 +27,7 @@
+       z0:LOWER_HOLD.z0,z1:LOWER_HOLD.z1,deckExit:{...LOWER_HOLD.deckExit}};
+     this.root=new Group();this.root.name='V54 Dutch inner hold built into sourced cut deck';
+     this.root.scale.set(1/boat.shipScale.x,1/boat.shipScale.y,1/boat.shipScale.z);
+-    const planks=[];const piece=(x,y,z,w,h,d,c)=>prepare(box(w,h,d),{color:c,rough:.92,matrix:mat4(x,y,z)});
++    const planks=[];const piece=(x,y,z,w,h,d,c)=>prepare(box(w,h,d),{color:c,rough:.92,pattern:h>w&&h>d?1:w>d?6:7,matrix:mat4(x,y,z)});
+     const zMin=LOWER_HOLD.z0+.12,zMax=LOWER_HOLD.z1-.13;
+     // Supported sole and side lining remain *inside* the source model's hull.
+     // Bow and stern are capped so the camera cannot see through missing underside mesh.
+@@ -48,7 +48,8 @@
+     const top=this.layout.deckY+.02,bottom=LOWER_HOLD.floorY+.10;
+     for(const side of [-1,1])planks.push(piece(LOWER_HOLD.x+side*.29,(top+bottom)*.5,LOWER_HOLD.z-.32,.065,top-bottom,.065,0x5b432f));
+     for(let y=bottom+.14;y<top-.11;y+=.26)planks.push(piece(LOWER_HOLD.x,y,LOWER_HOLD.z-.32,.64,.055,.08,0x9b784f));
+-    const surface=new Mesh(mergePrepared(planks),landMaterial);
++    const dryWood=landMaterial.clone();dryWood.underwaterLighting='none';
++    const surface=new Mesh(mergePrepared(planks),dryWood);
+     surface.name='V54 original-ship lower-hold rebuilt planked floor + sealed bilge + ladder';
+     surface.castShadow=true;surface.receiveShadow=true;this.root.add(surface);
+     // Bilge is local to the sealed cargo hold. Each connected basin is
+--- V60/src/ship/HeritageAssetRig.js
++++ V61/src/ship/HeritageAssetRig.js
+@@ -4,6 +4,8 @@
+ // authoritative positions. Unconverted/failed assets retain the old fallback.
+ import { Group, Mesh, BufferGeometry, BufferAttribute, Color, Vector3 } from '../engine/index.js';
+ import { loadGLB, decodeImage } from '../engine/loaders/GLTF.js';
++import {safeDoorAngle,doorTriangles} from './DoorSweep.js';
++import {CollisionWorld} from '../systems/CollisionWorld.js';
+ import { Texture } from '../engine/gpu/Texture.js';
+ import { generateMipmaps } from '../engine/gpu/Mipmaps.js';
+ import { Material } from '../engine/render/Material.js';
+@@ -172,7 +174,9 @@
+     get angle(){return doorAngle;},
+     toggle(){doorTarget=1-doorTarget;return doorTarget>0.5;},
+     set(open){doorTarget=open?1:0;},
+-    update(dt){doorAngle+=(doorTarget*1.70-doorAngle)*(1-Math.exp(-Math.max(0,Math.min(.10,dt))*9));hinge.rotation.y=doorAngle;}
++    blocked:false,collider:new CollisionWorld(doorTriangles(0)),
++    update(dt,blockers=[]){const proposed=doorAngle+(doorTarget*1.70-doorAngle)*(1-Math.exp(-Math.max(0,Math.min(.10,dt))*9));
++      const result=safeDoorAngle(doorAngle,proposed,blockers);doorAngle=result.angle;this.blocked=result.blocked;hinge.rotation.y=doorAngle;this.collider.setTriangles(doorTriangles(doorAngle));}
+   };
+   boat.heritageHullHalfWidth=artistHullHalfWidth;
+   boat.heritageArt={root:outer,pivot,capstan,source:CATALOG.dutch,ready:true,
+--- V60/src/ship/InteriorLanterns.js
++++ V61/src/ship/InteriorLanterns.js
+@@ -0,0 +1,30 @@
++import {Group,Mesh} from '../engine/index.js';
++import {box,cylinder,rod,prepare,mergePrepared,mat4} from '../world/boat/GeoKit.js';
++import {landMaterial} from '../land/LandModels.js';
++import {Material} from '../engine/render/Material.js';
++import {Vector3} from '../engine/index.js';
++export const INTERIOR_LAMPS=Object.freeze([
++  {p:[-.65,.35,-8.5],color:[1,.69,.4],intensity:3.2,range:4.0},
++  {p:[.65,.48,-8.1],color:[1,.72,.43],intensity:3.0,range:4.0},
++  {p:[1.32,.38,-3.8],color:[1,.67,.35],intensity:4.0,range:5.0},
++  {p:[-1.32,.38,2.6],color:[1,.69,.35],intensity:4.0,range:5.0}
++].map(l=>Object.freeze({...l,alwaysOn:true,kind:'boatInterior'})));
++export function installInteriorLanterns(boat){
++  const root=new Group(),s=boat.shipScale;root.scale.set(1/s.x,1/s.y,1/s.z);
++  root.name='V61 interior brass lanterns at authoritative light sockets';
++  const parts=[],cores=[];
++  for(const {p:[x,y,z]} of INTERIOR_LAMPS){
++    const ceiling=boat.collisionWorld?.ceilingAt(x,z,y+.16);
++    if(ceiling!==null&&ceiling!==undefined){
++      parts.push(prepare(rod(new Vector3(x,y+.14,z),new Vector3(x,ceiling,z),.012,6),{color:0x463a2c,metal:.65,rough:.5}));
++      parts.push(prepare(box(.11,.025,.11),{color:0x463a2c,metal:.6,rough:.5,matrix:mat4(x,ceiling-.005,z)}));
++    }
++    for(const h of [-.12,.12])parts.push(prepare(box(.18,.035,.18),{color:0x735536,metal:.65,rough:.48,matrix:mat4(x,y+h,z)}));
++    for(const dx of [-.075,.075])for(const dz of [-.075,.075])parts.push(prepare(rod(new Vector3(x+dx,y-.12,z+dz),new Vector3(x+dx,y+.12,z+dz),.012,6),{color:0x5c4530,metal:.6,rough:.48}));
++    cores.push(prepare(cylinder(.006,.026,.10,8),{color:0xffb75b,matrix:mat4(x,y,z)}));
++  }
++  const material=landMaterial.clone();material.underwaterLighting='none';
++  const fixtures=new Mesh(mergePrepared(parts),material);fixtures.castShadow=true;root.add(fixtures);
++  root.add(new Mesh(mergePrepared(cores),new Material({name:'V61 lantern flame',lit:false,vertexColors:true,surface:'s.albedo=in.color.rgb;s.emissive=in.color.rgb*.8;'})));
++  boat.group.add(root);return root;
++}
+--- V60/src/ship/ShipCollisionWorld.js
++++ V61/src/ship/ShipCollisionWorld.js
+@@ -0,0 +1,28 @@
++import {Matrix4,Vector3} from '../engine/index.js';
++import {CollisionWorld} from '../systems/CollisionWorld.js';
++
++// Capture static solids once, in the same metric boat frame used by Player.
++// Doors, moving capstan arms, cloth, water and climb-only rungs are excluded.
++export function bakeShipCollision(boat){
++  const triangles=[],roots=[boat.heritageArt?.objects?.get('dutch_ship_medium_hull'),
++    boat.captainCabin?.room,boat.captainCabin?.doorSteps,
++    boat.lowerHold?.root?.children?.find(o=>o.name.includes('planked floor'))].filter(Boolean);
++  boat.group.updateWorldMatrix(true,true);
++  const s=boat.shipScale||{x:1,y:1,z:1};
++  const inverse=new Matrix4().makeScale(s.x,s.y,s.z).multiply(new Matrix4().copy(boat.group.matrixWorld).invert());
++  const v=new Vector3();
++  for(const root of roots)root.traverse(mesh=>{
++    const geometry=mesh.geometry,pos=geometry?.attributes?.position;if(!pos)return;
++    const m=new Matrix4().multiplyMatrices(inverse,mesh.matrixWorld),indices=geometry.index?.array;
++    const count=indices?.length??pos.count;
++    for(let i=0;i<count;i+=3){const vertices=[];
++      for(let j=0;j<3;j++){const index=indices?indices[i+j]:i+j;
++        v.fromBufferAttribute(pos,index).applyMatrix4(m);vertices.push([v.x,v.y,v.z]);}
++      // Ignore rigging high above the walkable decks; preserve mast platforms
++      // under their existing dedicated colliders.
++      if(Math.min(...vertices.map(p=>p[1]))>3.5)continue;
++      triangles.push({vertices,id:mesh.name});
++    }
++  });
++  boat.collisionWorld=new CollisionWorld(triangles);return boat.collisionWorld;
++}
+--- V60/src/ship/ShipLadder.js
++++ V61/src/ship/ShipLadder.js
+@@ -17,7 +17,7 @@
+ // An attached timber stair and guided climb bridge this measured difference.
+ // Door must be OPEN first; the action is never a teleport to another ship.
+ export function beginCabinDoorExit(player,interior,door,{duration=1.35}={}){
+- if(player.shipClimb||player.stationId||player.mode!=='deck'||player.deckLayer!=='hold'||!door?.open)return false;
++ if(player.shipClimb||player.stationId||player.mode!=='deck'||player.deckLayer!=='hold'||!door?.open||door.passable===false)return false;
+  const from={x:player.deckPos.x,y:player.deckPos.y,z:player.deckPos.z};
+  const landing={x:-.88,y:.86,z:-6.80};
+  const end={x:-.88,y:1.06,z:-6.28};
+@@ -25,7 +25,7 @@
+  player.deckVel?.set?.(0,0,0);return true;
+ }
+ export function beginCabinDoorEnter(player,interior,door,{duration=1.35}={}){
+- if(player.shipClimb||player.stationId||player.mode!=='deck'||player.deckLayer!=='deck'||!door?.open)return false;
++ if(player.shipClimb||player.stationId||player.mode!=='deck'||player.deckLayer!=='deck'||!door?.open||door.passable===false)return false;
+  const start={x:player.deckPos.x,y:player.deckPos.y,z:player.deckPos.z};
+  const landing={x:-.88,y:.86,z:-6.80};
+  const end={x:-.88,y:interior.floorAt(-7.34),z:-7.34};
+@@ -35,7 +35,7 @@
+ export function advanceShipClimb(player,dt,interior){
+  const c=player.shipClimb;if(!c)return false;
+  interior=c.interior||interior;
+- c.t=Math.min(1,c.t+Math.max(0,Math.min(.10,dt))/Math.max(.35,c.duration));
++ c.t=Math.max(0,Math.min(1,c.t+(c.reversing?-1:1)*Math.max(0,Math.min(.10,dt))/Math.max(.35,c.duration)));
+  const u=smooth(c.t);
+  let a=c.start,b=c.end,t=u;
+  if(c.kind==='doorExit'){
+@@ -53,7 +53,10 @@
+  }
+  player.deckPos.set(a.x+(b.x-a.x)*t,a.y+(b.y-a.y)*t,a.z+(b.z-a.z)*t);
+  player.deckVel?.set?.(0,0,0);player.deckGrounded=true;
+- if(c.t>=1){
++ if(c.reversing&&c.t<=0){
++  player.deckLayer=c.entering?'deck':c.layer;player.shipClimb=null;
++  interior?.setHatchOpen(c.entering?false:true);
++ }else if(c.t>=1){
+   player.deckLayer=c.entering?c.layer:'deck';player.shipClimb=null;
+   if(c.entering)interior?.constrain(player.deckPos);
+   interior?.setHatchOpen(interior?.autoSealHatch?false:c.entering);
+--- V60/src/ship/ShipStations.js
++++ V61/src/ship/ShipStations.js
+@@ -5,7 +5,8 @@
+ const ID = new Set(STATION_IDS);
+ const clamp = (x,a,b)=>Math.max(a,Math.min(b,x));
+ export class ShipStations {
+-  constructor() {
++  constructor({cooperativeCapstan=false}={}) {
++    this.cooperativeCapstan=cooperativeCapstan;
+     this.occupants = new Map(); this.actorStation = new Map();
+     this.inputs = new Map(); this.sailMain = 0; this.sailJib = 0;
+     this.sailTrim = 0; this.rudder = 0; this.helmThrottle = 0; this.anchorDown = true; this.anchorManual = true; this.anchorTravel = 1; this.anchorTravelReady = true; this.anchorCrankTurns=0; this.anchorHands=0; this.shots = [];
+@@ -90,8 +91,14 @@
+     const step=Math.min(Math.max(dt,0),.12);
+     if(working){
+       this.anchorManual=true;
+-      this.anchorTravel=clamp(this.anchorTravel-signedHands*step/4.5,0,1);
+-      this.anchorCrankTurns+=signedHands*step*1.2;
++      // Current Dutch ship: 1 / 1.5 / 2 / 2.5 crew gain; opposite axes
++      // cancel before applying the gain. Legacy hull saves keep their curve.
++      const effort=this.cooperativeCapstan?signedHands/working*(1+.5*(working-1)):signedHands;
++      const previousTravel=this.anchorTravel;
++      this.anchorTravel=clamp(this.anchorTravel-effort*step/4.5,0,1);
++      // Mechanical end stops: the grips cannot continue orbiting after all
++      // chain is stowed/paid out. The current rig turns only with real travel.
++      this.anchorCrankTurns+=this.cooperativeCapstan?(previousTravel-this.anchorTravel)*5.4:effort*step*1.2;
+       this.anchorDown=this.anchorTravel>.001;
+     }else if(!this.anchorManual){
+       const target=this.anchorDown?1:0;
+--- V60/src/ship/StationSites.js
++++ V61/src/ship/StationSites.js
+@@ -37,7 +37,12 @@
+ 
+ export function stationLocalMeters(boat,id){
+   const raw=SHIP_STATION_SITES[id];if(!boat||!raw)return null;
+-  if(boat.shipScale && boat.heritageDeck){const measured=HERITAGE_STATION_METERS[id];return measured?{...measured}:null;}
++  if(boat.shipScale && boat.heritageDeck){const measured=HERITAGE_STATION_METERS[id];if(!measured)return null;
++    if(id.startsWith('anchor')){
++      const angle=boat.heritageArt?.capstan?.rotation?.y||0,c=Math.cos(angle),s=Math.sin(angle);
++      const dx=measured.x,dz=measured.z+3.65,x=dx*c+dz*s,z=-3.65-dx*s+dz*c;
++      return {x,y:deckHeight(z,x),z};
++    }return {...measured};}
+   if(boat.shipScale){const sc=boat.shipScale;return {x:raw.x*sc.x,y:raw.y*sc.y,z:raw.z*sc.z};}
+   return {x:raw.x,y:raw.y,z:raw.z};
+ }
+--- V60/src/systems/CollisionWorld.js
++++ V61/src/systems/CollisionWorld.js
+@@ -0,0 +1,116 @@
++// Ship-local collision queries. Static triangles are baked from the displayed
++// meshes; a median BVH bounds the work to the swept capsule's neighbourhood.
++// Floors remain owned by the existing measured walkmap/ladder graph.
++const sub=(a,b)=>[a[0]-b[0],a[1]-b[1],a[2]-b[2]];
++const add=(a,b)=>[a[0]+b[0],a[1]+b[1],a[2]+b[2]];
++const mul=(a,s)=>[a[0]*s,a[1]*s,a[2]*s];
++const dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
++const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
++const clamp=x=>Math.max(0,Math.min(1,x));
++const xyz=p=>[p.x,p.y,p.z];
++function bounds(points){return {min:[0,1,2].map(i=>Math.min(...points.map(p=>p[i]))),max:[0,1,2].map(i=>Math.max(...points.map(p=>p[i])))};}
++function overlap(a,b){return [0,1,2].every(i=>a.min[i]<=b.max[i]&&a.max[i]>=b.min[i]);}
++function pointTriangle(p,a,b,c){
++  const ab=sub(b,a),ac=sub(c,a),ap=sub(p,a),d1=dot(ab,ap),d2=dot(ac,ap);
++  if(d1<=0&&d2<=0)return a;
++  const bp=sub(p,b),d3=dot(ab,bp),d4=dot(ac,bp);
++  if(d3>=0&&d4<=d3)return b;
++  const vc=d1*d4-d3*d2;
++  if(vc<=0&&d1>=0&&d3<=0)return add(a,mul(ab,d1/(d1-d3)));
++  const cp=sub(p,c),d5=dot(ab,cp),d6=dot(ac,cp);
++  if(d6>=0&&d5<=d6)return c;
++  const vb=d5*d2-d1*d6;
++  if(vb<=0&&d2>=0&&d6<=0)return add(a,mul(ac,d2/(d2-d6)));
++  const va=d3*d6-d5*d4;
++  if(va<=0&&(d4-d3)>=0&&(d5-d6)>=0)return add(b,mul(sub(c,b),(d4-d3)/(d4-d3+d5-d6)));
++  const inv=1/(va+vb+vc);return add(a,add(mul(ab,vb*inv),mul(ac,vc*inv)));
++}
++function segmentPair(p,q,a,b){
++  const d1=sub(q,p),d2=sub(b,a),r=sub(p,a),aa=dot(d1,d1),ee=dot(d2,d2),f=dot(d2,r);
++  let s=0,t=0;
++  if(aa<1e-12)t=clamp(f/ee);
++  else {const cc=dot(d1,r);if(ee<1e-12)s=clamp(-cc/aa);
++    else {const bb=dot(d1,d2),den=aa*ee-bb*bb;s=den?clamp((bb*f-cc*ee)/den):0;t=(bb*s+f)/ee;
++      if(t<0){t=0;s=clamp(-cc/aa);}else if(t>1){t=1;s=clamp((bb-cc)/aa);}}}
++  return [add(p,mul(d1,s)),add(a,mul(d2,t))];
++}
++function segmentTriangle(p,q,tri){
++  const {a,b,c,n}=tri,d=sub(q,p),den=dot(n,d);
++  if(Math.abs(den)>1e-10){const t=dot(n,sub(a,p))/den;
++    if(t>=0&&t<=1){const hit=add(p,mul(d,t)),near=pointTriangle(hit,a,b,c);
++      if(dot(sub(hit,near),sub(hit,near))<1e-12)return [hit,hit];}}
++  let best=[p,pointTriangle(p,a,b,c)],ds=dot(sub(best[0],best[1]),sub(best[0],best[1]));
++  for(const pair of [[q,pointTriangle(q,a,b,c)],segmentPair(p,q,a,b),segmentPair(p,q,b,c),segmentPair(p,q,c,a)]){
++    const v=sub(pair[0],pair[1]),s=dot(v,v);if(s<ds){best=pair;ds=s;}}
++  return best;
++}
++function build(tris){
++  if(!tris.length)return null;
++  const box={min:[0,1,2].map(i=>Math.min(...tris.map(t=>t.min[i]))),max:[0,1,2].map(i=>Math.max(...tris.map(t=>t.max[i])))};
++  if(tris.length<=12)return {...box,tris};
++  const axis=[0,1,2].sort((a,b)=>(box.max[b]-box.min[b])-(box.max[a]-box.min[a]))[0];
++  tris.sort((a,b)=>(a.min[axis]+a.max[axis])-(b.min[axis]+b.max[axis]));
++  const m=tris.length>>1;return {...box,left:build(tris.slice(0,m)),right:build(tris.slice(m))};
++}
++export class CollisionWorld {
++  constructor(triangles=[]){this.triangles=[];this.root=null;this.setTriangles(triangles);}
++  setTriangles(triangles){
++    this.triangles=triangles.map(t=>{const [a,b,c]=t.vertices||t,n=cross(sub(b,a),sub(c,a)),len=Math.hypot(...n);
++      return {a,b,c,n:mul(n,1/(len||1)),...bounds([a,b,c]),id:t.id};}).filter(t=>dot(t.n,t.n)>.5);
++    this.root=build(this.triangles.slice());return this;
++  }
++  query(box){const found=[];const visit=node=>{if(!node||!overlap(box,node))return;
++    if(node.tris){for(const tri of node.tris)if(overlap(box,tri))found.push(tri);}
++    else{visit(node.left);visit(node.right);}};visit(this.root);return found;}
++  move(from,to,{radius=.215,height=.96,step=.10,skin=.003,dynamic=[]}={}){
++    if(![from.x,from.y,from.z,to.x,to.y,to.z,radius,height].every(Number.isFinite)||radius<=0||height<2*radius)throw Error('Invalid capsule');
++    let p=xyz(from),motion=sub(xyz(to),p);const contacts=[];
++    for(let slide=0;slide<5&&Math.hypot(...motion)>1e-7;slide++){
++      const end=add(p,motion),box=bounds([p,end]);for(let i=0;i<3;i++){box.min[i]-=radius+skin;box.max[i]+=radius+skin;}box.max[1]+=height;
++      let hit=null;
++      for(const tri of [...this.query(box),...dynamic.flatMap(world=>world.query(box))]){
++        // Walkable upward/downward faces below the allowed step are handled
++        // by foot support. Vertical walls and overhead beams remain solid.
++        if(Math.abs(tri.n[1])>.65&&tri.max[1]<=from.y+step)continue;
++        let t=0;
++        const length=Math.hypot(...motion);
++        for(let iteration=0;iteration<48;iteration++){
++          const foot=add(p,mul(motion,t)),a=add(foot,[0,radius,0]),b=add(foot,[0,height-radius,0]);
++          const pair=segmentTriangle(a,b,tri),delta=sub(pair[0],pair[1]),dist=Math.hypot(...delta);
++          let normal=dist>1e-8?mul(delta,1/dist):tri.n;
++          if(dist<1e-8&&dot(normal,motion)>0)normal=mul(normal,-1);
++          if(dist<=radius+skin+1e-6){
++            if(dot(normal,motion)<-1e-8&&(!hit||t<hit.t))hit={t,normal,id:tri.id};
++            break;
++          }
++          t+=(dist-radius-skin)/length*.9;
++          if(t>1||(hit&&t>hit.t))break;
++        }
++      }
++      if(!hit){p=end;break;}
++      p=add(p,mul(motion,Math.max(0,hit.t-1e-5)));contacts.push(hit);
++      motion=mul(motion,1-hit.t);const inward=dot(motion,hit.normal);
++      if(inward<0)motion=sub(motion,mul(hit.normal,inward));
++    }
++    return {x:p[0],y:p[1],z:p[2],contacts};
++  }
++  occluded(from,to){
++    const p=xyz(from),q=xyz(to),d=sub(q,p);
++    for(const tri of this.query(bounds([p,q]))){const den=dot(tri.n,d);if(Math.abs(den)<1e-9)continue;
++      const t=dot(tri.n,sub(tri.a,p))/den;if(t<=.02||t>=.98)continue;
++      const hit=add(p,mul(d,t)),near=pointTriangle(hit,tri.a,tri.b,tri.c);
++      if(Math.hypot(...sub(hit,near))<1e-5)return true;
++    }return false;
++  }
++  ceilingAt(x,z,minY,maxY=3.5){
++    let height=null;
++    for(const tri of this.query({min:[x-.001,minY,z-.001],max:[x+.001,maxY,z+.001]})){
++      if(Math.abs(tri.n[1])<1e-5)continue;
++      const y=tri.a[1]-(tri.n[0]*(x-tri.a[0])+tri.n[2]*(z-tri.a[2]))/tri.n[1];
++      if(y<minY||y>maxY)continue;
++      if(Math.hypot(...sub([x,y,z],pointTriangle([x,y,z],tri.a,tri.b,tri.c)))>.001)continue;
++      if(height===null||y<height)height=y;
++    }return height;
++  }
++  get stats(){return {triangles:this.triangles.length,bvh:!!this.root};}
++}
+--- V60/src/voyage/CargoReach.js
++++ V61/src/voyage/CargoReach.js
+@@ -4,6 +4,13 @@
+ export function worldToShip(ship,world){
+  if(!finite(ship)||!finite(world)||!Number.isFinite(ship.yaw))return null;
+  const dx=world.x-ship.x,dz=world.z-ship.z,c=Math.cos(ship.yaw),s=Math.sin(ship.yaw);
++ const q=ship.rotation;
++ if(q&&['x','y','z','w'].every(k=>Number.isFinite(q[k]))){
++  const norm=Math.hypot(q.x,q.y,q.z,q.w);if(norm<.99||norm>1.01)return null;
++  const x=-q.x/norm,y=-q.y/norm,z=-q.z/norm,w=q.w/norm,dy=world.y-ship.y;
++  const tx=2*(y*dz-z*dy),ty=2*(z*dx-x*dz),tz=2*(x*dy-y*dx);
++  return {x:dx+w*tx+y*tz-z*ty,y:dy+w*ty+z*tx-x*tz,z:dz+w*tz+x*ty-y*tx};
++ }
+  return {x:c*dx-s*dz,y:world.y-ship.y,z:s*dx+c*dz};
+ }
+ export function cargoArea(local,layer){
+--- V60/src/voyage/voyage-m1.css
++++ V61/src/voyage/voyage-m1.css
+@@ -37,3 +37,22 @@
+ .sw-v42-journal-page li.done{border-color:#74bd9c;opacity:.8}
+ .sw-v42-journal-page li b{display:block;font-size:13px}.sw-v42-journal-page li span{font-size:12px;color:#c2cbbf}
+ .sw-v42-journal-page footer{border-top:1px solid #b99e765c;padding-top:12px;margin-top:14px;color:#f6d895;font-weight:700}
++
++/* V61: keep the working area visible; full telemetry remains one click away. */
++.sw-v39-hud{box-sizing:border-box;width:280px;max-width:calc(100vw - 32px);padding:11px 13px;background:rgba(9,28,35,.86);backdrop-filter:none;font-size:12px}
++.sw-v39-hud:not(.is-expanded) .sw-v39-detail,
++.sw-v39-hud:not(.is-expanded) .sw-v39-help,
++.sw-v39-hud:not(.is-expanded) .sw-v43-hold{display:none}
++.sw-v39-hud:not(.is-expanded) .sw-v41-instruments>div{display:none}
++.sw-v39-hud:not(.is-expanded) .sw-v41-instruments>div:has([data-v41-anchor]),
++.sw-v39-hud:not(.is-expanded) .sw-v41-instruments>div:has([data-v41-sail]),
++.sw-v39-hud:not(.is-expanded) .sw-v41-instruments>div:has([data-v41-water]){display:block}
++.sw-v39-hud:not(.is-expanded)[data-station^="cannon"] .sw-v41-instruments>div:has([data-v41-port]),
++.sw-v39-hud:not(.is-expanded)[data-station^="cannon"] .sw-v41-instruments>div:has([data-v41-starboard]),
++.sw-v39-hud:not(.is-expanded)[data-station="helm"] .sw-v41-instruments>div:has([data-v41-rudder]){display:block}
++.sw-v61-details{pointer-events:auto;margin:7px 0 0 7px;border:1px solid #88afa655;border-radius:7px;padding:5px 8px;background:#152e34;color:#bdd9d2;font:600 11px system-ui;cursor:pointer}
++.sw-v39-prompt{position:fixed;left:50%;bottom:106px;transform:translateX(-50%);box-sizing:border-box;width:max-content;max-width:min(540px,calc(100vw - 36px));padding:10px 16px;border:1px solid #a2d6c958;border-radius:8px;background:rgba(5,24,30,.91);text-align:center;color:#fff0c9;font-size:13px;line-height:1.5;white-space:normal;max-height:100px;box-shadow:0 4px 18px #0005}
++.sw-v39-message:empty,.sw-v42-camera:empty{display:none}
++.sw-v39-hud.is-expanded{max-height:calc(100vh - 230px);overflow-y:auto}
++@media(max-height:720px){.sw-v39-hud{top:112px}.sw-v39-heading{font-size:11px}.sw-v39-prompt{bottom:82px}}
++.sw-v61-aboard .hl-home,.sw-v61-aboard .gm-purse{display:none}
+--- V60/src/voyage/VoyageM1.js
++++ V61/src/voyage/VoyageM1.js
+@@ -24,6 +24,8 @@
+ import {actualHalfWidth,deckHeight,CABIN} from '../ship/HeritageDeck.js';
+ import {beginShipClimb,beginCabinDoorExit,beginCabinDoorEnter} from '../ship/ShipLadder.js';
+ import {DutchLowerHold} from '../ship/DutchLowerHold.js';
++import {bakeShipCollision} from '../ship/ShipCollisionWorld.js';
++import {installInteriorLanterns} from '../ship/InteriorLanterns.js';
+ import {ShipHullVisuals} from '../ship/ShipHullVisuals.js';
+ import {isDryHoldCamera} from '../ship/DryHoldCamera.js';
+ import {ShipNetBridge} from '../net/ShipNetBridge.js';
+@@ -43,7 +45,7 @@
+ const save=(key,value)=>{try{localStorage.setItem(key,value);}catch{}};
+ export class VoyageM1 {
+  constructor(app){
+-  this.app=app;this.input=app.input;this.time=0;this.stations=new ShipStations();
++  this.app=app;this.input=app.input;this.time=0;this.stations=new ShipStations({cooperativeCapstan:!!app.boat.heritageDeck});
+   this.stations.anchorDown=true;this.damage=new ShipDamage();this.damage.hull.setShipScale(app.boat.shipScale);
+   this.equipment=new PirateEquipment();this.equipment.planks=app.boat.heritageDeck?0:3;this.hasBucket=!app.boat.heritageDeck;this.bucketRackStock=!!app.boat.heritageDeck;this.heldAmmo=null;
+   this.looseSupplies=new ShipLooseProps(app.scene,app.boatCtl);this.hands=new PirateHands(app.scene);this.repairProgress=new Map();this.inventory=new ShipInventory({cannonball:18,chainshot:4,plank:9,food:8});this.repairStock=9;
+@@ -52,6 +54,8 @@
+   if(app.boat.heritageDeck&&!app.boat.captainCabin){this.interior.root.visible=false;this.interior.inHatch=()=>false;}
+   this.storageSpace=new ShipStorageSpace(this.interior);
+   this.lowerHold=app.boat.heritageDeck?new DutchLowerHold(app.boat):null;
++  if(app.boat.heritageArt){app.boat.lowerHold=this.lowerHold;bakeShipCollision(app.boat);}
++  if(app.boat.heritageArt)installInteriorLanterns(app.boat);
+   this.lowerStorageSpace=this.lowerHold?new ShipStorageSpace(this.lowerHold):null;
+   app.player.shipInterior=this.interior;app.player.lowerHold=this.lowerHold;app.player.deckLayer='deck';
+   this.hullVisuals=new ShipHullVisuals(app.boat,this.damage);this.lastToolMouse=false;this.spyglassWasRaised=false;
+@@ -98,6 +102,8 @@
+   // Capturing Escape here avoids the existing photo/settings panel competing with
+   // a person leaving a ship station. Never trap Escape when no station is active.
+   if(typeof window!=='undefined')window.addEventListener('keydown',e=>{
++    if(e.code==='Escape'&&app.player.shipClimb){e.preventDefault();e.stopImmediatePropagation();app.player.shipClimb.reversing=true;return;}
++    if(e.code==='Escape'&&this.net.pendingClaim){e.preventDefault();e.stopImmediatePropagation();this.net.cancelClaim();return;}
+     if(e.code==='Escape'&&app.player.stationId){e.preventDefault();e.stopImmediatePropagation();this.leaveStation();}
+   },true);
+  }
+@@ -133,6 +139,10 @@
+   </div><div class="sw-v42-equipment" data-v42-equipment><strong data-v42-tool></strong><span data-v42-action></span></div><div class="sw-v42-navigation" data-v42-navigation></div><button type="button" data-v42-journal-toggle>${L('查看航程日志','Open voyage journal')}</button><div class="sw-v42-camera" data-v42-camera></div><div class="sw-v39-prompt" data-v39-prompt></div>
+   <div class="sw-v43-hold" data-v43-hold></div><div class="sw-v39-message" data-v39-message></div><button type="button" data-v40-rescue hidden>${L('船只沉没 · 返回海风镇整备（将失去当前宝箱）','Ship sunk · Return to harbor (lose current treasure)')}</button><div class="sw-v39-help">${L('E 交互 · 1 刀 / 2 水桶 / 3 铲 / 4 灯 / 5 望远镜 / 6 木板 / 0 空手 · G 放下宝箱 · 舵 A/D 转向 W/S 辅机 · 帆 W/S 收放 A/D 角度  · Space 跳跃越舷 · 海中 W/Space 爬舷梯 · 左侧甲板货舱口 C/E 下梯 · 原船尾门 E 进出船长室 · 绞盘 E 操作 W/S 起放锚（多人加速） · 桅杆旁 C+W 攀爬','E interact · 1 sword / 2 bucket / 3 shovel / 4 lantern / 5 spyglass / 6 plank / 0 hands · G drop chest · Helm A/D rudder W/S power · Sails W/S area A/D trim · Jump over rail; W/Space at ladders · side hold hatch C/E · original stern door E for quarters · capstan E then W/S (multi-crew speed) · C+W by mast climbs')}</div>`;
+   document.body.append(this.hud);
++  const detailButton=document.createElement('button');detailButton.type='button';detailButton.className='sw-v61-details';
++  detailButton.textContent=L('船况详情','Ship details');detailButton.setAttribute('aria-expanded','false');
++  detailButton.addEventListener('click',()=>{const expanded=this.hud.classList.toggle('is-expanded');detailButton.setAttribute('aria-expanded',String(expanded));detailButton.blur();});
++  this.hud.append(detailButton);
+   this.hud.querySelector('[data-v40-rescue]')?.addEventListener('click',()=>this.rescueSoloShip());
+   this.journal=document.createElement('aside');this.journal.className='sw-v42-journal';this.journal.hidden=true;
+   document.body.append(this.journal);
+@@ -198,7 +208,21 @@
+    const isCapstan=id.startsWith('anchor');
+    const verticalCap=this.app.boat.heritageDeck?(isCapstan?2.30:1.55):4;
+    const near=isCapstan?Math.hypot(p.position.x-pos.x,p.position.z-pos.z)<range:distance(p.position,pos)<range;
+-   if(near&&Math.abs(p.position.y-(pos.y??p.position.y))<verticalCap)items.push({id,label,position:pos,range,priority,perform});
++   if(near&&Math.abs(p.position.y-(pos.y??p.position.y))<verticalCap){
++    const world=this.app.boat.collisionWorld,b=this.app.boatCtl;
++    // Portal actions are evaluated by their own door/ladder passage rules.
++    // Equipment cannot be acquired through an opaque static hull or furniture.
++    if(world&&mode==='deck'&&!/hatch|exit|door|climb|stow/.test(id)&&this.app.camera){
++      const inverse=b.quaternion.clone().invert();
++      const eye=this.app.camera.position.clone().sub(b.position).applyQuaternion(inverse);
++      const reachable=[.2,.55,.8].some(height=>{
++        const target=new Vector3(pos.x,pos.y+height,pos.z).sub(b.position).applyQuaternion(inverse);
++        return !world.occluded(eye,target);
++      });
++      if(!reachable)return;
++    }
++    items.push({id,label,position:pos,range,priority,perform});
++   }
+   };
+   if(p.stationId){const id=p.stationId;items.push({id:'leave',label:L('离开 ','Leave ')+this.stationName(id),position:p.position,range:2,priority:300,perform:()=>this.leaveStation()});return items;}
+   if(mode==='walk'){
+@@ -275,7 +299,7 @@
+     }
+     if(this.lowerHold&&!p.stationId&&p.deckPos&&this.lowerHold.nearEntrance(p.deckPos)){
+       add('lower_hatch',L('[E] 沿主甲板货舱梯进入船舱','[E] Climb down into real lower cargo hold'),
+-          this.holdWorldAt(this.lowerHold,true),1.8,282,()=>this.toggleLowerHold());
++          this.holdWorldAt(this.lowerHold,true),1.8,390,()=>this.toggleLowerHold());
+     }
+     if(!this.app.boat.heritageDeck&&!p.stationId&&p.deckPos&&this.interior.inHatch(p.deckPos)){const hatch=this.holdWorld(this.interior.layout.deckY);
+       add('hatch',L('[E] 沿船尾舱口梯进入船长室','[E] Climb into captain quarters'),hatch,1.35,175,()=>this.toggleHold());}
+@@ -952,7 +976,12 @@
+   }else this.stations.setInput(id,this.actorId,{axis,throttleAxis,trimAxis,aimYaw,aimPitch,fire,reload:reload||anchorAuto,bucket:stationBucket,repair:id==='repair'&&!!input.mouseDown});
+  }
+  update(dt){this.time+=dt;this.noticeTimer=Math.max(0,this.noticeTimer-dt);
+-  this.app.boat.originalDoor?.update(dt);
++  const blockers=this.app.player.mode==='deck'?[this.app.player.deckPos]:[];
++  for(const peer of this.app.crew?.peers?.values?.()||[]){
++    if(peer.mode!=='deck'||!peer.root?.position)continue;
++    blockers.push(peer.root.position.clone().sub(this.app.boatCtl.position).applyQuaternion(this.app.boatCtl.quaternion.clone().invert()));
++  }
++  this.app.boat.originalDoor?.update(dt,blockers);
+   this.app.boat.heritageArt?.anchorRig?.update(dt,this.stations.anchorTravel);
+   if(this.app.boat.heritageDeck?.helmWheel)this.app.boat.heritageDeck.helmWheel.rotation.z=this.stations.rudder*.78;
+   const capstan=this.app.boat.heritageArt?.capstan;if(capstan)capstan.rotation.y=this.stations.anchorCrankTurns;
+@@ -962,7 +991,8 @@
+   const player=this.app.player,inp=this.input;
+   this._runDig(dt);
+   this._updateTools(dt);
+-  this.interact.beginFrame();for(const c of this.getNearbyCandidates())this.interact.add(c,player);
++  const view=this.app.camera?player.getViewDir(new Vector3()):null;
++  this.interact.beginFrame({view});for(const c of this.getNearbyCandidates())this.interact.add(c,player);
+   this.selected=this.interact.select();
+   if(this.selected&&player.mode!=='boat'&&inp.enabled){
+     // Shift+E is reserved for leaving the physical deck at a rail; never
+@@ -1006,6 +1036,11 @@
+   this.enemyModel.group.position.set(this.enemy.x,.2+Math.sin(this.time*1.4+this.enemy.x*.03)*.08,this.enemy.z);this.enemyModel.group.rotation.y=this.enemy.yaw;
+   this._syncSailVisual();this._updateChest();this.net.update(dt);
+   if(this.hud){
++    if(typeof document!=='undefined'){
++      document.body.classList.toggle('sw-v61-aboard',player.mode==='deck'||player.mode==='boat');
++    }
++    this.hud.dataset.station=player.stationId||'';
++    this.hud.dataset.layer=player.deckLayer||'deck';
+     if(this.journal&&!this.journal.hidden&&this._journalPhase!==this.voyage.phase){this._journalPhase=this.voyage.phase;this._refreshJournal();}
+     const {objectiveIndex,objectives}=this.voyage.getState();
+     this.text('goal',objectiveIndex>=objectives.length?L('航程已完成！可领取新的航程。','Voyage complete! A new voyage is available.'):(getLocale()==='en'?VOYAGE_GOLD_MOSS.objectivesEn[objectiveIndex]:objectives[objectiveIndex]));
+--- V60/server/coopHub.js
++++ V61/server/coopHub.js
+@@ -6,6 +6,8 @@
+ import { VoyageDirector } from '../src/voyage/VoyageDirector.js';
+ import { Cargo } from '../src/voyage/Cargo.js';
+ import { canManipulateCargo } from '../src/voyage/CargoReach.js';
++import {worldToShip} from '../src/voyage/CargoReach.js';
++import {stationLocalMeters} from '../src/ship/StationSites.js';
+ import { VOYAGE_GOLD_MOSS } from '../src/voyage/VoyageDefs.js';
+ import { RoomClock } from '../src/net/SharedWorldClock.js';
+ 
+@@ -194,6 +196,10 @@
+       // peers, including a future player joining the same vessel.
+       if(p.mode!=='deck'||typeof msg.open!=='boolean')return true;
+       if(this.shipState&&Math.hypot(p.x-this.shipState.x,p.z-this.shipState.z)>20)return true;
++      if(this.shipState?.shipClass==='heritage'){
++        const local=worldToShip(this.shipState,p);
++        if(!local||Math.hypot(local.x+.88,local.z+6.635)>2.0)return true;
++      }
+       this.sourceDoorOpen=msg.open;
+       this.broadcast({type:'ship_door',open:this.sourceDoorOpen,actorId:p.id},p.id);
+       return true;
+@@ -202,9 +208,16 @@
+     if(msg.type.startsWith('station_')) {
+       if(!this.stations.valid(stationId))return true;
+       if(msg.type==='station_claim') {
++        if(this.shipState?.shipClass==='heritage'){
++          const local=worldToShip(this.shipState,p),site=stationLocalMeters({shipScale:{x:1,y:1,z:1},heritageDeck:true,
++            heritageArt:{capstan:{rotation:{y:this.shipState.anchorCrankTurns||0}}}},stationId);
++          if(p.mode!=='deck'||p.deckLayer!=='deck'||!local||!site||Math.hypot(local.x-site.x,local.z-site.z)>2.65||Math.abs(local.y-site.y)>.75){
++            this.send(p,{type:'station_rejected',stationId,reason:'out_of_range'});return true;
++          }
++        }
+         const owner=this.stations.getOccupant(stationId);
+         const valid=!owner||owner.startsWith('ai:');
+-        if(valid)this.stations.claim(stationId,p.id,{replaceAI:true});
++        if(valid){if(!this.stations.claim(stationId,p.id,{replaceAI:true}))this.send(p,{type:'station_rejected',stationId,reason:'already_assigned'});}
+         else this.send(p,{type:'station_rejected',stationId,reason:'occupied'});
+       }else if(msg.type==='station_release')this.stations.release(stationId,p.id);
+       else {
+@@ -233,6 +246,9 @@
+     if(msg.type==='ship_state_host') {
+       if(p.id!==this.hostId)return true;
+       const keys=['x','y','z','yaw','vx','vz','sailMain','sailJib','integrity','breach','fire'];
++      if(msg.rotation!==undefined&&(!msg.rotation||['x','y','z','w'].some(k=>num(msg.rotation[k],1)===null)||Math.abs(Math.hypot(msg.rotation.x,msg.rotation.y,msg.rotation.z,msg.rotation.w)-1)>.01))return true;
++      if(msg.vy!==undefined&&num(msg.vy,120)===null)return true;
++      if(msg.angular!==undefined&&(!msg.angular||['x','y','z'].some(k=>num(msg.angular[k],20)===null)))return true;
+       if(msg.sailTrim!==undefined&&num(msg.sailTrim,1)===null)return true;
+       if(msg.water!==undefined&&(num(msg.water,1)===null||msg.water<0))return true;
+       if(msg.bilgeSections!==undefined&&(!msg.bilgeSections||['stern','mid','bow'].some(k=>!Number.isFinite(msg.bilgeSections[k])||msg.bilgeSections[k]<0||msg.bilgeSections[k]>1)))return true;
+@@ -252,6 +268,12 @@
+         Math.abs(msg.yaw)>10000||msg.sailMain<0||msg.sailMain>1||msg.sailJib<0||msg.sailJib>1||
+         msg.integrity<0||msg.integrity>100||msg.breach<0||msg.breach>1||msg.fire<0||msg.fire>1||typeof msg.anchor!=='boolean')return true;
+       this.shipState={type:'ship_state',...Object.fromEntries(keys.map(k=>[k,msg[k]])),helmThrottle:msg.helmThrottle??.35,sailTrim:msg.sailTrim??0,water:msg.water??0,bilgeSections:msg.bilgeSections||null,anchorTravel:msg.anchorTravel??0,anchorCrankTurns:msg.anchorCrankTurns??0,anchorHands:msg.anchorHands??0,anchorState:msg.anchorState??'STOWED',anchorTension:msg.anchorTension??0,repairStock:msg.repairStock??12,ammo:msg.ammo||null,holes:msg.holes||[],crew:msg.crew||[],cannons:msg.cannons||null,anchor:msg.anchor,hostId:this.hostId};
++      // Old hull protocols remain readable; current Dutch rooms advertise the
++      // geometry frame so claims can be validated against the actual stations.
++      if(msg.shipClass==='heritage')this.shipState.shipClass='heritage';
++      if(msg.rotation)this.shipState.rotation={...msg.rotation};
++      if(msg.angular)this.shipState.angular={...msg.angular};
++      if(msg.vy!==undefined)this.shipState.vy=msg.vy;
+       this.broadcast(this.shipState,p.id);return true;
+     }
+     if(msg.type==='cannon_fire_host'){
+--- V60/test/engine-smoke.mjs
++++ V61/test/engine-smoke.mjs
+@@ -1,4 +1,6 @@
+ import { writePNG } from './headless.mjs';
++import {tmpdir} from 'node:os';
++import {join} from 'node:path';
+ import { GPU } from '../src/engine/gpu/GPU.js';
+ import { RenderTarget } from '../src/engine/gpu/Texture.js';
+ import { readTexture } from '../src/engine/gpu/Readback.js';
+@@ -52,7 +54,7 @@
+ 	GPU.submit();
+ }
+ const img = await readTexture( ldr.texture );
+-writePNG( process.argv[ 2 ] || '/tmp/engine-smoke.png', W, H, new Uint8Array( img.data ) );
++writePNG( process.argv[ 2 ] || join(tmpdir(),'stormwake-engine-smoke.png'), W, H, new Uint8Array( img.data ) );
+ console.log( 'stats', mr.stats );
+ await new Promise( ( r ) => setTimeout( r, 200 ) );
+ process.exit( 0 );
+--- V60/test/stormwake-v61-reliability.mjs
++++ V61/test/stormwake-v61-reliability.mjs
+@@ -0,0 +1,133 @@
++import assert from 'node:assert/strict';
++import {CollisionWorld} from '../src/systems/CollisionWorld.js';
++import {safeDoorAngle} from '../src/ship/DoorSweep.js';
++import {beginShipClimb,advanceShipClimb} from '../src/ship/ShipLadder.js';
++import {ShipNetBridge} from '../src/net/ShipNetBridge.js';
++import {ShipStations} from '../src/ship/ShipStations.js';
++import {InteractionDirector} from '../src/interact/InteractionDirector.js';
++import {Vector3,Quaternion} from '../src/engine/index.js';
++import {worldToShip} from '../src/voyage/CargoReach.js';
++import {CoopHub} from '../server/coopHub.js';
++import {stationLocalMeters} from '../src/ship/StationSites.js';
++let count=0;
++const test=(label,fn)=>{fn();count++;console.log('PASS V61 '+label);};
++const wall=(x=0)=>[[[x,-2,-5],[x,5,5],[x,5,-5]],[[x,-2,-5],[x,-2,5],[x,5,5]]];
++const capsule={radius:.3,height:1.75,step:.1};
++test('continuous sweep stops a six metre movement at a zero-thickness wall',()=>{
++ const w=new CollisionWorld(wall());
++ const p=w.move({x:-3,y:0,z:0},{x:3,y:0,z:0},capsule);
++ assert(p.x<-.3&&p.x>-.31);assert(p.contacts.length);
++});
++test('wall response preserves tangential motion and permits retreat',()=>{
++ const w=new CollisionWorld(wall());
++ const p=w.move({x:-3,y:0,z:0},{x:3,y:0,z:2},capsule);
++ assert(p.x<-.3);assert(Math.abs(p.z-2)<.001);
++ const away=w.move(p,{x:-2,y:0,z:2},capsule);assert.equal(away.x,-2);
++});
++test('two perpendicular walls stop corner tunnelling without snapping outside',()=>{
++ const zWall=[[[-5,-2,0],[5,5,0],[-5,5,0]],[[-5,-2,0],[5,-2,0],[5,5,0]]];
++ const p=new CollisionWorld([...wall(),...zWall]).move({x:-3,y:0,z:-3},{x:3,y:0,z:3},capsule);
++ assert(p.x<-.3&&p.z<-.3);assert(Math.hypot(p.x+3,p.z+3)<4);
++});
++test('jumping capsule hits overhead triangles and walking floor remains support-owned',()=>{
++ const horizontal=y=>[[[-5,y,-5],[5,y,5],[5,y,-5]],[[-5,y,-5],[-5,y,5],[5,y,5]]];
++ const w=new CollisionWorld([...horizontal(2),...horizontal(0)]);
++ assert.equal(w.ceilingAt(0,0,1),2);assert.equal(w.ceilingAt(10,0,1),null);
++ const p=w.move({x:-1,y:0,z:0},{x:1,y:1,z:0},capsule);
++ assert(p.y<.251);assert(p.x>.99);
++ const ground=w.move({x:-1,y:0,z:0},{x:1,y:0,z:0},capsule);assert.equal(ground.x,1);
++});
++test('BVH gives the same physical result with distant geometry and ignores degenerates',()=>{
++ const w=new CollisionWorld([...wall(),...wall(100),[[0,0,0],[0,0,0],[0,0,0]]]);
++ assert.equal(w.stats.triangles,4);assert(w.occluded({x:-1,y:1,z:0},{x:1,y:1,z:0}));
++ assert(!w.occluded({x:-2,y:1,z:0},{x:-1,y:1,z:0}));
++ assert.throws(()=>w.move({x:NaN,y:0,z:0},{x:0,y:0,z:0},capsule));
++});
++test('original rotating door stops before sweeping into a sailor',()=>{
++ const p={x:-.88,y:.86,z:-6.90};
++ const result=safeDoorAngle(1.7,0,[p]);assert(result.blocked);assert(result.angle>0);
++ assert.equal(safeDoorAngle(1.7,0,[]).angle,0);
++ assert.equal(safeDoorAngle(1.7,0,[{...p,y:3}]).angle,0);
++});
++test('Esc reverses a ladder along the traversed path and restores the original layer',()=>{
++ const p={mode:'deck',deckLayer:'deck',deckPos:new Vector3(0,1,0),deckVel:new Vector3()};
++ const room={layer:'lowerHold',layout:{x:0,z:0,deckY:1,deckExit:{x:1,z:0}},nearEntrance:()=>true,floorAt:()=>-1,setHatchOpen(){},constrain(){}};
++ assert(beginShipClimb(p,room,true));for(let i=0;i<4;i++)advanceShipClimb(p,.1,room);
++ const before=p.deckPos.clone();p.shipClimb.reversing=true;advanceShipClimb(p,.05,room);
++ assert(p.deckPos.distanceTo(before)<.2);for(let i=0;i<10;i++)advanceShipClimb(p,.1,room);
++ assert.equal(p.shipClimb,null);assert.equal(p.deckLayer,'deck');assert(p.deckPos.distanceTo(new Vector3(0,1,0))<1e-6);
++});
++const bridge=()=>{
++ const sent=[],stations=new ShipStations(),player={stationId:null};
++ const runtime={stations,interact:new InteractionDirector(),toast(){},_faceStation(){},app:{player,crew:{connected:true,selfId:'self',send:m=>sent.push(m)}}};
++ const net=new ShipNetBridge(runtime);net.hostId='other';return {net,runtime,player,sent};
++};
++test('unacknowledged claims time out, release, and ignore a late ACK',()=>{
++ const {net,player,sent}=bridge();assert(net.claim('anchor'));assert.equal(player.stationId,null);assert.equal(player.pendingStation,'anchor');
++ net.update(.6);assert(net.pendingClaim.waiting);net.update(1);assert.equal(player.pendingStation,null);
++ assert(sent.some(m=>m.type==='station_release'));
++ net.receive({type:'station_update',stationId:'anchor',actorId:'self'});assert.equal(player.stationId,null);
++});
++test('server claim ACK grants control; rejection clears the request',()=>{
++ const {net,player}=bridge();net.claim('helm');net.receive({type:'station_rejected',stationId:'helm',reason:'occupied'});
++ assert.equal(player.pendingStation,null);assert.equal(player.stationId,null);
++ net.claim('anchor');net.receive({type:'station_update',stationId:'anchor',actorId:'self'});
++ assert.equal(player.stationId,'anchor');assert.equal(player.pendingStation,null);
++});
++test('remote held axes stop after the heartbeat deadline',()=>{
++ const {net,runtime}=bridge();net.hostId='self';runtime.stations.claim('anchor','remote');
++ net.receive({type:'station_input',stationId:'anchor',actorId:'remote',axis:1,buttons:0});
++ assert.equal(runtime.stations.inputs.get('remote').axis,1);
++ // Keep host snapshot publishing out of this isolated input-expiry test.
++ net.lastStateSent=10;net.update(.36);assert(!runtime.stations.inputs.has('remote'));
++});
++test('aimed equipment wins over a nearby high-priority rack, with bounded traces',()=>{
++ const d=new InteractionDirector();let used='';d.beginFrame({view:{x:0,z:1}});
++ d.add({id:'anchor',position:{x:1,y:0,z:0},priority:330,perform:()=>used='anchor'},{x:0,y:0,z:0});
++ d.add({id:'spyglass',position:{x:0,y:0,z:1},priority:235,perform:()=>used='spyglass'},{x:0,y:0,z:0});
++ assert.equal(d.select().id,'spyglass');assert(d.dispatch({consume:()=>true}));assert.equal(used,'spyglass');
++ for(let i=0;i<200;i++)d.record({i});assert.equal(d.trace().history.length,80);
++});
++test('current capstan gains 2.5x with four sailors, cancels opposing hands and stops on release',()=>{
++ const progress=n=>{const s=new ShipStations({cooperativeCapstan:true});for(let i=0;i<n;i++){
++   const id=i?'anchor_'+(i+1):'anchor';s.claim(id,'p'+i);s.setInput(id,'p'+i,{axis:1});}
++   s.update(.1);return {s,amount:1-s.anchorTravel};};
++ const one=progress(1),four=progress(4);assert(Math.abs(four.amount/one.amount-2.5)<1e-8);
++ const s=four.s;s.setInput('anchor','p0',{axis:-1});s.setInput('anchor_2','p1',{axis:-1});
++ const old=s.anchorTravel;s.update(.1);assert.equal(s.anchorTravel,old);
++ for(let i=0;i<4;i++)s.releaseActor('p'+i);s.update(.1);assert.equal(s.anchorTravel,old);
++});
++test('capstan seats rotate with the visible shared handholds',()=>{
++ const model={shipScale:{x:1,y:1,z:1},heritageDeck:true,heritageArt:{capstan:{rotation:{y:Math.PI/2}}}};
++ const p=stationLocalMeters(model,'anchor');assert(Math.abs(p.x)<1e-8);assert(Math.abs(p.z+4.47)<1e-8);
++});
++test('capstan mechanical limits stop the rotating grips even with a held key',()=>{
++ const s=new ShipStations({cooperativeCapstan:true});s.claim('anchor','p');s.setInput('anchor','p',{axis:1});
++ s.anchorTravel=.001;s.update(.1);const turns=s.anchorCrankTurns;assert.equal(s.anchorTravel,0);
++ s.update(.1);assert.equal(s.anchorCrankTurns,turns);
++ s.setInput('anchor','p',{axis:-1});s.anchorTravel=.999;s.update(.1);const down=s.anchorCrankTurns;
++ s.update(.1);assert.equal(s.anchorCrankTurns,down);assert.equal(s.anchorTravel,1);
++});
++test('current room rejects a station claim from shore or through the cargo deck',()=>{
++ const h=new CoopHub(),socket={write(){},end(){},destroyed:false},p=h.join(socket);
++ h.shipState={x:70,y:0,z:38,yaw:0,anchorCrankTurns:0,shipClass:'heritage'};
++ h.handleVoyage(p,{type:'station_claim',stationId:'helm',seq:1});assert.equal(h.stations.getOccupant('helm'),null);
++ Object.assign(p,{mode:'deck',deckLayer:'lowerHold',x:70.82,y:.84,z:34.35});
++ h.handleVoyage(p,{type:'station_claim',stationId:'anchor',seq:2});assert.equal(h.stations.getOccupant('anchor'),null);
++ p.deckLayer='deck';h.handleVoyage(p,{type:'station_claim',stationId:'anchor',seq:3});assert.equal(h.stations.getOccupant('anchor'),p.id);
++});
++test('authoritative local reach includes heel and pitch, not only yaw',()=>{
++ const rotation=new Quaternion().setFromAxisAngle(new Vector3(0,0,1),Math.PI/12);
++ const local=new Vector3(1,.84,-3.65),world=local.clone().applyQuaternion(rotation).add(new Vector3(70,2,38));
++ const reconstructed=worldToShip({x:70,y:2,z:38,yaw:0,rotation},world);
++ assert(new Vector3(reconstructed.x,reconstructed.y,reconstructed.z).distanceTo(local)<1e-8);
++});
++test('guests interpolate full ship attitude; host handoff restores angular and vertical velocity',()=>{
++ const {net,runtime}=bridge();const q=new Quaternion().setFromAxisAngle(new Vector3(0,0,1),.3);
++ const b={position:new Vector3(),velocity:new Vector3(),angular:new Vector3(),quaternion:new Quaternion(),getYaw:()=>0,apply(){}};
++ runtime.app.boatCtl=b;net.remoteShip={x:2,y:1,z:3,yaw:0,vx:1,vy:.5,vz:2,rotation:q,angular:{x:.1,y:.2,z:.3}};
++ net.beforePhysics(.1);assert(b.quaternion.z>.03,'roll must survive guest interpolation');
++ net.receive({type:'ship_host',hostId:'self'});
++ assert(b.quaternion.angleTo(q)<1e-7);assert.equal(b.velocity.y,.5);assert.equal(b.angular.z,.3);
++});
++console.log(`V61 reliability: ${count} behavioural checks passed. GPU acceptance is separate.`);
+--- V60/test/test_launcher_v61.py
++++ V61/test/test_launcher_v61.py
+@@ -0,0 +1,41 @@
++"""Exercise real HTTP keep-alive and a burst of concurrent ES module requests."""
++import concurrent.futures
++import http.client
++from pathlib import Path
++import sys
++import threading
++import unittest
++sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
++from start_v38 import TidewaterHandler,TidewaterHTTPServer
++
++class LauncherTest(unittest.TestCase):
++    @classmethod
++    def setUpClass(cls):
++        cls.server=TidewaterHTTPServer(('127.0.0.1',0),TidewaterHandler)
++        cls.thread=threading.Thread(target=cls.server.serve_forever,daemon=True);cls.thread.start()
++    @classmethod
++    def tearDownClass(cls):
++        cls.server.shutdown();cls.server.server_close();cls.thread.join(timeout=2)
++    def fetch(self,path):
++        c=http.client.HTTPConnection('127.0.0.1',self.server.server_port,timeout=8)
++        try:
++            c.request('GET',path);r=c.getresponse();body=r.read()
++            self.assertEqual(r.status,200,path)
++            return body
++        finally:c.close()
++    def test_keep_alive_and_offline_capability(self):
++        c=http.client.HTTPConnection('127.0.0.1',self.server.server_port,timeout=8)
++        try:
++            c.request('GET','/api/guide/status');r=c.getresponse()
++            self.assertEqual(r.status,200);self.assertIn(b'"configured":false',r.read());sock=c.sock
++            c.request('GET','/src/main.js');r=c.getresponse()
++            self.assertEqual(r.status,200);self.assertIn(b"awaiting_start",r.read());self.assertIs(c.sock,sock)
++        finally:c.close()
++    def test_parallel_required_module_startup(self):
++        paths=['/src/ship/CrewNavigation.js','/src/engine/render/MeshShader.js','/src/world/village/HarborLettering.js','/src/main.js']*40
++        with concurrent.futures.ThreadPoolExecutor(max_workers=48) as pool:
++            bodies=list(pool.map(self.fetch,paths))
++        self.assertTrue(all(len(body)>100 for body in bodies))
++        self.assertIn(b"link.rel='stylesheet'",bodies[3])
++
++if __name__=='__main__':unittest.main(verbosity=2)
+--- V60/tools/autoqa/runner.py
++++ V61/tools/autoqa/runner.py
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env python3
+-"""STORMWAKE V60 AutoQA — real WebGPU browser acceptance tests.
++"""STORMWAKE V61 AutoQA — real WebGPU browser acceptance tests.
+ 
+ Use Python 3.10+, Playwright, Pillow, Chrome/Edge and a GPU with WebGPU.
+ Runs isolated local game+room servers, two actual browsers/contexts in FULL mode,
+@@ -25,6 +25,8 @@
+ from urllib.parse import urlencode
+ 
+ ROOT=Path(__file__).resolve().parents[2]
++sys.path.insert(0,str(ROOT/'tools'))
++from build_fingerprint import build_fingerprint
+ DEFAULT_REPORTS=ROOT/'autoqa_reports'
+ 
+ def check_port(port):
+@@ -65,8 +67,14 @@
+     return {'status':'captured','reason':'画面已获取，仍需视觉审阅；不能仅凭像素统计判断精美或无穿模'}
+ 
+ def main(argv=None):
++    if hasattr(sys.stdout,'reconfigure'):sys.stdout.reconfigure(encoding='utf-8')
+     ap=argparse.ArgumentParser(description=__doc__)
+     ap.add_argument('--quick',action='store_true',help='只运行单人场景抽样（更快）')
++    ap.add_argument('--all-scenes',action='store_true',help='单人模式也拍摄全部关键场景')
++    ap.add_argument('--route-cycles',type=int,default=0,help='用真实 E 按键连续往返货舱和船长室的次数')
++    ap.add_argument('--clients',type=int,choices=[2,3,4],default=2,help='完整联机验收的实际 WebGPU 客户端数')
++    ap.add_argument('--render-scale',type=float,default=1.0,help='实际内部渲染比例 0.5..1（保留输出分辨率）')
++    ap.add_argument('--max-fps',type=int,default=60,help='验收页面帧率上限 15..240，避免多客户端挤占着色器编译时间')
+     ap.add_argument('--existing',action='store_true',help='连接已有本地游戏网页和服务器')
+     ap.add_argument('--port',type=int,default=5173)
+     ap.add_argument('--browser',choices=['auto','chrome','msedge','chromium'],default='auto')
+@@ -76,12 +84,15 @@
+     ap.add_argument('--report-dir',default=str(DEFAULT_REPORTS))
+     args=ap.parse_args(argv)
+     if args.port<1024 or args.port>65535:ap.error('port must be 1024..65535')
++    if not .5<=args.render_scale<=1:ap.error('render-scale must be .5..1')
++    if not 15<=args.max_fps<=240:ap.error('max-fps must be 15..240')
+     base=Path(args.report_dir).resolve()
+-    out=base / datetime.now().strftime('V60_%Y%m%d_%H%M%S')
++    out=base / datetime.now().strftime('V61_%Y%m%d_%H%M%S')
+     out.mkdir(parents=True,exist_ok=True)
+     (out/'screenshots').mkdir(exist_ok=True)
+     (out/'video').mkdir(exist_ok=True)
+-    report={'version':'STORMWAKE V60','started_at':datetime.now().isoformat(),
++    report={'version':'STORMWAKE V61','started_at':datetime.now().isoformat(),
++        'build_sha256':build_fingerprint(ROOT),'seed':61015,
+         'environment':{'platform':platform.platform(),'python':sys.version.split()[0],
+             'browser':args.browser,'headless':bool(args.headless)},
+         'browser_verified':False,'simulation_verified':False,'tests':[],
+@@ -98,7 +109,7 @@
+         report['finished_at']=datetime.now().isoformat()
+         report['counts']={k:sum(x['status']==k for x in report['tests']) for k in ['pass','fail','suspect','captured','unverified']}
+         (out/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+-        md=['# STORMWAKE V60 AutoQA 实机检测报告','',f"环境：{report['environment']['platform']}",'',
++        md=['# STORMWAKE V61 AutoQA 实机检测报告','',f"环境：{report['environment']['platform']}",'',
+             f"浏览器运行验证：{report['browser_verified']}；游戏初始化验证：{report['simulation_verified']}",'',
+             '| 项目 | 状态 | 结论 |','|---|---|---|']
+         for t in report['tests']:
+@@ -112,9 +123,9 @@
+         screenshots=[]
+         for f in sorted((out/'screenshots').glob('*.png')):
+             screenshots.append('<figure><a href="screenshots/'+escape(f.name)+'"><img loading="lazy" src="screenshots/'+escape(f.name)+'"></a><figcaption>'+escape(f.stem)+'</figcaption></figure>')
+-        html='''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>STORMWAKE V60 · AutoQA</title><style>
++        html='''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>STORMWAKE V61 · AutoQA</title><style>
+ body{margin:0;background:#0c1823;color:#e9e6dc;font:15px/1.65 system-ui,'Microsoft YaHei',sans-serif}main{max-width:1260px;margin:auto;padding:34px}h1{letter-spacing:.09em;color:#e8c996;font-size:28px}h2{font-size:20px;margin-top:40px;border-bottom:1px solid #3c5260;padding-bottom:8px}p{color:#a9bfca}.stat{display:flex;gap:10px;flex-wrap:wrap}.stat b{display:block;font-size:22px;color:#fff}.stat span{padding:8px 19px;border:1px solid #3a5360;border-radius:9px}table{border-collapse:collapse;width:100%;background:#142635}th,td{padding:8px 12px;border-bottom:1px solid #2d414b;text-align:left}td:first-child{font-family:Consolas,monospace}.pill{border-radius:5px;padding:2px 8px}.ok{background:#184a3c;color:#a1e9bf}.bad{background:#602b34;color:#ffd2d2}.warn{background:#604b25;color:#ffe0ac}.unset{background:#344455;color:#c6d2df}.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:14px}figure{margin:0;background:#142635;border:1px solid #334551;border-radius:8px;overflow:hidden}img{width:100%;display:block}figcaption{padding:8px 12px}.alert{padding:16px;background:#142635;border-left:3px solid #d8a75e}a{color:#9eddd4}
+-</style><main><h1>STORMWAKE V60 / AUTOQA</h1><p>自动测试证据与场景图集 · 运行于真实浏览器时才能验证 WebGPU 画面</p><div class="stat">'''
++</style><main><h1>STORMWAKE V61 / AUTOQA</h1><p>自动测试证据与场景图集 · 运行于真实浏览器时才能验证 WebGPU 画面</p><div class="stat">'''
+         html+=''.join('<span><b>'+str(report['counts'][k])+'</b>'+k+'</span>' for k in ['pass','fail','suspect','captured','unverified'])+'</div>'
+         html+='<div class="alert"><b>验收边界：</b> 画面截图不会自动证明“3A 品质”。疑似海水穿透、Boss 光团及碰撞等必须结合游戏状态、录屏与截图复核。</div>'
+         html+='<h2>逻辑 / 联机 / 浏览器检查</h2><table><thead><tr><th>检查</th><th>状态</th><th>说明</th></tr></thead><tbody>'+''.join(badges)+'</tbody></table>'
+@@ -123,7 +134,7 @@
+         (out/'VISUAL_REPORT.html').write_text(html,encoding='utf-8')
+         print('测试报告：',out/'REPORT_zh.md',flush=True)
+         print('可视化图集：',out/'VISUAL_REPORT.html',flush=True)
+-    server=None; stdout_file=None; browser=None;contexts=[]
++    server=None; room_server=None; stdout_file=None; browser=None;contexts=[]
+     try:
+         try:
+             from playwright.sync_api import sync_playwright
+@@ -138,8 +149,10 @@
+                 result('node','fail','双人测试需要 Node.js 22+ 运行房间服务器')
+                 return 2
+             stdout_file=(out/'server.log').open('w',encoding='utf-8')
++            if not args.quick:
++                room_server=subprocess.Popen([shutil.which('node'),str(ROOT/'server'/'coopServer.js')],cwd=ROOT,stdout=stdout_file,stderr=subprocess.STDOUT)
+             cmd=[sys.executable,'-u',str(ROOT/'start_v60.py'),'--no-browser','--port',str(args.port),
+-                 '--mode','solo' if args.quick else 'host']
++                 '--mode','solo']
+             server=subprocess.Popen(cmd,cwd=ROOT,stdout=stdout_file,stderr=subprocess.STDOUT)
+         weburl=f'http://127.0.0.1:{args.port}'
+         if not wait_url(weburl+'/',30):
+@@ -162,7 +175,7 @@
+             last=None
+             for cfg in launches:
+                 try:
+-                    browser=pw.chromium.launch(headless=headless,args=['--enable-unsafe-webgpu','--ignore-gpu-blocklist'],**cfg)
++                    browser=pw.chromium.launch(headless=headless,args=['--enable-unsafe-webgpu','--ignore-gpu-blocklist','--disable-background-timer-throttling','--disable-renderer-backgrounding','--disable-backgrounding-occluded-windows'],**cfg)
+                     report['browser_verified']=True
+                     result('browser_launch','pass',f'Chromium 配置 {cfg}')
+                     break
+@@ -193,7 +206,7 @@
+                                                             'failure':str(r.failure)[:200]}))
+                 return page
+             first=context('captain')
+-            params={'stormwake':1,'heritageShip':1,'qa':1,'noAudio':1}
++            params={'stormwake':1,'heritageShip':1,'qa':1,'seed':61015,'noAudio':1,'scale':args.render_scale,'maxFps':args.max_fps}
+             if not args.quick:params.update({'coop':1,'room':'127.0.0.1:5174'})
+             url=weburl+'/?'+urlencode(params)
+             try:
+@@ -212,7 +225,7 @@
+                 return 3
+             try:
+                 first.keyboard.press('Enter')
+-                first.wait_for_function("!document.querySelector('.tw-start.is-on')",timeout=8000)
++                first.wait_for_function("window.__app.playState === 'playing' && !document.querySelector('.tw-start.is-on') && document.querySelector('.tw-start')?.hidden === true",timeout=8000)
+                 first.wait_for_timeout(800)
+                 result('start_overlay_dismissed','pass','截图开始前确认开场遮罩已退出')
+             except Exception as e:
+@@ -228,6 +241,7 @@
+                 return s
+             def scene(page,name,who='captain'):
+                 try:
++                    page.wait_for_function("window.__app.playState === 'playing' && document.querySelector('.tw-start')?.hidden === true",timeout=8000)
+                     page.evaluate('(name)=>window.__stormwakeQA.go(name)',name)
+                     page.wait_for_timeout(1400)
+                     picture=out/'screenshots'/f'{who}_{name}.png'
+@@ -238,13 +252,54 @@
+                 except Exception as e:
+                     result('scene_'+name,'fail',str(e)[:230]);return None
+             check_logic(first,'startup',None)
+-            names=['spawn','dock','helm'] if args.quick else ['spawn','dock','anchor','helm','cabin','lower_hold','beach','boss','open_sea']
++            names=['spawn','dock','helm'] if args.quick and not args.all_scenes else ['spawn','dock','anchor','helm','cabin','lower_hold','beach','boss','open_sea']
+             for name in names:
+                 state=scene(first,name,'captain')
+                 if name=='open_sea' and state:
+                     off=state.get('offshore',{})
+                     result('offshore_wildlife','pass' if off.get('active') and off.get('animalsVisible',0)>0 else 'fail',
+                            f"远海生物激活={off.get('active')}；可见数量={off.get('animalsVisible',0)}")
++            if args.route_cycles:
++                traces=[]
++                try:
++                    first.evaluate("window.__stormwakeQA.go('lower_entry')");first.wait_for_timeout(300)
++                    start=snap(first)['player']['deckPosition']
++                    first.keyboard.press('e');first.wait_for_function('window.__stormwakeQA.snapshot().player.climbing',timeout=4000)
++                    first.wait_for_timeout(250);first.keyboard.press('Escape')
++                    first.wait_for_function("!window.__stormwakeQA.snapshot().player.climbing && window.__stormwakeQA.snapshot().player.deckLayer==='deck'",timeout=6000)
++                    end=snap(first)['player']['deckPosition']
++                    drift=sum((end[k]-start[k])**2 for k in ('x','y','z'))**.5
++                    result('ladder_cancel_returns','pass' if drift<.08 else 'fail',f'实际 E 下梯、Esc 原路返回；起点误差 {drift:.4f}m')
++                except Exception as e:result('ladder_cancel_returns','fail',str(e)[:230])
++                for route,entry,layer in [('cargo','lower_entry','lowerHold'),('cabin','cabin_entry','hold')]:
++                    try:
++                        first.evaluate('(s)=>window.__stormwakeQA.go(s)',entry)
++                        first.wait_for_timeout(300)
++                        for cycle in range(args.route_cycles):
++                            if route=='cabin' and not first.evaluate('window.__app.boat.originalDoor.passable'):
++                                first.keyboard.press('e');first.wait_for_function('window.__app.boat.originalDoor.passable',timeout=4000)
++                            first.keyboard.press('e')
++                            first.wait_for_function('(layer)=>window.__stormwakeQA.snapshot().player.deckLayer===layer && !window.__stormwakeQA.snapshot().player.climbing',arg=layer,timeout=8000)
++                            inside=snap(first)
++                            if cycle==0 and route=='cargo':
++                                start=inside['player']['deckPosition']
++                                first.keyboard.down('w');first.wait_for_timeout(500);first.keyboard.up('w')
++                                moved=snap(first)['player']['deckPosition']
++                                distance=((moved['x']-start['x'])**2+(moved['z']-start['z'])**2)**.5
++                                first.keyboard.down('s');first.wait_for_timeout(500);first.keyboard.up('s')
++                                result('hold_keyboard_walk','pass' if distance>.1 else 'fail',f'真实 W 在货舱内移动 {distance:.3f}m；BVH={inside["player"].get("collision")}')
++                                water=inside['water']
++                                result('dry_hold_medium','pass' if water['dryCamera'] and not water['underwaterPost'] and water['oceanVisible'] else 'fail','干舱镜头使用空气，外部海洋保持绘制',water)
++                            if cycle==0:first.screenshot(path=str(out/'screenshots'/f'route_{route}_inside.png'))
++                            first.keyboard.press('e')
++                            first.wait_for_function("window.__stormwakeQA.snapshot().player.deckLayer==='deck' && !window.__stormwakeQA.snapshot().player.climbing",timeout=8000)
++                            outside=snap(first)
++                            traces.append({'route':route,'cycle':cycle+1,'inside':inside,'outside':outside})
++                        result('route_'+route+'_repeated','pass',f'{args.route_cycles} 次连续真实 E 往返；未在循环中传送',{'cycles':len([t for t in traces if t['route']==route])})
++                    except Exception as e:
++                        result('route_'+route+'_repeated','fail',str(e)[:230],first.evaluate('window.__stormwakeQA.interactionTrace()'))
++                        first.screenshot(path=str(out/'screenshots'/f'route_{route}_failure.png'))
++                (out/'route_traces.json').write_text(json.dumps(traces,ensure_ascii=False,indent=2),encoding='utf-8')
+             if not args.quick:
+                 # Real keyboard interactions rather than patching the station
+                 # state directly. Fail if the prompt cannot be reached/claimed.
+@@ -271,10 +326,11 @@
+             if not args.quick:
+                 second=context('crew')
+                 try:
++                    second.bring_to_front()
+                     second.goto(url,wait_until='domcontentloaded',timeout=45000)
+                     second.wait_for_function('window.__stormwakeQA?.ready === true',timeout=args.timeout*1000)
+                     second.keyboard.press('Enter')
+-                    second.wait_for_function("!document.querySelector('.tw-start.is-on')",timeout=8000)
++                    second.wait_for_function("window.__app.playState === 'playing' && document.querySelector('.tw-start')?.hidden === true",timeout=8000)
+                     second.wait_for_timeout(1200)
+                     a,b=check_logic(first,'captain_connected',1),check_logic(second,'crew_connected',1)
+                     if a['multiplayer']['connected'] and b['multiplayer']['connected']:
+@@ -313,8 +369,52 @@
+                         picture=out/'screenshots'/f'{who}_multiplayer_night.png'
+                         page.screenshot(path=str(picture));st=image_metrics(picture)
+                         result('night_'+who,verdict_visual(st,'night')['status'],'双机夜景截图已采样',st)
++                    if args.clients>2:
++                        crew_pages=[first,second]
++                        for number in range(3,args.clients+1):
++                            page=context('crew'+str(number));page.bring_to_front();page.goto(url,wait_until='domcontentloaded',timeout=45000)
++                            page.wait_for_function('window.__stormwakeQA?.ready === true',timeout=args.timeout*1000)
++                            page.keyboard.press('Enter');page.wait_for_function("window.__app.playState==='playing' && document.querySelector('.tw-start')?.hidden===true",timeout=8000)
++                            crew_pages.append(page)
++                        for page in crew_pages:
++                            page.wait_for_function('(n)=>window.__stormwakeQA.snapshot().multiplayer.peerCount===n',arg=args.clients-1,timeout=12000)
++                        result('real_'+str(args.clients)+'_clients','pass',f'{args.clients} 个独立 WebGPU 页面同房间，各有 {args.clients-1} 名远端角色')
++                        for page in crew_pages:
++                            page.evaluate("window.__stormwakeQA.go('anchor')");page.wait_for_timeout(350);page.keyboard.press('e')
++                            page.wait_for_function("window.__stormwakeQA.snapshot().player.station?.startsWith('anchor')",timeout=6000)
++                        ids=[snap(page)['player']['station'] for page in crew_pages]
++                        result('capstan_distinct_seats','pass' if len(set(ids))==args.clients else 'fail',str(ids))
++                        actual_host=next(page for page in crew_pages if page.evaluate('window.__app.crew.isHost'))
++                        before=snap(actual_host)['ship']['anchor']['travel']
++                        for page in crew_pages:page.keyboard.down('w')
++                        actual_host.wait_for_timeout(300)
++                        working=snap(actual_host)['ship']['anchor']
++                        for page in crew_pages:page.keyboard.up('w')
++                        actual_host.wait_for_timeout(500)
++                        after=snap(actual_host)['ship']['anchor']
++                        result('cooperative_capstan','pass' if working['hands']==args.clients and after['travel']<before-.05 else 'fail',f"实按 W：hands={working['hands']}，行程 {before:.3f} -> {after['travel']:.3f}")
++                        actual_host.wait_for_timeout(500);stopped=snap(actual_host)['ship']['anchor']
++                        result('capstan_release_stops','pass' if stopped['hands']==0 and abs(stopped['turns']-after['turns'])<.01 else 'fail',f"松键后 hands={stopped['hands']}，绞盘转角变化 {abs(stopped['turns']-after['turns']):.4f}")
++                        for i,page in enumerate(crew_pages):page.screenshot(path=str(out/'screenshots'/f'four_capstan_{i+1}.png'))
++                        prior=snap(actual_host)['ship']['position'];actual_host.close()
++                        survivors=[page for page in crew_pages if page is not actual_host]
++                        survivors[0].wait_for_function('window.__app.voyageM1.net.hostId && window.__app.voyageM1.net.hostId!==null',timeout=8000)
++                        survivors[0].wait_for_timeout(1500)
++                        hosts=[page for page in survivors if page.evaluate('window.__app.crew.isHost')]
++                        now=snap(hosts[0])['ship']['position'] if hosts else prior
++                        delta=((now['x']-prior['x'])**2+(now['z']-prior['z'])**2)**.5
++                        result('host_handoff','pass' if len(hosts)==1 and delta<5 else 'fail',f'剩余客户端房主数 {len(hosts)}；船位变化 {delta:.3f}m')
+                 except Exception as e:
+-                    result('two_client_sequence','fail',str(e)[:300])
++                    diagnostic=[]
++                    for label,ctx in contexts:
++                        for page in ctx.pages:
++                            try:
++                                diagnostic.append({'client':label,'state':page.evaluate("({playState:window.__app?.playState,loader:document.querySelector('#loader')?.innerText})")})
++                                page.screenshot(path=str(out/'screenshots'/f'{label}_sequence_failure.png'),timeout=8000)
++                            except Exception:pass
++                    result('two_client_sequence','fail',str(e)[:300],diagnostic)
++            if report['page_errors']:result('runtime_errors','fail',str(report['page_errors'])[:250])
++            if report['network_errors']:result('http_resources','fail',str(report['network_errors'])[:250])
+             # A test suite with any fail must return a nonzero code for CI.
+             return 1 if any(t['status']=='fail' for t in report['tests']) else 0
+     except Exception as e:
+@@ -333,6 +433,10 @@
+             server.terminate()
+             try:server.wait(timeout=6)
+             except subprocess.TimeoutExpired:server.kill()
++        if room_server and room_server.poll() is None:
++            room_server.terminate()
++            try:room_server.wait(timeout=6)
++            except subprocess.TimeoutExpired:room_server.kill()
+         if stdout_file:stdout_file.close()
+         save_report()
+ 
+--- V60/tools/build_fingerprint.py
++++ V61/tools/build_fingerprint.py
+@@ -0,0 +1,11 @@
++"""Stable source identity for QA reports and packaged releases."""
++import hashlib
++from pathlib import Path
++def build_fingerprint(root):
++    root=Path(root)
++    files=[p for folder in ('src','server','test') for p in (root/folder).rglob('*') if p.is_file() and p.suffix in ('.js','.mjs','.py')]
++    files += [p for p in root.iterdir() if p.is_file() and (p.name.startswith('start_v') or p.name in ('package.json','package-lock.json'))]
++    digest=hashlib.sha256()
++    for p in sorted(files,key=lambda p:p.relative_to(root).as_posix()):
++        digest.update(p.relative_to(root).as_posix().encode('utf-8'));digest.update(b'\0');digest.update(p.read_bytes())
++    return digest.hexdigest()
+--- V60/tools/release_v61.py
++++ V61/tools/release_v61.py
+@@ -0,0 +1,84 @@
++"""Create traceable acceptance indexes, asset checksums, delta and full source ZIP."""
++import argparse
++import csv
++import difflib
++import hashlib
++import json
++from pathlib import Path
++import zipfile
++from build_fingerprint import build_fingerprint
++ROOT=Path(__file__).resolve().parents[1]
++
++CASES='''开屏关闭|鼠标锁定|地图开关|UI焦点恢复|1080p字幕与中心视野|船头封闭|船尾封闭|栏杆阻挡|跳上船沿|双人甲板交错|室外开门进入|室内开门退出|门口对向错身|门夹人停止|风暴倾斜通行|下货舱|上货舱|连续20轮上下舱|抱货入舱|下舱中途取消|干舱静水|干舱大浪|窗外可见海|玩家进入水面|破口后真积水|修补后水不自动消失|E进入锚机|W起锚|S放锚|两人协作起锚|四人协作起锚|释放立即停止|锚链高度同步|起锚满帆离港|满收帆停车|顺逆风差异|舵轮居中|风暴侧滑|返港系泊|取炮弹|实体装填|炮架瞄准同步|实际炮弹轨迹|命中船壳破洞|修补破口|桶舀水倒水|火灾同步|两人跑跳|四人在船|同物品争抢|房主切换|后加入|失联恢复|风暴时间一致|未接触不伤害|触手接触抓船|陆地Boss全身可见|远海穿越风暴|龙卷推力|日夜风暴FPS和VRAM'''.split('|')
++
++def sha(data):return hashlib.sha256(data).hexdigest()
++def selected(path):
++    rel=path.relative_to(ROOT)
++    if any(p in ('node_modules','dist','.git','__pycache__','autoqa_reports') for p in rel.parts):return False
++    if path.suffix in ('.pyc','.tmp'):return False
++    # Retain all trial outcomes, but only final acceptance media in the ZIP.
++    if rel.parts[:2]==('qa','V61') and path.suffix in ('.webm','.zip'):
++        return any(part.startswith('release-validation') for part in rel.parts)
++    return True
++
++def main():
++    ap=argparse.ArgumentParser();ap.add_argument('--source-zip',required=True);ap.add_argument('--output',required=True);args=ap.parse_args()
++    qa=ROOT/'qa/V61';qa.mkdir(parents=True,exist_ok=True)
++    reports=[]
++    for p in sorted(qa.rglob('report.json')):
++        report=json.loads(p.read_text(encoding='utf-8'))
++        reports.append({'path':p.relative_to(ROOT).as_posix(),'version':report.get('version'),'build_sha256':report.get('build_sha256'),
++            'started_at':report.get('started_at'),'counts':report.get('counts'),
++            'results':{t['test']:{'status':t['status'],'detail':t.get('detail','')} for t in report['tests']}})
++    reports.sort(key=lambda r:r.get('started_at',''))
++    (qa/'evidence_index.json').write_text(json.dumps({'current_build_sha256':build_fingerprint(ROOT),'reports':reports},ensure_ascii=False,indent=2),encoding='utf-8')
++    def evidence(test,passed=True):
++        hits=[r for r in reports if test in r['results'] and (not passed or r['results'][test]['status']=='pass')]
++        return hits[-1] if hits else None
++    mapping={1:'start_overlay_dismissed',11:'route_cabin_repeated',16:'route_cargo_repeated',17:'route_cargo_repeated',18:'route_cargo_repeated',20:'ladder_cancel_returns',27:'interact_anchor',28:'anchor_winding',31:'cooperative_capstan',32:'capstan_release_stops',49:'real_4_clients',51:'host_handoff'}
++    rows=[]
++    for i,label in enumerate(CASES,1):
++        status='not_run';proof='';note='未完成此用例的完整实机验收；逻辑回归不替代实机。'
++        if i in mapping:
++            r=evidence(mapping[i])
++            if r:status='verified';proof=r['path']+'#'+mapping[i];note=r['results'][mapping[i]]['detail']
++        if i in (5,6,7,21,22,23,57,58):
++            r=evidence('logic_captain_lower_hold' if i in (21,22,23) else 'logic_captain_boss' if i==57 else 'logic_captain_open_sea' if i==58 else 'logic_captain_helm')
++            if r:status='visual_review_required';proof=r['path'];note='代表帧已采集；指定分辨率、角度或完整工况仍需人工逐项验收。'
++        # A failed four-page attempt is visible even when its short two-page
++        # checks succeeded. Successful later runs explicitly supersede it.
++        if i in (31,49,51) and status=='not_run' and evidence('two_client_sequence',False):
++            r=evidence('two_client_sequence',False);status='failed';proof=r['path'];note=r['results']['two_client_sequence']['detail']
++        rows.append({'case_id':f'QA-{i:03}','requirement':label,'status':status,'evidence':proof,'scope_or_remaining_work':note})
++    with (qa/'acceptance_cases.csv').open('w',encoding='utf-8-sig',newline='') as f:
++        writer=csv.DictWriter(f,fieldnames=list(rows[0]));writer.writeheader();writer.writerows(rows)
++    original=Path(args.source_zip)
++    changes=[];patch=[]
++    with zipfile.ZipFile(original) as source:
++        originals={n.split('/',1)[1]:n for n in source.namelist() if '/' in n and not n.endswith('/')}
++        collections=[list((ROOT/folder).rglob('*')) for folder in ('src','server','test','tools')]
++        collections.append([p for p in ROOT.iterdir() if p.suffix in ('.py','.cmd','.json')])
++        for files in collections:
++            for p in sorted(files):
++                if not p.is_file() or not selected(p):continue
++                rel=p.relative_to(ROOT).as_posix();new=p.read_bytes();old=source.read(originals[rel]) if rel in originals else b''
++                if new==old:continue
++                changes.append({'path':rel,'kind':'modified' if rel in originals else 'added','sha256':sha(new)})
++                if p.suffix in ('.js','.mjs','.py','.cmd','.json','.css'):
++                    patch.extend(difflib.unified_diff(old.decode('utf-8-sig').splitlines(True),new.decode('utf-8-sig').splitlines(True),fromfile='V60/'+rel,tofile='V61/'+rel))
++        assets=[]
++        for rel,license_name,credits in [('public/models/stormwake_v54/dutch_ship_lower_hold.glb','CC0','public/models/stormwake_v54/hatch_manifest.json'),('public/models/stormwake_v50/captains_quarters_access.glb','CC BY 4.0 TheMadraver','public/models/stormwake_v50/CREDITS_V50.md'),('public/models/stormwake_v50/captain_sea_chart.glb','Project original','public/models/stormwake_v50/CREDITS_V50.md')]:
++            data=(ROOT/rel).read_bytes();assets.append({'path':rel,'sha256':sha(data),'unchanged_from_v60':data==source.read(originals[rel]),'license_as_documented':license_name,'credits':credits})
++    (ROOT/'docs/V61_CODE_DELTA.patch').write_text(''.join(patch),encoding='utf-8')
++    (ROOT/'docs/V61_ASSET_MANIFEST.json').write_text(json.dumps({'primary_assets':assets,'new_models_or_audio':[],'procedural_additions':['InteriorLanterns.js'],'license_note':'Existing source credits retained; no external licensing re-audit claimed.'},ensure_ascii=False,indent=2),encoding='utf-8')
++    (ROOT/'docs/V61_BUILD_MANIFEST.json').write_text(json.dumps({'build_sha256':build_fingerprint(ROOT),'source_zip_sha256':sha(original.read_bytes()),'changed_code':changes,'acceptance_csv':'qa/V61/acceptance_cases.csv','evidence_index':'qa/V61/evidence_index.json'},ensure_ascii=False,indent=2),encoding='utf-8')
++    output=Path(args.output).resolve();output.parent.mkdir(parents=True,exist_ok=True)
++    with zipfile.ZipFile(output,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as archive:
++        for p in sorted(ROOT.rglob('*')):
++            if p.is_file() and selected(p) and p.resolve()!=output:archive.write(p,'STORMWAKE_V61/'+p.relative_to(ROOT).as_posix())
++    with zipfile.ZipFile(output) as archive:
++        bad=archive.testzip()
++        if bad:raise RuntimeError('Archive CRC failed: '+bad)
++    print(json.dumps({'output':str(output),'bytes':output.stat().st_size,'sha256':sha(output.read_bytes()),'changed_code_files':len(changes),'cases':len(rows)},ensure_ascii=False))
++
++if __name__=='__main__':main()
+--- V60/00_START_STORMWAKE_V61.cmd
++++ V61/00_START_STORMWAKE_V61.cmd
+@@ -0,0 +1,10 @@
++@echo off
++chcp 65001 >nul
++cd /d "%~dp0"
++where py >nul 2>nul
++if %ERRORLEVEL%==0 (
++    py -3 start_v61.py
++) else (
++    python start_v61.py
++)
++if errorlevel 1 (echo [ERROR] Launch failed. Check Python 3.10+ and Node 22+ for hosting.& pause)
+--- V60/package.json
++++ V61/package.json
+@@ -63,7 +63,10 @@
+     "qa:v58": "python tools/autoqa/runner.py",
+     "test:v60": "node test/stormwake-v60-core.mjs && node test/stormwake-v60-ws-cargo.mjs && npm run test:v58",
+     "qa:v60": "python tools/autoqa/runner.py",
+-    "test:v60:extended": "npm run test:v60 && npm test"
++    "test:v60:extended": "npm run test:v60 && npm test",
++    "test:v61": "node test/stormwake-v61-reliability.mjs && npm run test:v60",
++    "test:v61:extended": "npm run test:v61 && npm test && python test/test_launcher_v61.py",
++    "qa:v61": "python tools/autoqa/runner.py --headed --browser msedge --clients 4 --route-cycles 20"
+   },
+   "devDependencies": {
+     "vite": "^8.3.0",
+--- V60/start_v38.py
++++ V61/start_v38.py
+@@ -40,6 +40,7 @@
+     return source.replace('import.meta.env',"({BASE_URL:'/',DEV:true,PROD:false,MODE:'development'})")
+ 
+ class TidewaterHandler(http.server.SimpleHTTPRequestHandler):
++    protocol_version='HTTP/1.1'
+     def __init__(self,*args,**kwargs):
+         super().__init__(*args,directory=str(ROOT),**kwargs)
+     def translate_path(self,path):
+@@ -58,6 +59,16 @@
+         return str(real)
+     def do_GET(self):
+         request_path=unquote(urlsplit(self.path).path)
++        if request_path == '/api/guide/status':
++            data=b'{"configured":false,"mode":"offline"}'
++            self.send_response(200)
++            self.send_header('Content-Type','application/json; charset=utf-8')
++            self.send_header('Content-Length',str(len(data)))
++            self.send_header('Cache-Control','no-store')
++            self.end_headers();self.wfile.write(data)
++            return
++        if request_path == '/favicon.ico':
++            self.send_response(204);self.end_headers();return
+         if request_path.startswith('/src/') and request_path.endswith('.js'):
+             try:
+                 path=pathlib.Path(self.translate_path(request_path)).resolve()
+@@ -77,13 +88,19 @@
+         if args and str(args[1]) in ('200','304'): return
+         super().log_message(format,*args)
+ 
++class TidewaterHTTPServer(http.server.ThreadingHTTPServer):
++    # Each page imports hundreds of ES modules. The socketserver default
++    # backlog of five can drop connections during parallel client startup.
++    request_queue_size=128
++    daemon_threads=True
++
+ def main():
+     ap=argparse.ArgumentParser(description='Launch Tidewater V38 without npm')
+     ap.add_argument('--port',type=int,default=5173)
+     ap.add_argument('--no-browser',action='store_true')
+     args=ap.parse_args()
+     host='127.0.0.1'
+-    with http.server.ThreadingHTTPServer((host,args.port),TidewaterHandler) as server:
++    with TidewaterHTTPServer((host,args.port),TidewaterHandler) as server:
+         url=f'http://{host}:{server.server_port}/'
+         print('STORMWAKE V41 Ship Reliability Repair (V38 launcher compatible) —',url,flush=True)
+         print('Open in current Edge/Chrome (WebGPU required). Ctrl+C to stop.',flush=True)
+--- V60/start_v60.py
++++ V61/start_v60.py
+@@ -1,4 +1,4 @@
+-"""STORMWAKE V60 - one launcher, choose solo / LAN host / LAN join.
++"""STORMWAKE V61 - one launcher, choose solo / LAN host / LAN join.
+ Python 3.10+, Chrome or Edge with WebGPU; host also requires Node.js 22+.
+ """
+ import argparse
+@@ -13,7 +13,7 @@
+ import urllib.request
+ import webbrowser
+ from urllib.parse import urlencode
+-from start_v38 import TidewaterHandler
++from start_v38 import TidewaterHandler,TidewaterHTTPServer
+ 
+ ROOT=Path(__file__).resolve().parent
+ 
+@@ -21,7 +21,7 @@
+     try:
+         import tkinter as tk
+         from tkinter import messagebox
+-        root=tk.Tk();root.title('STORMWAKE V60 · 启动海上冒险')
++        root=tk.Tk();root.title('STORMWAKE V61 · 启动海上冒险')
+         root.geometry('460x290');root.resizable(False,False)
+         root.configure(bg='#172d37')
+         state={'mode':None,'room':'127.0.0.1:5174'}
+@@ -78,9 +78,9 @@
+                 return 2
+         params={'stormwake':1,'heritageShip':1}
+         if mode!='solo':params.update(coop=1,room=room)
+-        with http.server.ThreadingHTTPServer(('127.0.0.1',args.port),TidewaterHandler) as server:
++        with TidewaterHTTPServer(('127.0.0.1',args.port),TidewaterHandler) as server:
+             url=f'http://127.0.0.1:{server.server_port}/?{urlencode(params)}'
+-            print(f'STORMWAKE V60 ({mode}) : {url}',flush=True)
++            print(f'STORMWAKE V61 ({mode}) : {url}',flush=True)
+             if mode=='host':
+                 print('房主：TCP 5174；其他玩家选择【多人·加入房间】，填入本机局域网 IPv4:5174。',flush=True)
+                 print('注意 Windows 防火墙必须允许 5174 TCP。',flush=True)
+--- V60/start_v61.py
++++ V61/start_v61.py
+@@ -0,0 +1,4 @@
++"""STORMWAKE V61 launcher. The V60 entry remains compatible with old shortcuts."""
++from start_v60 import main
++if __name__ == '__main__':
++    raise SystemExit(main())

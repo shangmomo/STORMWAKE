@@ -1,0 +1,9 @@
+HTTP /index.html 200 3902
+HTTP /src/App.js 200 43738
+HTTP /src/world/Colliders.js 200 6717
+HTTP /src/systems/MovingSurfaceWorld.js 200 3841
+HTTP /src/player/LandMotorV78.js 200 4108
+HTTP /src/land/ExpeditionSceneryV76.js 200 6774
+HTTP /models/abyss/deepsea-demon-whale.glb 200 1259636
+Browser check blocked or failed: Error("BrowserType.launch: Executable doesn't exist at /home/oai/.cache/ms-playwright/chromium_headless_shell-1200/chrome-headless-shell-linux64/chrome-headless-shell\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+System Chromium: Error('Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:52845/?stormwake=1&heritageShip=1\nCall log:\n  - navigating to "http://127.0.0.1:52845/?stormwake=1&heritageShip=1", waiting until "load"\n')

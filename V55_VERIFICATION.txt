@@ -1,0 +1,9 @@
+STORMWAKE V55 · TEST REPORT
+- npm run test:v55: PASS (V55 routing/anchors/network regression plus V54 suite)
+- Real WebSocket tests: PASS V39 / V41 / V13 / V14
+- Launcher smoke: PASS solo / host / join; HTTP, source JS, source GLB; host multiplayer TCP 5174
+- Source: affected ES module imports PASS; Python syntax PASS
+- npm test: INCOMPLETE (optional dev dependency 'webgpu' not installed in this environment)
+- Browser visual walkthrough: BLOCKED BY ADMINISTRATOR when Chromium attempted local game page
+- Visual fidelity, physical collision and two-client real WebGPU interaction NOT VERIFIED
+See README_STORMWAKE_V55_修复与验收.md.

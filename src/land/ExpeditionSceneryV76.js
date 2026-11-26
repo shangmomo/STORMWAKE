@@ -1,0 +1,33 @@
+// V76: original licensed meshes, shared GPU resources and bounded visibility.
+import {Matrix4,Quaternion,Vector3,Color} from '../engine/index.js';
+import {loadGLB} from '../engine/loaders/GLTF.js';
+import {loadStaticArtistModel} from '../ship/HeritageAssetRig.js';
+import {CollisionWorld} from '../systems/CollisionWorld.js';
+import {strikeLineBlocked} from './LandCombatTiming.js';
+import {SCENERY_SITES,FERN_PATCHES} from './ScenerySitesV76.js';
+export const BASE='/models/expedition/v76/';
+export function sitePose(s,height){return {...s,y:(s.floor??height(s.x,s.z))+(s.offset??0)};}
+export function* iterateSourceTriangles(g,s,filter=()=>true){
+ const matrix=new Matrix4().compose(new Vector3(s.x,s.y,s.z),new Quaternion().setFromAxisAngle(new Vector3(0,1,0),s.yaw??0),new Vector3().setScalar(s.scale));
+ const v=new Vector3();function* visit(i,parent){const n=g.nodes[i],m=parent.clone().multiply(new Matrix4().compose(new Vector3(...n.t),new Quaternion(...n.r),new Vector3(...n.s)));if(n.mesh!=null)for(const p of g.meshes[n.mesh]){if(p.mode!==4)continue;const a=p.attributes.POSITION.array,ids=p.indices;for(let k=0;k<(ids?.length??a.length/3);k+=3){const vs=[];for(let j=0;j<3;j++){let q=(ids?ids[k+j]:k+j)*3;v.set(a[q],a[q+1],a[q+2]).applyMatrix4(m);vs.push(v.toArray());}if(filter(vs))yield {vertices:vs,id:'v76:'+s.id};}}for(const c of n.children)yield* visit(c,m);}for(const i of g.roots)yield* visit(i,matrix);
+}
+export function sourceTriangles(g,s,filter=()=>true){return [...iterateSourceTriangles(g,s,filter)];}
+// The upper storey was previously omitted from tavern collision. Preserve
+// every rendered structural triangle, including the upper floor and roof.
+export function siteWorlds(g,s){const w=new CollisionWorld(sourceTriangles(g,s));return w.root?[w]:[];}
+export async function siteWorldsAsync(g,s){const w=await new CollisionWorld().setTrianglesAsync(iterateSourceTriangles(g,s));return w.root?[w]:[];}
+export function fernPositions(p,height,clearance){const out=[];for(let i=0;i<24;i++){const a=i*2.399963+p.seed,r=2+Math.sqrt(i)*2.35,x=p.x+Math.cos(a)*r,z=p.z+Math.sin(a)*r,y=height(x,z);if(!clearance(x,z)&&y>1&&Math.abs(height(x+.5,z)-y)<.42&&Math.abs(height(x,z+.5)-y)<.42)out.push({x,y:y-.01,z,yaw:a,scale:.85+(i%5)*.24,variant:i%4});}return out;}
+// Do not publish a newly streamed solid through an existing avatar. Render
+// and collision are committed in the same synchronous update, after clearance.
+export function sceneryCommitClear(worlds,people){return people.every(p=>!p||!['walk','swim'].includes(p.mode)||!p.position||worlds.every(w=>!w.capsuleOverlap({x:p.position.x,y:p.position.y+.012,z:p.position.z},.3,p.mode==='swim'?1:1.75)));}
+export class ExpeditionSceneryV76{
+ constructor(a){this.a=a;this.app=a.app;this.items=new Map();this.assets=new Map();this.fernItems=[];this.queue=Promise.resolve();this.enabled=typeof document!=='undefined';}
+ asset(file){if(!this.assets.has(file))this.assets.set(file,loadGLB(BASE+file+'.glb').then(async g=>[g,await loadStaticArtistModel(BASE+file+'.glb',g)]).catch(e=>{this.assets.delete(file);throw e;}));return this.assets.get(file);}
+ load(s){const record={site:s,loading:true};this.items.set(s.id,record);this.queue=this.queue.then(()=>this.loadRecord(s,record));return this.queue;}
+ async loadRecord(s,record){try{const [g,art]=await this.asset(s.file),site=sitePose(s,this.app.terrainData.heightAt.bind(this.app.terrainData));const root=art.root.clone(true);root.position.set(site.x,site.y,site.z);root.rotation.y=site.yaw??0;root.scale.setScalar(site.scale);root.name='V76 '+site.id;root.visible=false;const worlds=await siteWorldsAsync(g,site);if(!worlds.length)throw Error('Missing collision');record.pending={site,root,worlds};this.commitRecord(record);}catch(e){record.error=String(e);console.warn('[V76]',s.id,e);}finally{record.loading=false;}}
+ commitRecord(record){if(!record.pending)return false;const {site,root,worlds}=record.pending;const peers=[...this.app.crew?.peers?.values?.()||[]].map(p=>({mode:p.mode,position:p.root?.position}));if(!sceneryCommitClear(worlds,[this.app.player,...peers]))return false;for(const w of worlds)this.app.colliders.triangleWorlds.push(w);const p=this.app.player?.position;root.visible=!!p&&Math.hypot(p.x-site.x,p.z-site.z)<(site.range??150);this.app.scene.add(root);Object.assign(record,{site,root,worlds});delete record.pending;if(site.service){const t=site.service;record.lights=[this.app.localLights?.add({position:new Vector3(t.x,t.y+2.2,t.z),color:new Color(1,.70,.42),intensity:4.2,range:7,alwaysOn:true,kind:'expedition-service',flicker:.035,enabled:false})].filter(Boolean);}return true;}
+ async loadFerns(){this.fernLoading=true;try{const [,art]=await this.asset('fern');const h=this.app.terrainData.heightAt.bind(this.app.terrainData);const {expeditionClearance}=await import('./ExpeditionTerrain.js');for(const patch of FERN_PATCHES){for(const p of fernPositions(patch,h,expeditionClearance)){const root=art.root.children[p.variant].clone(true);root.position.set(p.x,p.y,p.z);root.rotation.y=p.yaw;root.scale.setScalar(p.scale);root.visible=false;root.traverse(o=>{if(o.isMesh)o.castShadow=false;});this.app.scene.add(root);this.fernItems.push({p,root});}}}catch(e){console.warn('[V76] ferns',e);}finally{this.fernDone=true;this.fernLoading=false;}}
+ update(){if(!this.enabled)return;const p=this.app.player?.position;if(!p)return;const d=s=>Math.hypot(s.x-p.x,s.z-p.z);for(const s of SCENERY_SITES){const record=this.items.get(s.id);if(!record&&d(s)<(s.range??150)+50)this.load(s);else if(record?.pending)this.commitRecord(record);else if(record?.root){const distance=d(s),range=s.range??150;record.root.visible=distance<range+(record.root.visible?12:0);for(const light of record.lights||[])light.enabled=record.root.visible&&distance<28;}}if(!this.fernDone&&!this.fernLoading&&FERN_PATCHES.some(s=>d(s)<100))this.loadFerns();for(const {p:s,root} of this.fernItems)root.visible=d(s)<(root.visible?48:43);}
+ wants(p){return [...this.items.values()].some(r=>r.root&&r.site.service&&Math.hypot(p.x-r.site.service.x,p.z-r.site.service.z)<2.5&&Math.abs(p.y-r.site.service.y)<1.5);}
+ register(director,player){for(const r of this.items.values()){const s=r.site;if(!r.root||!s.service)continue;const p=player.position,target=s.service;if(Math.hypot(p.x-target.x,p.z-target.z)>2.5)continue;if(strikeLineBlocked(this.app.colliders,{x:p.x,y:p.y+1.2,z:p.z},{x:target.x,y:target.y+1.2,z:target.z},.35))continue;director.add({id:'v76:'+s.id,position:target,range:2.5,heightRange:1.5,priority:89,label:this.a.servicesV77?(s.id==='tavern'?'远征酒馆 · E 补给':'古道铁匠铺 · E 强化'):s.label,perform:()=>{if(!this.a.servicesV77?.open(s.id))this.a._message('战斗中或距离过远，无法使用服务。',4);}},player);}}
+}

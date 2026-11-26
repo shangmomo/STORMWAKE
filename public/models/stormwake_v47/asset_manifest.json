@@ -1,0 +1,200 @@
+[
+  {
+    "file": "dutch_ship_medium_pbr.glb",
+    "source": "Poly Haven Dutch Ship Medium user-uploaded 4K Blend archive",
+    "license": "CC0",
+    "stats": {
+      "hull": {
+        "source_vertices": 15141,
+        "source_polygons": 17853,
+        "triangles": 27898,
+        "bounds_min": [
+          -2.599379539489746,
+          -1.9999947547912598,
+          -10.325664520263672
+        ],
+        "bounds_max": [
+          2.602752923965454,
+          5.971731662750244,
+          11.63282585144043
+        ],
+        "hatch": {}
+      },
+      "rigging": {
+        "source_vertices": 22081,
+        "source_polygons": 18253,
+        "triangles": 33716,
+        "bounds_min": [
+          -3.320786237716675,
+          1.1995306015014648,
+          -9.983352661132812
+        ],
+        "bounds_max": [
+          3.4880359172821045,
+          22.657127380371094,
+          13.74468994140625
+        ],
+        "hatch": {}
+      },
+      "sails": {
+        "source_vertices": 4020,
+        "source_polygons": 3774,
+        "triangles": 7548,
+        "bounds_min": [
+          -2.797043800354004,
+          4.7319488525390625,
+          -1.5351203680038452
+        ],
+        "bounds_max": [
+          3.2490220069885254,
+          16.878726959228516,
+          8.375848770141602
+        ],
+        "hatch": {}
+      }
+    },
+    "size": 21454856,
+    "sha256": "03818c005412492b0384b58efb0d5db05bcb0e0e72860d20496051e42fe8e465",
+    "reexport": "V49: no V47 artificial hatch cut; source is the original user-provided Blender mesh"
+  },
+  {
+    "file": "kenney_barrel.glb",
+    "source": "Kenney Pirate Kit",
+    "license": "CC0",
+    "size": 14092,
+    "sha256": "7616dedf7c1023afa6ecd3c52a4609460aae0e582dee14e60ec5e47c1174793b"
+  },
+  {
+    "file": "kenney_cannon.glb",
+    "source": "Kenney Pirate Kit",
+    "license": "CC0",
+    "size": 24024,
+    "sha256": "b2ea71475fa52de312a0fe3fb9085e1a3f83f9e6bb167668fb62f71383cbc41a"
+  },
+  {
+    "file": "kenney_cannon-ball.glb",
+    "source": "Kenney Pirate Kit",
+    "license": "CC0",
+    "size": 7192,
+    "sha256": "8d60d9f56df1bf118d3c589bc14a1b37d21b7834ecb9541b7840a4e8200797e6"
+  },
+  {
+    "file": "kenney_cannon-mobile.glb",
+    "source": "Kenney Pirate Kit",
+    "license": "CC0",
+    "size": 43824,
+    "sha256": "0e8ae9889b35bb43c0da779a7eed3c2a7a204b80350516f7c4ad523a550d8867"
+  },
+  {
+    "file": "kenney_chest.glb",
+    "source": "Kenney Pirate Kit",
+    "license": "CC0",
+    "size": 25240,
+    "sha256": "26d26c4c032a12320fe05b5005a72eba96db7167db0d35873639a4b7dcc06bcb"
+  },
+  {
+    "file": "kenney_crate.glb",
+    "source": "Kenney Pirate Kit",
+    "license": "CC0",
+    "size": 9232,
+    "sha256": "b525674e07c8b83667512a8dd93be0d7684358347d0e64d2bb16b156ac382ed1"
+  },
+  {
+    "file": "kenney_flag-pirate.glb",
+    "source": "Kenney Pirate Kit",
+    "license": "CC0",
+    "size": 15204,
+    "sha256": "4672c3a8c2844e9fb09838b65c97fdf5c49447c2566310918f8e7563f7200baf"
+  },
+  {
+    "file": "kenney_mast-ropes.glb",
+    "source": "Kenney Pirate Kit",
+    "license": "CC0",
+    "size": 36156,
+    "sha256": "ad2bd14acacd3f4901177d8b13bcc6158f558e8c1959b6e19576e17ea8b10570"
+  },
+  {
+    "file": "quaternius_ship_large.glb",
+    "source": "Quaternius Pirate Kit Nov 2023 (user-supplied)",
+    "license": "CC0 claimed by creator; redistribution attribution kept",
+    "size": 927676,
+    "sha256": "6eab283c226597fc6d1a8b4621c32c029017db181d6382c8d9f25d662349aa30"
+  },
+  {
+    "file": "quaternius_ship_small.glb",
+    "source": "Quaternius Pirate Kit Nov 2023 (user-supplied)",
+    "license": "CC0 claimed by creator; redistribution attribution kept",
+    "size": 236876,
+    "sha256": "ebcc78f97b81811976343a37652ed81a05355d22e13ce5d352dc820caa4da1a9"
+  },
+  {
+    "file": "quaternius_prop_cannon.glb",
+    "source": "Quaternius Pirate Kit Nov 2023 (user-supplied)",
+    "license": "CC0 claimed by creator; redistribution attribution kept",
+    "size": 91556,
+    "sha256": "f482e453c1be48fa2b5b30af589421abeae385457cec9380da4b52f0d3aaac71"
+  },
+  {
+    "file": "quaternius_prop_cannonball.glb",
+    "source": "Quaternius Pirate Kit Nov 2023 (user-supplied)",
+    "license": "CC0 claimed by creator; redistribution attribution kept",
+    "size": 20532,
+    "sha256": "3a115418db955fd27390f557d58a0c9b8d96b422eeb1050972ab55eb12ff93a9"
+  },
+  {
+    "file": "quaternius_prop_barrel.glb",
+    "source": "Quaternius Pirate Kit Nov 2023 (user-supplied)",
+    "license": "CC0 claimed by creator; redistribution attribution kept",
+    "size": 32936,
+    "sha256": "34749152c9ca4a9e65d95b831c9152321231916a0104f37a99fd6e0d6b11f2bb"
+  },
+  {
+    "file": "quaternius_prop_bucket.glb",
+    "source": "Quaternius Pirate Kit Nov 2023 (user-supplied)",
+    "license": "CC0 claimed by creator; redistribution attribution kept",
+    "size": 30240,
+    "sha256": "dca35d58f91c7fb6a502e00544b02830b8c90840829a69f68bab0f4a884ee9e3"
+  },
+  {
+    "file": "quaternius_prop_chest_closed.glb",
+    "source": "Quaternius Pirate Kit Nov 2023 (user-supplied)",
+    "license": "CC0 claimed by creator; redistribution attribution kept",
+    "size": 107472,
+    "sha256": "17c171093d7b8e6330512031da90b3b824dd77b9d391a9e0fa9676fd38eb02ea"
+  },
+  {
+    "file": "quaternius_prop_anchor.glb",
+    "source": "Quaternius Pirate Kit Nov 2023 (user-supplied)",
+    "license": "CC0 claimed by creator; redistribution attribution kept",
+    "size": 31248,
+    "sha256": "f6e81f90953c57ac95f54d311dc782e88fa245210ce865bc6b595cb69855eaaa"
+  },
+  {
+    "file": "quaternius_weapon_cutlass.glb",
+    "source": "Quaternius Pirate Kit Nov 2023 (user-supplied)",
+    "license": "CC0 claimed by creator; redistribution attribution kept",
+    "size": 25740,
+    "sha256": "ad3bde4e2e38c70b3ca722fe53341fe1b1fbe6c36bad29a4242d32ae961be6ed"
+  },
+  {
+    "file": "quaternius_characters_captain_barbarossa.glb",
+    "source": "Quaternius Pirate Kit Nov 2023 (user-supplied)",
+    "license": "CC0 claimed by creator; redistribution attribution kept",
+    "size": 772244,
+    "sha256": "0cd9e0b07df55caa3d9e5b4b834c4d37d46bbbc3502e1a46f991d1d3a4d6667a"
+  },
+  {
+    "file": "quaternius_characters_skeleton.glb",
+    "source": "Quaternius Pirate Kit Nov 2023 (user-supplied)",
+    "license": "CC0 claimed by creator; redistribution attribution kept",
+    "size": 979060,
+    "sha256": "00ccf9dc4aef9c76c5cfce0b8a32c9310756a5916444a70407949ea4d538b07b"
+  },
+  {
+    "file": "quaternius_characters_anne.glb",
+    "source": "Quaternius Pirate Kit Nov 2023 (user-supplied)",
+    "license": "CC0 claimed by creator; redistribution attribution kept",
+    "size": 865264,
+    "sha256": "517e41fe0a6486b3c4f09cae9c0aa380a636ab9e9f18e20942bad206fc3f3d3b"
+  }
+]

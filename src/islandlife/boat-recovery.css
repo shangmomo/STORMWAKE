@@ -1,0 +1,4 @@
+.boat-recovery{position:fixed;right:20px;bottom:328px;z-index:123;padding:12px 19px;border:2px solid #ffd57f;border-radius:15px;background:#793d2aee;color:#fff7de;font:800 15px Georgia,'Microsoft YaHei',serif;box-shadow:0 9px 25px #210d0caa;cursor:pointer;animation:recovery-warn 1.8s ease-in-out infinite}
+.boat-recovery[hidden]{display:none!important}
+@keyframes recovery-warn{50%{box-shadow:0 0 0 8px #ffc37f35,0 9px 25px #210d0caa}}
+@media(max-width:690px){.boat-recovery{right:9px;bottom:276px;font-size:12px}}

@@ -1,0 +1,132 @@
+
+> tidewater@1.0.0 test:v44
+> node test/stormwake-v44-phase2.mjs && node test/stormwake-v44-heritage-sea.mjs && node test/stormwake-v44-phase1.mjs && npm run test:v43
+
+PASS Preview heritage ship reaches 23m with 5.9m beam; legacy stays 8.2m
+PASS Model mass, waterplane and buoyancy samples share the same metric frame
+PASS A heritage helm interaction is placed over the scaled deck
+PASS Hold has usable standing height, length and beam in a 23m ship
+PASS Ladder transitions over physical time, blocks double action, and preserves position
+PASS Cargo is placed at physical local coordinates, with capacity and hatch kept clear
+PASS Legacy hull and legacy interior geometry remain available as fallback
+PASS Rigid body mass & initial buoyancy samples are finite in heritage preview
+PASS Projectile segment detects a hit at the scaled bow, not just the hull centre
+PASS Rotated ship hitbox respects yaw and rejects misses
+PASS Large-hull damage accepts impact coordinates outside 8m boat limits
+V44 phase2 geometry / cargo / ladder checks: 11 passed; no WebGPU browser QA implied
+Heritage physics 30s calm-water: {
+  x: [33m-591.4271196740492[39m,
+  z: [33m2088.8249548675626[39m,
+  y: [33m0.15149127575841304[39m,
+  speed: [33m8.658955139281204[39m,
+  peak: [33m8.658955139281204[39m,
+  minY: [33m-0.06392361375307876[39m,
+  maxY: [33m0.34926568159937244[39m,
+  maxAng: [33m0.06003837471967406[39m,
+  capsized: [33mfalse[39m,
+  mass: [33m45862.4565[39m
+}
+PASS V44 1: Port is calm and major hazards are located well offshore, not near island
+PASS V44 2: Remote spatial weather is deterministic, bounded and changes with time
+PASS V44 3: Weather has continuous boundary transitions, not sudden jumps near a storm edge
+PASS V44 4: Vortex force is physically finite, inward + rotational, damped and localized
+PASS V44 5: Ghost fleet includes ten damageable armed spectral ships with a real damage state
+PASS V44 6: Ghost ship fires a ballistic projectile when within a broadside firing arc
+PASS V44 7: Ghost LOD does not simulate a distant full combat fleet at the harbor
+PASS V44 8: Vortex visual follows the exact same moving center as vortex physical force
+PASS V44 9: Rain mesh is invisible at harbor, visible in remote storm and GPU-animated in one draw
+PASS V44 10: Ship-local chest location persists through stow, rejoin, retrieval, floor drop and stow
+PASS V44 11: Offshore vortex applies to true boat integrator, not direct coordinate edits
+PASS V44 12: Weather HUD actually resolves the V44 weather field rather than obsolete V39
+V44 phase-one checks passed: 12
+
+> tidewater@1.0.0 test:v43
+> node test/stormwake-v43-assets.mjs && node test/stormwake-v43-core.mjs && npm run test:v42
+
+PASS resident_watchman -> pirate_sailor.glb: 11 authored clips, 1 skin(s), 469 KiB
+PASS resident_herbalist -> pirate_innkeeper.glb: 11 authored clips, 1 skin(s), 469 KiB
+PASS resident_apprentice -> pirate_shipwright.glb: 12 authored clips, 1 skin(s), 630 KiB
+V43 installed CC0 sailor asset checks passed: 3
+PASS Local hull damage produces independently identifiable spatial holes
+PASS Leak depends on local submersion instead of global HP
+PASS All broadside impact zones are repairable from the physical hold corridor
+PASS Dry above-water hull wound never floods by numerical offset
+PASS Ship inventory prevents overdraw, doubles, unknown kinds and negative stock
+PASS Cannon has staged recoil, reload duration, exactly one ammo debit and empty feedback
+PASS Crew navigation route actually traverses hatch into hold
+PASS Crew is physically present while changing jobs and actually consumes a plank to repair
+PASS Crew cannot reclaim a human station or teleport through takeover
+PASS Enemy is inertia-limited rather than directly snapping toward its target
+PASS Enemy fires independent projectile events, does not directly reduce HP
+PASS Ship hatch has separate visible cover and low hold floor in ship coordinates
+PASS Hull hole visuals mirror true open/sealed states and stay ship-relative
+PASS LAN rejects malformed or hostile extra ship fields but accepts valid crew, holes and ammunition
+PASS Full V43 gameplay runtime constructs with native boat and keeps the old quest state
+V43 system checks passed: 15
+
+> tidewater@1.0.0 test:v42
+> node test/stormwake-v42-systems.mjs && npm run test:v41
+
+✓ Leak causes actual bilge water; empty bucket cannot extinguish fire
+✓ Repair requires uninterrupted 2.2 s hold and consumes one plank
+✓ Winch logical request is immediate but the chain actually takes seconds
+✓ Sail sheet angle is independent of sail area and affects physical thrust
+✓ Bucket may be filled from sea and is then visibly full until thrown
+✓ Actual procedural models for each carried object and real camera-space poses construct
+✓ A cargo chest dropped on a moving deck follows local hull pose
+✓ Network rejects malicious tool command and overpowered station trim
+✓ Voyage journal phases are sourced from actual four-step mission state
+✓ LAN server persists and reprojects deck-dropped cargo when boat sails
+STORMWAKE V42: 10 independent system checks passed (GPU rendering still requires browser QA).
+
+> tidewater@1.0.0 test:v41
+> node test/stormwake-v41-ship-reliability.mjs && node test/stormwake-v41-ws-cannons.mjs && npm run test:v40
+
+PASS auto anchor: shore -> anchored; free sail deck -> released; destination -> parking
+PASS anchor winch action latches, manual override persists after leaving station; R returns to automatic
+PASS helm A/D + W/S are independent, throttle increases and reverses without touching sails
+PASS projectile stays within broadside arc and follows elevation, correct side
+PASS station world point uses pitch and roll rather than yaw-only dead zones
+PASS server refuses unauthorized cannon visuals and invalid throttle inputs
+  sailed 164.5 m without mission; peak 3.50 m/s
+PASS production physics departs the dock without accepting a quest
+STORMWAKE V41 ship reliability: 7 checks passed; no graphical assertion implied.
+V41 WebSocket PASS: remote gun aim, host-authoritative projectile, spoofing rejected, ship throttle synchronized
+
+> tidewater@1.0.0 test:v40
+> node test/stormwake-v40-playflow.mjs && node test/stormwake-voyage-m1.mjs && node test/stormwake-voyage-m1-integrated.mjs && node test/stormwake-voyage-m1-ws.mjs
+
+PASS network input one-shots are latched and each shot is consumed once
+PASS first entire quest through actual world interactions and payout
+PASS second quest is playable and pays exactly once without resetting currency
+PASS atomic voyage/cargo save matches final state
+PASS save repair restores an interrupted treasure without duplicating reward
+PASS solo sinking can recover at harbor without resetting earned currency
+PASS actual island terrain: notice board/broker on land, dig site above tide
+PASS actual deck walking routes Shift+E to leave, plain E never abandons a station
+PASS real rigid-body sailing with AI completes both legs, no teleport
+V40 PLAYFLOW: 9 deep checks passed (not a replacement for WebGPU image QA)
+✓ 岗位互斥、释放、同人不可占两岗
+✓ AI 让岗但不能踢掉真人
+✓ 岗位输入隔离、舵轮回中、帆位保持
+✓ 舷炮装弹与冷却、一枪只触发一次
+✓ 顺风满帆推力明显强于纯辅机与逆风帆
+✓ 船体破损、进水、修复、火灾、沉船
+✓ 4s 连续挖掘、离开重置、一处只能完成一次
+✓ 宝箱搬运→船舱→兑现，只发一次奖励
+✓ 完整状态可持久化且损坏存档安全回退
+✓ AI 在无人时补 helm/sail_main/cannon_starboard，真人优先
+✓ AI 炮艇巡航接敌、开火、低血量撤退和沉船
+✓ E 交互按优先级每帧只派发一次
+✓ 坐标集中定义，藏宝与海港位置不同
+✓ 服务器禁止非法 stationId、重复 claim、越权释放
+✓ 服务器拒绝非房主船状态、非法数字与倒序 seq
+✓ 服务器 station_input 必须归属、限频并正确转发
+✓ 服务端防重复发奖：接受→4秒挖→拾取→入舱→港口兑现
+✓ 服务端挖掘必须连续长按：松开、超时均不能白嫖4秒
+✓ 单人AI航程启动时起锚，抵达登陆点自动抛锚
+✓ 跨历史模块不改 WGSL/FFT 内核
+
+M1 逻辑与网络验收：20 项通过
+V39 integrated offline M1 PASS: harbor accept → station → sail → dig → pick → stow → return/sell
+V39 real WebSocket PASS: two-player helm+sail, messages, conflict, host authority, release

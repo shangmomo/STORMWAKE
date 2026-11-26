@@ -1,0 +1,331 @@
+{
+  "ptero": {
+    "file": "ptero.glb",
+    "original": "male_pteranodon_-_natural_locomotion_rig.glb",
+    "author": "Animal Animator",
+    "source": "https://sketchfab.com/3d-models/male-pteranodon-natural-locomotion-rig-cfc9ae11a807447dbcaece3753ded59f",
+    "license": "CC Attribution (source page)",
+    "licenseURL": "https://creativecommons.org/licenses/by/4.0/",
+    "originalSHA256": "e6b4aea557186fc8241e33c23226c914d1ade2ddac6745e616016906693ce6f5",
+    "runtimeSHA256": "1f88201b6040c6c6640bf437476a61c9f65bbd513d17948bea9711ff7fc110ec",
+    "textureSizes": [
+      [
+        [
+          1024,
+          1024
+        ],
+        [
+          1024,
+          1024
+        ]
+      ],
+      [
+        [
+          1024,
+          1024
+        ],
+        [
+          1024,
+          1024
+        ]
+      ],
+      [
+        [
+          4096,
+          4096
+        ],
+        [
+          2048,
+          2048
+        ]
+      ],
+      [
+        [
+          4096,
+          4096
+        ],
+        [
+          2048,
+          2048
+        ]
+      ],
+      [
+        [
+          4096,
+          4096
+        ],
+        [
+          2048,
+          2048
+        ]
+      ]
+    ],
+    "triangles": 69542,
+    "clips": [
+      "01_Idle_Quadrupedal",
+      "02_Walk_Quadrupedal",
+      "03_Takeoff_QuadLaunch",
+      "04_Flapping_Flight",
+      "05_Soaring_Glide",
+      "06_Aerial_Bite_Attack"
+    ],
+    "changes": "Texture resize / opaque color JPEG95; wolf legacy diffuse PBR conversion; pteranodon optional specular extension removed. Geometry and animation unchanged."
+  },
+  "wolf": {
+    "file": "wolf.glb",
+    "original": "wolf_-_realistic_3d_model_demo_free.glb",
+    "author": "WildMesh 3D",
+    "source": "https://sketchfab.com/3d-models/wolf-realistic-3d-model-demo-free-8840b859a566485c874a27b1731e1db8",
+    "license": "CC Attribution (source page)",
+    "licenseURL": "https://creativecommons.org/licenses/by/4.0/",
+    "originalSHA256": "4bbe8043b30c9f1abb55eaf09313ef430c8f22a9c7d1b9e375d496e511222178",
+    "runtimeSHA256": "87b48dd17bf9f6a98240e629e3869a35da4038afb962e690778d48f37f94b56b",
+    "textureSizes": [
+      [
+        [
+          2048,
+          2048
+        ],
+        [
+          2048,
+          2048
+        ]
+      ]
+    ],
+    "triangles": 16262,
+    "clips": [
+      "Wolf|Wolf_Howl",
+      "Wolf|Wolf_WalkFast_F"
+    ],
+    "changes": "Texture resize / opaque color JPEG95; wolf legacy diffuse PBR conversion; pteranodon optional specular extension removed. Geometry and animation unchanged."
+  },
+  "ray": {
+    "file": "ray.glb",
+    "original": "stonewisp_-_mutant_stingray_-rigged_and_animated.glb",
+    "author": "HighPolyDensity",
+    "source": "https://sketchfab.com/3d-models/stonewisp-mutant-stingray-rigged-and-animated-ca27ab932b21407ba30376340f4c4444",
+    "license": "CC Attribution (source page)",
+    "licenseURL": "https://creativecommons.org/licenses/by/4.0/",
+    "originalSHA256": "18fd96be26ce4cd62c090e8ab7a4eb73ac60f5ac7bfd73514608ece77ec2e911",
+    "runtimeSHA256": "73126f7741aed981b5f45e85cf34f95faf5da0fd3d64d7c8fd9ef03a6e20ddcd",
+    "textureSizes": [
+      [
+        [
+          1024,
+          1024
+        ],
+        [
+          1024,
+          1024
+        ]
+      ],
+      [
+        [
+          1024,
+          1024
+        ],
+        [
+          1024,
+          1024
+        ]
+      ],
+      [
+        [
+          1024,
+          1024
+        ],
+        [
+          1024,
+          1024
+        ]
+      ],
+      [
+        [
+          1024,
+          1024
+        ],
+        [
+          1024,
+          1024
+        ]
+      ],
+      [
+        [
+          1024,
+          1024
+        ],
+        [
+          1024,
+          1024
+        ]
+      ],
+      [
+        [
+          1024,
+          1024
+        ],
+        [
+          1024,
+          1024
+        ]
+      ],
+      [
+        [
+          1024,
+          1024
+        ],
+        [
+          1024,
+          1024
+        ]
+      ],
+      [
+        [
+          1024,
+          1024
+        ],
+        [
+          1024,
+          1024
+        ]
+      ],
+      [
+        [
+          1024,
+          1024
+        ],
+        [
+          1024,
+          1024
+        ]
+      ],
+      [
+        [
+          1024,
+          1024
+        ],
+        [
+          1024,
+          1024
+        ]
+      ],
+      [
+        [
+          1024,
+          1024
+        ],
+        [
+          1024,
+          1024
+        ]
+      ],
+      [
+        [
+          1024,
+          1024
+        ],
+        [
+          1024,
+          1024
+        ]
+      ],
+      [
+        [
+          1024,
+          1024
+        ],
+        [
+          1024,
+          1024
+        ]
+      ],
+      [
+        [
+          1024,
+          1024
+        ],
+        [
+          1024,
+          1024
+        ]
+      ],
+      [
+        [
+          1024,
+          1024
+        ],
+        [
+          1024,
+          1024
+        ]
+      ],
+      [
+        [
+          1024,
+          1024
+        ],
+        [
+          1024,
+          1024
+        ]
+      ]
+    ],
+    "triangles": 29310,
+    "clips": [
+      "Armature|Brace_Enter",
+      "Armature|Brace_Idle",
+      "Armature|Brace_Exit",
+      "Armature|Idle",
+      "Armature|Die",
+      "Armature|Inspect",
+      "Armature|Intimidate",
+      "Armature|Swim"
+    ],
+    "changes": "Texture resize / opaque color JPEG95; wolf legacy diffuse PBR conversion; pteranodon optional specular extension removed. Geometry and animation unchanged."
+  },
+  "grotto": {
+    "file": "grotto.glb",
+    "original": "grotto_cavern_cave.glb",
+    "author": "pixol3d",
+    "source": "https://sketchfab.com/3d-models/grotto-cavern-cave-aa059550ba7543b9b5eb37d7fc19363d",
+    "license": "CC Attribution (source page)",
+    "licenseURL": "https://creativecommons.org/licenses/by/4.0/",
+    "originalSHA256": "4f22e72095a0bb621dd4d028ccb81f145e0ae65784ff37297c315af5027cb3d5",
+    "runtimeSHA256": "c541a1a2624d73e486dc487dc033bc7742d02ead17f3922810ebf3f358b5e7f6",
+    "textureSizes": [
+      [
+        [
+          4096,
+          4096
+        ],
+        [
+          2048,
+          2048
+        ]
+      ],
+      [
+        [
+          4096,
+          4096
+        ],
+        [
+          2048,
+          2048
+        ]
+      ],
+      [
+        [
+          4096,
+          4096
+        ],
+        [
+          2048,
+          2048
+        ]
+      ]
+    ],
+    "triangles": 10138,
+    "clips": [],
+    "changes": "Texture resize / opaque color JPEG95; wolf legacy diffuse PBR conversion; pteranodon optional specular extension removed. Geometry and animation unchanged."
+  }
+}

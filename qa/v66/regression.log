@@ -1,0 +1,248 @@
+
+> tidewater@1.0.0 test:v65
+> node test/stormwake-v65-elemental-ecology.mjs && node test/stormwake-v64-grips.mjs && node test/stormwake-v17.mjs && npm run test:v64
+
+PASS seven elemental kinds are reachable in normal / enraged rotations; no physical-contact routing
+PASS all new skills telegraph, release, and strike only in range; release captures original damage
+PASS NaN dt does not corrupt AI
+PASS contact release is idempotent and snapshots damage / origin; respawn clears pending
+PASS wave front is delayed and respects radius/depth
+PASS all VFX pools instantiate, produce finite matrices, and expire
+PASS habitat placement is deterministic, excludes land, and separates deep biomes
+PASS camera-streaming bounds, finite fish, terrain clearance, no land wildlife
+V65 new regression PASS: 8 cases
+V63 actual CC0 captain: 4 capstan stations, 2800 moving samples under pitch/heel, planted soles, real wrists within 5cm and fixed bone lengths PASS; max 0.00000m
+V17: PASS distinct territories, aggro, warning, actual strikes, retreat, full boss skills, damage resistance, host sync and CC0 hydra fallback
+
+> tidewater@1.0.0 test:v64
+> node test/stormwake-v64-walking.mjs && node test/stormwake-v64-ladders.mjs && node test/stormwake-v64-navigation.mjs && npm run test:v63
+
+V64 actual Dutch + full sourced cabin + real door steps + foremast: 10 uninterrupted fore round trips and walk from deck to table and back, original radius and no scripted crossing PASS
+V64 manual ladder: no proximity teleport, held S descent, release pause, held W reverse, same-world return; crew metre speed and facing under anisotropic ship scaling PASS
+V64 sailing: no cloth/no wind/no-go zero thrust, safe 70-degree tacking, no position/speed shortcuts, actual walking crew and gradual capstan/sail operation, arrival furling and manual control preservation PASS
+
+> tidewater@1.0.0 test:v63
+> node test/stormwake-v63-footprint.mjs && node test/stormwake-v63-stair-momentum.mjs && node test/stormwake-v63-cannon-mount.mjs && node test/stormwake-v63-character-forward.mjs && node test/stormwake-v63-sailor-activity.mjs && node test/stormwake-v63-sailor-grips.mjs && node test/stormwake-v63-actor-pose-ws.mjs && node test/stormwake-v63-ghost-geometry.mjs && node test/stormwake-v63-moving-surfaces.mjs && node test/stormwake-v63-skiffs.mjs && node test/stormwake-v63-load.mjs && node test/stormwake-v63-rig-ik.mjs && node test/stormwake-v63-interaction-layers.mjs && node test/stormwake-v63-arsenal.mjs && node test/stormwake-v63-trade.mjs && node test/stormwake-v63-shared-supplies.mjs && node test/stormwake-v63-deck-supplies.mjs && node test/stormwake-v63-supply-authority.mjs && node test/stormwake-v63-supply-ws.mjs && node test/stormwake-v63-repair-materials.mjs && node test/stormwake-v63-sails.mjs && node test/stormwake-v63-cartographer.mjs && node test/stormwake-v63-merchant.mjs && node test/stormwake-v63-ghost-lantern.mjs && node test/stormwake-v63-beacon.mjs && node test/stormwake-v63-deep-echo.mjs && node test/stormwake-v63-contacts.mjs && node test/stormwake-v63-events.mjs && node test/stormwake-v63-ws.mjs && npm run test:v62
+
+V63 exact capsule footprint: real tread corner missed by 8 spokes, unchanged radius/height bounds, no false support on walls or open space PASS
+aft 0.016666666666666666 20 W/S round trips preserving actual momentum and lateral displacement PASS
+fore 0.016666666666666666 20 W/S round trips preserving actual momentum and lateral displacement PASS
+aft 0.03333333333333333 20 W/S round trips preserving actual momentum and lateral displacement PASS
+fore 0.03333333333333333 20 W/S round trips preserving actual momentum and lateral displacement PASS
+aft 0.05 20 W/S round trips preserving actual momentum and lateral displacement PASS
+fore 0.05 20 W/S round trips preserving actual momentum and lateral displacement PASS
+V63 actual Kenney cannon: all source triangles/UVs retained, 160 traversed/elevated shots under scaled/pitched/heeled ship, real muzzle alignment, axial recoil and stationary carriage PASS
+V63 bundled humanoid forward basis: measured left/right shoulders, retained authored forward basis, rigid rotation only and explicit asset offset preserved PASS (12 distinct models)
+V63 sailor activity: 23 gameplay-derived locomotion, physical work, combat, damage and recovery states with real grounded/landing transitions PASS
+V63 actual CC0 captain: 4 capstan stations, 2800 moving samples under pitch/heel, planted soles, real wrists within 5cm and fixed bone lengths PASS; max 0.00000m
+V63 real WebSocket actor poses: replication, late join, valid states, stale-sequence rejection, height bounds and no position/station/ammunition authority escalation PASS
+V63 ghost geometry: all original triangles/UVs retained, opaque hull and 308 translucent cloth triangles separated, exact moving mast socket under scale/pitch/roll PASS
+V63 moving ship surfaces: exact world floor rays under full heel/pitch/scale, rigid frame conversion, real triangle projectile contact, above-hull miss and shared BVH PASS
+V63 boarding skiffs: bounded same-world approach, reach before climb, shared serialized actors and genuine sailing escape alternative PASS
+V63 cargo/flood dynamics: conserved mass, local centre of gravity, finite inertia, free-water heel, gradual buoyancy collapse, refit reset and distinct physical floating cargo PASS
+V63 real skeleton IK: scaled/rotated frames, 200 changing wrist targets, fixed translations/scales and unreachable-target clamp PASS
+V63 interaction eligibility: actual cabin layers, exclusive log carrier and targeted spyglass confirmation outranks nearby weapon rack PASS
+V63 arsenal: actual metre mounts, scaled/heeled visible muzzle equals authoritative launch, slow-speed requirement and round-trip frame conversion PASS
+V63 harbor economy: finite costs, physical supply crates, actual stow before unpack and upgrade duplicate rejection PASS
+V63 shared supply ledger: concurrent delivery/fire, delayed revisions, duplicate-free acknowledgement, finite food and host handoff PASS
+V63 shared deck supplies: stock conservation, one bucket, exclusive pickup, no duplicate drops, carried plank consumption and disconnect recovery PASS
+V63 supply authority: reachable sources, stock publication, exclusive deck pickup, host-only mechanical load acknowledgment and rejected-load reservation PASS
+V63 real WebSockets: guest finite ammunition, shared deck props, exclusive pickup, host-only load confirmation, unique bucket, late join and physical disconnect drop PASS
+V63 actual task repair materials: zero-stock rejection, one plank per sealed hole/interface, persistent partial progress and no repeated charge PASS
+V63 actual Dutch canvas: four separate cloth islands, independent main/jib reefing, fixed yard heights, finite normals and exact original restoration PASS
+V63 cartographer full action sequence, missed aim, timed flight, held reeling, underwater recovery, disconnect, save/load and duplicate settlement PASS
+V63 merchant rescue: two independently repaired holes, bucket fill/throw, actual cargo prerequisite, continuous escort and duplicate-safe delivery PASS
+V63 ghost voyage: aimed sighting, three swept projectile weakpoints, physical harpoon/reel, boarder defense, cargo prerequisite and return settlement PASS
+V63 storm beacon: actual table reach, distinct routes, underwater/tool validation, held repair, pause/persist, wick replacement and return settlement PASS
+V63 deep echo: CPU bathymetry, physical component pickup, assembly, pilot authority, input timeout, held sampling, emergency ascent, near-mother recovery, towing and duplicate-safe delivery PASS
+V63 actual triangle contact, delayed wave front, pressure hull aperture, adult posture, authoritative damage, duplicate guard and ranged/cooldown tentacle-cut rejection PASS
+V63 event warnings, ten-minute novice protection, one-giant budget, retreat/cooldown, seeded save, physical boss loot and actual fore/aft crew stair routes PASS
+V63 REAL four-client WebSockets: physical quest acceptance, cargo replication, cabin-only route, all five late-join snapshots, gated deep assembly, guest pilot authority, outsider rejection and host handoff PASS
+
+> tidewater@1.0.0 test:v62
+> node test/stormwake-v62-stairs.mjs && node test/stormwake-v62-environment.mjs && node test/stormwake-v62-land-stairs.mjs && npm run test:v61
+
+aft up {"position":{"x":0.6732769192730166,"y":2.80107457848802,"z":-9.448671649567636},"progress":2.2186716495676357,"maxDelta":0.2082147580461949}
+aft down {"position":{"x":1.2110382058606166,"y":0.8866249982640888,"z":-3.4168699892127345},"progress":2.143130010787265,"maxDelta":0.16431548901977358}
+fore up {"position":{"x":0.9403745511988179,"y":1.9301436559485328,"z":5.603091440602205},"progress":1.9830914406022053,"maxDelta":0.20963965826825476}
+fore down {"position":{"x":1.03,"y":0.8431425452232361,"z":-0.5768380840907316},"progress":2.4568380840907316,"maxDelta":0.16796340273412355}
+V62 actual Player + authored GLB + stair BVH: both flights, both directions PASS
+aft 20 uninterrupted round trips PASS
+fore 20 uninterrupted round trips PASS
+V62 anchor depth/roll/chain, fleet handoff, three storm forces and fog/lightning PASS
+V62 physical spectral loot, repeat-safe delivery/save and embedded device textures PASS
+V62 room authority: ghost/anchor validation, swimming salvage, actual hold reach, port delivery and duplicate prevention PASS
+C {
+  height: 4.3,
+  expected: 4.3,
+  localZ: -2.450000000000005,
+  end: -1.7,
+  max: 0.19002923698973379
+}
+C normal 20 uninterrupted round trips PASS
+C carry 20 uninterrupted round trips PASS
+C sprint 20 uninterrupted round trips PASS
+G {
+  height: 4.3,
+  expected: 4.3,
+  localZ: -2.3499999999999877,
+  end: -1.5999999999999999,
+  max: 0.19002923617691572
+}
+G normal 20 uninterrupted round trips PASS
+G carry 20 uninterrupted round trips PASS
+G sprint 20 uninterrupted round trips PASS
+L {
+  height: 4.3,
+  expected: 4.3,
+  localZ: -2.349999999999996,
+  end: -1.5999999999999999,
+  max: 0.19002923617691278
+}
+L normal 20 uninterrupted round trips PASS
+L carry 20 uninterrupted round trips PASS
+L sprint 20 uninterrupted round trips PASS
+V62 all three two-storey houses: actual Player stair ascent PASS
+
+> tidewater@1.0.0 test:v61
+> node test/stormwake-v61-reliability.mjs && npm run test:v60
+
+PASS V61 continuous sweep stops a six metre movement at a zero-thickness wall
+PASS V61 wall response preserves tangential motion and permits retreat
+PASS V61 two perpendicular walls stop corner tunnelling without snapping outside
+PASS V61 jumping capsule hits overhead triangles and walking floor remains support-owned
+PASS V61 BVH gives the same physical result with distant geometry and ignores degenerates
+PASS V61 original rotating door stops before sweeping into a sailor
+PASS V61 Esc reverses a ladder along the traversed path and restores the original layer
+PASS V61 unacknowledged claims time out, release, and ignore a late ACK
+PASS V61 server claim ACK grants control; rejection clears the request
+PASS V61 remote held axes stop after the heartbeat deadline
+PASS V61 aimed equipment wins over a nearby high-priority rack, with bounded traces
+PASS V61 current capstan gains 2.5x with four sailors, cancels opposing hands and stops on release
+PASS V61 capstan seats rotate with the visible shared handholds
+PASS V61 capstan mechanical limits stop the rotating grips even with a held key
+PASS V61 current room rejects a station claim from shore or through the cargo deck
+PASS V61 authoritative local reach includes heel and pitch, not only yaw
+PASS V61 guests interpolate full ship attitude; host handoff restores angular and vertical velocity
+V61 reliability: 17 behavioural checks passed. GPU acceptance is separate.
+
+> tidewater@1.0.0 test:v60
+> node test/stormwake-v60-core.mjs && node test/stormwake-v60-ws-cargo.mjs && npm run test:v58
+
+✓ V60 raised anchor clears tether state and force
+✓ V60 deep sea anchor sinks without freezing hull and shallow one takes tension
+✓ V60 high load drags anchor gradually instead of teleporting ship
+✓ V60 stern breach floods stern first; sealed breach stops inflow and bucket drains it
+✓ V60 ship rain and legacy breach cannot leave segmented bilge visually dry
+✓ V60 cargo locations use shared ship frame, deck layer and reachability
+✓ V60 server stow/retrieve is authoritative: remote, wrong layer and duplicate operations rejected
+✓ V60 disconnect releases carried chest as a real world object; another sailor can recover it
+✓ V60 legacy global-ocean hiding and anchored velocity overwrite are absent
+V60 focused physics/network tests: 9 passed
+V60 REAL WebSocket PASS: two clients, ship pose, exclusive cargo pickup, synced aft-deck stow, cross-user retrieval, duplicate guard, range rejection.
+
+> tidewater@1.0.0 test:v58
+> node test/stormwake-v58-autoqa.mjs && npm run test:v57
+
+✓ QA: valid initialized state has no logical failures
+✓ QA: gameplay NaN and invalid anchor/clock are hard failures
+✓ QA: missing peers is a failure, not a fake success
+✓ QA: dry cabin falling below hull is caught
+✓ QA: synchronized weather and cyclic 24-hour clocks
+✓ QA: image black/flat detection can never claim beauty
+✓ QA: anchor four-player mechanical travel and one-shot reset
+✓ QA: test interface is opt-in and dev-only; never forces production
+✓ QA: runner supports two real browser contexts and retains evidence
+✓ VISUAL: lamp meshes and light sources share the same sites
+✓ GAMEPLAY: rescue cannot re-accelerate, auto-weigh anchor, or force boarding
+V58 AutoQA source/logic tests: 11 PASS. Browser rendering NOT included.
+
+> tidewater@1.0.0 test:v57
+> node test/stormwake-v57-real-multiplayer.mjs && npm run test:v56
+
+✓ Server clock is deterministic at 16:12, advances by one timeline only
+✓ Pause freezes the sky but not weather evolution
+✓ Host controls validate hour, rate and sun azimuth
+✓ Client clock maintains same weather sample at a matched shared position
+✓ Network membership is NOT an avatar spawn before first actual pose
+✓ Real WebSocket forwards a measured moving captain with animation state
+✓ Second real client replicates swimmer state and 3D position
+✓ Periodic keyframes include both players for recovery from missing frames
+✓ Guests cannot mutate shared time and weather
+✓ Host time change broadcasts same paused night to other real client
+✓ Both real clients receive one weather phase and same sky clock
+✓ Real heartbeat returns server timestamp
+✓ Late-join welcome receives both active peers and live room night
+✓ Room promotes remaining sailor and retains world revision
+✓ New captain can change the synchronized world after old host exits
+✓ Peer is a live articulated pirate, not a single static mannequin
+✓ Running animates both legs and arms; pose catches up to network position
+✓ Uninitialized placeholder never appears in the scene
+✓ Disconnect removes mesh rig and disposes its geometry
+✓ Game loop consumes server sun, weather, FFT wave phase
+STORMWAKE V57 REAL MULTIPLAYER PASS: 20 focused checks
+
+> tidewater@1.0.0 test:v56
+> node test/stormwake-v56-systems.mjs && npm run test:v55
+
+✓ Spawn: physical anchor down; throttle and sails at zero
+✓ Boarding + AI target cannot override capstan-only anchoring
+✓ One hand raises anchor; second hand accelerates; W and S reverse
+✓ Deck: visible wooden steering wheel, real deck wheel post and chain route
+✓ Ship water shader cuts the entire sealed hull footprint, no outside ocean toggle
+✓ Full model anchor asset is bundled, with physically linked chain and translation
+✓ Corsair does not use the oversized teal fallback warden orb
+✓ Night lamps ship-attached and count exceeds previous four-light setup
+✓ Deep ocean wildlife follows ship; no fish spawning on land
+STORMWAKE V56 regression PASS: 9 focused cases
+
+> tidewater@1.0.0 test:v55
+> node test/stormwake-v55-upgrade.mjs && npm run test:v54
+
+✓ Any precise chart coordinate routes on unobstructed ocean
+✓ Route actually bypasses solid island and reaches free destination
+✓ Land chart click snaps to reachable open water
+✓ Four-crew shared windlass: speed scales, shaft rotates, release stops
+✓ Co-op broadcast, bounds validation, late-join target synchronization
+✓ Source integration: land spawn, berth, hold mask, boarding, boss rig, startup
+STORMWAKE V55 focused regression PASS
+
+> tidewater@1.0.0 test:v54
+> node test/stormwake-v54-systems.mjs && node test/stormwake-voyage-m1.mjs && node test/stormwake-voyage-m1-ws.mjs && node test/stormwake-v41-ws-cannons.mjs && node test/coop-v13.mjs && node test/coop-v14.mjs
+
+PASS V54 1 source hull mesh recut in new lateral passage with no overlap over capstan
+PASS V54 2 new hatch clearance, side-of-hole reachable from actual supported deck
+PASS V54 3 cargo deck -> hold -> walk -> deck, end at supported plank and never fall into hole
+PASS V54 4 quarters roof hatch is sealed; source bulkhead door remains bidirectional
+PASS V54 5 world ocean remains visible through windows and is masked in the dry hull
+PASS V54 6 capstan split from ORIGINAL GLB and animated by same multiplayer authority as anchor
+PASS V54 7 multiplayer free-moving deck avatar reports its own position, not ship centre
+PASS V54 8 two and four simultaneous windlass operators move more chain per second, stop on release
+PASS V54 real TCP WebSocket 3-player join + 3 simultaneous station claims + shared turn + chat + door sync + late join + host ship replication
+PASS V54 8 focused tests + live WebSocket networking integration. Browser/WebGPU rendering NOT covered.
+✓ 岗位互斥、释放、同人不可占两岗
+✓ AI 让岗但不能踢掉真人
+✓ 岗位输入隔离、舵轮回中、帆位保持
+✓ 舷炮装弹与冷却、一枪只触发一次
+✓ 顺风满帆推力明显强于纯辅机与逆风帆
+✓ 船体破损、进水、修复、火灾、沉船
+✓ 4s 连续挖掘、离开重置、一处只能完成一次
+✓ 宝箱搬运→船舱→兑现，只发一次奖励
+✓ 完整状态可持久化且损坏存档安全回退
+✓ AI 在无人时补 helm/sail_main/cannon_starboard，真人优先
+✓ AI 炮艇巡航接敌、开火、低血量撤退和沉船
+✓ E 交互按优先级每帧只派发一次
+✓ 坐标集中定义，藏宝与海港位置不同
+✓ 服务器禁止非法 stationId、重复 claim、越权释放
+✓ 服务器拒绝非房主船状态、非法数字与倒序 seq
+✓ 服务器 station_input 必须归属、限频并正确转发
+✓ 服务端防重复发奖：接受→4秒挖→拾取→入舱→港口兑现
+✓ 服务端挖掘必须连续长按：松开、超时均不能白嫖4秒
+✓ V56 AI不能因登船或选点自动起锚，仍可控制航路
+✓ 跨历史模块不改 WGSL/FFT 内核
+
+M1 逻辑与网络验收：20 项通过
+V39 real WebSocket PASS: two-player helm+sail, messages, conflict, host authority, release
+V41 WebSocket PASS: remote gun aim, host-authoritative projectile, spoofing rejected, ship throttle synchronized
+V13 coop: PASS four simultaneous RFC6455 players, fifth refused, position sync, chat, shared boss damage, cooldown/security, leave, HTTP status
+V14 coop: PASS remote cannon visuals via real sockets, correct ship skin, sender de-dup, cooldown, muzzle validation, server-authoritative hit feedback

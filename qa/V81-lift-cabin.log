@@ -1,0 +1,239 @@
+TAP version 13
+# Subtest: pressure hull walls, open doorway, and consoles
+not ok 1 - pressure hull walls, open doorway, and consoles
+  ---
+  duration_ms: 2.46979
+  type: 'test'
+  location: '/mnt/data/work/STORMWAKE_V81/test/stormwake-v66.mjs:14:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 3.5000000000000004
+    - 3.5
+         ^
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 3.5
+  actual: 3.5000000000000004
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///mnt/data/work/STORMWAKE_V81/test/stormwake-v66.mjs:14:115)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: walk speed and submarine-local camera follow world transform
+ok 2 - walk speed and submarine-local camera follow world transform
+  ---
+  duration_ms: 43.598904
+  type: 'test'
+  ...
+# Subtest: elemental frost_lance collision, windup and finite instance transforms
+ok 3 - elemental frost_lance collision, windup and finite instance transforms
+  ---
+  duration_ms: 2.970956
+  type: 'test'
+  ...
+# Subtest: elemental storm_lance collision, windup and finite instance transforms
+ok 4 - elemental storm_lance collision, windup and finite instance transforms
+  ---
+  duration_ms: 0.873133
+  type: 'test'
+  ...
+# Subtest: elemental cinder_fall collision, windup and finite instance transforms
+ok 5 - elemental cinder_fall collision, windup and finite instance transforms
+  ---
+  duration_ms: 1.064615
+  type: 'test'
+  ...
+# Subtest: elemental nova_beam collision, windup and finite instance transforms
+ok 6 - elemental nova_beam collision, windup and finite instance transforms
+  ---
+  duration_ms: 1.705777
+  type: 'test'
+  ...
+# Subtest: elemental voltaic_snare collision, windup and finite instance transforms
+ok 7 - elemental voltaic_snare collision, windup and finite instance transforms
+  ---
+  duration_ms: 1.12257
+  type: 'test'
+  ...
+# Subtest: elemental glacial_crown collision, windup and finite instance transforms
+ok 8 - elemental glacial_crown collision, windup and finite instance transforms
+  ---
+  duration_ms: 1.021782
+  type: 'test'
+  ...
+# Subtest: elemental flame_field collision, windup and finite instance transforms
+ok 9 - elemental flame_field collision, windup and finite instance transforms
+  ---
+  duration_ms: 1.344926
+  type: 'test'
+  ...
+# Subtest: comfort steering, independent throttle stop and repair budget
+ok 10 - comfort steering, independent throttle stop and repair budget
+  ---
+  duration_ms: 1.897939
+  type: 'test'
+  ...
+# Subtest: three weapon meshes and range/stamina distinction
+ok 11 - three weapon meshes and range/stamina distinction
+  ---
+  duration_ms: 3.352036
+  type: 'test'
+  ...
+# Subtest: six real quest state projections, complete and dynamic progress
+ok 12 - six real quest state projections, complete and dynamic progress
+  ---
+  duration_ms: 0.677546
+  type: 'test'
+  ...
+# Subtest: room validates station proximity, exclusive controls, movement, shared battle state and disconnect
+ok 13 - room validates station proximity, exclusive controls, movement, shared battle state and disconnect
+  ---
+  duration_ms: 3.144221
+  type: 'test'
+  ...
+# Subtest: surface actual force integrator, A turns port +X and D starboard -X
+ok 14 - surface actual force integrator, A turns port +X and D starboard -X
+  ---
+  duration_ms: 10.8535
+  type: 'test'
+  ...
+# Subtest: submarine A/D consistent with forward-facing camera ahead and astern
+ok 15 - submarine A/D consistent with forward-facing camera ahead and astern
+  ---
+  duration_ms: 0.770322
+  type: 'test'
+  ...
+# Subtest: side and forward viewport rays clear, adjacent steel remains solid, cabin cannot walk through openings
+ok 16 - side and forward viewport rays clear, adjacent steel remains solid, cabin cannot walk through openings
+  ---
+  duration_ms: 50.451886
+  type: 'test'
+  ...
+# Subtest: current guest driver owns input; departed, stale or wrong station input stops
+ok 17 - current guest driver owns input; departed, stale or wrong station input stops
+  ---
+  duration_ms: 0.973721
+  type: 'test'
+  ...
+# Subtest: teleport destination in detection, natural aggro and attacks without world event
+ok 18 - teleport destination in detection, natural aggro and attacks without world event
+  ---
+  duration_ms: 31.13015
+  type: 'test'
+  ...
+# Subtest: AI safe combat course and broadside real ballistic direction; no shooting dead targets
+ok 19 - AI safe combat course and broadside real ballistic direction; no shooting dead targets
+  ---
+  duration_ms: 0.965509
+  type: 'test'
+  ...
+# Subtest: AI walks to capstan, unfurls sails and fires without taking human helm
+ok 20 - AI walks to capstan, unfurls sails and fires without taking human helm
+  ---
+  duration_ms: 23.298681
+  type: 'test'
+  ...
+# Subtest: directional damage, spillover, repair budget and finite snapshots
+ok 21 - directional damage, spillover, repair budget and finite snapshots
+  ---
+  duration_ms: 1.442109
+  type: 'test'
+  ...
+# Subtest: isolated flooding, equal-volume transfer and pumping, power affects thrust
+ok 22 - isolated flooding, equal-volume transfer and pumping, power affects thrust
+  ---
+  duration_ms: 8.106263
+  type: 'test'
+  ...
+# Subtest: physical bulkhead closed both ways, reopening traversable, obstruction rejected
+not ok 23 - physical bulkhead closed both ways, reopening traversable, obstruction rejected
+  ---
+  duration_ms: 2.960861
+  type: 'test'
+  location: '/mnt/data/work/STORMWAKE_V81/test/stormwake-v80.mjs:8:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 4.499999999999999
+    - 4.5
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 4.5
+  actual: 4.499999999999999
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///mnt/data/work/STORMWAKE_V81/test/stormwake-v80.mjs:8:422)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: real AbyssRaid damage and repair invoke compartment logic
+ok 24 - real AbyssRaid damage and repair invoke compartment logic
+  ---
+  duration_ms: 0.552522
+  type: 'test'
+  ...
+# Subtest: server checks door distance and blocks walking through snapshot-closed door
+ok 25 - server checks door distance and blocks walking through snapshot-closed door
+  ---
+  duration_ms: 1.193664
+  type: 'test'
+  ...
+# Subtest: real underground annex: 20 round trips on dry route, roof, bench collision and reservoir depth
+ok 26 - real underground annex: 20 round trips on dry route, roof, bench collision and reservoir depth
+  ---
+  duration_ms: 108.555006
+  type: 'test'
+  ...
+# Subtest: actual swimmer reaches shore and returns to walk on local reservoir terrain
+ok 27 - actual swimmer reaches shore and returns to walk on local reservoir terrain
+  ---
+  duration_ms: 3.467175
+  type: 'test'
+  ...
+# Subtest: actual walking motor: lift boards, carries, exits and returns at 30/60/144 Hz
+ok 28 - actual walking motor: lift boards, carries, exits and returns at 30/60/144 Hz
+  ---
+  duration_ms: 340.341007
+  type: 'test'
+  ...
+# Subtest: actual walking motor: backup stairs ascend and descend with empty lift below
+ok 29 - actual walking motor: backup stairs ascend and descend with empty lift below
+  ---
+  duration_ms: 82.728143
+  type: 'test'
+  ...
+# Subtest: gate interlocks reject unsafe departure and block both portals during travel
+ok 30 - gate interlocks reject unsafe departure and block both portals during travel
+  ---
+  duration_ms: 28.135126
+  type: 'test'
+  ...
+# Subtest: landing call works without occupying platform, upper path stays available
+ok 31 - landing call works without occupying platform, upper path stays available
+  ---
+  duration_ms: 32.483005
+  type: 'test'
+  ...
+1..31
+# tests 31
+# suites 0
+# pass 29
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4601.664529

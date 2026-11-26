@@ -1,0 +1,244 @@
+{
+  "results": {
+    "cabin": {
+      "pass": true,
+      "inside": {
+        "player": {
+          "mode": "deck",
+          "deckLayer": "hold",
+          "position": {
+            "x": 68.897,
+            "y": -0.318,
+            "z": 28.821
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "deckPosition": {
+            "x": -0.88,
+            "y": 0.1571,
+            "z": -7.6721
+          },
+          "station": null,
+          "grounded": true,
+          "deckYaw": 3.1416,
+          "climbing": false,
+          "collision": {
+            "triangles": 49179,
+            "bvh": true
+          }
+        },
+        "contacts": [],
+        "velocity": {
+          "x": 2.0662787188538267e-17,
+          "y": 0,
+          "z": -0.12596169691952386
+        },
+        "climb": null,
+        "mast": null,
+        "trace": {
+          "playerLocal": {
+            "x": -0.88,
+            "y": 0.1571,
+            "z": -7.6721
+          },
+          "focusOwner": null,
+          "overlayActive": false,
+          "playState": "playing",
+          "frame": 69,
+          "selectedId": "captain_chart",
+          "candidates": [
+            {
+              "id": "captain_chart",
+              "distance": 1.0649072514094893,
+              "priority": 260,
+              "facing": 0.9685281106706539,
+              "aimed": true
+            },
+            {
+              "id": "cabin_door",
+              "distance": 0.9898451070383908,
+              "priority": 299,
+              "facing": -0.9994172922738378,
+              "aimed": false
+            },
+            {
+              "id": "cartographer_accept",
+              "distance": 1.380989974980428,
+              "priority": 260,
+              "facing": 0.8881035990897482,
+              "aimed": false
+            }
+          ],
+          "history": [
+            {
+              "frame": 18,
+              "selectedId": "dutch_original_door",
+              "inputConsumed": true,
+              "accepted": true,
+              "focusOwner": "voyage"
+            }
+          ]
+        }
+      },
+      "desk": {
+        "player": {
+          "mode": "deck",
+          "deckLayer": "hold",
+          "position": {
+            "x": 69.5425,
+            "y": -0.109,
+            "z": 28.2716
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "deckPosition": {
+            "x": -0.1667,
+            "y": -0.3183,
+            "z": -8.2212
+          },
+          "station": null,
+          "grounded": true,
+          "deckYaw": 3.1416,
+          "climbing": false,
+          "collision": {
+            "triangles": 49179,
+            "bvh": true
+          }
+        },
+        "contacts": [],
+        "velocity": {
+          "x": 0.0005430451996167361,
+          "y": 0,
+          "z": -0.12494013436688929
+        },
+        "climb": null,
+        "mast": null,
+        "trace": {
+          "playerLocal": {
+            "x": -0.1667,
+            "y": -0.3183,
+            "z": -8.2212
+          },
+          "focusOwner": null,
+          "overlayActive": false,
+          "playState": "playing",
+          "frame": 124,
+          "selectedId": "cartographer_accept",
+          "candidates": [
+            {
+              "id": "cartographer_accept",
+              "distance": 0.6979397070425716,
+              "priority": 260,
+              "facing": 0.9983466853112789,
+              "aimed": true
+            },
+            {
+              "id": "captain_chart",
+              "distance": 1.0818098707352732,
+              "priority": 260,
+              "facing": 0.4734915832918367,
+              "aimed": false
+            }
+          ],
+          "history": [
+            {
+              "frame": 18,
+              "selectedId": "dutch_original_door",
+              "inputConsumed": true,
+              "accepted": true,
+              "focusOwner": "voyage"
+            }
+          ]
+        }
+      },
+      "outside": {
+        "player": {
+          "mode": "deck",
+          "deckLayer": "deck",
+          "position": {
+            "x": 68.8547,
+            "y": 0.7923,
+            "z": 30.307
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "deckPosition": {
+            "x": -0.7953,
+            "y": 0.86,
+            "z": -6.2125
+          },
+          "station": null,
+          "grounded": true,
+          "deckYaw": 3.1416,
+          "climbing": false,
+          "collision": {
+            "triangles": 49179,
+            "bvh": true
+          }
+        },
+        "contacts": [],
+        "velocity": {
+          "x": -5.063853628865149e-07,
+          "y": 0,
+          "z": 0.1981348182038973
+        },
+        "climb": null,
+        "mast": null,
+        "trace": {
+          "playerLocal": {
+            "x": -0.7953,
+            "y": 0.86,
+            "z": -6.2125
+          },
+          "focusOwner": null,
+          "overlayActive": false,
+          "playState": "playing",
+          "frame": 238,
+          "selectedId": "anchor",
+          "candidates": [
+            {
+              "id": "anchor",
+              "distance": 1.7239496669817915,
+              "priority": 330,
+              "facing": -0.9205237223185752,
+              "aimed": false
+            },
+            {
+              "id": "dutch_original_door",
+              "distance": 0.45311135876755976,
+              "priority": 265,
+              "facing": 0.9010171710628733,
+              "aimed": false
+            },
+            {
+              "id": "arsenal_musket",
+              "distance": 1.4047553062550961,
+              "priority": 235,
+              "facing": -0.8141576284558066,
+              "aimed": false
+            }
+          ],
+          "history": [
+            {
+              "frame": 18,
+              "selectedId": "dutch_original_door",
+              "inputConsumed": true,
+              "accepted": true,
+              "focusOwner": "voyage"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "errors": []
+}

@@ -1,0 +1,37 @@
+{
+  "project": "STORMWAKE V44 P2",
+  "notice": "Candidate-only. No license or download status is a claim of integration.",
+  "candidates": [
+    {
+      "name": "Poly Haven Dutch Ship Medium",
+      "url": "https://polyhaven.com/a/dutch_ship_medium",
+      "license": "CC0",
+      "purpose": "heritage player ship render candidate",
+      "status": "PENDING_DOWNLOAD_AND_IMPORT",
+      "author_claim": "Poly Haven original creator credits"
+    },
+    {
+      "name": "Kenney Pirate Kit",
+      "url": "https://kenney.nl/assets/pirate-kit",
+      "license": "CC0",
+      "purpose": "shipboard tools, cannon, barrels and chest render candidates",
+      "status": "REUSE_OR_REVIEW_EXISTING"
+    },
+    {
+      "name": "Quaternius Pirate Kit",
+      "url": "https://quaternius.com/packs/piratekit.html",
+      "license": "CC0",
+      "purpose": "pirate character and world cast",
+      "status": "EXISTING_BUNDLED_ASSETS_REVIEWED_IN_V43"
+    }
+  ],
+  "currentPreview": {
+    "kind": "procedural scaled legacy hull",
+    "status": "WORKING_ENGINEERING_PREVIEW_ONLY",
+    "shipLengthApproxM": 23.37,
+    "shipWidthApproxM": 5.9
+  },
+  "verifiedChecks": "npm run test:v44 includes P2 11 geometry/storage/hit cases, P2 30s sea simulation, V44 P1 & older code regressions",
+  "browserQA": "NOT_VERIFIED",
+  "copyrightRule": "Sea of Thieves is a style reference only; do not copy proprietary assets or code"
+}

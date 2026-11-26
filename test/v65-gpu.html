@@ -1,0 +1,28 @@
+<!doctype html><meta charset="utf-8"><title>V65 native GPU smoke</title><pre id="result">running</pre><script type="module">
+import {GPU} from '../src/engine/gpu/GPU.js';
+import {RenderTarget} from '../src/engine/gpu/Texture.js';
+import {MeshRenderer} from '../src/engine/render/MeshRenderer.js';
+import {G,setFrameCamera} from '../src/engine/render/Frame.js';
+import {Scene,PerspectiveCamera,Vector3} from '../src/engine/index.js';
+import {OceanEcology} from '../src/world/marine/OceanEcology.js';
+import {ElementalEffects} from '../src/oceanhunt/ElementalEffects.js';
+import {ELEMENTAL} from '../src/oceanhunt/ElementalSkills.js';
+const errors=[];
+try {
+ await GPU.init({headless:true});
+ GPU.device.addEventListener('uncapturederror',e=>errors.push(e.error.message));
+ GPU.device.pushErrorScope('validation');
+ const scene=new Scene(),camera=new PerspectiveCamera(70,1.5,.1,600);camera.position.set(520,-12,520);camera.lookAt(500,-5,500);
+ const ecology=new OceanEcology({scene,terrain:{heightAt:(x,z)=>x<505?-28:z<505?-65:-100}});
+ ecology.update(.12,new Vector3(500,-20,500));
+ const vfx=new ElementalEffects(scene);let n=0;for(const [kind,s] of Object.entries(ELEMENTAL))vfx.release({id:kind,brain:{x:500+n++*3,z:500}},{kind,radius:s.radius});vfx.update(.6,camera.position);
+ G.time.value=1;G.cameraUnderwater.value=1;
+ const rt=new RenderTarget(240,160,{colors:['rgba16float','rgba16float','rgba8unorm'],depth:'depth32float'}),mr=new MeshRenderer();
+ GPU.beginFrame();setFrameCamera(camera,240,160);
+ const pass={camera,kind:'main',colorViews:rt.textures.map(t=>t.view()),colorFormats:rt.formats,depthView:rt.depthTexture.view(),depthFormat:'depth32float'};
+ mr.render(scene,{...pass,layerMask:1,clearColors:[[0,0,0,1],[0,0,0,0],[0,0,0,0]],clearDepth:0});
+ mr.render(scene,{...pass,layerMask:4,late:true});GPU.submit();await GPU.queue.onSubmittedWorkDone();const err=await GPU.device.popErrorScope();if(err)errors.push(err.message);
+ window.result={ok:errors.length===0&&mr.stats.draws>=11,errors,stats:mr.stats,fish:ecology.fish.count,plants:[ecology.kelp.count,ecology.sponge.count,ecology.abyss.count],adapter:GPU.adapter.info?.description||''};
+} catch(e){window.result={ok:false,error:String(e),errors};}
+document.querySelector('#result').textContent=JSON.stringify(window.result,null,2);
+</script>

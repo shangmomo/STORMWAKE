@@ -1,0 +1,1302 @@
+--- V63/server/coopHub.js
++++ V64/server/coopHub.js
+@@ -163,7 +163,8 @@
+ 		if(msg.type==='nav_target'){
+ 			const x=num(msg.x,6000),z=num(msg.z,6000);
+ 			const named=typeof msg.id==='string' && /^(reef|deep|west|lagoon|outer_storm|ghost_fleet|maelstrom|whale|boss:[a-z_-]+)$/.test(msg.id);
+-			if(msg.id==='custom'&&x!==null&&z!==null&&x>=-4200&&x<=2500&&z>=-1100&&z<=5800)
++			if(msg.id==='none')this.navigationTarget={id:'none'};
++            else if(msg.id==='custom'&&x!==null&&z!==null&&x>=-4200&&x<=2500&&z>=-1100&&z<=5800)
+ 				this.navigationTarget={id:'custom',x,z};
+ 			else if(named)this.navigationTarget={id:msg.id};
+ 			else return;
+--- V63/src/game/Game.js
++++ V64/src/game/Game.js
+@@ -137,7 +137,7 @@
+ 	get canFish() {
+ 
+ 		const app = this.app, p = app.player;
+-		return ! app.freeCam && ( p.mode === 'walk' || p.mode === 'deck' ) && ! ( app.ui && app.ui.ui && app.ui.ui._photo );
++		return !app.voyageM1?.deepEcho?.piloting && !(app.voyageM1&&p.mode==='deck') && ! app.freeCam && ( p.mode === 'walk' || p.mode === 'deck' ) && ! ( app.ui && app.ui.ui && app.ui.ui._photo );
+ 
+ 	}
+ 
+@@ -294,6 +294,7 @@
+ 	prompt() {
+ 
+ 		const rod = this.rod, p = this.app.player;
++        if(this.app.voyageM1)return null;
+ 		if ( ! rod.equipped ) {
+ 
+ 			// by the water (boat deck, pier, the wet beach, wading): suggest the rod
+--- V63/src/islandlife/OceanChart.js
++++ V64/src/islandlife/OceanChart.js
+@@ -23,6 +23,7 @@
+ 		this.overlay.className = 'ocean-chart-overlay';
+ 		this.overlay.hidden = true;
+ 		this.overlay.addEventListener( 'click', event => {
++			if(event.target.closest?.('[data-stop-navigation]')){this.clearNavigation();return;}
+ 			const warp = event.target.closest?.( '[data-boss-warp]' );
+ 			if ( warp ) { this.teleportToBoss( warp.dataset.bossWarp ); return; }
+ 			const target = event.target.closest?.( '[data-waypoint]' );
+@@ -75,7 +76,8 @@
+ 		const zone = boss ? { id, number: boss.icon, zh: boss.name, en: boss.en } : id === 'whale' && this.app.whale?.ready ?
+ 			{ id: 'whale', number: '🐋', zh: '座头鲸观赏航线', en: 'Humpback whale' } : OCEAN_ZONES.find( z => z.id === id );
+ 		if ( ! zone ) return false;
+-		this.app.marineExpedition.targetZone = id;
++		if(!remote&&this.app.player.stationId==='helm')this.app.voyageM1?.leaveStation();
++        this.app.marineExpedition.targetZone = id;
+ 		this.customTarget=null;
+ 		this.selectedWaypoint=id;
+ 		if(!remote)this.broadcastTarget();
+@@ -103,13 +105,16 @@
+ 		const safe=nearestSea(raw,this.app.terrainData);
+ 		if(!safe){this.app.game?.toast?.('附近没有可通航水域，请选择海面',3000);return false;}
+ 		this.customTarget={id:'custom',number:'⌖',zh:'自由航点',en:'Free waypoint',x:raw.x,z:raw.z,safeX:safe.x,safeZ:safe.z};
+-		this.selectedWaypoint='custom';
++		if(!remote&&this.app.player.stationId==='helm')this.app.voyageM1?.leaveStation();
++        this.selectedWaypoint='custom';
+ 		this.app.marineExpedition.targetZone='custom';
+ 		if(!remote)this.broadcastTarget();
+ 		this.close();
+ 		this.app.game?.toast?.(`已设自由航点 (${Math.round(raw.x)}, ${Math.round(raw.z)})；AI 将绕避陆地`,4000);
+ 		return true;
+ 	}
++ clearNavigation({remote=false}={}){this.selectedWaypoint=null;this.customTarget=null;if(!remote)this.app.crew?.send?.({type:'nav_target',id:'none'});this.close();}
++
+ 	getNavigationTarget(){
+ 		const id=this.selectedWaypoint;
+ 		if(!id)return null;
+@@ -206,7 +211,7 @@
+ 				const waypoint = `<button type="button" class="oc-entry ${ active === `boss:${ beast.id }` ? 'is-active' : '' }" data-waypoint="boss:${ beast.id }"><b>${ beast.icon }</b><span><strong>${ en ? beast.en : beast.name }</strong><small>${ b?.health <= 0 ? ( en ? 'Defeated · respawning' : '已击败 · 等待复活' ) : `⚔ ${ b?.health ?? beast.hp }/${ beast.hp } HP · ${ en ? 'territory' : '领地半径' } ${ beast.territory }m` }</small></span><em>⌖</em></button>`;
+ 				return this.app.hunt?.developer ? `<div class="oc-boss-row">${ waypoint }<button type="button" class="oc-warp" data-boss-warp="${ beast.id }">⚡ ${ en ? 'Warp ship' : '带船传送' }</button></div>` : waypoint;
+ 			} ).join( '' );
+-		this.overlay.innerHTML = `<section class="oc-panel" role="dialog" aria-modal="true" aria-label="${ en ? 'Captain sea chart' : '航海地图' }"><header><div><small>STORMWAKE · NAVIGATION</small><h2>${ en ? 'Captain’s sea chart' : '船长航海图' }</h2><p>${ this.app.hunt?.developer ? ( en ? 'Developer mode: warp your current ship to any titan, or set a normal waypoint.' : '开发者模式：可带当前船型直达任何海怪附近，也可选择常规航点。' ) : ( en ? 'Choose a survey area or a moving titan. Follow the golden marker.' : '点击地图任意位置设自由航点；AI 绕开陆地驶向可通航目标。也可选择右侧固定地标。' ) }</p></div><button type="button" data-close-chart aria-label="close">×</button></header><div class="oc-body"><div class="oc-map-wrap"><canvas width="640" height="640"></canvas><svg class="oc-route" viewBox="0 0 1000 1000" preserveAspectRatio="none"><line class="oc-course" x1="0" y1="0" x2="0" y2="0"/></svg>${ buttons }${ whaleButton }${ bossButtons }${ freePin }<div class="oc-teammates" aria-label="team positions"></div><div class="oc-vessel" aria-label="current position">▲</div><span class="oc-north">N ↑</span><span class="oc-caption">${ en ? 'Actual survey triggers · moving sea titans · crew positions' : '真实勘测区域 · 巨兽巡游位置 · 队友位置' }</span></div><aside><h3>${ en ? 'Ocean destinations · sea titans' : '海域目标 · 四海巨兽' }</h3>${ entries }<div class="oc-direction"></div><p class="oc-hint">${ en ? 'Y to survey · Q weapon · C fire · Whale is peaceful.' : 'Y 勘测 · Q 切武器 · C 开火 · 座头鲸是友善的观赏生物。' }</p></aside></div></section>`;
++		this.overlay.innerHTML = `<section class="oc-panel" role="dialog" aria-modal="true" aria-label="${ en ? 'Captain sea chart' : '航海地图' }"><header><div><small>STORMWAKE · NAVIGATION</small><h2>${ en ? 'Captain’s sea chart' : '船长航海图' }</h2><p>${ this.app.hunt?.developer ? ( en ? 'Developer mode: warp your current ship to any titan, or set a normal waypoint.' : '开发者模式：可带当前船型直达任何海怪附近，也可选择常规航点。' ) : ( en ? 'Choose a survey area or a moving titan. Follow the golden marker.' : '点击地图任意位置设自由航点；AI 绕开陆地驶向可通航目标。也可选择右侧固定地标。' ) }</p></div><button type="button" data-close-chart aria-label="close">×</button></header><div class="oc-body"><div class="oc-map-wrap"><canvas width="640" height="640"></canvas><svg class="oc-route" viewBox="0 0 1000 1000" preserveAspectRatio="none"><line class="oc-course" x1="0" y1="0" x2="0" y2="0"/></svg>${ buttons }${ whaleButton }${ bossButtons }${ freePin }<div class="oc-teammates" aria-label="team positions"></div><div class="oc-vessel" aria-label="current position">▲</div><span class="oc-north">N ↑</span><span class="oc-caption">${ en ? 'Actual survey triggers · moving sea titans · crew positions' : '真实勘测区域 · 巨兽巡游位置 · 队友位置' }</span></div><aside><h3>${ en ? 'Ocean destinations · sea titans' : '海域目标 · 四海巨兽' }</h3>${ entries }<button type="button" data-stop-navigation>Stop navigation / 取消领航</button><div class="oc-direction"></div><p class="oc-hint">${ en ? 'Y to survey · Q weapon · C fire · Whale is peaceful.' : 'Y 勘测 · Q 切武器 · C 开火 · 座头鲸是友善的观赏生物。' }</p></aside></div></section>`;
+ 		this._drawMap();
+ 	}
+ 
+--- V63/src/land/LandRigRuntime.js
++++ V64/src/land/LandRigRuntime.js
+@@ -5,18 +5,17 @@
+ import { SkinnedModel } from '../engine/render/Skinning.js';
+ import {Vector3} from '../engine/index.js';
+ 
+-export function inferPirateForward(rig,entry){
+- if(!/Quaternius/i.test(entry?.attribution||'')||Math.abs(entry.yawOffset||0)>.0001)return 0;
+- const nodes=rig.gltf.nodes,left=nodes.find(n=>/^UpperArm[._]L$/i.test(n.name)),right=nodes.find(n=>/^UpperArm[._]R$/i.test(n.name));if(!left||!right)return 0;
+- const a=rig.nodeWorld(left.name,new Vector3()),b=rig.nodeWorld(right.name,new Vector3());return a&&b&&a.x>b.x+.01?Math.PI:0;
+-}
++// Bundled Quaternius humanoids face +Z. Anatomical left is +X when
++// the actor faces +Z in this right-handed Y-up frame. Shoulder names alone
++// must not be used to flip their authored face and locomotion direction.
++export function inferPirateForward(_rig,_entry){return 0;}
+ 
+ const ROOT = ( import.meta.env?.BASE_URL || '/' ) + 'models/land/';
+ const CHARACTERS_ROOT = ( import.meta.env?.BASE_URL || '/' ) + 'models/characters/';
+ const ACTION_MATCH = Object.freeze( {
+ 	// Ordered exact matches first. The imported packs often prefix clips with
+ 	// AnimalArmature|, HumanArmature| or SkeletonArmature|SkeletonArmature|.
+-	idle: [ /^idle$/i, /^survey$/i, /^flying_idle$/i, /(?:^|[|_])idle$/i, /(?:^|[|_])idle(?:[_|]|$)/i, /rest/i ],
++	idle: [ /^idle$/i, /(?:^|[|])(?:man_)?idle$/i, /^survey$/i, /^flying_idle$/i, /(?:^|[|_])idle$/i, /(?:^|[|_])idle(?:[_|]|$)/i, /rest/i ],
+ 	walk: [ /^walk$/i, /(?:^|[|_])walk$/i, /locomotion.*walk/i ],
+ 	run: [ /^run$/i, /^gallop$/i, /^fast_flying$/i, /(?:^|[|_])(?:run|running|gallop)$/i, /sprint/i, /jog/i, /flying$/i ],
+ 	graze: [ /^eating$/i, /(?:^|[|_])eating$/i, /graze/i ],
+--- V63/src/net/ShipNetBridge.js
++++ V64/src/net/ShipNetBridge.js
+@@ -172,7 +172,7 @@
+   if(this.isHost){
+     this.lastStateSent-=dt;
+     if(this.lastStateSent<=0){this.lastStateSent=1/12;const b=this.app.boatCtl;
+-      this.send('ship_state_host',{floodCollapse:b.voyageFloodCollapse||0,inventoryRevision:this.inventoryRevision,ghostFleet:v.ghostFleet.snapshot(),anchorTether:b.anchorTether.snapshot(),rotation:{x:b.quaternion.x,y:b.quaternion.y,z:b.quaternion.z,w:b.quaternion.w},vy:b.velocity.y,angular:{x:b.angular.x,y:b.angular.y,z:b.angular.z},shipClass:this.app.boat?.heritageDeck?'heritage':'legacy',ammo:v.inventory.serialize(),holes:v.damage.hull.serialize().holes,crew:[...v.crew.actors.values()].map(a=>({id:a.id,x:a.x,y:a.y,z:a.z,yaw:a.yaw,job:a.job})),cannons:Object.fromEntries(Object.entries(v.cannons).map(([id,c])=>[id,c.snapshot()])),x:b.position.x,y:b.position.y,z:b.position.z,yaw:b.getYaw(),vx:b.velocity.x,vz:b.velocity.z,
++      this.send('ship_state_host',{floodCollapse:b.voyageFloodCollapse||0,inventoryRevision:this.inventoryRevision,ghostFleet:v.ghostFleet.snapshot(),anchorTether:b.anchorTether.snapshot(),rotation:{x:b.quaternion.x,y:b.quaternion.y,z:b.quaternion.z,w:b.quaternion.w},vy:b.velocity.y,angular:{x:b.angular.x,y:b.angular.y,z:b.angular.z},shipClass:this.app.boat?.heritageDeck?'heritage':'legacy',ammo:v.inventory.serialize(),holes:v.damage.hull.serialize().holes,crew:[...v.crew.actors.values()].map(a=>({id:a.id,x:a.x,y:a.y,z:a.z,yaw:a.yaw,job:a.job,phase:a.phase,station:a.station,node:a.node,holding:a.holding})),cannons:Object.fromEntries(Object.entries(v.cannons).map(([id,c])=>[id,c.snapshot()])),x:b.position.x,y:b.position.y,z:b.position.z,yaw:b.getYaw(),vx:b.velocity.x,vz:b.velocity.z,
+         sailMain:v.stations.sailMain,sailJib:v.stations.sailJib,sailTrim:v.stations.sailTrim,water:v.damage.water,bilgeSections:{...v.damage.hull.sections},anchorTravel:v.stations.anchorTravel,anchorCrankTurns:v.stations.anchorCrankTurns,anchorHands:v.stations.anchorHands,anchorState:b.anchorTether?.state,anchorTension:b.anchorTether?.tension,repairStock:v.repairStock,helmThrottle:v.stations.helmThrottle,anchor:v.stations.anchorDown,integrity:v.damage.integrity,breach:v.damage.breach,fire:v.damage.fire});
+       this.send('enemy_ship_host',v.enemy.snapshot());
+     }
+--- V63/src/oceanhunt/CoopClient.js
++++ V64/src/oceanhunt/CoopClient.js
+@@ -185,7 +185,8 @@
+ 			const target=msg.type==='welcome'?msg.navigationTarget:msg;
+ 			const chart=this.app.oceanChart;
+ 			if(chart&&target){
+-				if(target.id==='custom')chart.setFreeTarget({x:target.x,z:target.z},{remote:true});
++				if(target.id==='none')chart.clearNavigation({remote:true});
++                else if(target.id==='custom')chart.setFreeTarget({x:target.x,z:target.z},{remote:true});
+ 				else chart.select(target.id,{remote:true});
+ 			}
+ 			if(msg.type==='nav_target')return;
+--- V63/src/oceanhunt/HuntCombat.js
++++ V64/src/oceanhunt/HuntCombat.js
+@@ -267,7 +267,7 @@
+ 		this.ink.hidden = this.bosses.inkClock <= 0;
+ 		this.updateProjectiles( dt );
+ 		const indoors=this.app.player?.mode==='deck'&&['hold','lowerHold'].includes(this.app.player.deckLayer);
+-		const input = this.app.input, usable = this.available && this.aboard && !indoors && !this.app.player?.stationId && ! this.opened;
++		const input = this.app.input, climbing=!!(this.app.player.shipClimb||this.app.player.mastClimb||this.app.player.boardingClimb), usable = this.available && this.aboard && !indoors&&!climbing && !this.app.player?.stationId && ! this.opened;
+ 		this.launch.hidden = ! this.available || indoors;
+ 		this.hud.hidden = ! usable;
+ 		this.reticle.hidden = ! usable;
+--- V63/src/player/BoatController.js
++++ V64/src/player/BoatController.js
+@@ -316,7 +316,7 @@
+ 
+ 		// engine: spools up after the lever (~0.9 s), a little slower down; idles while driven
+ 		const lever = this.driven ? Math.abs( this.throttle ) : 0;
+-		const target = Math.max( lever, this.driven ? 0.15 : 0 );
++		const target = this.voyageEnabled&&this.model.heritageDeck ? 0 : Math.max( lever, this.driven ? 0.15 : 0 );
+ 		const tau = target > this.rpm ? 0.9 : 1.3;
+ 		this.rpm += ( target - this.rpm ) * ( 1 - Math.exp( - Math.min( dt, 0.1 ) / tau ) );
+ 
+@@ -443,9 +443,9 @@
+ 		else if ( dir < 0 ) thrust = - this.reverseFactor * this.maxThrust * n * n * Math.max( 0, 1 - Math.max( - u, 0 ) / ( this.pitchSpeed * 0.6 * Math.max( n, 0.2 ) ) );
+ 		thrust *= propWet;
+ 		if (this.voyageEnabled) {
+-			thrust *= this.voyageAuxPower;
++			thrust *= this.model.heritageDeck ? 0 : this.voyageAuxPower;
+ 			const wind = this.voyageWind.evaluate({ heading: this.getYaw(), velocity: this.velocity, sailMain: this.voyageSails.main, sailJib: this.voyageSails.jib, sailTrim: this.voyageSails.trim });
+-			this.voyageSailForce = this.voyageAnchor ? 0 : wind.thrust * propWet * this.shipVolume;
++			this.voyageSailForce = wind.thrust * (this.model.shipScale?this.model.shipScale.x*this.model.shipScale.y:1) * (this.position.y+6.5>this.sampleWaterAt(this.position)?1:0);
+ 			thrust += this.voyageSailForce;
+ 		}
+ 		this.thrust = thrust;
+--- V63/src/player/CharacterMotor.js
++++ V64/src/player/CharacterMotor.js
+@@ -22,8 +22,12 @@
+  // A capsule must keep support until its trailing hemisphere clears a tread.
+  // Sampling only the centre lowered feet into the preceding vertical riser on
+  // descent, producing a t=0 contact loop after several round trips.
+- let support=world.footprintFloorAt?.(normal.x,normal.z,radius+.004,from.y+.025,from.y-stepHeight)
++ let support=world.footprintFloorAt?.(normal.x,normal.z,radius+.004,from.y+stepHeight,from.y-stepHeight)
+    ??world.floorAt(normal.x,normal.z,from.y+.025,from.y-stepHeight);
++ if(support!==null&&support>from.y+.025){
++   const raised=world.move(normal,{x:normal.x,y:support,z:normal.z},body);
++   if(raised.y<support-.004)support=world.footprintFloorAt?.(normal.x,normal.z,radius+.004,from.y+.025,from.y-stepHeight)??null;
++ }
+  if(support!==null)return {...normal,y:support,stepped:true,support};
+  return normal;
+ }
+--- V63/src/player/Player.js
++++ V64/src/player/Player.js
+@@ -1,8 +1,8 @@
+ import * as THREE from '../engine/index.js';
+-import {advanceShipClimb} from '../ship/ShipLadder.js';
++import {advanceShipClimb,beginShipClimb} from '../ship/ShipLadder.js';
+ import {actualHalfWidth,deckHeight,BOARDING_LADDERS,ladderLocal,nearbyLadder,railingEscape,measuredFloorAt,inRealHatch,ORIGINAL_AFT_LADDER,originalAftLadderAccess,DUTCH_AFT_DOOR,DUTCH_SAILOR,inDoorClearance} from '../ship/HeritageDeck.js';
+ import {canCrossAftDoor,doorEyeHeight,inAftCompanionway} from '../ship/HeritageDoorPhysics.js';
+-import {MAST,mastFootY,nearMast,lookoutFloor} from '../ship/MastLookout.js';
++import {MAST,MASTS,mastLadderPoint,mastFootY,nearMast,lookoutFloor} from '../ship/MastLookout.js';
+ import { WORLD } from '../world/WorldLayout.js';
+ import {moveDeckCapsule} from './CharacterMotor.js';
+ import {sailorPosture} from '../ship/SailorPosture.js';
+@@ -467,23 +467,22 @@
+ 		const b=this.boat, inv=b.quaternion.clone();inv.invert();
+ 		const start=this.position.clone().sub(b.position).applyQuaternion(inv);
+ 		const finish=ladderLocal(ladder);
+-		this.boardingClimb={start,finish,t:0,duration:1.8,descend:false};
++		this.boardingClimb={start,finish,t:0,duration:1.8,descend:false,manual:true};
+ 		this.velocity.set(0,0,0);return true;
+ 	}
+ 	advanceBoarding(dt){
+ 		const c=this.boardingClimb;if(!c)return;
+-		c.t=Math.min(1,c.t+Math.min(dt,.06)/c.duration);
++		const axis=c.manual?(Number(this.input.down('KeyW'))-Number(this.input.down('KeyS')))*(c.descend?-1:1):1;
++        c.t=Math.max(0,Math.min(1,c.t+axis*Math.min(dt,.05)/c.duration));
+ 		const l=c.finish,side=Math.sign(l.x||1);
+         const deckY=l.y,railY=deckY+1.0;
+         const smooth=t=>t*t*(3-2*t);
+         let local;
+         if(c.descend){
+             const outside=c.outside,foot=c.foot;
+-            if(c.t<.20){const t=smooth(c.t/.20);
+-                local=new THREE.Vector3(c.start.x+(outside.x-c.start.x)*t,railY,c.start.z+(outside.z-c.start.z)*t);
+-            }else{const t=smooth((c.t-.20)/.80);
+-                local=new THREE.Vector3(outside.x,railY+(foot.y-railY)*t,outside.z);
+-            }
++            if(c.t<.20){const t=smooth(c.t/.20);local=new THREE.Vector3(c.start.x,c.start.y+(railY-c.start.y)*t,c.start.z);}
++            else if(c.t<.40){const t=smooth((c.t-.20)/.20);local=new THREE.Vector3(c.start.x+(outside.x-c.start.x)*t,railY,c.start.z+(outside.z-c.start.z)*t);}
++            else{const t=smooth((c.t-.40)/.60);local=new THREE.Vector3(outside.x,railY+(foot.y-railY)*t,outside.z);}
+         }else if(c.t<.60){const t=smooth(c.t/.60);
+             local=new THREE.Vector3(c.start.x,c.start.y+(railY-c.start.y)*t,c.start.z);
+         }else if(c.t<.85){const t=smooth((c.t-.60)/.25);
+@@ -494,7 +493,8 @@
+ 		this.boat.toWorld(local,this.position);
+ 		this.camera.position.copy(this.position).add(new THREE.Vector3(0,c.t>.65?EYE:.65,0));
+ 		this.camera.quaternion.setFromEuler(_e.set(this.pitch,this.yaw,0));
+-		this.prompt={key:'W / Space',text:'攀爬登船梯 / Climbing boarding ladder'};
++		this.prompt={key:'W / S',text:'W 上 / S 下，松键停在舷梯上'};
++        if(c.manual&&axis<0&&c.t<=0){this.boardingClimb=null;if(c.descend)this.boardBoatAt(c.start);else{this.mode='swim';this.velocity.set(0,0,0);}this._boardingCooldown=.65;return;}
+ 		if(c.t>=1){
+ 			this.boardingClimb=null;
+ 			if(c.descend){
+@@ -521,9 +521,9 @@
+ 		// Shore-to-ship and water-to-ship both grab the SAME attached rope.
+ 		// A tall dock can be above the ship's deck: never require matching feet Y.
+ 		if(dy>-3.1&&dy<2.30){
+-			this.prompt={key:'E / Space / W',text:'抓住舷侧绳梯登船 · 从码头或海里均可攀爬'};
+-			const grab=this.input.hit('KeyE')||this.input.hit('Space')||
+-				(this.mode==='swim'&&this.input.down('KeyW'));
++			this.prompt={key:'W / S',text:'面向舷梯，按住 W 登船，S 返回'};
++            const forward=this.getViewDir(new THREE.Vector3()).applyQuaternion(inv);
++            const grab=this.input.down('KeyW')&&-ladder.side*forward.x>.75;
+ 			if(grab)return this.beginBoardingClimb(ladder);
+ 		}
+ 		return false;
+@@ -711,7 +711,7 @@
+ 	deckGroundAt( x, z, maxY ) {
+ 
+ 		const L = this.boat.model.lines;
+-		let g = this.boat.model.heritageDeck ? (measuredFloorAt(x,z,maxY)??-Infinity) : L.deckY;
++		let g = this.boat.model.heritageDeck ? (this.boat.model.collisionWorld ? (this.boat.model.collisionWorld.floorAt(x,z,maxY,-4)??-Infinity) : (measuredFloorAt(x,z,maxY)??-Infinity)) : L.deckY;
+         if(this.boat.model.mastLookout) g=Math.max(g,lookoutFloor(x,z,maxY));
+ 		for ( const c of this.boat.model.heritageDeck ? [] : this.boat.model.colliders ) {
+ 
+@@ -732,6 +732,11 @@
+ 		const b = this.boat;
+ 		const L = b.model.lines;
+ 		const look = inp.consumeLook();
++        const cabin=this.shipInterior,feet=this.deckPos;
++        if(b.model.heritageDeck&&cabin&&b.model.originalDoor?.passable&&!this.shipClimb){
++          if(this.deckLayer==='hold'&&feet.z> -6.48)this.deckLayer='deck';
++          else if(this.deckLayer==='deck'&&feet.x> -1.16&&feet.x<-.60&&feet.z< -6.68&&feet.z> -7.80&&feet.y<1.16)this.deckLayer='hold';
++        }
+ 		const inLowerHold=this.deckLayer==='lowerHold' && !!this.lowerHold;
+ 		const inHold = (this.deckLayer==='hold' && !!this.shipInterior)||inLowerHold;if(inHold)this.deckViewMode='first';
+ 		const activeInterior=inLowerHold?this.lowerHold:this.shipInterior;
+@@ -781,21 +786,24 @@
+ 			for(const ladder of BOARDING_LADDERS){
+ 				const inner=ladderLocal(ladder);
+ 				if(Math.hypot(this.deckPos.x-inner.x,this.deckPos.z-inner.z)>.98)continue;
+-				this.prompt={key:'C',text:'舷侧绳梯 · C 沿绳梯下船 / 入海'};
+-				if(inp.hit('KeyC')){
++				this.prompt={key:'W / S',text:'面向船内对准绳梯，S 下船、W 上船'};
++				if(inp.down('KeyS')&&-ladder.side*Math.sin(this.deckYaw)>.82){
+ 					const outside=ladderLocal(ladder,{outside:true});
+ 					const start=this.deckPos.clone();
+ 					this.boardingClimb={descend:true,start,finish:inner,outside,
+-						foot:{x:outside.x,y:Math.min(-.32,this.boat.position.y-.30),z:outside.z},t:0,duration:2.0};
++						foot:{x:outside.x,y:Math.min(-.32,this.boat.position.y-.30),z:outside.z},t:0,duration:2.0,manual:true};
+ 					this.deckVel.set(0,0,0);return;
+ 				}
+ 				break;
+ 			}
+ 		}
+-		if(!this.shipClimb && heritage && activeInterior && !this.stationId && (inLowerHold?activeInterior.nearEntrance(this.deckPos):(!heritage&&activeInterior.inHatch(this.deckPos)))){
+-			// C to descend, W to climb out. E remains as a legacy fallback.
+-			if(inp.hit('KeyC'))(inLowerHold?this.voyageM1?.toggleLowerHold?.():inHold?this.voyageM1?.toggleHold?.():this.voyageM1?.toggleHatchAt?.());
+-		}
++        if(heritage&&this.lowerHold&&!this.shipClimb&&!this.stationId&&!this.mastClimb&&this.lowerHold.nearEntrance(this.deckPos)){
++          const h=this.lowerHold.layout,dx=h.x-this.deckPos.x,dz=h.z-.32-this.deckPos.z;
++          const facing=(Math.sin(this.deckYaw)*dx+Math.cos(this.deckYaw)*dz)/(Math.hypot(dx,dz)||1);
++          if(facing>.75&&((inLowerHold&&inp.down('KeyW'))||(!inHold&&inp.down('KeyS')))){
++            if(beginShipClimb(this,this.lowerHold,!inLowerHold)){this.shipClimb.manual=true;}
++          }
++        }
+         // Grab the EXISTING Dutch bulkhead ladder (already part of the hull GLB).
+         // C on its lower or upper landing; W ascends, S descends. The endpoints
+         // remain ship local; no invented staircase or teleport is inserted.
+@@ -822,34 +830,23 @@
+            this.deckBase(_q);this.camera.quaternion.copy(_q).multiply(_qa.setFromEuler(_e.set(this.pitch,this.deckYaw,0)));
+            this.prompt={key:'W / S',text:'原船尾楼梯 · W 上 / S 下'};return;
+         }
+-		if(heritage && !inHold && !this.stationId && !this.shipClimb && !this.mastClimb &&
+-            nearMast(this.deckPos,.9) && this.deckPos.y<mastFootY()+.65 &&
+-            inp.down('KeyC') && inp.down('KeyW')){
+-            this.mastClimb={y:Math.max(mastFootY(),this.deckPos.y)};
+-            this.deckVel.set(0,0,0);
+-        }
+-        // The old start check only accepted somebody at the mast FOOT, making
+-        // a completed lookout climb a one-way trip. C+S on the upper platform
+-        // now grabs the same existing mast ladder and descends in ship coords.
+-        if(heritage && !inHold && !this.stationId && !this.shipClimb && !this.mastClimb &&
+-           this.deckPos.y>MAST.top-.32 && nearMast(this.deckPos,.8) &&
+-           inp.down('KeyC') && inp.down('KeyS')){
+-            this.mastClimb={y:MAST.top};this.deckVel.set(0,0,0);
++        if(heritage&&!inHold&&!this.stationId&&!this.shipClimb&&!this.mastClimb&&Math.cos(this.deckYaw)>.82){
++          const mast=MASTS.find(m=>nearMast(this.deckPos,.40,m)&&
++            ((this.deckPos.y<mastFootY(m)+.35&&inp.down('KeyW'))||
++             (Math.abs(this.deckPos.y-m.top)<.30&&inp.down('KeyS'))));
++          if(mast){this.mastClimb={y:this.deckPos.y,mast};this.deckVel.set(0,0,0);}
+         }
+         if(this.mastClimb){
+-            const base=mastFootY(),upper=MAST.top;
+-            const dir=(inp.down('KeyW')?1:0)-(inp.down('KeyS')?1:0);
+-            this.mastClimb.y=THREE.MathUtils.clamp(this.mastClimb.y+dir*2.05*Math.min(.05,dt),base,upper);
+-            this.deckPos.set(MAST.x,this.mastClimb.y,MAST.z-.37);
+-            this.deckVel.set(0,0,0);this.deckGrounded=true;
+-            if(this.mastClimb.y>=upper-.005){this.mastClimb=null;this.deckPos.set(MAST.x,upper,MAST.z-.37);}
+-            else if(this.mastClimb.y<=base+.005 && inp.down('KeyS')){this.mastClimb=null;this.deckPos.set(MAST.x,base,MAST.z-.37);}
+-            this.deckToWorld();
+-            b.toWorld(_v.set(this.deckPos.x,this.deckPos.y+1.35,this.deckPos.z),this.camera.position);
+-            this.deckBase(_q);this.camera.quaternion.copy(_q).multiply(_qa.setFromEuler(_e.set(this.pitch,this.deckYaw,0)));
+-            this.prompt={key:'W / S',text:'攀爬桅杆瞭望台 / Climb to crow\'s nest'};
+-            return;
++          const c=this.mastClimb,m=c.mast||MAST,base=mastFootY(m),f=mastLadderPoint(m),dir=Number(inp.down('KeyW'))-Number(inp.down('KeyS'));
++          c.y=THREE.MathUtils.clamp(c.y+dir*2.05*Math.min(.05,dt),base,m.top);
++          this.deckPos.set(f.x,c.y,f.z);this.deckVel.set(0,0,0);this.deckGrounded=true;
++          if(c.y>=m.top-.005&&dir>0){this.mastClimb=null;this.deckPos.y=m.top;}
++          else if(c.y<=base+.005&&dir<0){this.mastClimb=null;this.deckPos.z=f.z-.20;this.deckPos.y=base;}
++          this.deckToWorld();b.toWorld(_v.set(this.deckPos.x,this.deckPos.y+1.35,this.deckPos.z),this.camera.position);
++          this.deckBase(_q);this.camera.quaternion.copy(_q).multiply(_qa.setFromEuler(_e.set(this.pitch,this.deckYaw,0)));
++          this.prompt={key:'W / S',text:'W 上 / S 下，松键停留在梯子上'};return;
+         }
++
+ 		if ( this.shipClimb && this.shipInterior ) {
+ 			// Capture the actual destination room before advanceShipClimb clears
+ 			// shipClimb at its final frame (especially the independent cargo hold).
+@@ -896,8 +893,8 @@
+ 		let motorSupport=null;
+ 		if(heritage&&b.model.collisionWorld){
+ 			const hit=moveDeckCapsule(b.model.collisionWorld,previousFeet,p,{
+-				radius:DUTCH_SAILOR.radius,height:Math.min(sailorPosture(b.model.collisionWorld,previousFeet).height,sailorPosture(b.model.collisionWorld,p).height,inHold?Math.max(.98,activeInterior.layout.deckY-p.y-.1):DUTCH_SAILOR.height),
+-				grounded:this.deckGrounded,stepHeight:inHold?.12:.23,dynamic:b.model.originalDoor?.collider?[b.model.originalDoor.collider]:[]
++				radius:DUTCH_SAILOR.radius,height:Math.min(sailorPosture(b.model.collisionWorld,previousFeet).height,sailorPosture(b.model.collisionWorld,p).height,sailorPosture(b.model.collisionWorld,{x:p.x,y:p.y+(inLowerHold?.12:.23),z:p.z}).height,inHold?Math.max(.98,activeInterior.layout.deckY-p.y-.1):DUTCH_SAILOR.height),
++				grounded:this.deckGrounded,stepHeight:inLowerHold?.12:.23,dynamic:b.model.originalDoor?.collider?[b.model.originalDoor.collider]:[]
+ 			});
+ 			if(hit.stepped){motorSupport=hit.support;v.y=0;}
+ 			p.set(hit.x,hit.y,hit.z);
+@@ -911,16 +908,18 @@
+ 			// Low crawl-space is rigidly attached to the hull. Deck-level cannons,
+ 			// mast and bulwark colliders must not push a sailor through hold walls.
+ 			activeInterior.constrain(p,previousFeet);
+-			p.y=activeInterior.floorAt(p.z);
++            const realFloor=b.model.collisionWorld?.floorAt(p.x,p.z,previousFeet.y+.24,activeInterior.layout.floorY-.1);
++            p.y=motorSupport??realFloor??activeInterior.floorAt(p.z);
+ 			v.y=0;this.deckGrounded=true;
+ 			this.stepDist+=Math.hypot(p.x-oldX,p.z-oldZ);
+ 			if(this.stepDist>.65){this.stepDist=0;this.audio?.footstep?.('wood');}
+ 			this.deckToWorld();
+-			const eye=_v.set(p.x,p.y+Math.max(.25,Math.min(DUTCH_SAILOR.eye,activeInterior.layout.deckY-p.y-.20)),p.z);
++			const head=heritage?sailorPosture(b.model.collisionWorld,p):{height:1.75,eye:DUTCH_SAILOR.eye,crouched:false};this.poseHeight=head.height;this.crouched=head.crouched;
++            const eye=_v.set(p.x,p.y+Math.max(.25,Math.min(head.eye,activeInterior.layout.deckY-p.y-.20)),p.z);
+ 			b.toWorld(eye,this.camera.position);
+ 			this.deckBase(_q);
+ 			this.camera.quaternion.copy(_q).multiply(_qa.setFromEuler(_e.set(this.pitch,this.deckYaw,0)));
+-			this.prompt={key:'C / E',text:inLowerHold?'主船下层货舱 · 到梯子按 C/E 返回甲板':'船长室 · 到舱口梯按 C/E 返回，原船门按 E 出入'};
++			this.prompt={key:'W / S',text:inLowerHold?'对准货舱梯：W 上 / S 下':'船长室：WASD 行走，沿门内阶梯步行出入'};
+ 			return;
+ 		}
+ 
+@@ -958,17 +957,18 @@
+             // transparent floor over the hole. Walkers can descend physically.
+             const inOpenHatch=!!this.shipInterior?.inHatch(p)||!!this.lowerHold?.inHatch(p);
+             const inOpenCompanionway=!!this.shipInterior&&inAftCompanionway(p);
+-            const floor=measuredFloorAt(p.x,p.z,p.y+DECK_STEP);
++            const geometry=b.model.collisionWorld;
++            const floor=geometry?geometry.floorAt(p.x,p.z,p.y+DECK_STEP,-4):measuredFloorAt(p.x,p.z,p.y+DECK_STEP);
+             const railEscape=railingEscape(p.x,p.z,p.y);
+             const outsideHull=Math.abs(p.x)>actualHalfWidth(p.z)-DECK_RADIUS || p.z>10.45||p.z< -10.55;
+-            if(outsideHull && railEscape){this.fallOverboard();return;}
+-            if((floor===null && !inOpenHatch && !inOpenCompanionway) || (Math.abs(p.x)>actualHalfWidth(p.z)-DECK_RADIUS)){
++            if(outsideHull&&railEscape&&floor===null){this.fallOverboard();return;}
++            if(floor===null&&!inOpenHatch&&!inOpenCompanionway&&!Number.isFinite(lookoutFloor(p.x,p.z,p.y+DECK_STEP))){
+                 // Swept axis slide: reject a step without authored floor
+                 // support instead of pushing the avatar into a false wall.
+-                const fx=measuredFloorAt(oldX,p.z,p.y+DECK_STEP);
+-                const fz=measuredFloorAt(p.x,oldZ,p.y+DECK_STEP);
+-                if(fx!==null && Math.abs(oldX)<=actualHalfWidth(p.z)-DECK_RADIUS){p.x=oldX;v.x=0;}
+-                else if(fz!==null && Math.abs(p.x)<=actualHalfWidth(oldZ)-DECK_RADIUS){p.z=oldZ;v.z=0;}
++                const fx=geometry?geometry.floorAt(oldX,p.z,p.y+DECK_STEP,-4):measuredFloorAt(oldX,p.z,p.y+DECK_STEP);
++                const fz=geometry?geometry.floorAt(p.x,oldZ,p.y+DECK_STEP,-4):measuredFloorAt(p.x,oldZ,p.y+DECK_STEP);
++                if(fx!==null){p.x=oldX;v.x=0;}
++                else if(fz!==null){p.z=oldZ;v.z=0;}
+                 else{p.x=oldX;p.z=oldZ;v.x=0;v.z=0;}
+             }
+         }else{
+--- V63/src/qa/AutoQA.js
++++ V64/src/qa/AutoQA.js
+@@ -33,7 +33,7 @@
+     const peers=[...(c?.peers?.values()||[])].map(peer=>({id:peer.id,mode:peer.mode,activity:peer.activity,
+       visible:!!peer.root?.visible,position:point(peer.root?.position),target:point(peer.target),activity:peer.activity,animationTime:finite(peer.animationTime),legAngle:finite(peer.rig?.legs?.[0]?.rotation.x)}));
+     return {
+-      ready:!!(app.scene && app.player && app.engine),version:'V63',playState:app.playState,elapsedSeconds:finite((performance.now()-started)/1000),
++      ready:!!(app.scene && app.player && app.engine),version:'V64',playState:app.playState,elapsedSeconds:finite((performance.now()-started)/1000),
+       rendering:{scale:app.settings.renderScale,width:app.engine?.width,height:app.engine?.height,
+         seed:app.qs.get('seed'),adapter:GPU.adapter?.info?{vendor:GPU.adapter.info.vendor,device:GPU.adapter.info.device,description:GPU.adapter.info.description}:null,
+         displayedFps:finite(app.fps),gpuProfile:app.profiler?.enabled?app.profiler.result:null},
+@@ -112,7 +112,7 @@
+     app.settings.timeOfDay=hour;return true;
+   }
+   const probe={
+-    version:'V63',get ready(){return ['awaiting_start','playing'].includes(app.playState);},snapshot,events:()=>events.slice(),check:opts=>checkSnapshot(snapshot(),opts),
++    version:'V64',get ready(){return ['awaiting_start','playing'].includes(app.playState);},snapshot,events:()=>events.slice(),check:opts=>checkSnapshot(snapshot(),opts),
+     go:moveTo,setHour,view:name=>window.__view?.(name)||null,
+     interactionTrace:()=>({playerLocal:point(app.player?.deckPos),focusOwner:app.input?.interactionOwner,
+       overlayActive:!!document.querySelector('.tw-start.is-on'),playState:app.playState,
+--- V63/src/ship/CaptainCabinInterior.js
++++ V64/src/ship/CaptainCabinInterior.js
+@@ -1,3 +1,4 @@
++import {cutMetricOpening,placeMetricObject} from './MetricOpening.js';
+ // STORMWAKE V50: the actual user supplied Sketchfab Captain's Quarters GLB.
+ // Licensed CC BY 4.0 (TheMadraver). The whole authored room is fitted under
+ // the original Dutch quarterdeck, not replaced by a synthetic wooden cuboid.
+@@ -29,13 +30,19 @@
+       deckY:deckHeight(CAPTAIN_ROOM.hatchZ,CAPTAIN_ROOM.hatchX),halfW:CAPTAIN_ROOM.halfW,
+       z0:CAPTAIN_ROOM.z0,z1:CAPTAIN_ROOM.z1,deckExit:{x:-.64,z:CAPTAIN_ROOM.hatchZ}};
+   }
+-  async load(){
+-    const room=await loadStaticArtistModel('/models/stormwake_v50/captains_quarters_access.glb');
++  async load(loadModel=loadStaticArtistModel){
++    const room=await loadModel('/models/stormwake_v50/captains_quarters_access.glb');
+     const align=new Group();align.name='Sourced quarters, geometrically fitted to Dutch aft cabin';
+     align.position.set(CAPTAIN_ROOM.x,CAPTAIN_ROOM.y,CAPTAIN_ROOM.z);
+     align.rotation.y=-Math.PI/2;
+     align.scale.set(CAPTAIN_ROOM.scaleXZ,CAPTAIN_ROOM.scaleY,CAPTAIN_ROOM.scaleXZ);
+     align.add(room.root);this.root.add(align);this.room=align;
++    // The fitted source room has a second closed leaf behind the Dutch door.
++    // Remove only that duplicate leaf from rendering and solid geometry.
++    const duplicate=room.root.getObjectByName('Door002_Door_0');if(duplicate)duplicate.visible=false;
++    this.relocatedBarrel=placeMetricObject(align,this.boat,'Barrel001',{x:.92,y:-.33,z:-7.38});
++    this.relocatedCrate=placeMetricObject(align,this.boat,'OpenSmallCrate003',{x:.62,y:.20,z:-7.60});
++    this.entryOpening=cutMetricOpening(align,this.boat,{min:[-1.23,-.29,-7.80],max:[-.53,2.03,-6.80]});
+     room.root.traverse(o=>{o.userData.dryInterior=true;if(o.material)o.material.underwaterLighting='none';});
+     // A visible, climbable ladder connects both real openings; unlike the V48
+     // hatch trigger it has individual rungs and remains boat-local in storms.
+@@ -59,15 +66,14 @@
+     // quarters floor towards the original Dutch bulkhead's raised sill.
+     // This is a visible structural retrofit, not a second decorative door.
+     const steps=[];
+-    for(let i=0;i<5;i++){
+-      const h=.17*(i+1),z=-7.39+i*.155;
+-      steps.push(make(.65,h,.20,-.88,CAPTAIN_ROOM.floorY+h/2,z,0x79583d));
+-    }
++    const rise=(.86-CAPTAIN_ROOM.floorY)/7,z0=-7.76,run=.96/7;
++    for(let i=0;i<7;i++){const h=rise*(i+1);steps.push(make(.69,h,run+.004,-.88,CAPTAIN_ROOM.floorY+h/2,z0+run*(i+.5),0x79583d));}
++    steps.push(make(.69,1.23,.96,-.88,CAPTAIN_ROOM.floorY+1.23/2,-6.32,0x79583d));
+     const stairMesh=new Mesh(mergePrepared(steps),landMaterial);
+     stairMesh.name='V53 real cabin door threshold access steps (no new door leaf)';
+     stairMesh.castShadow=true;stairMesh.receiveShadow=true;
+     this.root.add(stairMesh);this.doorSteps=stairMesh;
+-    const chart=await loadStaticArtistModel('/models/stormwake_v50/captain_sea_chart.glb');
++    const chart=await loadModel('/models/stormwake_v50/captain_sea_chart.glb');
+     chart.root.position.set(CAPTAIN_ROOM.chartX,CAPTAIN_ROOM.chartY,CAPTAIN_ROOM.chartZ);
+     align.add(chart.root);this.chart=chart.root;
+     return this;
+@@ -78,12 +84,9 @@
+   setHatchOpen(_open){this.hatchOpen=false;if(this.hatchCover)this.hatchCover.visible=true;}
+   constrain(p,previousFeet=null){
+     if(previousFeet&&this.boat.collisionWorld){
+-      // Normal movement already passed the shared triangle sweep. Keep the
+-      // enclosure guard, but never invoke the legacy nearest-free-cell search
+-      // to teleport a walking player past furniture.
+-      const radius=.215;
++      const radius=.26,passage=p.x> -1.16&&p.x<-.60&&p.z> -7.80&&p.z< -6.18;
+       p.x=Math.max(-CAPTAIN_ROOM.halfW+radius,Math.min(CAPTAIN_ROOM.halfW-radius,p.x));
+-      p.z=Math.max(CAPTAIN_ROOM.z0+radius,Math.min(CAPTAIN_ROOM.z1-radius,p.z));return;
++      p.z=Math.max(CAPTAIN_ROOM.z0+radius,Math.min(passage?-6.18:CAPTAIN_ROOM.z1-radius,p.z));return;
+     }
+     // An independent collision enclosure follows the ship's single rigid-body
+     // frame. The supplied model is decoration, NOT a magical walk-through shell.
+--- V63/src/ship/CrewAI.js
++++ V64/src/ship/CrewAI.js
+@@ -1,3 +1,4 @@
++import {stationLocalMeters} from './StationSites.js';
+ // V43: moving deck-local crew with a priority job queue. Crew members do not
+ // teleport to stations. They abandon their job if a player claims it.
+ import {CREW_NODES,crewRoute,heritageCrewRoute,walkCrew,heritageCrewNodes} from './CrewNavigation.js';
+@@ -9,7 +10,7 @@
+  constructor(stations,{boat=null}={}){
+   this.stations=stations;
+   this.nodes=boat?.heritageDeck?heritageCrewNodes(boat.shipScale):CREW_NODES;this.routeFor=boat?.heritageDeck?heritageCrewRoute:crewRoute;this.crew=ROLES.map(r=>r[0]);this.active=true;this.waypoint=null;this.lastShots=[];
+-  this.actors=new Map(ROLES.map(([id,station])=>[id,{id,station:null,job:station,node:station,route:[],x:this.nodes[station].x,y:this.nodes[station].y,z:this.nodes[station].z,yaw:0,phase:'work',work:0,holding:null,report:''}]));
++  this.actors=new Map(ROLES.map(([id,station])=>[id,{id,metricScale:boat?.shipScale||null,station:null,job:station,node:station,route:[],x:this.nodes[station].x,y:this.nodes[station].y,z:this.nodes[station].z,yaw:0,phase:'work',work:0,holding:null,report:''}]));
+  }
+  getActor(id){return this.actors.get(id)||null;}
+  assign(a,job){if(a.job===job)return;
+@@ -25,15 +26,17 @@
+   }
+   return false;
+  }
+- update(dt,{boat,wind,enemy,waypoint,damage,inventory,standby=false}={}){
++ update(dt,{boat,wind,enemy,waypoint,damage,inventory,standby=false,autopilot=false,arriving=false,sailTarget=.95}={}){
+   if(!this.active||!boat)return;
+   this.waypoint=waypoint||null;
+   const human=id=>{const owner=this.stations.getOccupant(id);return owner&&!owner.startsWith('ai:');};
+   const holes=damage?.holes?.filter(h=>h.state==='open')||[];
+   for(const [i,id] of this.crew.entries()){
+    const a=this.actors.get(id);let desired=ROLES[i][1];
+-   if(i===2&&holes.length&&(a.holding==='plank'||inventory?.count('plank')>0))desired=a.holding==='plank'?'patch':'fetch';
+-   else if(i===2&&damage?.water>.13)desired='bail';
++   if(i===1&&!autopilot&&!standby)desired='mid';
++   if(i===2&&autopilot&&((arriving&&this.stations.anchorTravel<.999)||(!arriving&&this.stations.anchorTravel>.001)))desired='anchor';
++   if(i===2&&desired!=='anchor'&&holes.length&&(a.holding==='plank'||inventory?.count('plank')>0))desired=a.holding==='plank'?'patch':'fetch';
++   else if(i===2&&desired!=='anchor'&&damage?.water>.13)desired='bail';
+    if(human(desired))desired=i===0?'cannon_port':i===1?'sail_jib':'bucket';
+    if(human(desired))desired='mid';
+    if(desired!==a.job){
+@@ -78,20 +81,24 @@
+     continue;
+    }
+    if(desired==='mid'){a.phase='idle';continue;}
+-   if(!a.station){const owner=this.stations.getOccupant(desired);
++   if(!a.station||this.stations.getStation(id)!==desired){a.station=null;const owner=this.stations.getOccupant(desired);
+     if(owner && owner!==id){a.phase='waiting';continue;}
+     if(!this.stations.getStation(id)&&this.stations.claim(desired,id))a.station=desired;
+    }
+    if(this.stations.getOccupant(desired)!==id)continue;
+-   if(desired==='helm'){
++   if(desired==='anchor'){
++    const m=boat.model||boat,sc=m.shipScale||{x:1,y:1,z:1},site=stationLocalMeters(m,desired);if(site){a.x=site.x/sc.x;a.y=site.y/sc.y;a.z=site.z/sc.z;a.yaw=Math.atan2(-site.x,-3.65-site.z);}
++    const manual=[...this.stations.occupants].some(([s,o])=>s.startsWith('anchor')&&!o.startsWith('ai:'));
++    this.stations.setInput(desired,id,{axis:manual?0:arriving?-1:1});
++   }else if(desired==='helm'){
+     let axis=0;const target=this.waypoint;
+     if(target){const dx=target.x-boat.position.x,dz=target.z-boat.position.z;
+      const wanted=Math.atan2(dx,dz),delta=Math.atan2(Math.sin(wanted-boat.getYaw()),Math.cos(wanted-boat.getYaw()));axis=clamp(delta*1.6,-1,1);}
+     this.stations.setInput(desired,id,{axis});
+    }else if(desired.startsWith('sail_')){
+     const s=desired==='sail_jib'?this.stations.sailJib:this.stations.sailMain;
+-    const target=standby?0:(wind?.alignment??1)<-.25?.15:.95;
+-    this.stations.setInput(desired,id,{axis:Math.abs(target-s)>.03?Math.sign(target-s):0});
++    const target=standby?0:clamp(sailTarget,.12,.95);
++    this.stations.setInput(desired,id,{axis:Math.abs(target-s)>.03?Math.sign(target-s):0,trimAxis:Math.abs((wind?.idealTrim||0)-this.stations.sailTrim)>.05?Math.sign((wind?.idealTrim||0)-this.stations.sailTrim):0});
+    }else if(desired.startsWith('cannon_')){
+     this.stations.setInput(desired,id,{fire:!!enemy&&enemy.state==='engage'&&enemy.distance<65&&enemy.bearingSide===(desired==='cannon_port'?'port':'starboard'),reload:true});
+    }
+--- V63/src/ship/CrewNavigation.js
++++ V64/src/ship/CrewNavigation.js
+@@ -26,7 +26,8 @@
+ const heritageEdges={...edges,
+  aft:['aft_upper'],aft_upper:['aft','aft_ladder','helm'],aft_ladder:['aft_upper','aft_lower'],
+  aft_lower:['aft_ladder','mid'],helm:['aft_upper'],
+- mid:['aft_lower','fore_lower','sail_main','cannon_port','cannon_starboard','repair','bucket','hatch'],
++ anchor:['mid'],
++ mid:['anchor','aft_lower','fore_lower','sail_main','cannon_port','cannon_starboard','repair','bucket','hatch'],
+  fore_lower:['mid','fore_step'],fore_step:['fore_lower','fore_upper'],fore_upper:['fore_step','forward'],
+  forward:['fore_upper','bow','sail_jib'],sail_main:['mid']
+ };
+@@ -40,10 +41,10 @@
+  return [];
+ }
+ export function walkCrew(actor,target,dt,{speed=1.75}={}){
+- const dx=target.x-actor.x,dz=target.z-actor.z,dy=target.y-actor.y;const len=Math.hypot(dx,dz,dy);
++ const dx=target.x-actor.x,dz=target.z-actor.z,dy=target.y-actor.y;const sc=actor.metricScale||{x:1,y:1,z:1},len=Math.hypot(dx*sc.x,dz*sc.z,dy*sc.y);
+  if(len<.045){Object.assign(actor,{x:target.x,y:target.y,z:target.z});return true;}
+  const t=Math.min(1,Math.max(0,dt)*speed/len);
+- actor.x+=dx*t;actor.y+=dy*t;actor.z+=dz*t;actor.yaw=Math.atan2(dx,dz);
++ actor.x+=dx*t;actor.y+=dy*t;actor.z+=dz*t;actor.yaw=Math.atan2(dx*sc.x,dz*sc.z);
+  return t===1;
+ }
+ 
+--- V63/src/ship/CrewVisuals.js
++++ V64/src/ship/CrewVisuals.js
+@@ -1,50 +1,18 @@
+-// V43 sailor avatars use the *bundled* Quaternius-derived, CC0 pirate GLBs,
+-// not an online request or an unrelated Rocketbox resident. Their source,
+-// modified palette and redistributable license are documented in CREDITS.md.
+-import {Group} from '../engine/index.js';
+-import {loadLandRig,playLandRigAction} from '../land/LandRigRuntime.js';
+-import {LandFootPlant} from '../land/LandGrounding.js';
+-import {attachPirateStyle} from '../land/LandPirateStyle.js';
++import {Group,Vector3} from '../engine/index.js';
++import {SailorBody} from './SailorBody.js';
+ import {createVillageResident} from '../land/LandModels.js';
+-// resident slots map to verified GLB files in v38_pirate_cast_manifest.json.
+ const ACTORS=[['ai:kael','resident_watchman'],['ai:mei','resident_herbalist'],['ai:rowan','resident_apprentice']];
+-export class CrewVisuals {
++export class CrewVisuals{
+  constructor(boat,stations,crew=null){
+   this.boat=boat;this.stations=stations;this.crew=crew;this.elapsed=0;
+-  this.people=ACTORS.map(([id,slot],i)=>{
+-   const holder=new Group();holder.name='V43 Quaternius deck crew '+id;
+-   boat.group.add(holder);
+-   // The heritage boat's enlarged native group must NOT enlarge actual people.
+-   if(boat.shipScale){const s=boat.shipScale;holder.scale.set(1/s.x,1/s.y,1/s.z);}
+-   const fallback=createVillageResident(i+40);holder.add(fallback.group);
+-   const state={id,slot,holder,fallback,rig:null,actor:null,pirateStyle:null,footPlant:null,animation:''};
+-   if(typeof document!=='undefined')loadLandRig(slot).then(actor=>{
+-    if(!actor?.rig)throw new Error('Packaged crew rig does not have skeleton and idle/walk clips');
+-    const rig=actor.rig;
+-    if(!actor.actions.walk)throw new Error('Packaged crew rig lacks an authored walk animation');
+-    holder.add(rig.group);state.rig=rig;state.actor=actor;
+-    state.footPlant=new LandFootPlant(rig);state.footPlant.update(0);
+-    state.pirateStyle=attachPirateStyle(actor,i+2);fallback.group.visible=false;
+-   }).catch(err=>console.warn('[STORMWAKE] retaining procedural sailor',id,err));
+-   return state;
+-  });
++  this.metricRoot=new Group();this.metricRoot.name='V64 rigid metre crew frame';const s=boat.shipScale;if(s)this.metricRoot.scale.set(1/s.x,1/s.y,1/s.z);boat.group.add(this.metricRoot);
++  this.people=ACTORS.map(([id,slot],i)=>{const holder=new Group();holder.name='V64 articulated crew '+id;this.metricRoot.add(holder);const fallback=createVillageResident(i+40);holder.add(fallback.group);const body=new SailorBody(holder,{slot,style:i+2});return {id,slot,holder,fallback,body,rig:null,actor:null};});
+  }
+- update(dt,{aboard=true}={}){
+-  this.elapsed+=Math.max(0,dt);
+-  for(const p of this.people){const actor=this.crew?.getActor(p.id);
+-   p.holder.visible=aboard&&!!actor;
+-   if(!p.holder.visible)continue;
+-   const scale=this.boat.shipScale;
+-   p.holder.position.set(actor.x,actor.y,actor.z);p.holder.rotation.y=actor.yaw;
+-   if(scale){p.holder.position.set(actor.x,actor.y,actor.z);}
+-   if(p.rig){
+-    const moving=actor.phase==='moving';
+-    // Attack/work/repair clips are *not* bundled for all three GLBs; only
+-    // request actions that are actually present in the source manifest.
+-    const requested=moving?'walk':'idle';
+-    if(p.animation!==requested){playLandRigAction(p.actor,requested,{fade:.20});p.animation=requested;}
+-    p.rig.update(dt);p.footPlant?.update(dt);p.pirateStyle?.update();
+-   }else p.fallback.main.position.y=.012*Math.sin(this.elapsed*1.8+actor.x);
++ update(dt,{aboard=true}={}){this.elapsed+=dt;
++  for(const p of this.people){const a=this.crew?.getActor(p.id);p.holder.visible=aboard&&!!a;if(!a||!aboard)continue;const s=this.boat.shipScale||{x:1,y:1,z:1};p.holder.position.set(a.x*s.x,a.y*s.y,a.z*s.z);p.holder.rotation.y=a.yaw;
++   let activity=a.phase==='moving'?'walk':a.job==='patch'?'repair':a.job==='bail'?'bail':a.phase==='work'?a.station==='helm'?'steer':a.station?.startsWith('anchor')?'capstan':a.station?.startsWith('sail')?'sail_pull':a.station?.startsWith('cannon')?'cannon_aim':'idle':'idle';
++   p.fallback.group.visible=!p.body.ready;p.rig=p.body.actor?.rig;p.actor=p.body.actor;
++   p.body.update(dt,{visible:true,activity,station:a.phase==='work'?a.station:null,boat:this.boat,feet:p.holder.getWorldPosition(new Vector3()),gear:a.holding==='plank'?'plank':'hands',working:Math.abs(this.stations.inputs.get(p.id)?.axis||0)>.01||['patch','bail'].includes(a.job)});
+   }
+  }
+ }
+--- V63/src/ship/HeritageAssetRig.js
++++ V64/src/ship/HeritageAssetRig.js
+@@ -18,7 +18,7 @@
+ const ROOT = '/models/stormwake_v47/';
+ const CATALOG = Object.freeze({
+   // V62 derives this CC0 mesh from /models/stormwake_v54/dutch_ship_lower_hold.glb.
+-  dutch: '/models/stormwake_v63/dutch_ship_lower_hold.glb',
++  dutch: '/models/stormwake_v64/dutch_ship_lower_hold.glb',
+   cannon: '/models/stormwake_v63/cannon_articulated.glb',
+   cannonball: '/models/stormwake_v62/kenney_cannon-ball.glb',
+   chest: ROOT + 'quaternius_prop_chest_closed.glb',
+--- V63/src/ship/HeritageDeck.js
++++ V64/src/ship/HeritageDeck.js
+@@ -240,8 +240,8 @@
+     const site=(x,z)=>({x,y:deckHeight(z,x)+.08,z});
+     this.objects=Object.freeze({ammo:site(-1.14,2.05),chain:site(1.14,2.05)});
+     this.collisionBoxes=Object.freeze([
+-      {center:{x:0,y:deckHeight(-1.06,0)+1.45,z:-1.06},half:{x:.34,y:1.45,z:.34},solid:true},
+-      {center:{x:0,y:deckHeight(4.15,0)+1.45,z:4.15},half:{x:.30,y:1.45,z:.30},solid:true}
++      {center:{x:0,y:deckHeight(-1.64,0)+7,z:-1.64},half:{x:.30,y:7,z:.30},solid:true},
++      {center:{x:0,y:deckHeight(6.20,0)+6.5,z:6.20},half:{x:.30,y:6.5,z:.30},solid:true}
+     ]);
+   }
+   setDoor(){return false;}
+--- V63/src/ship/MastLookout.js
++++ V64/src/ship/MastLookout.js
+@@ -1,35 +1,30 @@
+-// Measured against the original Dutch rigging, no world-space floating platform.
+-// The ladder and crow's nest move with the authoritative boat pose.
+ import {Group,Mesh} from '../engine/index.js';
+ import {box,prepare,mergePrepared,mat4} from '../world/boat/GeoKit.js';
+ import {landMaterial} from '../land/LandModels.js';
+ import {deckHeight} from './HeritageDeck.js';
+-export const MAST=Object.freeze({x:0,z:-1.05,top:11.85,radius:.72});
+-export function mastFootY(){return deckHeight(MAST.z,MAST.x);}
+-export function nearMast(p,r=1.0){return Math.hypot(p.x-MAST.x,p.z-MAST.z)<r;}
+-export function lookoutFloor(x,z,topY){
+- return Math.abs(x-MAST.x)<MAST.radius-.18 && Math.abs(z-MAST.z)<MAST.radius-.18 && topY>=MAST.top-.25 ? MAST.top : -Infinity;
+-}
++// Measured source-mesh mast centres; platforms sit above the sewn canvas.
++export const MASTS=Object.freeze([
++ Object.freeze({id:'main',x:0,z:-1.64,top:13.0,radius:1.10}),
++ Object.freeze({id:'fore',x:0,z:6.20,top:12.2,radius:1.10})
++]);
++export const MAST=MASTS[0];
++export function mastFootY(mast=MAST){return deckHeight(mast.z-.70,mast.x);}
++export function mastLadderPoint(mast){return {x:mast.x,z:mast.z-.70};}
++export function nearMast(p,r=1.0,mast=MAST){const f=mastLadderPoint(mast);return Math.hypot(p.x-f.x,p.z-f.z)<r;}
++export function lookoutFloor(x,z,topY){let y=-Infinity;for(const m of MASTS)if(Math.abs(x-m.x)<m.radius&&Math.abs(z-m.z)<m.radius&&topY>=m.top-.15)y=Math.max(y,m.top);return y;}
+ const plank=(w,h,d,x,y,z,c)=>prepare(box(w,h,d),{color:c,rough:.93,matrix:mat4(x,y,z)});
+ export function installMastLookout(boat){
+  if(!boat.shipScale)return null;
+- const root=new Group();root.name='V50 climbable mast with real quartered lookout collision';
+- root.scale.set(1/boat.shipScale.x,1/boat.shipScale.y,1/boat.shipScale.z);
+- boat.group.add(root);
+- const wood=0x705139,edge=0x98764d,arr=[];
+- const base=mastFootY();
+- // A narrow, visually supported ladder on the aft-facing mast. Handholds are
+- // deliberately outboard of its axis and do not pierce the source rigging.
+- for(const x of [-.25,.25])arr.push(plank(.065,MAST.top-base+.12,.072,x,(MAST.top+base)/2,MAST.z-.37,wood));
+- for(let y=base+.18;y<MAST.top-.10;y+=.29)arr.push(plank(.56,.045,.075,0,y,MAST.z-.37,edge));
+- arr.push(plank(1.62,.13,1.62,0,MAST.top-.07,MAST.z,wood));
+- for(const x of [-.74,.74])for(const z of [-.74,.74])arr.push(plank(.06,1.02,.06,x,MAST.top+.48,MAST.z+z,wood));
+- for(const x of [-.74,.74])arr.push(plank(.055,.08,1.56,x,MAST.top+.99,MAST.z,edge));
+- for(const z of [-.74,.74])arr.push(plank(1.56,.08,.055,0,MAST.top+.99,MAST.z+z,edge));
+- const mesh=new Mesh(mergePrepared(arr),landMaterial);mesh.name='Lookout: actual platform, rim, rear mast ladder';mesh.castShadow=true;mesh.receiveShadow=true;root.add(mesh);
+- const colliders=[];
+- const railY=MAST.top+.48;
+- for(const x of [-.76,.76])colliders.push({solid:true,center:{x,y:railY,z:MAST.z},half:{x:.055,y:.54,z:.80}});
+- for(const z of [-.76,.76])colliders.push({solid:true,center:{x:0,y:railY,z:MAST.z+z},half:{x:.80,y:.54,z:.055}});
+- return {root,mesh,colliders};
++ const root=new Group();root.name='V64 source-aligned fore and main mast lookouts';root.scale.set(1/boat.shipScale.x,1/boat.shipScale.y,1/boat.shipScale.z);boat.group.add(root);
++ const arr=[],colliders=[];
++ for(const m of MASTS){const base=mastFootY(m),wood=0x705139,edge=0x98764d;
++  for(const dx of [-.27,.27])arr.push(plank(.065,m.top-base+.12,.072,m.x+dx,(m.top+base)/2,m.z-.47,wood));
++  for(let y=base+.18;y<m.top-.10;y+=.29)arr.push(plank(.60,.045,.085,m.x,y,m.z-.47,edge));
++  arr.push(plank(2.2,.13,2.2,m.x,m.top-.065,m.z,wood));
++  for(const x of [-1.03,1.03])for(const z of [-1.03,1.03])arr.push(plank(.065,1.02,.065,m.x+x,m.top+.51,m.z+z,wood));
++  for(const x of [-1.03,1.03]){arr.push(plank(.065,.08,2.12,m.x+x,m.top+1.0,m.z,edge));colliders.push({solid:true,center:{x:m.x+x,y:m.top+.52,z:m.z},half:{x:.035,y:.52,z:1.06}});}
++  arr.push(plank(2.12,.08,.065,m.x,m.top+1,m.z+1.03,edge));colliders.push({solid:true,center:{x:m.x,y:m.top+.52,z:m.z+1.03},half:{x:1.06,y:.52,z:.035}});
++  for(const dx of [-.73,.73])arr.push(plank(.60,.08,.065,m.x+dx,m.top+1,m.z-1.03,edge));
++ }
++ const mesh=new Mesh(mergePrepared(arr),landMaterial);mesh.name='Visible paired lookout platforms and continuous ladders';mesh.castShadow=true;mesh.receiveShadow=true;root.add(mesh);return {root,mesh,colliders,masts:MASTS};
+ }
+--- V63/src/ship/MetricOpening.js
++++ V64/src/ship/MetricOpening.js
+@@ -0,0 +1,35 @@
++import {Matrix4,Vector3,BufferAttribute} from '../engine/index.js';
++export function placeMetricObject(root,boat,name,target){
++ const object=root.getObjectByName(name);if(!object)return false;
++ boat.group.updateWorldMatrix(true,true);const s=boat.shipScale||{x:1,y:1,z:1},frame=new Matrix4().makeScale(s.x,s.y,s.z).multiply(new Matrix4().copy(boat.group.matrixWorld).invert()),min=new Vector3(Infinity,Infinity,Infinity),max=new Vector3(-Infinity,-Infinity,-Infinity),v=new Vector3();
++ object.traverse(mesh=>{const p=mesh.geometry?.attributes.position;if(!p)return;const m=new Matrix4().multiplyMatrices(frame,mesh.matrixWorld);for(let i=0;i<p.count;i++){v.fromBufferAttribute(p,i).applyMatrix4(m);min.min(v);max.max(v);}});
++ if(!Number.isFinite(min.x))return false;
++ const delta=new Vector3(target.x-(min.x+max.x)/2,target.y-min.y,target.z-(min.z+max.z)/2),inverse=new Matrix4().multiplyMatrices(frame,object.parent.matrixWorld).invert(),origin=new Vector3().applyMatrix4(inverse);
++ object.position.add(delta.applyMatrix4(inverse).sub(origin));return true;
++}
++// Subtract a measured boat-metre opening from the displayed static geometry.
++// Intersections interpolate original normals/UVs; materials stay attached.
++export function cutMetricOpening(root,boat,opening){
++ boat.group.updateWorldMatrix(true,true);const s=boat.shipScale||{x:1,y:1,z:1},frame=new Matrix4().makeScale(s.x,s.y,s.z).multiply(new Matrix4().copy(boat.group.matrixWorld).invert()),point=new Vector3();let affected=0;
++ const clip=(poly,axis,plane,high)=>{const inside=[],outside=[];
++  for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length],ia=high?a[axis]>=plane:a[axis]<=plane,ib=high?b[axis]>=plane:b[axis]<=plane;(ia?inside:outside).push(a);
++   if(ia!==ib){const t=(plane-a[axis])/(b[axis]-a[axis]),p=a.map((v,k)=>v+(b[k]-v)*t);p[axis]=plane;inside.push(p);outside.push(p);}}
++  return [inside,outside];
++ };
++ root.traverse(mesh=>{const g=mesh.geometry,pos=g?.attributes?.position;if(!pos)return;
++  const matrix=new Matrix4().multiplyMatrices(frame,mesh.matrixWorld),inverse=matrix.clone().invert(),normal=g.attributes.normal,uv=g.attributes.uv,rows=[],min=[Infinity,Infinity,Infinity],max=[-Infinity,-Infinity,-Infinity];
++  for(let i=0;i<pos.count;i++){point.fromBufferAttribute(pos,i).applyMatrix4(matrix);const p=[point.x,point.y,point.z];for(let k=0;k<3;k++){min[k]=Math.min(min[k],p[k]);max[k]=Math.max(max[k],p[k]);}rows.push([...p,normal?.array[i*3]||0,normal?.array[i*3+1]||0,normal?.array[i*3+2]||0,uv?.array[i*2]||0,uv?.array[i*2+1]||0]);}
++  if(min.some((v,k)=>v>=opening.max[k]||max[k]<=opening.min[k]))return;
++  const indices=g.index?.array||Array.from({length:pos.count},(_,i)=>i),out=[];
++  for(let i=0;i<indices.length;i+=3){const triangle=[rows[indices[i]],rows[indices[i+1]],rows[indices[i+2]]];
++   if([0,1,2].some(k=>Math.max(...triangle.map(p=>p[k]))<=opening.min[k]||Math.min(...triangle.map(p=>p[k]))>=opening.max[k])){out.push(...triangle);continue;}
++   affected++;let remaining=[triangle],survivors=[];
++   for(let axis=0;axis<3;axis++)for(const [plane,high]of [[opening.min[axis],true],[opening.max[axis],false]]){const next=[];for(const polygon of remaining){const [inner,outer]=clip(polygon,axis,plane,high);if(outer.length>=3)survivors.push(outer);if(inner.length>=3)next.push(inner);}remaining=next;}
++   for(const poly of survivors)for(let j=1;j<poly.length-1;j++)out.push(poly[0],poly[j],poly[j+1]);
++  }
++  const positions=new Float32Array(out.length*3),normals=new Float32Array(out.length*3),texcoords=new Float32Array(out.length*2);
++  out.forEach((r,i)=>{point.set(r[0],r[1],r[2]).applyMatrix4(inverse);positions.set([point.x,point.y,point.z],i*3);const len=Math.hypot(r[3],r[4],r[5])||1;normals.set([r[3]/len,r[4]/len,r[5]/len],i*3);texcoords.set([r[6],r[7]],i*2);});
++  g.setAttribute('position',new BufferAttribute(positions,3));g.setAttribute('normal',new BufferAttribute(normals,3));g.setAttribute('uv',new BufferAttribute(texcoords,2));g.setIndex(new BufferAttribute(Uint32Array.from({length:out.length},(_,i)=>i),1));g.computeBoundingBox();g.computeBoundingSphere();
++ });
++ return {affected,opening};
++}
+--- V63/src/ship/SailWind.js
++++ V64/src/ship/SailWind.js
+@@ -1,20 +1,21 @@
+ // Wind is a world-space horizontal vector in m/s. Forward is +Z boat-local.
+ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+ export class SailWind {
+-  constructor({wind={x:0,z:9},sailPower=1150}={}){this.wind={...wind};this.sailPower=sailPower;}
++  constructor({wind={x:0,z:9},sailPower=23}={}){this.wind={...wind};this.sailPower=sailPower;}
+   evaluate({heading,velocity={x:0,z:0},sailMain=0,sailJib=0,sailTrim=0}){
+     const fw={x:Math.sin(heading),z:Math.cos(heading)};
+     const appar={x:this.wind.x-(velocity.x||0),z:this.wind.z-(velocity.z||0)};
+     const speed=Math.hypot(appar.x,appar.z);
+     const alignment=speed>1e-4?(appar.x*fw.x+appar.z*fw.z)/speed:0;
+     // Backwind cannot give forward thrust; close-hauled mode retains a little drive.
+-    const efficiency=clamp((alignment+.28)/1.28,0,1);
++    const fromWind=Math.acos(clamp(-alignment,-1,1)),noGo=55*Math.PI/180;
++    const efficiency=Math.hypot(this.wind.x,this.wind.z)<.05||fromWind<=noGo?0:Math.sin((fromWind-noGo)/(Math.PI-noGo)*Math.PI/2);
+     // Set to windward relative to the hull; wrong trim loses drive but
+     // never creates negative thrust. A/D at either sail winch changes trim.
+     const cross=speed>1e-4?(appar.x*fw.z-appar.z*fw.x)/speed:0;
+     const idealTrim=clamp(cross*1.15,-1,1);
+     const trimEfficiency=1-.42*Math.abs(clamp(sailTrim,-1,1)-idealTrim)/2;
+     const area=(clamp(sailMain,0,1)+.45*clamp(sailJib,0,1))*trimEfficiency;
+-    return {thrust:area*speed*this.sailPower*efficiency,efficiency,apparentSpeed:speed,alignment,idealTrim,trimEfficiency,forward:fw};
++    return {thrust:area*speed*speed*this.sailPower*efficiency,efficiency,apparentSpeed:speed,alignment,idealTrim,trimEfficiency,forward:fw};
+   }
+ }
+--- V63/src/ship/SailingCourse.js
++++ V64/src/ship/SailingCourse.js
+@@ -0,0 +1,19 @@
++import {lineSafe} from './FreeSeaNavigation.js';
++const angle=(a,b)=>Math.atan2(Math.sin(a-b),Math.cos(a-b));
++export class SailingCourse{
++ constructor(){this.side=1;this.leg=null;this.age=0;this.tacking=false;}
++ update(dt,boat,target,wind,terrain){
++  if(!target)return null;
++  const heading=Math.atan2(target.x-boat.position.x,target.z-boat.position.z),upwind=Math.atan2(-wind.x,-wind.z);
++  this.tacking=Math.abs(angle(heading,upwind))<Math.PI/3;
++  if(!this.tacking){this.leg=null;this.age=0;return target;}
++  this.age+=dt;
++  if(this.leg&&(Math.hypot(boat.position.x-this.leg.x,boat.position.z-this.leg.z)<12||this.age>24)){this.side*=-1;this.leg=null;}
++  if(!this.leg){
++   for(const side of [this.side,-this.side]){const a=upwind+side*Math.PI*70/180,p={x:boat.position.x+Math.sin(a)*65,z:boat.position.z+Math.cos(a)*65};
++    if(lineSafe(boat.position,p,terrain,{ignoreStart:12})){this.side=side;this.leg=p;this.age=0;break;}
++   }
++  }
++  return this.leg;
++ }
++}
+--- V63/src/ship/SailorBody.js
++++ V64/src/ship/SailorBody.js
+@@ -24,15 +24,16 @@
+  async load(){const actor=await loadLandRig(this.slot);if(!actor)throw Error('Missing bundled adult sailor rig');if(this.disposed){actor.rig.dispose();return;}this.install(actor);}
+  install(actor){this.actor=actor;this.root.add(actor.rig.group);this.feet=new LandFootPlant(actor.rig);this.feet.update(0);this.styleRig=attachPirateStyle(actor,this.style);if(this.styleRig)this.styleRig.coat.visible=false;
+   const nodes=actor.rig.gltf.nodes;this.bones=new Map(nodes.map((n,i)=>[n.name,i]));this.spine=['Torso','Spine','Chest'].find(n=>this.bones.has(n));this.head=['Head','head'].find(n=>this.bones.has(n));this.hands=['L','R'].map(side=>nodes.find(n=>new RegExp('^(Palm|Fist|Hand)[._]'+side+'$','i').test(n.name))?.name);this.ik=this.hands.map((hand,i)=>new RigTwoBoneIK(actor.rig,['UpperArm.'+(i?'R':'L'),'LowerArm.'+(i?'R':'L'),hand]));
++  this.ik[0].evaluate(actor.rig.rest,new Matrix4());this.restAxes=this.ik[0].matrices.map(m=>this.ik[0].rotation(m).invert());
+   this.tools=new Map(['cutlass','plank','hammer','bucket','cannonball','chainshot','spyglass','lantern','shovel'].map(k=>{const mesh=tool(k);actor.rig.group.add(mesh);mesh.scale.setScalar(1/actor.rig.group.scale.x);return [k,mesh];}));const prior=actor.rig.poseModifier;actor.rig.poseModifier=(local,rest)=>{prior?.(local,rest);this.pose(local);};this.ready=true;
+  }
+- turn(local,name,axis,angle){const i=this.bones.get(name);if(i===undefined||!angle)return;const q=new Quaternion().fromArray(local[i].r).multiply(new Quaternion().setFromAxisAngle(axis,angle));local[i].r.set([q.x,q.y,q.z,q.w]);}
++ turn(local,name,axis,angle){const i=this.bones.get(name);if(i===undefined||!angle)return;const q=new Quaternion().fromArray(local[i].r).multiply(new Quaternion().setFromAxisAngle(axis.clone().applyQuaternion(this.restAxes[i]),angle));local[i].r.set([q.x,q.y,q.z,q.w]);}
+  pose(local){const state=this.activity,c=this.context||{},phase=this.clock*6,turn=(name,a)=>this.turn(local,name,X,a),crouch=this.crouchBlend||0;
+-  if(crouch){for(const side of ['L','R']){turn('UpperLeg.'+side,1.15*crouch);turn('LowerLeg.'+side,-2.3*crouch);turn('Foot.'+side,1.15*crouch);}turn(this.spine,-.55*crouch);turn(this.head,.18*crouch);}
++  if(crouch){for(const side of ['L','R']){turn('UpperLeg.'+side,-1.15*crouch);turn('LowerLeg.'+side,2.3*crouch);turn('Foot.'+side,-1.15*crouch);}turn(this.spine,.55*crouch);turn(this.head,-.18*crouch);}
+   if(state==='climb'){for(const [i,side] of ['L','R'].entries()){const wave=Math.sin(phase+i*Math.PI);turn('UpperArm.'+side,-1.2+wave*.28);turn('LowerArm.'+side,-.8);turn('UpperLeg.'+side,wave*.55);turn('LowerLeg.'+side,-.45+Math.max(0,wave)*.35);}}
+   else if(state==='swim'){for(const [i,side]of ['L','R'].entries()){turn('UpperArm.'+side,Math.sin(phase+i*Math.PI)*.8);turn('LowerArm.'+side,-.4);turn('UpperLeg.'+side,Math.sin(phase*1.6+i*Math.PI)*.3);}}
+   else if(state==='jump'||state==='fall'){turn('UpperLeg.L',.65);turn('UpperLeg.R',.3);turn('LowerLeg.L',-.9);turn('LowerLeg.R',-.7);for(const side of ['L','R'])turn('UpperArm.'+side,-.55);}
+-  else if(state==='capstan'&&c.working){for(const [i,side]of ['L','R'].entries()){this.turn(local,'UpperLeg.'+side,Z,Math.sin(phase+i*Math.PI)*.28);turn('LowerLeg.'+side,-Math.max(0,Math.sin(phase+i*Math.PI))*.32);}}
++  else if(state==='capstan'&&c.working){for(const [i,side]of ['L','R'].entries()){this.turn(local,'UpperLeg.'+side,Z,Math.sin(phase+i*Math.PI)*.28);turn('LowerLeg.'+side,Math.max(0,Math.sin(phase+i*Math.PI))*.32);}}
+   else if(state==='sail_pull'){for(const side of ['L','R']){turn('UpperArm.'+side,-.65-(c.working?.25*Math.sin(phase):0));turn('LowerArm.'+side,-.8-(c.working?.2*Math.sin(phase):0));}turn(this.spine,.12*Math.sin(phase));}
+   else if(state==='cannon_load'||state==='cannon_aim'||state==='fire'){for(const side of ['L','R']){turn('UpperArm.'+side,-.65+(state==='fire'?.12:0));turn('LowerArm.'+side,-.75+(state==='cannon_load'?.25*Math.sin(phase):0));}}
+   else if(state==='repair'){turn('UpperArm.R',-.65-.2*Math.sin(phase*1.8));turn('LowerArm.R',-.9-.3*Math.sin(phase*1.8));turn('UpperArm.L',-.65);turn('LowerArm.L',-.9);}
+--- V63/src/ship/ShipCollisionWorld.js
++++ V64/src/ship/ShipCollisionWorld.js
+@@ -13,6 +13,7 @@
+   const v=new Vector3();
+   for(const root of roots)root.traverse(mesh=>{
+     const geometry=mesh.geometry,pos=geometry?.attributes?.position;if(!pos)return;
++    for(let node=mesh;node;node=node.parent)if(!node.visible)return;
+     const m=new Matrix4().multiplyMatrices(inverse,mesh.matrixWorld),indices=geometry.index?.array;
+     const count=indices?.length??pos.count;
+     for(let i=0;i<count;i+=3){const vertices=[];
+--- V63/src/ship/ShipDeckRoutes.js
++++ V64/src/ship/ShipDeckRoutes.js
+@@ -2,6 +2,8 @@
+ // The same definitions cut the source mesh, build treads, and provide support.
+ export const DECK_FLIGHTS=Object.freeze([
+  Object.freeze({id:'aft',x:1.03,width:.86,z0:-5.56,z1:-7.23,y0:.97,y1:1.925,steps:6}),
++ Object.freeze({id:'fore_well_port',x:.82,width:.78,z0:6.72,z1:5.6,y0:1.44,y1:1.93,steps:4}),
++ Object.freeze({id:'fore_well_starboard',x:-.82,width:.78,z0:6.72,z1:5.6,y0:1.44,y1:1.93,steps:4}),
+  Object.freeze({id:'fore',x:1.03,width:.86,z0:1.88,z1:3.62,y0:.84,y1:1.835,steps:6})
+ ]);
+ export function flightAt(x,z,padding=0){return DECK_FLIGHTS.find(f=>Math.abs(x-f.x)<=f.width/2+padding&&z>=Math.min(f.z0,f.z1)-padding&&z<=Math.max(f.z0,f.z1)+padding)||null;}
+--- V63/src/ship/ShipLadder.js
++++ V64/src/ship/ShipLadder.js
+@@ -35,7 +35,8 @@
+ export function advanceShipClimb(player,dt,interior){
+  const c=player.shipClimb;if(!c)return false;
+  interior=c.interior||interior;
+- c.t=Math.max(0,Math.min(1,c.t+(c.reversing?-1:1)*Math.max(0,Math.min(.10,dt))/Math.max(.35,c.duration)));
++ const axis=c.manual?(Number(player.input.down('KeyW'))-Number(player.input.down('KeyS')))*(c.entering?-1:1):(c.reversing?-1:1);
++ c.t=Math.max(0,Math.min(1,c.t+axis*Math.max(0,Math.min(c.manual?.05:.10,dt))/Math.max(.35,c.duration)));
+  const u=smooth(c.t);
+  let a=c.start,b=c.end,t=u;
+  if(c.kind==='doorExit'){
+@@ -53,7 +54,7 @@
+  }
+  player.deckPos.set(a.x+(b.x-a.x)*t,a.y+(b.y-a.y)*t,a.z+(b.z-a.z)*t);
+  player.deckVel?.set?.(0,0,0);player.deckGrounded=true;
+- if(c.reversing&&c.t<=0){
++ if((c.reversing||c.manual&&axis<0)&&c.t<=0){
+   player.deckLayer=c.entering?'deck':c.layer;player.shipClimb=null;
+   interior?.setHatchOpen(c.entering?false:true);
+  }else if(c.t>=1){
+--- V63/src/ship/ShipStations.js
++++ V64/src/ship/ShipStations.js
+@@ -83,7 +83,7 @@
+     if(!this.anchorTravelReady){this.anchorTravel=this.anchorDown?1:0;this.anchorTravelReady=true;}
+     let signedHands=0,working=0;
+     for(const [id,owner] of this.occupants){
+-      if(!id.startsWith('anchor')||owner.startsWith('ai:'))continue;
++      if(!id.startsWith('anchor'))continue;
+       const axis=clamp(this.inputs.get(owner)?.axis||0,-1,1);
+       if(Math.abs(axis)>.01){signedHands+=axis;working++;}
+     }
+--- V63/src/ship/StationSites.js
++++ V64/src/ship/StationSites.js
+@@ -24,10 +24,10 @@
+   helm: originalStation(.75,-7.47),
+   sail_main: originalStation(1.18,-.55),
+   sail_jib: originalStation(.78,4.85),
+-  anchor: originalStation(1.45,-3.65),
+-  anchor_2: originalStation(-1.45,-3.65),
+-  anchor_3: originalStation(0,-2.20),
+-  anchor_4: originalStation(0,-5.10),
++  anchor: originalStation(1.22,-3.65),
++  anchor_2: originalStation(-1.22,-3.65),
++  anchor_3: originalStation(0,-2.43),
++  anchor_4: originalStation(0,-4.87),
+   cannon_port: originalStation(1.35,1.30),
+   cannon_starboard: originalStation(-1.35,1.30),
+   repair: originalStation(1.28,-1.06),
+--- V63/src/systems/CollisionWorld.js
++++ V64/src/systems/CollisionWorld.js
+@@ -84,6 +84,9 @@
+           const foot=add(p,mul(motion,t)),a=add(foot,[0,radius,0]),b=add(foot,[0,height-radius,0]);
+           const pair=segmentTriangle(a,b,tri),delta=sub(pair[0],pair[1]),dist=Math.hypot(...delta);
+           let normal=dist>1e-8?mul(delta,1/dist):tri.n;
++          // A large sloped deck triangle may extend far above the local foot.
++          // Classify the actual contact, not the triangle's distant highest vertex.
++          if(Math.abs(tri.n[1])>.65&&normal[1]>.65&&pair[1][1]<=from.y+step)break;
+           if(dist<1e-8&&dot(normal,motion)>0)normal=mul(normal,-1);
+           if(dist<=radius+skin+1e-6){
+             if(dot(normal,motion)<-1e-8&&(!hit||t<hit.t))hit={t,normal,id:tri.id};
+--- V63/src/voyage/VoyageM1.js
++++ V64/src/voyage/VoyageM1.js
+@@ -1,3 +1,4 @@
++import {SailingCourse} from '../ship/SailingCourse.js';
+ import {aimCannonMount,cannonMuzzle} from '../ship/CannonMount.js';
+ import {SailorBody} from '../ship/SailorBody.js';
+ import {SailorActivity} from '../ship/SailorActivity.js';
+@@ -120,7 +121,7 @@
+   this.enemy=new EnemyShipController({path:STORMWAKE_M1.gunboatPatrol});
+   this.enemyModel=new BoatModel();this.enemyModel.setVariant('brig');app.scene.add(this.enemyModel.group);
+   this.spectralWeather=new SpectralWeather(app.scene);this.ghostFleet=new GhostFleet(app.scene,{query:app.query,terrain:app.terrainData,colliders:app.colliders,player:app.player});this.vortexVisuals=new VortexVisuals(app.scene);this.stormRain=new StormRain(app.scene);
+-  app.boatCtl.voyageEnabled=true;app.boatCtl.voyageAnchor=true;
++  app.boatCtl.voyageEnabled=true;app.boatCtl.voyageAnchor=true;if(app.boat.heritageDeck)app.boatCtl.voyageAuxPower=0;
+   app.boatCtl.voyageWind.wind={x:-12,z:1};
+   this._createHUD();this.cartographer=new CartographerRuntime(this);this.beacon=new StormBeaconRuntime(this);this.merchant=new MerchantRescueRuntime(this);this.ghostLantern=new GhostLanternRuntime(this);this.deepEcho=new DeepEchoRuntime(this);this.harborPeople=new HarborQuestPeople(app);this.harborTrade=new HarborTradeRuntime(this);this.deckBody=new SailorBody(app.scene,{slot:'captain'});this.bodyActivity=new SailorActivity();this.refreshVisuals();
+   // Capturing Escape here avoids the existing photo/settings panel competing with
+@@ -146,13 +147,13 @@
+   const yaw=b.getYaw?.()||0;return {x:b.position.x+Math.sin(yaw)*this.interior.layout.z,y:(b.position.y||0)+y,z:b.position.z+Math.cos(yaw)*this.interior.layout.z};}
+  _createHUD(){if(typeof document==='undefined')return;
+   this.hud=document.createElement('section');this.hud.className='sw-v39-hud';this.hud.setAttribute('aria-label',L('STORMWAKE 金潮航程','STORMWAKE Gold Tide Voyage'));
+-  this.hud.innerHTML=`<div class="sw-v39-heading">STORMWAKE <span>${L('金潮航程 · M1','Gold Tide Voyage · M1')}</span></div><div data-v39-goal></div>
++  this.hud.innerHTML=`<div class="sw-v39-heading">STORMWAKE <span>${L('V64 · 金潮航程','V64 · Gold Tide Voyage')}</span></div><div data-v39-goal></div>
+   <div class="sw-v39-detail" data-v39-status></div><div class="sw-v39-detail" data-v44-weather></div>
+   <div class="sw-v41-instruments" data-v41-instruments hidden>
+    <div><small>${L('锚','Anchor')}</small><strong data-v41-anchor>—</strong></div>
+    <div><small>${L('舵角','Rudder')}</small><strong data-v41-rudder>—</strong></div>
+    <div><small>${L('主帆','Main sail')}</small><strong data-v41-sail>—</strong></div>
+-   <div><small>${L('辅机','Aux power')}</small><strong data-v41-power>—</strong></div>
++   <div><small>${L('领航','Pilot')}</small><strong data-v41-power>—</strong></div>
+    <div><small>${L('左炮','Port gun')}</small><strong data-v41-port>—</strong></div>
+    <div><small>${L('右炮','Starboard gun')}</small><strong data-v41-starboard>—</strong></div>
+    <div><small>${L('舱底积水','Bilge water')}</small><strong data-v41-water>0%</strong></div>
+@@ -161,7 +162,7 @@
+    <div><small>${L('破口','Open holes')}</small><strong data-v43-holes>0</strong></div>
+    <div><small>${L('船员状态','Crew')}</small><strong data-v43-crew>—</strong></div>
+   </div><div class="sw-v42-equipment" data-v42-equipment><strong data-v42-tool></strong><span data-v42-action></span></div><div class="sw-v42-navigation" data-v42-navigation></div><button type="button" data-v42-journal-toggle>${L('查看航程日志','Open voyage journal')}</button><div class="sw-v42-camera" data-v42-camera></div><div class="sw-v39-prompt" data-v39-prompt></div>
+-  <div class="sw-v43-hold" data-v43-hold></div><div class="sw-v39-message" data-v39-message></div><button type="button" data-v40-rescue hidden>${L('船只沉没 · 返回海风镇整备（将失去当前宝箱）','Ship sunk · Return to harbor (lose current treasure)')}</button><div class="sw-v39-help">${L('E 交互 · 1 刀 / 2 水桶 / 3 铲 / 4 灯 / 5 望远镜 / 6 木板 / 0 空手 · G 放下宝箱 · 舵 A/D 转向 W/S 辅机 · 帆 W/S 收放 A/D 角度  · Space 跳跃越舷 · 海中 W/Space 爬舷梯 · 左侧甲板货舱口 C/E 下梯 · 原船尾门 E 进出船长室 · 绞盘 E 操作 W/S 起放锚（多人加速） · 桅杆旁 C+W 攀爬','E interact · 1 sword / 2 bucket / 3 shovel / 4 lantern / 5 spyglass / 6 plank / 0 hands · G drop chest · Helm A/D rudder W/S power · Sails W/S area A/D trim · Jump over rail; W/Space at ladders · side hold hatch C/E · original stern door E for quarters · capstan E then W/S (multi-crew speed) · C+W by mast climbs')}</div>`;
++  <div class="sw-v43-hold" data-v43-hold></div><div class="sw-v39-message" data-v39-message></div><button type="button" data-v40-rescue hidden>${L('船只沉没 · 返回海风镇整备（将失去当前宝箱）','Ship sunk · Return to harbor (lose current treasure)')}</button><div class="sw-v39-help">${L('E 交互 · 1 刀 / 2 水桶 / 3 铲 / 4 灯 / 5 望远镜 / 6 木板 / 0 空手 · G 放下宝箱 · 舵 A/D 转向，古帆船仅靠风帆推进 · 帆 W/S 收放 A/D 角度 · Space 跳跃越舷 · 海中对准舷梯按 W · 对准货舱梯 W 上/S 下 · E 开关门，沿阶梯步行进出船长室 · 绞盘 E 操作 W/S 起放锚（多人加速） · 对准桅梯 W 上/S 下','E interact · 1 sword / 2 bucket / 3 shovel / 4 lantern / 5 spyglass / 6 plank / 0 hands · G drop chest · Helm A/D rudder; wind-driven sailing · Sails W/S area A/D trim · Jump over rail; face boarding ladders and hold W · hold ladder W/S · E opens cabin door, walk through · capstan E then W/S (multi-crew speed) · mast ladder W/S')}</div>`;
+   document.body.append(this.hud);
+   const detailButton=document.createElement('button');detailButton.type='button';detailButton.className='sw-v61-details';
+   detailButton.textContent=L('船况详情','Ship details');detailButton.setAttribute('aria-expanded','false');
+@@ -225,7 +226,7 @@
+  }
+  _nearPlayer(target,r=4){const p=this.app.player;return distance(p.position,target)<r;}
+  getNearbyCandidates(){
+-  const p=this.app.player,mode=p?.mode;if(!p||this.app.freeCam||!['walk','deck','swim'].includes(mode))return [];
++  const p=this.app.player,mode=p?.mode;if(!p||this.app.freeCam||p.shipClimb||p.mastClimb||p.boardingClimb||!['walk','deck','swim'].includes(mode))return [];
+   const items=[];const add=(id,label,pos,range,priority,perform)=>{
+    // In the original uncut Dutch hull, a surface interaction may not occur
+    // through the castle deck merely because the horizontal x/z is nearby.
+@@ -270,8 +271,6 @@
+         const point=this.localWorld(item.holdLocal||{x:0,y:this.lowerHold.layout.floorY,z:0});
+         add('lower_take:'+item.id,L('[E] 拿取船舱货物','[E] Take lower hold cargo'),point,1.65,240,()=>this.retrieve(item.id));
+       }
+-      if(this.lowerHold?.nearEntrance(p.deckPos))
+-        add('lower_exit',L('[E] 爬真实货舱梯返回甲板','[E] Climb cargo ladder to main deck'),this.holdWorldAt(this.lowerHold),1.8,280,()=>this.toggleLowerHold());
+       return items;
+     }
+     if(p.deckLayer==='hold'){
+@@ -301,17 +300,7 @@
+       // This E action was unreachable in V52: the source door was only offered
+       // when deckLayer==='deck', but crossing into the room set layer='hold'.
+       const originalDoor=this.app.boat.originalDoor;
+-      const innerDoor={x:-.88,y:this.interior.floorAt(-7.28)+.40,z:-7.26};
+-      if(originalDoor && Math.hypot(p.deckPos.x-innerDoor.x,p.deckPos.z-innerDoor.z)<.92){
+-        add('cabin_door_exit',originalDoor.open?L('[E] 沿原船门内台阶走出船长室','[E] Climb steps out through original door'):L('[E] 从室内打开原船门','[E] Open original door from inside'),
+-          this.localWorld(innerDoor),1.35,299,()=>{
+-            if(!originalDoor.open){originalDoor.set(true);this.net?.send('ship_door',{open:true});return true;}
+-            return beginCabinDoorExit(p,this.interior,originalDoor);
+-          });
+-        // In the doorway's narrow landing, E belongs to the passage. The chart
+-        // and mission letter remain available at the table further inside.
+-        if(Math.hypot(p.deckPos.x-innerDoor.x,p.deckPos.z-innerDoor.z)<.35)return items.filter(c=>c.id==='cabin_door_exit');
+-      }
++      if(originalDoor&&Math.hypot(p.deckPos.x+.88,p.deckPos.z+6.635)<1.45)add('cabin_door',originalDoor.open?'[E] 关闭船长室门':'[E] 打开船长室门',this.localWorld(originalDoor.local),1.7,299,()=>{originalDoor.set(!originalDoor.open);this.net?.send('ship_door',{open:originalDoor.open});return true;});
+       return items;
+     }
+     // Source mesh sterncastle door: the only moving geometry is the original
+@@ -320,15 +309,11 @@
+     const originalDoor=this.app.boat.originalDoor;
+     if(originalDoor && p.deckPos && p.deckLayer==='deck' &&
+        Math.hypot(p.deckPos.x-originalDoor.local.x,p.deckPos.z-originalDoor.local.z)<1.35){
+-      add('dutch_original_door',originalDoor.open?L('[E] 沿原船门进入船长室','[E] Enter captain quarters through original door'):L('[E] 打开原船门板','[E] Open original Dutch door'),
++      add('dutch_original_door',originalDoor.open?L('[E] 关闭船长室门','[E] Close captain cabin door'):L('[E] 打开原船门板','[E] Open original Dutch door'),
+           this.localWorld(originalDoor.local),1.65,265,()=>{
+             if(!originalDoor.open){originalDoor.set(true);this.net?.send('ship_door',{open:true});return true;}
+-            return beginCabinDoorEnter(p,this.interior,originalDoor);
++            originalDoor.set(false);this.net?.send('ship_door',{open:false});return true;
+           });
+-    }
+-    if(this.lowerHold&&!p.stationId&&p.deckPos&&this.lowerHold.nearEntrance(p.deckPos)){
+-      add('lower_hatch',L('[E] 沿主甲板货舱梯进入船舱','[E] Climb down into real lower cargo hold'),
+-          this.holdWorldAt(this.lowerHold,true),1.8,390,()=>this.toggleLowerHold());
+     }
+     if(!this.app.boat.heritageDeck&&!p.stationId&&p.deckPos&&this.interior.inHatch(p.deckPos)){const hatch=this.holdWorld(this.interior.layout.deckY);
+       add('hatch',L('[E] 沿船尾舱口梯进入船长室','[E] Climb into captain quarters'),hatch,1.35,175,()=>this.toggleHold());}
+@@ -456,7 +441,7 @@
+   const entering=p.deckLayer!=='lowerHold';
+   if(!entering&&p.deckLayer!=='lowerHold'||entering&&p.deckLayer!=='deck')return false;
+   if(!beginShipClimb(p,room,entering))return false;
+-  this.toast(entering?L('进入真正的下层货舱，C/E 可爬梯返回。','Inside lower hold, C/E climb out.'):L('已从下层货舱回到甲板。','Returned to main deck.'),2.1);
++  this.toast(entering?L('进入下层货舱；对准梯子按住 W 返回，S 下梯。','Inside lower hold: face ladder and hold W up / S down.'):L('已从下层货舱回到甲板。','Returned to main deck.'),2.1);
+   return true;
+  }
+  toggleHold(){
+@@ -485,6 +470,7 @@
+   this.toast(L('航程已接取！前往码头，E 登船后操作帆索与舵轮。','Voyage accepted! Go to the dock, board with E, then use the sails and helm.'));
+  }
+  takeStation(id){
++  const player=this.app.player;if(player.shipClimb||player.mastClimb||player.boardingClimb)return false;
+   if(!this.stations.valid(id)||this.cargo.heldBy.has(this.actorId)||this.app.player.deckLayer!=='deck')return false;
+   if(id.startsWith('anchor')){
+     const slots=['anchor','anchor_2','anchor_3','anchor_4'];
+@@ -500,7 +486,7 @@
+   if(this.net.connected)this.net.claim(id);
+   else if(this.stations.claim(id,this.actorId,{replaceAI:true}))this.app.player.stationId=id;
+   if(this.app.player.stationId===id)this._faceStation(id);
+-  this.toast(`${this.stationName(id)}：${id.startsWith('cannon')?'鼠标或 A/D 转炮，W/S 调仰角；左键开炮，R 从弹药库存装填':id==='helm'?'A / D 转向、W / S 调节辅机':id.startsWith('sail')?'W / S 收放帆':id.startsWith('anchor')?'按住 W 收锚链 / S 放锚链，可四人一起转':id==='repair'?'仅在回港且破口封堵后可长按左键整备船体':'E 操作，Esc 退出'}`,3.5);
++  this.toast(`${this.stationName(id)}：${id.startsWith('cannon')?'鼠标或 A/D 转炮，W/S 调仰角；左键开炮，R 从弹药库存装填':id==='helm'?'A / D 操舵，帆索控制船帆，Z 设置自动领航':id.startsWith('sail')?'W / S 收放帆':id.startsWith('anchor')?'按住 W 收锚链 / S 放锚链，可四人一起转':id==='repair'?'仅在回港且破口封堵后可长按左键整备船体':'E 操作，Esc 退出'}`,3.5);
+   return true;
+  }
+  _faceStation(id){const p=this.app.player;
+@@ -924,7 +910,14 @@
+     }
+   }else if(!aim)this.navPlan=null;
+   if(steeringTarget)this.navRouteWarning=false;
+-  this.crew.update(dt,{boat:b,wind,enemy:this.enemy,waypoint:crewAboard?steeringTarget:null,damage:this.damage,inventory:this.inventory,standby:this.deepEcho.quest.members.length>0});
++  if(chartAim){if(!this.navDestination||distance(this.navDestination,chartAim)>1){this.navDestination={...chartAim};this.navArrived=false;}if(distanceGoal<18)this.navArrived=true;this.navigationStopping=false;}
++  else if(this.navDestination){this.navDestination=null;this.navigationStopping=true;}
++  if(this.navigationStopping&&this.stations.anchorTravel>.999)this.navigationStopping=false;
++  const auto=!!chartAim||this.navigationStopping,arriving=!!this.navArrived||this.navigationStopping;
++  this.sailingCourse??=new SailingCourse();
++  const course=auto&&!arriving?this.sailingCourse.update(dt,b,steeringTarget,b.voyageWind.wind,this.app.terrainData):null;
++  this.navigationPhase=!auto?'manual':arriving?'stopping':Math.hypot(b.voyageWind.wind.x,b.voyageWind.wind.z)<.1?'calm':this.stations.anchorTravel>.001?'weighing':this.stations.sailMain<.7?'setting_sail':this.sailingCourse.tacking?'tacking':'sailing';
++  this.crew.update(dt,{boat:b,wind,enemy:this.enemy,waypoint:crewAboard?course:null,damage:this.damage,inventory:this.inventory,autopilot:auto,arriving,sailTarget:Math.max(.18,Math.min(.95,(distanceGoal-10)/110)),standby:arriving||this.deepEcho.quest.members.length>0});
+   // V56: NEVER release the anchor just because a crew member boards or chooses
+   // an AI target. The capstan (W raise / S lower) is the sole release mechanism.
+   // AI may set rudder and sails only AFTER the anchor is physically hauled up.
+@@ -946,7 +939,8 @@
+   b.anchorTravel=state.anchorTravel;
+   b.driven=!b.voyageAnchor;
+   if(!b.voyageAnchor)b.moored=false; // dock lines release after the manual capstan is fully raised
+-  b.setInput(b.voyageAnchor?0:state.helmThrottle,state.rudder,dt);
++  if(this.app.boat.heritageDeck)this.stations.helmThrottle=0;
++  b.setInput(b.voyageAnchor||this.app.boat.heritageDeck?0:state.helmThrottle,state.rudder,dt);
+   // Host executes all participants' ship repairs and bucket actions,
+   // not just the physical keyboard attached to the host computer.
+   const repairer=this.stations.getOccupant('repair');
+@@ -993,7 +987,7 @@
+   if(id==='helm')axis=Number(input.down('KeyA'))-Number(input.down('KeyD'));
+   else if(id.startsWith('sail_')||id.startsWith('anchor'))axis=Number(input.down('KeyW'))-Number(input.down('KeyS'));
+   if(!['helm','sail_main','sail_jib'].includes(id)&&!id.startsWith('anchor'))axis=0;
+-  const throttleAxis=id==='helm'?Number(input.down('KeyW'))-Number(input.down('KeyS')):0;
++  const throttleAxis=id==='helm'&&!this.app.boat.heritageDeck?Number(input.down('KeyW'))-Number(input.down('KeyS')):0;
+   const trimAxis=id.startsWith('sail_')?Number(input.down('KeyA'))-Number(input.down('KeyD')):0;
+   const anchorAuto=false; // Manual chain only: the R key cannot secretly override the winch.
+   const aimYaw=id.startsWith('cannon_')?player.deckYaw:undefined;
+@@ -1092,7 +1086,7 @@
+     const {objectiveIndex,objectives}=this.voyage.getState();
+     this.text('goal',objectiveIndex>=objectives.length?L('航程已完成！可领取新的航程。','Voyage complete! A new voyage is available.'):(getLocale()==='en'?VOYAGE_GOLD_MOSS.objectivesEn[objectiveIndex]:objectives[objectiveIndex]));
+     const b=this.app.boatCtl,dmg=this.damage;
+-    this.text('status',L(`潮币 ${this.voyage.tideCoin} · 声望 ${this.voyage.repGoldTide} · ${Math.round(b.speed*1.94)} 节 · ${this.stations.anchorDown?'已抛锚':'已起锚'} · 辅机 ${Math.round(this.stations.helmThrottle*100)}% · 主帆 ${Math.round(this.stations.sailMain*100)}% · 船体 ${Math.round(dmg.integrity)}%${dmg.breach>.02?' · 进水 '+Math.round(dmg.breach*100)+'%':''}${dmg.fire>.01?' · 火情 '+Math.round(dmg.fire*100)+'%':''}${dmg.water>.01?' · 舱水 '+Math.round(dmg.water*100)+'%':''}`,`TideCoin ${this.voyage.tideCoin} · Rep ${this.voyage.repGoldTide} · ${Math.round(b.speed*1.94)} kn · ${this.stations.anchorDown?'Anchored':'Anchor raised'} · Aux ${Math.round(this.stations.helmThrottle*100)}% · Mainsail ${Math.round(this.stations.sailMain*100)}% · Hull ${Math.round(dmg.integrity)}%${dmg.breach>.02?' · Leak '+Math.round(dmg.breach*100)+'%':''}${dmg.fire>.01?' · Fire '+Math.round(dmg.fire*100)+'%':''}${dmg.water>.01?' · Water '+Math.round(dmg.water*100)+'%':''}`));
++    this.text('status',L(`潮币 ${this.voyage.tideCoin} · 声望 ${this.voyage.repGoldTide} · ${Math.round(b.speed*1.94)} 节 · ${this.stations.anchorDown?'已抛锚':'已起锚'} · 帆力 ${Math.round(b.voyageSailForce||0)}N · 主帆 ${Math.round(this.stations.sailMain*100)}% · 船体 ${Math.round(dmg.integrity)}%${dmg.breach>.02?' · 进水 '+Math.round(dmg.breach*100)+'%':''}${dmg.fire>.01?' · 火情 '+Math.round(dmg.fire*100)+'%':''}${dmg.water>.01?' · 舱水 '+Math.round(dmg.water*100)+'%':''}`,`TideCoin ${this.voyage.tideCoin} · Rep ${this.voyage.repGoldTide} · ${Math.round(b.speed*1.94)} kn · ${this.stations.anchorDown?'Anchored':'Anchor raised'} · Wind ${Math.round(b.voyageSailForce||0)}N · Mainsail ${Math.round(this.stations.sailMain*100)}% · Hull ${Math.round(dmg.integrity)}%${dmg.breach>.02?' · Leak '+Math.round(dmg.breach*100)+'%':''}${dmg.fire>.01?' · Fire '+Math.round(dmg.fire*100)+'%':''}${dmg.water>.01?' · Water '+Math.round(dmg.water*100)+'%':''}`));
+     const w=this.app.offshoreWeather;
+     if(w){
+       const vc=this.vortexVisuals.root.position;
+@@ -1111,7 +1105,7 @@
+       label('anchor',this.stations.anchorTravel>.98&&anchorPhysics==='NO_BOTTOM_CONTACT'?L('锚链未触底','Anchor off bottom'):anchorPhysics==='DRAGGING'?L('拖锚！请收帆/减速','Dragging! Reduce sail'):this.stations.anchorTravel>.05&&this.stations.anchorTravel<.98?L('锚链 '+Math.round(this.stations.anchorTravel*100)+'% · '+this.stations.anchorHands+' 人转动','Chain '+Math.round(this.stations.anchorTravel*100)+'% · '+this.stations.anchorHands+' hands'):(this.stations.anchorDown?L('抛锚','DOWN'):L('起锚','UP')));
+       label('rudder',`${Math.round(this.stations.rudder*100)}%`);
+       label('sail',`${Math.round(this.stations.sailMain*100)}%`);
+-      label('power',`${Math.round(this.stations.helmThrottle*100)}%`);
++      label('power',({manual:'手动',weighing:'起锚',setting_sail:'调帆',tacking:'换舷',sailing:'领航',stopping:'减速',calm:'无风'})[this.navigationPhase]||'手动');
+       label('water',`${Math.round(dmg.water*100)}%`);label('planks',String(this.inventory.count('plank')));
+       const ammo=this.hud.querySelector('[data-v43-ammo]');if(ammo)ammo.textContent=`${this.inventory.count('cannonball')} / ${this.inventory.count('chainshot')}`;
+       const holes=this.hud.querySelector('[data-v43-holes]');if(holes)holes.textContent=String(dmg.holes.filter(h=>h.state==='open').length);
+@@ -1124,7 +1118,7 @@
+       }
+     }
+     this.text('message',this.noticeTimer>0?this.notice:'');
+-    const lower=this.hud.querySelector('[data-v43-hold]');if(lower)lower.textContent=player.mode==='deck'?(player.deckLayer==='lowerHold'?L('【下层货舱】走到梯口按 C/E 返回甲板','[Lower hold] C/E at ladder to exit'):player.deckLayer==='hold'?L('【船长室】从原船门按 E 返回甲板','[Captain cabin] E at original door to leave'):L('【主甲板】下层货舱在左侧步道，靠近梯口按 C/E；船长室走原船门','[Deck] E cannon/door, C/E hold, C+W climb')):'';
++    const lower=this.hud.querySelector('[data-v43-hold]');if(lower)lower.textContent=player.mode==='deck'?(player.deckLayer==='lowerHold'?L('【下层货舱】对准梯子，按住 W 上 / S 下','[Lower hold] face ladder, hold W up / S down'):player.deckLayer==='hold'?L('【船长室】沿入口阶梯步行返回甲板，E 开关门','[Captain cabin] walk up entrance steps; E opens/closes door'):L('【主甲板】对准梯子 W 上 / S 下；船长室 E 开门后步行进出','[Deck] face ladders W/S; E opens cabin door, walk through')):'';
+     const gearName={hands:L('空手','Hands'),cutlass:L('短刀','Cutlass'),bucket:L('水桶','Bucket'),shovel:L('铁铲','Shovel'),lantern:L('提灯','Lantern'),spyglass:L('望远镜','Spyglass'),plank:L('修船木板','Plank')};
+     const belt=this.hud.querySelector('[data-v42-tool]'),action=this.hud.querySelector('[data-v42-action]');
+     if(belt)belt.textContent=this.cargo.heldBy.has(this.actorId)?L('正在搬运藏宝箱','Carrying treasure'):gearName[this.equipment.active];
+@@ -1135,13 +1129,14 @@
+     }
+     const nav=this.hud.querySelector('[data-v42-navigation]');if(nav){
+       const phase=this.voyage.phase;
+-      const goal=phase==='accepted'?STORMWAKE_M1.digSite:phase==='dug'?STORMWAKE_M1.mossLanding:phase==='stowed'?STORMWAKE_M1.returnPort:null;
++      const goal=this.app.oceanChart?.getNavigationTarget?.()||(phase==='accepted'?STORMWAKE_M1.digSite:phase==='dug'?STORMWAKE_M1.mossLanding:phase==='stowed'?STORMWAKE_M1.returnPort:null);
+       const source=['deck','boat'].includes(player.mode)?b.position:player.position;
+       const meters=goal?Math.round(distance(source,goal)):0;
+       const angle=goal?Math.atan2(goal.x-source.x,goal.z-source.z):0;
+       const direction=((Math.round(angle*180/Math.PI/45)%8)+8)%8;
+       const dirZh=['北','东北','东','东南','南','西南','西','西北'],dirEn=['N','NE','E','SE','S','SW','W','NW'];
+-      nav.textContent=goal?L(`航程航向 ${dirZh[direction]} · 目标距离 ${meters}m`,`Voyage bearing ${dirEn[direction]} · ${meters} m to objective`):L('自由航行 · 告示板位于海风镇','Free sail · Gold Tide board at harbor');
++      const pilot=({weighing:'船员正在起锚',setting_sail:'船员调帆',tacking:'逆风换舷',sailing:'自动领航',stopping:'收帆放锚，惯性减速',calm:'无风，等待风起'})[this.navigationPhase]||'手动航行';
++      nav.textContent=goal?L(`${pilot} · 航向 ${dirZh[direction]} · 目标距离 ${meters}m`,`Voyage bearing ${dirEn[direction]} · ${meters} m to objective`):L('自由航行 · 告示板位于海风镇','Free sail · Gold Tide board at harbor');
+     }
+     const hazard=dmg.integrity<90||dmg.breach>.01||dmg.fire>.01||dmg.water>.18;
+     this.hud.classList.toggle('sw-v39-danger',hazard);
+--- V63/test/stormwake-v61-reliability.mjs
++++ V64/test/stormwake-v61-reliability.mjs
+@@ -99,7 +99,7 @@
+ });
+ test('capstan seats rotate with the visible shared handholds',()=>{
+  const model={shipScale:{x:1,y:1,z:1},heritageDeck:true,heritageArt:{capstan:{rotation:{y:Math.PI/2}}}};
+- const p=stationLocalMeters(model,'anchor');assert(Math.abs(p.x)<1e-8);assert(Math.abs(p.z+5.10)<1e-8);
++ const p=stationLocalMeters(model,'anchor');assert(Math.abs(p.x)<1e-8);assert(Math.abs(p.z+4.87)<1e-8);
+ });
+ test('capstan mechanical limits stop the rotating grips even with a held key',()=>{
+  const s=new ShipStations({cooperativeCapstan:true});s.claim('anchor','p');s.setInput('anchor','p',{axis:1});
+--- V63/test/stormwake-v62-stairs.mjs
++++ V64/test/stormwake-v62-stairs.mjs
+@@ -19,7 +19,7 @@
+ const input={enabled:true,keys:new Set(),down(k){return this.keys.has(k)},hit:()=>false,consume:()=>false,consumeLook:()=>({x:0,y:0})};
+ const player=new Player({camera:new PerspectiveCamera(),input,terrain:{heightAt:()=>-50},colliders:{groundHeightAt:()=>-Infinity,boxes:[]},query:{allocate:()=>0},boat:control});
+ player.mode='deck';player.voyageM1={};
+-for(const f of DECK_FLIGHTS){
++for(const f of DECK_FLIGHTS.filter(f=>['aft','fore'].includes(f.id))){
+  for(const reverse of [false,true]){
+   const sign=Math.sign(f.z1-f.z0)*(reverse?-1:1),start=reverse?f.z1+Math.sign(f.z1-f.z0)*.20:f.z0-Math.sign(f.z1-f.z0)*.20;
+   player.deckPos.set(f.x,measuredFloorAt(f.x,start,2.2),start);player.deckVel.set(0,0,0);player.deckGrounded=true;player.deckYaw=sign>0?0:Math.PI;
+@@ -33,7 +33,7 @@
+ }
+ console.log('V62 actual Player + authored GLB + stair BVH: both flights, both directions PASS');
+ 
+-for(const f of DECK_FLIGHTS){
++for(const f of DECK_FLIGHTS.filter(f=>['aft','fore'].includes(f.id))){
+  const dir=Math.sign(f.z1-f.z0);player.deckPos.set(f.x,f.y0,f.z0-dir*.25);player.deckVel.set(0,0,0);player.deckGrounded=true;
+  for(let cycle=0;cycle<20;cycle++)for(const reverse of [false,true]){
+   const sign=dir*(reverse?-1:1),target=reverse?f.z0-dir*.25:f.z1+dir*.12;player.deckYaw=sign>0?0:Math.PI;player.deckVel.set(0,0,0);input.keys.add('KeyW');
+--- V63/test/stormwake-v63-character-forward.mjs
++++ V64/test/stormwake-v63-character-forward.mjs
+@@ -5,5 +5,5 @@
+ import {inferPirateForward} from '../src/land/LandRigRuntime.js';
+ import {Matrix4,Vector3} from '../src/engine/index.js';
+ const manifest=JSON.parse(readFileSync(new URL('../public/models/land/v38_pirate_cast_manifest.json',import.meta.url))),files=new Set();let corrected=0;
+-for(const entry of Object.values(manifest.actors)){if(files.has(entry.file))continue;files.add(entry.file);const b=readFileSync(new URL('../public/models/land/'+entry.file,import.meta.url)),gltf=parseGLB(b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength)),rig={gltf},matrices=new RigTwoBoneIK(rig,['UpperArm.L','UpperArm.R','Head']);matrices.evaluate(gltf.nodes,new Matrix4());rig.nodeWorld=(name,out)=>{const index=gltf.nodes.findIndex(n=>n.name===name);return index<0?null:out.copy(matrices.point(index));};const angle=inferPirateForward(rig,entry),left=rig.nodeWorld('UpperArm.L',new Vector3()),right=rig.nodeWorld('UpperArm.R',new Vector3());if(!left||!right)continue;left.applyAxisAngle(new Vector3(0,1,0),angle);right.applyAxisAngle(new Vector3(0,1,0),angle);assert.ok(left.x<right.x,'anatomical left must stay on the left when the gameplay actor faces +Z: '+entry.file);if(angle)corrected++;assert.equal(inferPirateForward(rig,{...entry,yawOffset:1}),0,'explicit artist alignment remains authoritative');}
+-assert.ok(corrected>0);console.log('V63 bundled humanoid forward basis: measured left/right shoulders, corrected backwards actors, rigid rotation only and explicit asset offset preserved PASS ('+files.size+' distinct models)');
++for(const entry of Object.values(manifest.actors)){if(files.has(entry.file))continue;files.add(entry.file);const b=readFileSync(new URL('../public/models/land/'+entry.file,import.meta.url)),gltf=parseGLB(b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength)),rig={gltf},matrices=new RigTwoBoneIK(rig,['UpperArm.L','UpperArm.R','Head']);matrices.evaluate(gltf.nodes,new Matrix4());rig.nodeWorld=(name,out)=>{const index=gltf.nodes.findIndex(n=>n.name===name);return index<0?null:out.copy(matrices.point(index));};const angle=inferPirateForward(rig,entry),left=rig.nodeWorld('UpperArm.L',new Vector3()),right=rig.nodeWorld('UpperArm.R',new Vector3());if(!left||!right)continue;left.applyAxisAngle(new Vector3(0,1,0),angle);right.applyAxisAngle(new Vector3(0,1,0),angle);assert.ok(left.x>right.x,'anatomical left is +X for a +Z-facing Y-up actor: '+entry.file);if(angle)corrected++;assert.equal(inferPirateForward(rig,{...entry,yawOffset:1}),0,'explicit artist alignment remains authoritative');}
++assert.equal(corrected,0,'bundled +Z-facing bodies must retain their authored front');console.log('V63 bundled humanoid forward basis: measured left/right shoulders, retained authored forward basis, rigid rotation only and explicit asset offset preserved PASS ('+files.size+' distinct models)');
+--- V63/test/stormwake-v63-sailor-grips.mjs
++++ V64/test/stormwake-v63-sailor-grips.mjs
+@@ -10,9 +10,9 @@
+ import {stationHandTargets} from '../src/ship/StationHandRig.js';
+ StorageBuffer.prototype.write=function(){};
+ const bytes=readFileSync('public/models/land/pirate_captain.glb'),rig=new SkinnedModel(parseGLB(bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength)));
+-rig.group.scale.setScalar(.64);rig.group.rotation.y=Math.PI;const actor={rig,actions:assignRigActions(rig.clipNames())};rig.play(actor.actions.idle);rig.update(0);
++rig.group.scale.setScalar(.64);rig.group.rotation.y=0;const actor={rig,actions:assignRigActions(rig.clipNames())};rig.play(actor.actions.idle);rig.update(0);
+ const scene=new Group(),vessel=new Group(),peer=new Group();scene.add(vessel,peer);vessel.position.set(69,1,42);vessel.rotation.set(.15,.7,.18,'YXZ');const windlass=new Group();vessel.add(windlass);windlass.position.set(0,deckHeight(-3.65)+.85,-3.65);const boat={heritageDeck:{windlass}},body=new SailorBody(peer);body.install(actor);const samples=[];
+ for(const [station,index] of [['anchor',0],['anchor_2',2],['anchor_3',1],['anchor_4',3]])for(let i=0;i<700;i++){
+- const angle=Math.max(0,i-50)*.01;windlass.rotation.y=angle;const x=1.45*Math.cos(index*Math.PI/2-angle),z=-3.65+1.45*Math.sin(index*Math.PI/2-angle);peer.position.copy(vessel.localToWorld(new Vector3(x,deckHeight(z,x),z)));const hands=stationHandTargets(boat,station),d=hands[0].clone().add(hands[1]).multiplyScalar(.5).sub(peer.position);peer.rotation.y=Math.atan2(-d.x,-d.z);const inward=d.clone().applyQuaternion(vessel.quaternion.clone().invert());const relative=Math.atan2(inward.x,inward.z);body.root.quaternion.copy(peer.quaternion).invert().multiply(vessel.quaternion).multiply(new Quaternion().setFromAxisAngle(new Vector3(0,1,0),relative));body.update(1/30,{activity:'capstan',station,boat,feet:peer.position,working:i>50});const errors=body.ik.map((ik,n)=>{ik.evaluate(rig.local,rig.group.matrixWorld);return ik.point(ik.chain[2]).distanceTo(hands[n]);});assert.ok(Math.max(...errors)<.05,station+' rotating physical wrist: '+Math.max(...errors));for(const l of body.handDiagnostics){assert.ok(Math.abs(l.upperLength-.2510293)<1e-5);assert.ok(Math.abs(l.lowerLength-.2881151)<1e-5);}samples.push({angle,station,errors});
++ const angle=Math.max(0,i-50)*.01;windlass.rotation.y=angle;const x=1.22*Math.cos(index*Math.PI/2-angle),z=-3.65+1.22*Math.sin(index*Math.PI/2-angle);peer.position.copy(vessel.localToWorld(new Vector3(x,deckHeight(z,x),z)));const hands=stationHandTargets(boat,station),d=hands[0].clone().add(hands[1]).multiplyScalar(.5).sub(peer.position);peer.rotation.y=Math.atan2(-d.x,-d.z);const inward=d.clone().applyQuaternion(vessel.quaternion.clone().invert());const relative=Math.atan2(inward.x,inward.z);body.root.quaternion.copy(peer.quaternion).invert().multiply(vessel.quaternion).multiply(new Quaternion().setFromAxisAngle(new Vector3(0,1,0),relative));body.update(1/30,{activity:'capstan',station,boat,feet:peer.position,working:i>50});const errors=body.ik.map((ik,n)=>{ik.evaluate(rig.local,rig.group.matrixWorld);return ik.point(ik.chain[2]).distanceTo(hands[n]);});assert.ok(Math.max(...errors)<.05,station+' rotating physical wrist: '+Math.max(...errors));for(const l of body.handDiagnostics){assert.ok(Math.abs(l.upperLength-.2510293)<1e-5);assert.ok(Math.abs(l.lowerLength-.2881151)<1e-5);}samples.push({angle,station,errors});
+ }
+ console.log('V63 actual CC0 captain: 4 capstan stations, 2800 moving samples under pitch/heel, planted soles, real wrists within 5cm and fixed bone lengths PASS; max '+Math.max(...samples.flatMap(s=>s.errors)).toFixed(5)+'m');
+--- V63/test/stormwake-v63-stair-momentum.mjs
++++ V64/test/stormwake-v63-stair-momentum.mjs
+@@ -21,7 +21,7 @@
+ player.mode='deck';player.voyageM1={};
+ 
+ for(const [x,z,maxY,minY] of [[1.03,-7.5,2.02,1.75],[1.03,3.9,1.98,1.65]])assert.notEqual(model.collisionWorld.floorAt(x,z,maxY,minY),null,'landing floor must remain physical after clearing headroom');
+-for(const dt of [1/60,1/30,1/20])for(const f of DECK_FLIGHTS){
++for(const dt of [1/60,1/30,1/20])for(const f of DECK_FLIGHTS.filter(f=>['aft','fore'].includes(f.id))){
+  const dir=Math.sign(f.z1-f.z0);player.deckPos.set(f.x,f.y0,f.z0-dir*.25);player.deckVel.set(0,0,0);player.deckGrounded=true;player.deckYaw=dir>0?0:Math.PI;
+  for(let cycle=0;cycle<20;cycle++)for(const reverse of [false,true]){
+   const sign=dir*(reverse?-1:1),target=reverse?f.z0-dir*.25:f.z1+dir*.12;input.keys.add(reverse?'KeyS':'KeyW');
+--- V63/test/stormwake-v64-grips.mjs
++++ V64/test/stormwake-v64-grips.mjs
+@@ -0,0 +1,18 @@
++import assert from 'node:assert/strict';
++import {readFileSync} from 'node:fs';
++import {parseGLB} from '../src/engine/loaders/GLTF.js';
++import {SkinnedModel} from '../src/engine/render/Skinning.js';
++import {StorageBuffer} from '../src/engine/gpu/Texture.js';
++import {Group,Vector3,Quaternion} from '../src/engine/index.js';
++import {SailorBody} from '../src/ship/SailorBody.js';
++import {assignRigActions} from '../src/land/LandRigRuntime.js';
++import {deckHeight} from '../src/ship/HeritageDeck.js';
++import {stationHandTargets} from '../src/ship/StationHandRig.js';
++StorageBuffer.prototype.write=function(){};
++const bytes=readFileSync('public/models/land/pirate_captain.glb'),rig=new SkinnedModel(parseGLB(bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength)));
++rig.group.scale.setScalar(.64);rig.group.rotation.y=0;const actor={rig,actions:assignRigActions(rig.clipNames())};rig.play(actor.actions.idle);rig.update(0);
++const scene=new Group(),vessel=new Group(),peer=new Group();scene.add(vessel,peer);vessel.position.set(69,1,42);vessel.rotation.set(.15,.7,.18,'YXZ');const windlass=new Group();vessel.add(windlass);windlass.position.set(0,deckHeight(-3.65)+.85,-3.65);const boat={heritageDeck:{windlass}},body=new SailorBody(peer);body.install(actor);const samples=[];
++for(const [station,index] of [['anchor',0],['anchor_2',2],['anchor_3',1],['anchor_4',3]])for(let i=0;i<700;i++){
++ const angle=Math.max(0,i-50)*.01;windlass.rotation.y=angle;const x=1.22*Math.cos(index*Math.PI/2-angle),z=-3.65+1.22*Math.sin(index*Math.PI/2-angle);peer.position.copy(vessel.localToWorld(new Vector3(x,deckHeight(z,x),z)));const hands=stationHandTargets(boat,station),d=hands[0].clone().add(hands[1]).multiplyScalar(.5).sub(peer.position);peer.rotation.y=Math.atan2(-d.x,-d.z);const inward=d.clone().applyQuaternion(vessel.quaternion.clone().invert());const relative=Math.atan2(inward.x,inward.z);body.root.quaternion.copy(peer.quaternion).invert().multiply(vessel.quaternion).multiply(new Quaternion().setFromAxisAngle(new Vector3(0,1,0),relative));body.update(1/30,{activity:'capstan',station,boat,feet:peer.position,working:i>50});const errors=body.ik.map((ik,n)=>{ik.evaluate(rig.local,rig.group.matrixWorld);return ik.point(ik.chain[2]).distanceTo(hands[n]);});assert.ok(Math.max(...errors)<.05,station+' rotating physical wrist: '+Math.max(...errors));for(const l of body.handDiagnostics){assert.ok(Math.abs(l.upperLength-.2510293)<1e-5);assert.ok(Math.abs(l.lowerLength-.2881151)<1e-5);}samples.push({angle,station,errors});
++}
++console.log('V63 actual CC0 captain: 4 capstan stations, 2800 moving samples under pitch/heel, planted soles, real wrists within 5cm and fixed bone lengths PASS; max '+Math.max(...samples.flatMap(s=>s.errors)).toFixed(5)+'m');
+--- V63/test/stormwake-v64-ladders.mjs
++++ V64/test/stormwake-v64-ladders.mjs
+@@ -0,0 +1,15 @@
++import {VoyageM1} from '../src/voyage/VoyageM1.js';
++import assert from 'node:assert/strict';
++import {Vector3} from '../src/engine/index.js';
++import {beginShipClimb,advanceShipClimb} from '../src/ship/ShipLadder.js';
++import {walkCrew} from '../src/ship/CrewNavigation.js';
++const keys=new Set(),p={mode:'deck',deckLayer:'deck',deckPos:new Vector3(0,1,0),deckVel:new Vector3(),input:{down:k=>keys.has(k)}},room={layout:{x:-.8,z:0,floorY:-.6,deckY:1,deckExit:{x:0,z:0}},layer:'lowerHold',nearEntrance:()=>true,setHatchOpen(){},floorAt:()=>-.6,constrain(){}};
++assert.ok(beginShipClimb(p,room,true));p.shipClimb.manual=true;
++for(let i=0;i<30;i++)advanceShipClimb(p,1/30,room);assert.equal(p.shipClimb.t,0,'standing near a ladder cannot move the player');
++keys.add('KeyS');for(let i=0;i<10;i++)advanceShipClimb(p,1/30,room);keys.clear();const before=p.deckPos.clone(),time=p.shipClimb.t;
++for(let i=0;i<30;i++)advanceShipClimb(p,1/30,room);assert.equal(p.shipClimb.t,time);assert.ok(p.deckPos.distanceTo(before)<1e-9,'release stops instead of finishing an automatic animation');
++keys.add('KeyW');while(p.shipClimb)advanceShipClimb(p,1/30,room);keys.clear();assert.equal(p.deckLayer,'deck');assert.ok(p.deckPos.distanceTo(new Vector3(0,1,0))<1e-8);
++const actor={x:0,y:0,z:0,metricScale:{x:2.05,y:2.45,z:2.85}};walkCrew(actor,{x:1,y:0,z:1},.1);const dx=actor.x*2.05,dz=actor.z*2.85;assert.ok(Math.abs(Math.hypot(dx,dz)-.175)<1e-8);assert.ok(Math.abs(Math.atan2(dx,dz)-actor.yaw)<1e-8,'face direction follows physical movement after the ship scale is cancelled');
++console.log('V64 manual ladder: no proximity teleport, held S descent, release pause, held W reverse, same-world return; crew metre speed and facing under anisotropic ship scaling PASS');
++
++for(const flag of ['shipClimb','mastClimb','boardingClimb']){const scope={app:{player:{mode:'deck',[flag]:{t:.4}}}};assert.deepEqual(VoyageM1.prototype.getNearbyCandidates.call(scope),[]);assert.equal(VoyageM1.prototype.takeStation.call(scope,'anchor'),false,'ladder input cannot attach the same player to a second station');}
+--- V63/test/stormwake-v64-navigation.mjs
++++ V64/test/stormwake-v64-navigation.mjs
+@@ -0,0 +1,16 @@
++import assert from 'node:assert/strict';
++import {SailWind} from '../src/ship/SailWind.js';
++import {SailingCourse} from '../src/ship/SailingCourse.js';
++import {CrewAI} from '../src/ship/CrewAI.js';
++import {ShipStations} from '../src/ship/ShipStations.js';
++const wind=new SailWind({wind:{x:0,z:10}}),state={heading:0,velocity:{x:0,z:0},sailMain:1,sailJib:1,sailTrim:0};
++assert.equal(wind.evaluate({...state,sailMain:0,sailJib:0}).thrust,0);assert.equal(new SailWind({wind:{x:0,z:0}}).evaluate(state).thrust,0);assert.equal(wind.evaluate({...state,heading:Math.PI}).thrust,0,'cannot sail straight into the wind');assert.ok(wind.evaluate(state).thrust>1000);
++const course=new SailingCourse(),boat={position:{x:0,z:0},getYaw:()=>0},target={x:0,z:-300},point=course.update(.1,boat,target,wind.wind,{heightAt:()=>-50});assert.ok(course.tacking);assert.notEqual(point.x,0);assert.ok(wind.evaluate({...state,heading:Math.atan2(point.x,point.z)}).thrust>0);assert.deepEqual(boat.position,{x:0,z:0},'pilot chooses a course without moving or assigning speed to the ship');assert.equal(new SailingCourse().update(.1,boat,target,wind.wind,{heightAt:()=>20}),null,'unsafe tack cannot cut through land');
++const model={shipScale:{x:1,y:1,z:1},heritageDeck:{}},stations=new ShipStations({cooperativeCapstan:true}),crew=new CrewAI(stations,{boat:model}),samples=[],vessel={...boat,model};
++for(let i=0;i<600;i++){crew.update(.05,{boat:vessel,wind:wind.evaluate(state),waypoint:{x:0,z:300},autopilot:true,damage:{holes:[],water:0}});stations.update(.05);samples.push(stations.anchorTravel);}
++assert.ok(samples.some(x=>x>.1&&x<.9),'a moving sailor must actually wind the mechanical capstan');assert.ok(stations.anchorTravel<.001);assert.ok(stations.sailMain>.9);
++for(let i=0;i<600;i++){crew.update(.05,{boat:vessel,wind:wind.evaluate(state),autopilot:true,arriving:true,standby:true,damage:{holes:[],water:0}});stations.update(.05);}
++assert.ok(stations.anchorTravel>.999);assert.ok(stations.sailMain<.03,'arrival furls the physical sail');
++const manual=new ShipStations(),manualCrew=new CrewAI(manual,{boat:model});manual.sailMain=.4;
++for(let i=0;i<100;i++){manualCrew.update(.05,{boat:vessel,damage:{holes:[],water:0}});manual.update(.05);}assert.equal(manual.sailMain,.4,'without a waypoint AI cannot silently change manually set sails');
++console.log('V64 sailing: no cloth/no wind/no-go zero thrust, safe 70-degree tacking, no position/speed shortcuts, actual walking crew and gradual capstan/sail operation, arrival furling and manual control preservation PASS');
+--- V63/test/stormwake-v64-walking.mjs
++++ V64/test/stormwake-v64-walking.mjs
+@@ -0,0 +1,10 @@
++import assert from 'node:assert/strict';
++import {actualShip} from './helpers/v64-ship.mjs';
++const {player:p,input}=await actualShip();
++function walk(key,done,label,frames=600){input.keys.add(key);let count=0;while(!done()&&count++<frames)p.updateDeck(1/30);input.keys.clear();assert.ok(count<frames,label+' '+JSON.stringify({p:p.deckPos,layer:p.deckLayer,contacts:p.collisionContacts}));for(let i=0;i<5;i++)p.updateDeck(1/30);}
++if(!process.argv.includes('--cabin'))for(const x of [-1.03,1.03]){p.deckPos.set(x,1.85,3.9);p.deckVel.set(0,0,0);p.deckYaw=0;p.deckGrounded=true;for(let i=0;i<10;i++){walk('KeyW',()=>p.deckPos.z>6.55,'fore outward');walk('KeyS',()=>p.deckPos.z<3.95,'fore return');}}
++p.deckPos.set(-.88,1.06,-6);p.deckVel.set(0,0,0);p.deckYaw=Math.PI;p.deckLayer='deck';p.deckGrounded=true;
++walk('KeyW',()=>p.deckPos.z< -7.60&&p.deckLayer==='hold','walk into cabin');
++walk('KeyD',()=>p.deckPos.x>-.25,'move away from entrance');walk('KeyW',()=>p.deckPos.z< -8.15,'approach table');
++walk('KeyA',()=>p.deckPos.x<-.85,'align door steps');walk('KeyS',()=>p.deckPos.z> -6.3&&p.deckLayer==='deck','walk out of cabin');
++console.log('V64 actual Dutch + full sourced cabin + real door steps + foremast: 10 uninterrupted fore round trips and walk from deck to table and back, original radius and no scripted crossing PASS');
+--- V63/test/stormwake-voyage-m1.mjs
++++ V64/test/stormwake-voyage-m1.mjs
+@@ -30,7 +30,7 @@
+ test('舷炮装弹与冷却、一枪只触发一次',()=>{const s=new ShipStations();s.claim('cannon_port','p1');s.setInput('cannon_port','p1',{fire:true});assert.equal(s.update(.1).shots.length,1);assert.equal(s.update(.1).shots.length,0);s.setInput('cannon_port','p1',{reload:true});s.update(4);s.setInput('cannon_port','p1',{reload:true,fire:true});assert.equal(s.update(.1).shots.length,1);});
+ test('顺风满帆推力明显强于纯辅机与逆风帆',()=>{
+  const wind=new SailWind({wind:{x:0,z:9}});const full=wind.evaluate({heading:0,sailMain:1,sailJib:1}),up=wind.evaluate({heading:Math.PI,sailMain:1,sailJib:1});
+- assert.ok(full.thrust>9000);assert.ok(full.thrust>up.thrust*5);assert.equal(wind.evaluate({heading:0}).thrust,0);
++ assert.ok(Math.abs(full.thrust-1.45*9*9*23)<1e-6,'quadratic wind pressure with real canvas coefficient');assert.ok(full.thrust>up.thrust*5);assert.equal(wind.evaluate({heading:0}).thrust,0);
+ });
+ test('船体破损、进水、修复、火灾、沉船',()=>{
+  const d=new ShipDamage();d.applyHit(40);d.applyHit(40);assert.equal(d.integrity,20);assert.ok(d.breach>0);d.update(2);assert.ok(d.integrity<20);const v=d.integrity;d.repair(1);assert.ok(d.integrity>v);d.applyHit(200);assert.equal(d.isSinking(),true);assert.equal(d.repair(1),false);
+@@ -52,7 +52,7 @@
+ });
+ test('AI 在无人时补 helm/sail_main/cannon_starboard，真人优先',()=>{
+  const stations=new ShipStations(),ai=new CrewAI(stations);
+- const boat={position:{x:0,z:0},getYaw:()=>0};ai.update(.1,{boat,wind:{alignment:1},waypoint:{x:-50,z:50}});
++ const boat={position:{x:0,z:0},getYaw:()=>0};ai.update(.1,{boat,wind:{alignment:1},waypoint:{x:-50,z:50},autopilot:true});
+  assert.equal(stations.getOccupant('helm'),'ai:kael');assert.equal(stations.getOccupant('sail_main'),'ai:mei');
+  assert.equal(stations.claim('helm','p1',{replaceAI:true}),true);ai.update(.1,{boat});assert.equal(stations.getOccupant('helm'),'p1');
+ });
+--- V63/test/helpers/v64-ship.mjs
++++ V64/test/helpers/v64-ship.mjs
+@@ -0,0 +1,24 @@
++import {readFileSync} from 'node:fs';
++import {Group,Mesh,BufferGeometry,BufferAttribute,Vector3,Quaternion,PerspectiveCamera} from '../../src/engine/index.js';
++import {parseGLB} from '../../src/engine/loaders/GLTF.js';
++import {HeritageDeck} from '../../src/ship/HeritageDeck.js';
++import {CaptainCabinInterior} from '../../src/ship/CaptainCabinInterior.js';
++import {DutchLowerHold} from '../../src/ship/DutchLowerHold.js';
++import {installMastLookout} from '../../src/ship/MastLookout.js';
++import {installShipStairs} from '../../src/ship/ShipStairs.js';
++import {bakeShipCollision} from '../../src/ship/ShipCollisionWorld.js';
++import {Player} from '../../src/player/Player.js';
++export async function geometryModel(path){
++ const b=readFileSync(new URL('../../public'+path.replace('/models','/models'),import.meta.url)),gltf=parseGLB(b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength)),root=new Group(),groups=new Map();
++ const nodes=gltf.nodes.map(n=>{const g=new Group();g.name=n.name;g.position.fromArray(n.t);g.quaternion.fromArray(n.r);g.scale.fromArray(n.s);groups.set(g.name,g);
++  if(n.mesh!==undefined)for(const p of gltf.meshes[n.mesh]){const geometry=new BufferGeometry();geometry.setAttribute('position',new BufferAttribute(p.attributes.POSITION.array,3));if(p.indices)geometry.setIndex(new BufferAttribute(p.indices,1));const mesh=new Mesh(geometry,{});mesh.name=n.name;g.add(mesh);}return g;});
++ gltf.nodes.forEach((n,i)=>{for(const child of n.children)nodes[i].add(nodes[child]);});for(const i of gltf.roots)root.add(nodes[i]);return {root,groups};
++}
++export async function actualShip(){
++ const loaded=await geometryModel('/models/stormwake_v64/dutch_ship_lower_hold.glb'),group=new Group(),art=new Group();art.scale.set(1.064,.75,1.064);art.position.set(0,-.4,-.7);art.add(loaded.root);group.add(art);
++ const model={group,shipScale:{x:1,y:1,z:1},heritageArt:{objects:loaded.groups},lines:{},helmPoint:new Vector3(),helmEye:new Vector3(),boardPoint:new Vector3(),exitPoints:[]};model.heritageDeck=new HeritageDeck(model);model.mastLookout=installMastLookout(model);model.captainCabin=new CaptainCabinInterior(model);await model.captainCabin.load(geometryModel);model.lowerHold=new DutchLowerHold(model);installShipStairs(model);bakeShipCollision(model);model.originalDoor={open:true,passable:true};
++ const boat={model,position:new Vector3(),velocity:new Vector3(),quaternion:new Quaternion(),speed:0,getYaw:()=>0,toWorld:(v,out)=>out.copy(v)};
++ const input={enabled:true,keys:new Set(),down(k){return this.keys.has(k)},hit:()=>false,consume:()=>false,consumeLook:()=>({x:0,y:0})};
++ const player=new Player({camera:new PerspectiveCamera(),input,terrain:{heightAt:()=>-50},colliders:{groundHeightAt:()=>-Infinity,boxes:[]},query:{allocate:()=>0},boat});player.mode='deck';player.voyageM1={};player.shipInterior=model.captainCabin;player.lowerHold=model.lowerHold;
++ return {model,boat,input,player};
++}

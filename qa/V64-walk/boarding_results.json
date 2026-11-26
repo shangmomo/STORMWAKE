@@ -1,0 +1,121 @@
+{
+  "results": {
+    "boarding": {
+      "pass": true,
+      "paused": 0.1603499999999949,
+      "end": {
+        "player": {
+          "mode": "deck",
+          "deckLayer": "deck",
+          "position": {
+            "x": 801.1338,
+            "y": 2.4282,
+            "z": 1201.804
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "deckPosition": {
+            "x": 1.8522,
+            "y": 0.8419,
+            "z": 1.9
+          },
+          "station": null,
+          "grounded": true,
+          "deckYaw": -1.4552,
+          "climbing": false,
+          "collision": {
+            "triangles": 49179,
+            "bvh": true
+          }
+        },
+        "contacts": [
+          {
+            "t": 0,
+            "normal": [
+              -0.9849360311561332,
+              0.0851209232098861,
+              0.15051725137771105
+            ],
+            "id": "Artist mesh dutch_ship_medium_hull"
+          },
+          {
+            "t": 0,
+            "normal": [
+              0.9999865053857198,
+              0,
+              0.005195098310515044
+            ],
+            "id": "Artist mesh dutch_ship_medium_hull"
+          },
+          {
+            "t": 0,
+            "normal": [
+              -0.9996199967850737,
+              -1.5245130694612e-15,
+              -0.027565594994651225
+            ],
+            "id": "Artist mesh dutch_ship_medium_hull"
+          },
+          {
+            "t": 0,
+            "normal": [
+              -0.9849360311561332,
+              0.0851209232098861,
+              0.15051725137771105
+            ],
+            "id": "Artist mesh dutch_ship_medium_hull"
+          },
+          {
+            "t": 0,
+            "normal": [
+              0.9999865053857198,
+              0,
+              0.005195098310515044
+            ],
+            "id": "Artist mesh dutch_ship_medium_hull"
+          }
+        ],
+        "velocity": {
+          "x": -8.111713517476918e-06,
+          "y": 0,
+          "z": 0.001561395678810101
+        },
+        "climb": null,
+        "mast": null,
+        "trace": {
+          "playerLocal": {
+            "x": 1.8522,
+            "y": 0.8419,
+            "z": 1.9
+          },
+          "focusOwner": null,
+          "overlayActive": false,
+          "playState": "playing",
+          "frame": 218,
+          "selectedId": "take_chainshot",
+          "candidates": [
+            {
+              "id": "take_chainshot",
+              "distance": 0.7597940481116595,
+              "priority": 210,
+              "facing": 0.9954775786254896,
+              "aimed": true
+            },
+            {
+              "id": "cannon_port",
+              "distance": 0.7806716753982754,
+              "priority": 40,
+              "facing": 0.5424112184911797,
+              "aimed": false
+            }
+          ],
+          "history": []
+        }
+      }
+    }
+  },
+  "errors": []
+}

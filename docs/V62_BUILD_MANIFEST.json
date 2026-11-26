@@ -1,0 +1,514 @@
+{
+  "build_sha256": "d4db24d518670e4e07bd8c989e447f501f5829949cf7bfbee4492d03b20164b1",
+  "baseline": "C:\\Users\\syz\\Documents\\ChatGPT\\3d\\stormwake-v61\\STORMWAKE_V61",
+  "changed_files": [
+    {
+      "path": "00_START_V62.cmd",
+      "sha256": "370a9d24ddeb18b6cd22bd68d33c5389a561a6cd3f77d45d947e747a1bb526d1"
+    },
+    {
+      "path": "docs/V62_ACCEPTANCE.md",
+      "sha256": "39918794aa7b20283e87a0e1d32282c10b416bb2d22b02efa2253fa9622ae402"
+    },
+    {
+      "path": "package.json",
+      "sha256": "f9351c313404add27d1db7cf9fccb942532e0afecd3e510ef8bd1df2846ea75d"
+    },
+    {
+      "path": "public/models/stormwake_v62/dutch_ship_lower_hold.glb",
+      "sha256": "729ebfc4813429493a302c860821a2aecdf75c20b679ff570de88c758c6befea"
+    },
+    {
+      "path": "public/models/stormwake_v62/kenney_barrel.glb",
+      "sha256": "9e37b8131d7e42a1a4db4b60b9eae55bda97a80911afb91acc00473a2332f73c"
+    },
+    {
+      "path": "public/models/stormwake_v62/kenney_cannon-ball.glb",
+      "sha256": "1526e2c9cb066b6edad745b1b3a39c5d18a6bbbdfdfdb09da3cf1ac7c3344c1e"
+    },
+    {
+      "path": "public/models/stormwake_v62/kenney_cannon-mobile.glb",
+      "sha256": "934f1689c3fd97a1957d8f86e59f862b02be7dee914e67e588db84e7fc67b87b"
+    },
+    {
+      "path": "public/models/stormwake_v62/kenney_cannon.glb",
+      "sha256": "a8f868310a92bcd343953600509f0ace9abea5ab31209803688d1ef468e3529b"
+    },
+    {
+      "path": "public/models/stormwake_v62/kenney_chest.glb",
+      "sha256": "65754449fe51477424fdd59181e78e41da145ed65cddb32e010fbaf84c158658"
+    },
+    {
+      "path": "public/models/stormwake_v62/kenney_crate.glb",
+      "sha256": "f708eb10f6f64d5a2daef655228773d14ca08228828e54d69af217285aaec822"
+    },
+    {
+      "path": "public/models/stormwake_v62/kenney_flag-pirate.glb",
+      "sha256": "846ce653c870024ac0e98305b408584a03b385d5f259de168639dadb80fffb83"
+    },
+    {
+      "path": "public/models/stormwake_v62/kenney_manifest.json",
+      "sha256": "65b1b0f911660f951a516299ec02309772ccf59ae09feaee92617dcef2d1c955"
+    },
+    {
+      "path": "public/models/stormwake_v62/kenney_mast-ropes.glb",
+      "sha256": "775ccf08e801065e995f343be0363636ad02013637cc6a929e9afa8a0e890b72"
+    },
+    {
+      "path": "public/models/stormwake_v62/LICENSE_KENNEY.txt",
+      "sha256": "5e99246a5a65fa3420a1a1c7a8616f096202c78866f73d7aacfe73c0aab0ca36"
+    },
+    {
+      "path": "public/models/stormwake_v62/stair_manifest.json",
+      "sha256": "d9335c6c6ee24197c4e144365e3687da383bf12c61d09c1e0a4348cd1578b5da"
+    },
+    {
+      "path": "qa/V62/build.txt",
+      "sha256": "efc6d861628d0f5d6518f75a4f4743abf35d24dcaadf1bdf64aef4adffea5049"
+    },
+    {
+      "path": "qa/V62/evidence_index.json",
+      "sha256": "8f655637852104c34a46a1f9fa8d8e842be6b3a3bb8c5fb44f5c127c08a4fb95"
+    },
+    {
+      "path": "qa/V62/general-tests.txt",
+      "sha256": "e0746d2976429fb1eb2c694395d55a5a0e736be54f9153cdbbcb58cef611074a"
+    },
+    {
+      "path": "qa/V62/land-stairs.txt",
+      "sha256": "b316477205e876a45bdf9dc512996091143633dcd50398506511f1054d9822ae"
+    },
+    {
+      "path": "qa/V62/regression.txt",
+      "sha256": "3cd89d4f7fc6e22a7ce81f9f78e9f5ce8170ff6908e76fe265be5d4eb7b1af3a"
+    },
+    {
+      "path": "qa/V62-focus/20261115_034653/aft_stairs.png",
+      "sha256": "b9a521949851a97034fa650eec618a182889243d3c7037a60d288f3414d18d3c"
+    },
+    {
+      "path": "qa/V62-focus/20261115_034653/bow_anchor.png",
+      "sha256": "83d01ed91cafa1a3ac10b8e4267364952717310decbf1ab82a55c158e12e544b"
+    },
+    {
+      "path": "qa/V62-focus/20261115_034653/fore_stairs.png",
+      "sha256": "1ddefbea959be3e1e75409f6e6a19464c0a63800a99904e4139d046600d6b69a"
+    },
+    {
+      "path": "qa/V62-focus/20261115_034653/ghost_storm.png",
+      "sha256": "ae6793c1c9096bfcff1dd817c95465c85314f4d0fc3722565d060c942f47836b"
+    },
+    {
+      "path": "qa/V62-focus/20261115_034653/results.json",
+      "sha256": "5149fa96009e3bd4191c3c4598644f74658c914f3987abb5b9a6c04078c4bea8"
+    },
+    {
+      "path": "qa/V62-focus/20261115_034653/waterspouts.png",
+      "sha256": "eaaa16d24ffb141ffc4c3e8760c563bb2c8f370b7232cea8f9d72031b56d22d2"
+    },
+    {
+      "path": "qa/V62-focus/20261115_035054/bow_anchor.png",
+      "sha256": "8fe421135a91273bdfb9086acd8748082cc29b4107e9711d7d59b3642f746e8b"
+    },
+    {
+      "path": "qa/V62-focus/20261115_035054/ghost_storm.png",
+      "sha256": "77a488ab6954eaa10efe4f99e0b7edc6936a11b17cdc8c0a6b3d4eacb96d7e5d"
+    },
+    {
+      "path": "qa/V62-focus/20261115_035054/results.json",
+      "sha256": "d11cb7a1ed411c386ed7a9d21d4e2618163311a79e40e98e5b610864f2a08f68"
+    },
+    {
+      "path": "qa/V62-focus/20261115_035054/waterspouts.png",
+      "sha256": "6f54d1fd82277e7272e04d5ab5105378fcba9d6ca4f83cef64897dfe54f6f474"
+    },
+    {
+      "path": "qa/V62-focus/20261115_035054/waterspouts_night.png",
+      "sha256": "8e4d0e84d16baa04b3cc95a05815947aee81e584d9d97d151cd5aab6577db636"
+    },
+    {
+      "path": "qa/V62-focus/20261115_035334/bow_anchor.png",
+      "sha256": "284f21125159555a2a9d7487ab871779f8eb05ced2eaf8461a5fa242364da372"
+    },
+    {
+      "path": "qa/V62-focus/20261115_035334/ghost_storm.png",
+      "sha256": "f26932d322d4d66d044371c088dd3a2779c3e735adc1dae8f1faf3c5f45c8ac0"
+    },
+    {
+      "path": "qa/V62-focus/20261115_035334/results.json",
+      "sha256": "8823f560bd5be29d954029ce17dafd19977f7a80e1572fc987d7ce5779e1a226"
+    },
+    {
+      "path": "qa/V62-focus/20261115_035334/waterspouts.png",
+      "sha256": "36669364f087888f87e26c780e381b3ad5bd17dbf17599ff04c37bea2defe184"
+    },
+    {
+      "path": "qa/V62-focus/20261115_035334/waterspouts_night.png",
+      "sha256": "4eada402372dfa026d02d5a080dd614072ab3a644b0abd55834b4280c5bf5061"
+    },
+    {
+      "path": "qa/V62-focus/aft_stairs.png",
+      "sha256": "7186036998a9b7d279a1d67cfed6f4692dea988caee619d642b6954158d5965d"
+    },
+    {
+      "path": "qa/V62-focus/bow_anchor.png",
+      "sha256": "de0fbcd08f904e9357e23d002f899e9b9211d159af8f429521a1bfed17ce91e2"
+    },
+    {
+      "path": "qa/V62-focus/fore_stairs.png",
+      "sha256": "46e9401a3be85e32c29648da5bfba0dbbaddfa5468e006a7dc47dbdace674b63"
+    },
+    {
+      "path": "qa/V62-focus/ghost_storm.png",
+      "sha256": "0d16440a098ac54d21d35c06d4dc02c71e27fbad3d2fece0bd76cd3614ccd840"
+    },
+    {
+      "path": "qa/V62-focus/results.json",
+      "sha256": "27164b07874526a597f4993c66e317f7f452c8c83ba5349a7bea800a70e3b787"
+    },
+    {
+      "path": "qa/V62-focus/stairs_failure.png",
+      "sha256": "10f4de97d8ea54654ae8d98fb47388d0c5995f5b2a505cec837c8dbfbaee6b34"
+    },
+    {
+      "path": "qa/V62-focus/waterspouts.png",
+      "sha256": "a01a0cb63a7d00cd635705fb223f4acce9215afcb5f23361f62cd942c665ca7f"
+    },
+    {
+      "path": "qa/v62-initial/V61_20261115_032641/report.json",
+      "sha256": "b9273474b2ec07679a99a822cc6656180e28dbc8c9f54b8d16100aebffec6f92"
+    },
+    {
+      "path": "qa/v62-initial/V61_20261115_032641/REPORT_zh.md",
+      "sha256": "cc2ec8adff1713a1ac83dd0de2a3e540f30ab495f6dd2dfb5bc0beb654f06f0c"
+    },
+    {
+      "path": "qa/v62-initial/V61_20261115_032641/route_traces.json",
+      "sha256": "bf0109478179796db5b4dfc2bc910418cf5ec340e52824e4776678e4389ec25e"
+    },
+    {
+      "path": "qa/v62-initial/V61_20261115_032641/screenshots/captain_anchor.png",
+      "sha256": "7a1ffdc34e7ed8678477a27c75407342d76dd1d3bef18575608265f5313a4be2"
+    },
+    {
+      "path": "qa/v62-initial/V61_20261115_032641/screenshots/captain_beach.png",
+      "sha256": "a0e84f55734a1a7c4eb973b7edf75d890d38dbdc7ed0d391b004f8367ee4d8fe"
+    },
+    {
+      "path": "qa/v62-initial/V61_20261115_032641/screenshots/captain_boss.png",
+      "sha256": "b93fa078b67b685e4343818fc3ceaa912a3ac5e49a3f32b9d279aee6597534a9"
+    },
+    {
+      "path": "qa/v62-initial/V61_20261115_032641/screenshots/captain_cabin.png",
+      "sha256": "8b9bb3be9fff6c4337232bd109cd4c63557fc114254366103eec91563a90e5fe"
+    },
+    {
+      "path": "qa/v62-initial/V61_20261115_032641/screenshots/captain_dock.png",
+      "sha256": "6868781b9e350dfe5cab39f994acafea44bbba2c6c38748db84e91c833debb56"
+    },
+    {
+      "path": "qa/v62-initial/V61_20261115_032641/screenshots/captain_helm.png",
+      "sha256": "3a4db9d09c2a1084f38f9eceb2bca27e2e13ca05295280721810a6ba6b3b8331"
+    },
+    {
+      "path": "qa/v62-initial/V61_20261115_032641/screenshots/captain_lower_hold.png",
+      "sha256": "883dc4fd552dc678aba284a8cbaa8c09125f3cd93b27a6fb68243e8ad8185ddf"
+    },
+    {
+      "path": "qa/v62-initial/V61_20261115_032641/screenshots/captain_open_sea.png",
+      "sha256": "21966e773a364492ead84495f2fdadd1f8463226bb0892b3839d3514e10aaf28"
+    },
+    {
+      "path": "qa/v62-initial/V61_20261115_032641/screenshots/captain_spawn.png",
+      "sha256": "3c9b46657c6b5cd664ab55409c542c7d2b7c6f9772c97e3ece468f50d6ad9a5d"
+    },
+    {
+      "path": "qa/v62-initial/V61_20261115_032641/screenshots/route_cabin_inside.png",
+      "sha256": "c8c42dd55dcbf9ae3a6eb12d77c61cbb9bcd50476e77a51029432c6c917413ef"
+    },
+    {
+      "path": "qa/v62-initial/V61_20261115_032641/screenshots/route_cargo_inside.png",
+      "sha256": "fe3289365174f918326a4992bf3c0a7e4d66c3ea1345092394f19cf75706b2b7"
+    },
+    {
+      "path": "qa/v62-initial/V61_20261115_032641/VISUAL_REPORT.html",
+      "sha256": "9a8dd9bc846c2e618748856f08574278c0e08ac75b817a4b449f6d57a5bbcf46"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_035709/screenshots/captain_anchor.png",
+      "sha256": "7817379d230e4dba907b0af33afbd2b15101627b0d68ae9f05b66408ea9fdbca"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_035709/screenshots/captain_beach.png",
+      "sha256": "3414190f7205620231c7b19d00cb57c72b506432d399ea754b8342a8ece0acbe"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_035709/screenshots/captain_boss.png",
+      "sha256": "4fad944278ae7a1296e7418e5676786e4f93395e73bd274709a8a175ecd7abab"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_035709/screenshots/captain_cabin.png",
+      "sha256": "fcdab9558d56a4f65108bd2e60f224111dcab1c6bed0db92469970ef7912d111"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_035709/screenshots/captain_dock.png",
+      "sha256": "3ceead0e25b00c3e999cbdd1aaa966b2782eb786fc9c8d8643095febc54ef60c"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_035709/screenshots/captain_helm.png",
+      "sha256": "0077d023bcefb42372b735731fc10f5b946ba3adf944687e317417c9bbe1c6c9"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_035709/screenshots/captain_lower_hold.png",
+      "sha256": "87b0feb9e05b8ebef08b3612c99bc6dbafa530de902ea63f6438019c7728b71f"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_035709/screenshots/captain_open_sea.png",
+      "sha256": "7428720eb154b6350dc4ab67f756522bbcc3269cdc3b100d0856cc4f86a11ed9"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_035709/screenshots/captain_spawn.png",
+      "sha256": "c77484740e15fe1598655b2ce70757a5f81ba2f1c6905d82c523c31812b6e226"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_035709/screenshots/route_cargo_inside.png",
+      "sha256": "1a0ba1618c77650366a2f98e88d033450a5129149e24d56983ba57f7c53bb64a"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_111945/report.json",
+      "sha256": "5639f897a286da725b8b58cefa95cc85976329da4ae32068d7a95fa0004174d3"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_111945/REPORT_zh.md",
+      "sha256": "7a97a9eaf892d3382c934107be4cd2168f33e100220724f7e6bd10962b82a7da"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_111945/screenshots/captain_anchor.png",
+      "sha256": "7c224154bc6a421e8cf0aebe2a7214adc55e6ed1ba9e9118bfe5b641973c54b4"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_111945/screenshots/captain_beach.png",
+      "sha256": "d54c15db853486cfaaadfa2232033656bed277937f7844e901b0e358fc93ed75"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_111945/screenshots/captain_boss.png",
+      "sha256": "5e8b7055d4edb4063682d312f4b8ea520d966312073cefd818f42d16185ea12d"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_111945/screenshots/captain_cabin.png",
+      "sha256": "fe2f3220aeaa6cdaeac6c27fbfe980487b0498867a838211316a88fafeffbf8d"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_111945/screenshots/captain_dock.png",
+      "sha256": "7532d7104b1127926e154c4b42348826f9c6e91e148eb7a7bba6a8ac7f5b8d2c"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_111945/screenshots/captain_helm.png",
+      "sha256": "519dba5a58e4a87a42a58c7d7bc3694cab1016fd0252d9277168721e04c69dbf"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_111945/screenshots/captain_lower_hold.png",
+      "sha256": "52a376f0a8d06d06a5cc39be1a87521481456fe56ea73d16437923833fe3a08f"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_111945/screenshots/captain_multiplayer_night.png",
+      "sha256": "bb22215ccfd3d48eb10abfd3eea9cb879a79054c6516a6490cfc460218177acc"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_111945/screenshots/captain_open_sea.png",
+      "sha256": "8a03ba52ecc5ea8ac2b877f2d2cfdf56461918b3a78aae9410ad55fd20c4fb8c"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_111945/screenshots/captain_spawn.png",
+      "sha256": "86bc5cb1af6cb7f27e109454a93d0974f4117c5e4372747562040bc28fba0504"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_111945/screenshots/crew_multiplayer_night.png",
+      "sha256": "96b7216f7191ade79975f5e755cb429ae96bf8f69ebdaa21209697c505570ecf"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_111945/screenshots/four_capstan_1.png",
+      "sha256": "92be43c2fa7f60591497adc0495e382d83b3f7381d6ffdb38f09fb229bcb4ce9"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_111945/screenshots/four_capstan_2.png",
+      "sha256": "12be9af2d656aefd673fb04ed9e55c5c4c3e302f2eb43d02658d127b2d40547a"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_111945/screenshots/four_capstan_3.png",
+      "sha256": "a740d3663a485a83732fff8310fd0c8e2144f03aeb16c6661ec0381b59a8aedb"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_111945/screenshots/four_capstan_4.png",
+      "sha256": "b53172a58d5526b195b457322a96b868410f9e2deaa8f02297d23411656fa6e3"
+    },
+    {
+      "path": "qa/V62-release/V62_20261115_111945/VISUAL_REPORT.html",
+      "sha256": "783fd7b41f9f02d18401175eb52423c23434a0c9df44ea3564c63b1e1af8c915"
+    },
+    {
+      "path": "README_V62_先读我.md",
+      "sha256": "1e2b68c726d7fc01cffc10516c1c2abd2c5d06a36b1e07eb0a61e812dc1209bf"
+    },
+    {
+      "path": "server/coopHub.js",
+      "sha256": "0cfa1285372b5a22a3878236b1c51ec4f4332d47ce29bd8b69cf742c097c9420"
+    },
+    {
+      "path": "src/App.js",
+      "sha256": "aced4c7bbfcf22e309eb9515fc58760d54450773bd7ed53c2f357f0fd36bb998"
+    },
+    {
+      "path": "src/audio/SoundScape.js",
+      "sha256": "cdcd363465004fb73b590750b1b440267ef14f88b2c28b53e6433c53e3d69c23"
+    },
+    {
+      "path": "src/net/ShipNetBridge.js",
+      "sha256": "da1b743f3f9cdd82da304abe909060e369ec238bb090c643dce06b6f6f31091a"
+    },
+    {
+      "path": "src/ocean/WaterQuery.js",
+      "sha256": "db7f2342544ff5d2969ff086cb6e1bcd2bcda3dc438611fd37f77987ebd1fae7"
+    },
+    {
+      "path": "src/offshore/GhostFleet.js",
+      "sha256": "86e549602acd6b148889e409cc41760908c14c66f29cc37ba3224bb5cd6cda1a"
+    },
+    {
+      "path": "src/offshore/OffshoreField.js",
+      "sha256": "a79463afdfab3859b452b805ba7421ac4b5a1ee0c9a960b7f188d26efdc9e457"
+    },
+    {
+      "path": "src/offshore/SpectralWeather.js",
+      "sha256": "a407e424f705872ffd41a7a52fce4e75a88c6258c457dc33c56dd26069e31c79"
+    },
+    {
+      "path": "src/offshore/StormRain.js",
+      "sha256": "bfacdf8ac672f58bcb2f56f2a312890121c2fb5ec1f92b1ec96e20f9e3c10657"
+    },
+    {
+      "path": "src/offshore/VortexVisuals.js",
+      "sha256": "1da8b5dcf8359bcc9fdf806174cef98237f85ed9e7cda1d475b5200a2461e223"
+    },
+    {
+      "path": "src/player/BoatController.js",
+      "sha256": "c0c384d53f30d26497d8bb869ac8fc6cddabadf9b5b1735350b9d1fdefc92ae7"
+    },
+    {
+      "path": "src/player/CharacterMotor.js",
+      "sha256": "0a3b46d21ce0c766edd079e7785eb7132a4cc4f014d7144ba17228c05d6ed77c"
+    },
+    {
+      "path": "src/player/Player.js",
+      "sha256": "4d81a74892c4eff8e80184b2aa750264f108295267c267369a602dcd408e56b1"
+    },
+    {
+      "path": "src/post/AirHaze.js",
+      "sha256": "3d0ca8cc4270098f936efc5652687205034dbcc03255df9a69b73a822a5cf88c"
+    },
+    {
+      "path": "src/qa/AutoQA.js",
+      "sha256": "896db199088db7ff556d298a91fb7ee8276e142ac2263f51f0cf734d7b0a8d7c"
+    },
+    {
+      "path": "src/ship/AnchorKinematics.js",
+      "sha256": "0df131a6ea49a2077ac4d566834d2ee467e96d8fdb466533549a710f4b3e37c4"
+    },
+    {
+      "path": "src/ship/HeritageAssetRig.js",
+      "sha256": "4dafcff16a59001cf20df485f7018394ed6d8a112fe0522ae761e29ed3e3837d"
+    },
+    {
+      "path": "src/ship/HeritageDeck.js",
+      "sha256": "e75192d010524b4b83df0e0f5780f1231e295ea46f31825d8b742babd349f23e"
+    },
+    {
+      "path": "src/ship/HeritageDoorPhysics.js",
+      "sha256": "6c50bb1918dd02114a98f94cdf77305b10ff8b660c9d5199f8148bb18aa7c266"
+    },
+    {
+      "path": "src/ship/ShipAnchorRig.js",
+      "sha256": "f7952f8e8e9cbdf258bacd584a0dffc016d4f7822db459b5c828a5f60b77df10"
+    },
+    {
+      "path": "src/ship/ShipCollisionWorld.js",
+      "sha256": "e27807c98ac0c2b861c25287d753ee08c78cd1709cc781b8927e430252f7c1f6"
+    },
+    {
+      "path": "src/ship/ShipDeckRoutes.js",
+      "sha256": "18cb385724fe0e4347ee1bba9992b6cd3741d7f8cc2f8d658eac9675cd42eff1"
+    },
+    {
+      "path": "src/ship/ShipStairs.js",
+      "sha256": "882139cec91c6674a9d808cc49addbdbacc2505880b655fe273e60f60f402f6f"
+    },
+    {
+      "path": "src/systems/CollisionWorld.js",
+      "sha256": "e9d9eeb4f9a7d22255e5cec4134f74f4edd4bb71d79255ef746dc4e5248c6ba4"
+    },
+    {
+      "path": "src/voyage/Broker.js",
+      "sha256": "f1e731083ed364725d3f9cf9824224ca4bde84f704cb4a3a585eb4a2f206dcbe"
+    },
+    {
+      "path": "src/voyage/Cargo.js",
+      "sha256": "b4aeafb3376c206fad9261e54ee2b24ba8764ab89595b75405521afbaef2de24"
+    },
+    {
+      "path": "src/voyage/SpectralSpoils.js",
+      "sha256": "6065be73d6ed3fc606c58317407681d2f8e0f088a501bd91bdff707fe0ac96c8"
+    },
+    {
+      "path": "src/voyage/VoyageDirector.js",
+      "sha256": "4cb1846841a0d9463bf06764c182b54ed7482f53a12debec9d7b224722dcda75"
+    },
+    {
+      "path": "src/voyage/VoyageM1.js",
+      "sha256": "5aed5f58202ab7ca8f6e7bb49657ff3f16a906de53e89cd1443d489867079820"
+    },
+    {
+      "path": "start_v60.py",
+      "sha256": "c974fbae9c2eb30f2e716ba842ff455f64e453236fc0dee0b2568b5550d7b23a"
+    },
+    {
+      "path": "start_v62.py",
+      "sha256": "086c591cfd3370ba5f001fca8b9ae85639c9db1d121e1975ddbb2064026561ab"
+    },
+    {
+      "path": "test/stormwake-v56-systems.mjs",
+      "sha256": "7c2f2600cbff1f49d1cda6b7b29b7e0022776dceb0c12c5ad21605265d6912e0"
+    },
+    {
+      "path": "test/stormwake-v62-environment.mjs",
+      "sha256": "9ab874d0166b1d5c5fd40abaad8b0e2f8300645aadeb913702d50b01dfddac65"
+    },
+    {
+      "path": "test/stormwake-v62-land-stairs.mjs",
+      "sha256": "a8fb4f900a38c98c188fb35c09b8363efbcff0ea5c94ddfdb886c291c3da78ed"
+    },
+    {
+      "path": "test/stormwake-v62-stairs.mjs",
+      "sha256": "89d1c47dcab85305a40eced265a2c912924c48ee02cae8236401f711a26df6e2"
+    },
+    {
+      "path": "tools/autoqa/runner.py",
+      "sha256": "e7749591f53fb58f29b1e088f5e77b863e394bf2515e554bfe75a1d8059efd99"
+    },
+    {
+      "path": "tools/autoqa/v62_focus.py",
+      "sha256": "a6e20ad8a42d2963fb992f3f18bcd4ca2201057adafefba2fa49ac0f204f25c0"
+    },
+    {
+      "path": "tools/build_v62_stair_apertures.py",
+      "sha256": "cc618877958144037e4d3360e773d8c7084083194cb199e7831b4e15c986e018"
+    },
+    {
+      "path": "tools/embed_v62_kenney.py",
+      "sha256": "d6b7d35de0319669f12bd0bb22395aaa2eaa23073d2ee4969da5019577204df8"
+    },
+    {
+      "path": "tools/release_v62.py",
+      "sha256": "fc36a6d6a0d7180c95a4933708eb276fdc6e5f5759d722440977e6d9b1d6f872"
+    }
+  ]
+}

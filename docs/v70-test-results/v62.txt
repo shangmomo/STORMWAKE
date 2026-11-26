@@ -1,0 +1,31 @@
+C {
+  height: 4.3,
+  expected: 4.3,
+  localZ: -2.450000000000005,
+  end: -1.7,
+  max: 0.19002923698973379
+}
+C normal 20 uninterrupted round trips PASS
+C carry 20 uninterrupted round trips PASS
+C sprint 20 uninterrupted round trips PASS
+G {
+  height: 4.3,
+  expected: 4.3,
+  localZ: -2.3499999999999877,
+  end: -1.5999999999999999,
+  max: 0.19002923617691572
+}
+G normal 20 uninterrupted round trips PASS
+G carry 20 uninterrupted round trips PASS
+G sprint 20 uninterrupted round trips PASS
+L {
+  height: 4.3,
+  expected: 4.3,
+  localZ: -2.349999999999996,
+  end: -1.5999999999999999,
+  max: 0.19002923617691278
+}
+L normal 20 uninterrupted round trips PASS
+L carry 20 uninterrupted round trips PASS
+L sprint 20 uninterrupted round trips PASS
+V62 all three two-storey houses: actual Player stair ascent PASS

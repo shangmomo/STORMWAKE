@@ -1,0 +1,12 @@
+[
+  {
+    "file": "dutch_ship_operable.glb",
+    "bytes": 24162144,
+    "sha256": "8b6944b26923bb8da5332102eab3e8cb51ba40ca1b6db873d740d5d2e446e856",
+    "source": "dutch_ship_cabin_access.glb",
+    "movable_original_faces": [
+      6300,
+      6301
+    ]
+  }
+]

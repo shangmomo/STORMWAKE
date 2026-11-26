@@ -1,0 +1,39 @@
+{
+  "source": "public\\models\\stormwake_v54\\dutch_ship_lower_hold.glb",
+  "source_sha256": "e26746ab6a92720146b653475b7403055e50e8f75eed33854e6dd33ba49c6078",
+  "file": "public\\models\\stormwake_v62\\dutch_ship_lower_hold.glb",
+  "sha256": "729ebfc4813429493a302c860821a2aecdf75c20b679ff570de88c758c6befea",
+  "license": "CC0 Poly Haven Dutch Ship Medium",
+  "affected_polygon_tests": 795,
+  "output_triangles": 27280,
+  "cut_volumes_author_space": [
+    {
+      "id": "aft",
+      "min": [
+        0.47932330827067665,
+        1.7866666666666664,
+        -6.193609022556391
+      ],
+      "max": [
+        1.4567669172932332,
+        4.56,
+        -4.511278195488721
+      ]
+    },
+    {
+      "id": "fore",
+      "min": [
+        0.47932330827067665,
+        1.6133333333333333,
+        2.3684210526315788
+      ],
+      "max": [
+        1.4567669172932332,
+        4.453333333333333,
+        4.116541353383458
+      ]
+    }
+  ],
+  "replacement": "src/ship/ShipStairs.js",
+  "limitations": "This is a documented local stair retrofit, not a new hull."
+}

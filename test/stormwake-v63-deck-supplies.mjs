@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {SharedSupplyLedger} from '../src/ship/SharedSupplyLedger.js';
+import {SharedDeckSupplies} from '../src/ship/SharedDeckSupplies.js';
+const stock=new SharedSupplyLedger(),s=new SharedDeckSupplies(stock);
+assert.ok(s.take('a','cannonball'));assert.equal(stock.stock.count('cannonball'),17);
+assert.equal(s.take('a','chainshot'),null);assert.equal(stock.stock.count('chainshot'),4);
+const ball=s.drop('a','cannonball',{x:1,y:1,z:1});assert.ok(ball);assert.equal(s.drop('a','cannonball',ball.local),null);
+assert.ok(s.pick('b',ball.id));assert.equal(s.pick('a',ball.id),false);assert.equal(s.hand('b').ammo,'cannonball');
+assert.ok(s.take('a','bucket'));assert.equal(s.take('b','bucket'),null);
+assert.ok(s.take('a','plank'));assert.ok(s.take('a','plank'));assert.ok(s.take('a','plank'));assert.equal(s.take('a','plank'),null);
+assert.ok(s.consume('a','plank'));assert.equal(s.hand('a').planks,2);
+s.disconnect('a',{x:0,y:1,z:0});assert.equal(s.loose.size,3);const bucket=[...s.loose.values()].find(i=>i.kind==='bucket');assert.ok(s.pick('b',bucket.id));
+s.disconnect('b',null);assert.equal(s.bucketStock,true);assert.equal(stock.stock.count('cannonball'),18);
+assert.equal(stock.stock.count('plank'),6);assert.equal([...s.loose.values()].filter(i=>i.kind==='plank').length,2);
+console.log('V63 shared deck supplies: stock conservation, one bucket, exclusive pickup, no duplicate drops, carried plank consumption and disconnect recovery PASS');

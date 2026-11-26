@@ -1,0 +1,178 @@
+TAP version 13
+# Subtest: pressure hull walls, open doorway, and consoles
+ok 1 - pressure hull walls, open doorway, and consoles
+  ---
+  duration_ms: 1.579814
+  type: 'test'
+  ...
+# Subtest: walk speed and submarine-local camera follow world transform
+ok 2 - walk speed and submarine-local camera follow world transform
+  ---
+  duration_ms: 35.928513
+  type: 'test'
+  ...
+# Subtest: elemental frost_lance collision, windup and finite instance transforms
+ok 3 - elemental frost_lance collision, windup and finite instance transforms
+  ---
+  duration_ms: 3.876932
+  type: 'test'
+  ...
+# Subtest: elemental storm_lance collision, windup and finite instance transforms
+ok 4 - elemental storm_lance collision, windup and finite instance transforms
+  ---
+  duration_ms: 1.538523
+  type: 'test'
+  ...
+# Subtest: elemental cinder_fall collision, windup and finite instance transforms
+ok 5 - elemental cinder_fall collision, windup and finite instance transforms
+  ---
+  duration_ms: 1.19671
+  type: 'test'
+  ...
+# Subtest: elemental nova_beam collision, windup and finite instance transforms
+ok 6 - elemental nova_beam collision, windup and finite instance transforms
+  ---
+  duration_ms: 1.064846
+  type: 'test'
+  ...
+# Subtest: elemental voltaic_snare collision, windup and finite instance transforms
+ok 7 - elemental voltaic_snare collision, windup and finite instance transforms
+  ---
+  duration_ms: 1.782101
+  type: 'test'
+  ...
+# Subtest: elemental glacial_crown collision, windup and finite instance transforms
+ok 8 - elemental glacial_crown collision, windup and finite instance transforms
+  ---
+  duration_ms: 1.080169
+  type: 'test'
+  ...
+# Subtest: elemental flame_field collision, windup and finite instance transforms
+ok 9 - elemental flame_field collision, windup and finite instance transforms
+  ---
+  duration_ms: 1.266032
+  type: 'test'
+  ...
+# Subtest: comfort steering, independent throttle stop and repair budget
+ok 10 - comfort steering, independent throttle stop and repair budget
+  ---
+  duration_ms: 2.051678
+  type: 'test'
+  ...
+# Subtest: three weapon meshes and range/stamina distinction
+ok 11 - three weapon meshes and range/stamina distinction
+  ---
+  duration_ms: 3.081161
+  type: 'test'
+  ...
+# Subtest: six real quest state projections, complete and dynamic progress
+ok 12 - six real quest state projections, complete and dynamic progress
+  ---
+  duration_ms: 0.756924
+  type: 'test'
+  ...
+# Subtest: room validates station proximity, exclusive controls, movement, shared battle state and disconnect
+ok 13 - room validates station proximity, exclusive controls, movement, shared battle state and disconnect
+  ---
+  duration_ms: 1.55054
+  type: 'test'
+  ...
+# Subtest: OS repeat after modal, blur, or text focus cannot restart movement without new press
+ok 14 - OS repeat after modal, blur, or text focus cannot restart movement without new press
+  ---
+  duration_ms: 1.7134
+  type: 'test'
+  ...
+# Subtest: Shift+P not consumed by journal, regular P opens once
+ok 15 - Shift+P not consumed by journal, regular P opens once
+  ---
+  duration_ms: 0.601996
+  type: 'test'
+  ...
+# Subtest: invalid mouse deltas cannot poison view
+ok 16 - invalid mouse deltas cannot poison view
+  ---
+  duration_ms: 0.935526
+  type: 'test'
+  ...
+# Subtest: both interaction directors reject malformed coordinates and dispatch once per frame even if consumer repeats
+ok 17 - both interaction directors reject malformed coordinates and dispatch once per frame even if consumer repeats
+  ---
+  duration_ms: 9.546331
+  type: 'test'
+  ...
+# Subtest: wall-clock FPS measures a 500ms hitch rather than the 100ms capped simulation dt
+ok 18 - wall-clock FPS measures a 500ms hitch rather than the 100ms capped simulation dt
+  ---
+  duration_ms: 0.391045
+  type: 'test'
+  ...
+# Subtest: wallet rollback for failed spend, sale, release, gear purchase and fuel; reject invalid cost
+ok 19 - wallet rollback for failed spend, sale, release, gear purchase and fuel; reject invalid cost
+  ---
+  duration_ms: 1.186304
+  type: 'test'
+  ...
+# Subtest: reward receipts stay single-use and storage-less local session remains playable
+ok 20 - reward receipts stay single-use and storage-less local session remains playable
+  ---
+  duration_ms: 0.154678
+  type: 'test'
+  ...
+# Subtest: land reward outbox retries failed wallet save across reload and cannot double-credit
+ok 21 - land reward outbox retries failed wallet save across reload and cannot double-credit
+  ---
+  duration_ms: 0.644708
+  type: 'test'
+  ...
+# Subtest: directional damage, spillover, repair budget and finite snapshots
+ok 22 - directional damage, spillover, repair budget and finite snapshots
+  ---
+  duration_ms: 1.677507
+  type: 'test'
+  ...
+# Subtest: isolated flooding, equal-volume transfer and pumping, power affects thrust
+ok 23 - isolated flooding, equal-volume transfer and pumping, power affects thrust
+  ---
+  duration_ms: 6.837747
+  type: 'test'
+  ...
+# Subtest: physical bulkhead closed both ways, reopening traversable, obstruction rejected
+ok 24 - physical bulkhead closed both ways, reopening traversable, obstruction rejected
+  ---
+  duration_ms: 15.806748
+  type: 'test'
+  ...
+# Subtest: real AbyssRaid damage and repair invoke compartment logic
+ok 25 - real AbyssRaid damage and repair invoke compartment logic
+  ---
+  duration_ms: 0.644678
+  type: 'test'
+  ...
+# Subtest: server checks door distance and blocks walking through snapshot-closed door
+ok 26 - server checks door distance and blocks walking through snapshot-closed door
+  ---
+  duration_ms: 0.905342
+  type: 'test'
+  ...
+# Subtest: real underground annex: 20 round trips on dry route, roof, bench collision and reservoir depth
+ok 27 - real underground annex: 20 round trips on dry route, roof, bench collision and reservoir depth
+  ---
+  duration_ms: 134.232257
+  type: 'test'
+  ...
+# Subtest: actual swimmer reaches shore and returns to walk on local reservoir terrain
+ok 28 - actual swimmer reaches shore and returns to walk on local reservoir terrain
+  ---
+  duration_ms: 5.212156
+  type: 'test'
+  ...
+1..28
+# tests 28
+# suites 0
+# pass 28
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4104.519445

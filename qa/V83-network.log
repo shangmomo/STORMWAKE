@@ -1,0 +1,2 @@
+V83 REAL 4-client lift PASS: threshold block, server travel and all-client endpoint.
+V83 REAL 4-client migration PASS: socket close, ordered checkpoint, resource retention, new-host simulation snapshot.

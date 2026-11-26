@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {Vector3,Quaternion} from '../src/engine/index.js';
+import {ShipLoadDynamics} from '../src/ship/ShipLoadDynamics.js';
+import {Cargo} from '../src/voyage/Cargo.js';
+import {releaseSunkenCargo} from '../src/voyage/SunkenCargo.js';
+const boat={mass:10000,com:new Vector3(0,-.4,0),inertia:new Vector3(10000,30000,8000),quaternion:new Quaternion()},load=new ShipLoadDynamics(boat),damage={water:0,isSinking:()=>false};load.update(.1,boat,damage);assert.equal(boat.mass,10000);assert.deepEqual(boat.com,new Vector3(0,-.4,0));assert.equal(boat.voyageBuoyancyScale,1);
+const cargo=[{state:'hold',massKg:100,holdLocal:{x:1,y:1,z:-6}}];for(let i=0;i<100;i++)load.update(.1,boat,damage,cargo);assert.equal(boat.mass,10100);assert.ok(boat.com.x>0&&boat.com.z<0);assert.ok(boat.inertia.x>10000);
+damage.water=.6;damage.hull={sections:{stern:.9,mid:.6,bow:.3}};boat.quaternion.setFromAxisAngle(new Vector3(0,0,1),.25);load.update(.1,boat,damage,cargo);assert.equal(boat.mass,12980);assert.ok(boat.com.x<0,'free water flows to the low side');assert.ok(Math.abs(boat.com.z-((-6*.9+5*.3)/1.8*2880-600)/12980)<1e-7);assert.ok(boat.voyageBuoyancyScale<.7);damage.isSinking=()=>true;for(let i=0;i<160;i++)load.update(.1,boat,damage,cargo);assert.ok(boat.voyageBuoyancyScale<.03);damage.water=0;damage.isSinking=()=>false;load.update(.1,boat,damage,[]);assert.equal(boat.mass,10000);assert.equal(boat.voyageBuoyancyScale,1);
+const c=new Cargo();for(const [id,x] of [['a',1],['b',-1]]){c.spawnChest(id,{x:0,y:0,z:0});c.tryPick(id,id);c.tryStow(id,'stormwake',{x,y:-.6,z:-3});}assert.equal(releaseSunkenCargo(c,{x:30,y:-5,z:40,yaw:Math.PI/2}),2);assert.equal(c.listShipHold('stormwake').length,0);assert.equal(c.get('a').z,39);assert.equal(c.get('b').z,41);assert.ok(c.get('a').floating);assert.equal(releaseSunkenCargo(c,{x:30,y:0,z:40,yaw:0}),0);
+console.log('V63 cargo/flood dynamics: conserved mass, local centre of gravity, finite inertia, free-water heel, gradual buoyancy collapse, refit reset and distinct physical floating cargo PASS');

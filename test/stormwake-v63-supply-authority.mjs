@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {SharedDeckSupplies} from '../src/ship/SharedDeckSupplies.js';
+import {SharedSupplyLedger} from '../src/ship/SharedSupplyLedger.js';
+import {deckSupplyAction,requestCannonLoad,finishCannonLoad} from '../server/deckSupplies.js';
+import {deckHeight} from '../src/ship/HeritageDeck.js';
+const events=[],a={id:'a',x:-1.14,y:deckHeight(2.05,-1.14),z:2.05,mode:'deck',deckLayer:'deck'},b={...a,id:'b'};
+const hub={now:()=>1000,hostId:'a',players:new Map([['a',a],['b',b]]),shipState:{x:0,y:0,z:0,yaw:0,shipClass:'heritage'},cargo:{heldBy:new Map()},supplies:new SharedSupplyLedger(),pendingLoads:new Map(),loadSequence:0,send:(p,m)=>events.push({to:p.id,...m}),broadcast:m=>events.push(m)};hub.deckSupplies=new SharedDeckSupplies(hub.supplies);
+deckSupplyAction(hub,b,{verb:'take',kind:'cannonball'});assert.equal(hub.supplies.stock.count('cannonball'),17);assert.equal(b.carriedPlanks,0);
+requestCannonLoad(hub,b,'cannon_port');let request=events.find(e=>e.type==='cannon_load_request');assert.ok(request);assert.equal(hub.deckSupplies.hand('b').ammo,'cannonball');
+finishCannonLoad(hub,b,{requestId:request.requestId,accepted:true});assert.equal(hub.deckSupplies.hand('b').ammo,'cannonball','guest cannot acknowledge gun loading');
+finishCannonLoad(hub,a,{requestId:request.requestId,accepted:false});assert.equal(hub.deckSupplies.hand('b').ammo,'cannonball','recoiling gun preserves hand item');
+requestCannonLoad(hub,b,'cannon_port');request=events.filter(e=>e.type==='cannon_load_request').at(-1);finishCannonLoad(hub,a,{requestId:request.requestId,accepted:true});assert.equal(hub.deckSupplies.hand('b').ammo,null);finishCannonLoad(hub,a,{requestId:request.requestId,accepted:true});assert.equal(hub.supplies.stock.count('cannonball'),17);
+deckSupplyAction(hub,a,{verb:'take',kind:'cannonball'});deckSupplyAction(hub,a,{verb:'drop',kind:'cannonball'});const item=[...hub.deckSupplies.loose.values()][0];deckSupplyAction(hub,b,{verb:'pick',itemId:item.id});deckSupplyAction(hub,a,{verb:'pick',itemId:item.id});assert.equal(hub.deckSupplies.hand('b').ammo,'cannonball');assert.equal(hub.deckSupplies.hand('a').ammo,null);
+b.x=100;deckSupplyAction(hub,b,{verb:'drop',kind:'cannonball'});assert.equal(hub.deckSupplies.hand('b').ammo,'cannonball','outside ship cannot mint deck props');
+console.log('V63 supply authority: reachable sources, stock publication, exclusive deck pickup, host-only mechanical load acknowledgment and rejected-load reservation PASS');

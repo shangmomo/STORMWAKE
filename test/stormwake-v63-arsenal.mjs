@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {Group,Vector3,Quaternion,Euler} from '../src/engine/index.js';
+import {DeckArsenal} from '../src/oceanhunt/DeckArsenal.js';
+import {ARSENAL_SITES,HARPOON_PIVOT,HARPOON_BARREL} from '../src/ship/ArsenalSites.js';
+import {shipToWorld,worldToShip} from '../src/voyage/CargoReach.js';
+import {CartographerQuest} from '../src/voyage/CartographerQuest.js';
+const scale={x:2.05,y:2.45,z:2.85},group=new Group(),q=new Quaternion().setFromEuler(new Euler(.12,.6,-.19,'YXZ'));group.scale.set(scale.x,scale.y,scale.z);group.position.set(120,1.2,720);group.quaternion.copy(q);const model={group,shipScale:scale,materials:{wood:{},fittings:{},glow:{}}},arsenal=new DeckArsenal(model,{owned:()=>true,data:{selected:'none'}});group.updateWorldMatrix(true,true);
+const ship={x:120,y:1.2,z:720,yaw:.6,rotation:{x:q.x,y:q.y,z:q.z,w:q.w}},direction=new Vector3(.3,-.08,.95).normalize(),muzzle=arsenal.aimHarpoon(direction),pivot=shipToWorld(ship,HARPOON_PIVOT),expected=new Vector3(pivot.x,pivot.y,pivot.z).addScaledVector(direction,HARPOON_BARREL);assert(muzzle.distanceTo(expected)<1e-6,'visible aimed muzzle and authoritative launch frame coincide despite parent scale, roll and pitch');
+const local=worldToShip(ship,shipToWorld(ship,ARSENAL_SITES.harpoon));assert(Math.hypot(local.x-ARSENAL_SITES.harpoon.x,local.y-ARSENAL_SITES.harpoon.y,local.z-ARSENAL_SITES.harpoon.z)<1e-6);
+const quest=new CartographerQuest();quest.phase='spotted';const at=shipToWorld(ship,ARSENAL_SITES.harpoon),actor={id:'p',mode:'deck',deckLayer:'deck',...at};assert(!quest.action('fire',actor,{...ship,speed:3},{direction}));assert(quest.action('fire',actor,{...ship,speed:.4},{direction}));assert(Math.hypot(quest.shot.origin.x-muzzle.x,quest.shot.origin.y-muzzle.y,quest.shot.origin.z-muzzle.z)<1e-6);console.log('V63 arsenal: actual metre mounts, scaled/heeled visible muzzle equals authoritative launch, slow-speed requirement and round-trip frame conversion PASS');

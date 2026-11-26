@@ -1,0 +1,3032 @@
+{
+  "results": {
+    "furled": {
+      "thrust": 0,
+      "wind": 0,
+      "rpm": 0,
+      "main": 0,
+      "jib": 0
+    },
+    "target": {
+      "x": 659.8629296781246,
+      "z": 1208.157550868023
+    },
+    "samples": [
+      {
+        "phase": "weighing",
+        "anchor": 1,
+        "main": 0,
+        "jib": 0,
+        "thrust": 0,
+        "rpm": 0,
+        "x": 800.0004398957868,
+        "z": 1200.0002358406734,
+        "distance": 140.37472549736583,
+        "speed": 1.924029737415629,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": null,
+            "phase": "moving",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": null,
+            "phase": "moving",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "weighing",
+        "anchor": 1,
+        "main": 0,
+        "jib": 0,
+        "thrust": 0,
+        "rpm": 0,
+        "x": 799.9969195663633,
+        "z": 1199.9980486188474,
+        "distance": 140.37133823879893,
+        "speed": 0.2842184763370017,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": null,
+            "phase": "moving",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": null,
+            "phase": "moving",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "weighing",
+        "anchor": 1,
+        "main": 0.19494000000000034,
+        "jib": 0,
+        "thrust": 4082.6756759543273,
+        "rpm": 0,
+        "x": 799.9837525797109,
+        "z": 1199.9941556916845,
+        "distance": 140.35841988075663,
+        "speed": 1.0678061332125712,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": null,
+            "phase": "moving",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "weighing",
+        "anchor": 1,
+        "main": 0.4350150000000005,
+        "jib": 0,
+        "thrust": 8996.00782430042,
+        "rpm": 0,
+        "x": 799.9547059648074,
+        "z": 1199.9965317834562,
+        "distance": 140.3292842412326,
+        "speed": 0.7786081897519077,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": null,
+            "phase": "moving",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "weighing",
+        "anchor": 1,
+        "main": 0.6600150000000006,
+        "jib": 0,
+        "thrust": 13412.47161249403,
+        "rpm": 0,
+        "x": 799.8998809937157,
+        "z": 1200.02137798727,
+        "distance": 140.27310876611642,
+        "speed": 0.7696775437875268,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": null,
+            "phase": "moving",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "weighing",
+        "anchor": 1,
+        "main": 0.9000000000000001,
+        "jib": 0,
+        "thrust": 17762.31694952292,
+        "rpm": 0,
+        "x": 799.7807640529601,
+        "z": 1200.074316486726,
+        "distance": 140.15112933618082,
+        "speed": 0.9230938362218046,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": null,
+            "phase": "moving",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "weighing",
+        "anchor": 0.9037111111111104,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 17787.983931113387,
+        "rpm": 0,
+        "x": 799.5554828203045,
+        "z": 1200.1359804456129,
+        "distance": 139.9226750581279,
+        "speed": 0.9326790990350253,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": "anchor",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "weighing",
+        "anchor": 0.7852000000000003,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 17186.570028677063,
+        "rpm": 0,
+        "x": 799.1699462047096,
+        "z": 1200.2036080090115,
+        "distance": 139.53390290729578,
+        "speed": 0.8237017134807851,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": "anchor",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "weighing",
+        "anchor": 0.6741111111111113,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 16642.33568533766,
+        "rpm": 0,
+        "x": 798.7010528600041,
+        "z": 1200.2613081303336,
+        "distance": 139.0624863075562,
+        "speed": 0.9890082357206728,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": "anchor",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "weighing",
+        "anchor": 0.5555333333333338,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 16165.263462647015,
+        "rpm": 0,
+        "x": 798.1094193035814,
+        "z": 1200.3232335719763,
+        "distance": 138.46829392050972,
+        "speed": 1.2707343002788245,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": "anchor",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "weighing",
+        "anchor": 0.4444666666666665,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 15795.902607856162,
+        "rpm": 0,
+        "x": 797.4859725560958,
+        "z": 1200.391516698722,
+        "distance": 137.8419864109287,
+        "speed": 1.7120415196280672,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": "anchor",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "weighing",
+        "anchor": 0.32595555555555483,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 15419.172814620053,
+        "rpm": 0,
+        "x": 796.7509121893944,
+        "z": 1200.4754877702826,
+        "distance": 137.10336921258855,
+        "speed": 2.1197992715801575,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": "anchor",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "weighing",
+        "anchor": 0.21482222222222186,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 14961.974414949234,
+        "rpm": 0,
+        "x": 795.9861176795205,
+        "z": 1200.5668169369421,
+        "distance": 136.33466746677394,
+        "speed": 2.0706335793727,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": "anchor",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "weighing",
+        "anchor": 0.10188888888888915,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 14464.579071067523,
+        "rpm": 0,
+        "x": 795.1172604475406,
+        "z": 1200.679262095153,
+        "distance": 135.46091242440764,
+        "speed": 2.0037722299449863,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": "anchor",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 14040.551977742642,
+        "rpm": 0,
+        "x": 794.1117372832207,
+        "z": 1200.8211209854067,
+        "distance": 134.44911880266324,
+        "speed": 2.06840194383281,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": null,
+            "phase": "moving",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 13659.377213849732,
+        "rpm": 0,
+        "x": 793.098791649639,
+        "z": 1200.9816525442652,
+        "distance": 133.42896399225074,
+        "speed": 2.1648037999925127,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": null,
+            "phase": "moving",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 13351.717990184967,
+        "rpm": 0,
+        "x": 792.0368509470032,
+        "z": 1201.176493828994,
+        "distance": 132.3581528315272,
+        "speed": 2.282454392567036,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": null,
+            "phase": "moving",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 13057.989478017378,
+        "rpm": 0,
+        "x": 790.8447570964647,
+        "z": 1201.4360759342226,
+        "distance": 131.15417392951525,
+        "speed": 2.4189351532772894,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": null,
+            "phase": "moving",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 12850.669220573294,
+        "rpm": 0,
+        "x": 789.657855750504,
+        "z": 1201.7200198715589,
+        "distance": 129.9544714100476,
+        "speed": 2.628102109804103,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": null,
+            "phase": "moving",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 12646.52114318555,
+        "rpm": 0,
+        "x": 788.336831033985,
+        "z": 1202.0229260001763,
+        "distance": 128.62028203928244,
+        "speed": 2.9031457230648745,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": null,
+            "phase": "moving",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 12329.006404969125,
+        "rpm": 0,
+        "x": 787.0347302826141,
+        "z": 1202.2724915096926,
+        "distance": 127.30789760513329,
+        "speed": 2.9490808636295838,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 12031.676188736044,
+        "rpm": 0,
+        "x": 785.64746559671,
+        "z": 1202.4971596825235,
+        "distance": 125.91183226618057,
+        "speed": 2.96757077705409,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 11719.270364371538,
+        "rpm": 0,
+        "x": 784.0664916655721,
+        "z": 1202.7256765770128,
+        "distance": 124.32228307380403,
+        "speed": 3.040697422595987,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 11520.96537852123,
+        "rpm": 0,
+        "x": 782.5063863895773,
+        "z": 1202.9399066435449,
+        "distance": 122.75439415917951,
+        "speed": 3.1503640662182497,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 11388.863362179982,
+        "rpm": 0,
+        "x": 780.7890074261688,
+        "z": 1203.1755824917518,
+        "distance": 121.0286589549277,
+        "speed": 3.2689794236628256,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 11284.023119027846,
+        "rpm": 0,
+        "x": 779.1312058927165,
+        "z": 1203.3987455266458,
+        "distance": 119.363176647898,
+        "speed": 3.422802873917271,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 11185.645251253998,
+        "rpm": 0,
+        "x": 777.3078755689668,
+        "z": 1203.6328463243124,
+        "distance": 117.53207335238633,
+        "speed": 3.467214344177883,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 11065.656142571734,
+        "rpm": 0,
+        "x": 775.5644101408425,
+        "z": 1203.8509316772952,
+        "distance": 115.78160281373994,
+        "speed": 3.6056633807502654,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 10864.968581147714,
+        "rpm": 0,
+        "x": 773.6698080105897,
+        "z": 1204.0883997199223,
+        "distance": 113.8796011006651,
+        "speed": 3.7129527569666116,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 10601.371191859947,
+        "rpm": 0,
+        "x": 771.8320168754751,
+        "z": 1204.323279249244,
+        "distance": 112.03471839860381,
+        "speed": 3.7766558126223524,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.9299699999999995,
+        "jib": 0,
+        "thrust": 10439.98019908723,
+        "rpm": 0,
+        "x": 769.9401071073563,
+        "z": 1204.5739588218498,
+        "distance": 110.13549438187472,
+        "speed": 3.8668375302380227,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.9149849999999982,
+        "jib": 0,
+        "thrust": 10121.614024804867,
+        "rpm": 0,
+        "x": 767.8736690543027,
+        "z": 1204.8598906752907,
+        "distance": 108.06106784284245,
+        "speed": 3.9673923086962675,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.9000000000000001,
+        "jib": 0,
+        "thrust": 9840.918426653976,
+        "rpm": 0,
+        "x": 765.881232987185,
+        "z": 1205.160493260059,
+        "distance": 106.06065712995263,
+        "speed": 4.091639613753322,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.8850150000000021,
+        "jib": 0,
+        "thrust": 9604.043611528927,
+        "rpm": 0,
+        "x": 763.8578910941575,
+        "z": 1205.4992958783253,
+        "distance": 104.02893020459462,
+        "speed": 4.116589635660124,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.8549550000000041,
+        "jib": 0,
+        "thrust": 9193.574283488464,
+        "rpm": 0,
+        "x": 761.6891074150125,
+        "z": 1205.8861534529055,
+        "distance": 101.85150818088891,
+        "speed": 4.188707505546026,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.8400150000000022,
+        "jib": 0,
+        "thrust": 8964.790225945893,
+        "rpm": 0,
+        "x": 759.6449921796714,
+        "z": 1206.2770235129144,
+        "distance": 99.79978146366803,
+        "speed": 4.26376067249651,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.8250300000000008,
+        "jib": 0,
+        "thrust": 8733.132878147895,
+        "rpm": 0,
+        "x": 757.428899278819,
+        "z": 1206.7262214471311,
+        "distance": 97.57646810596671,
+        "speed": 4.286810355510684,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.7951049999999975,
+        "jib": 0,
+        "thrust": 8397.347545950714,
+        "rpm": 0,
+        "x": 755.3150924710618,
+        "z": 1207.147237933981,
+        "distance": 95.45750946926113,
+        "speed": 4.337494569706635,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.7801649999999956,
+        "jib": 0,
+        "thrust": 8255.851931140876,
+        "rpm": 0,
+        "x": 753.1771379962062,
+        "z": 1207.5610467875176,
+        "distance": 93.3161148524111,
+        "speed": 4.388334233584726,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.7652249999999968,
+        "jib": 0,
+        "thrust": 8148.491436762339,
+        "rpm": 0,
+        "x": 750.8701139271805,
+        "z": 1207.9898016042957,
+        "distance": 91.00733885108983,
+        "speed": 4.446323861579118,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.7353449999999994,
+        "jib": 0,
+        "thrust": 7817.034260468123,
+        "rpm": 0,
+        "x": 748.6673936493291,
+        "z": 1208.364135703175,
+        "distance": 88.80470425887965,
+        "speed": 4.496730782308112,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.7203600000000013,
+        "jib": 0,
+        "thrust": 7606.800191100219,
+        "rpm": 0,
+        "x": 746.280418005535,
+        "z": 1208.7177154202047,
+        "distance": 86.41930382237314,
+        "speed": 4.540831121989342,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "sailing",
+        "anchor": 0,
+        "main": 0.705375,
+        "jib": 0,
+        "thrust": 7440.064342789946,
+        "rpm": 0,
+        "x": 744.0253641929478,
+        "z": 1209.003199916907,
+        "distance": 84.16668287259384,
+        "speed": 4.578448273973589,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.6754050000000006,
+        "jib": 0,
+        "thrust": 7102.487721155755,
+        "rpm": 0,
+        "x": 741.7559967935891,
+        "z": 1209.2459661230341,
+        "distance": 81.90029969020453,
+        "speed": 4.609802156191036,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.6604649999999986,
+        "jib": 0,
+        "thrust": 6929.075025120823,
+        "rpm": 0,
+        "x": 739.3122132382879,
+        "z": 1209.4853740411493,
+        "distance": 79.4603786336456,
+        "speed": 4.648895716721746,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.6304050000000005,
+        "jib": 0,
+        "thrust": 6607.117671514528,
+        "rpm": 0,
+        "x": 736.9972902078196,
+        "z": 1209.7295541667415,
+        "distance": 77.15037763158483,
+        "speed": 4.696214361446035,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.6154650000000018,
+        "jib": 0,
+        "thrust": 6461.795454344022,
+        "rpm": 0,
+        "x": 734.6643975555678,
+        "z": 1210.0207381693594,
+        "distance": 74.82466881677477,
+        "speed": 4.75929344182134,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.5855400000000051,
+        "jib": 0,
+        "thrust": 6138.052212731895,
+        "rpm": 0,
+        "x": 732.1628347549564,
+        "z": 1210.3852873597577,
+        "distance": 72.33421793311582,
+        "speed": 4.789070519417246,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.5705550000000037,
+        "jib": 0,
+        "thrust": 5914.499056896966,
+        "rpm": 0,
+        "x": 729.8049243624757,
+        "z": 1210.7519366346673,
+        "distance": 69.99009542736721,
+        "speed": 4.78825940645784,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.5405850000000043,
+        "jib": 0,
+        "thrust": 5604.331817965761,
+        "rpm": 0,
+        "x": 727.26560281436,
+        "z": 1211.122393867818,
+        "distance": 67.46784893505665,
+        "speed": 4.79965517673379,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.5256000000000063,
+        "jib": 0,
+        "thrust": 5477.062143876607,
+        "rpm": 0,
+        "x": 724.8736234645789,
+        "z": 1211.4307967590703,
+        "distance": 65.09304452289345,
+        "speed": 4.805372943683308,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.5106150000000049,
+        "jib": 0,
+        "thrust": 5374.351961952717,
+        "rpm": 0,
+        "x": 722.481533743367,
+        "z": 1211.707229222569,
+        "distance": 62.71913417371386,
+        "speed": 4.815389834080743,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.48060000000000297,
+        "jib": 0,
+        "thrust": 5127.787059253725,
+        "rpm": 0,
+        "x": 719.9273772109258,
+        "z": 1211.971708022168,
+        "distance": 60.1854272412944,
+        "speed": 4.834073237686628,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.46561500000000494,
+        "jib": 0,
+        "thrust": 4953.045697918057,
+        "rpm": 0,
+        "x": 717.5306119229159,
+        "z": 1212.1802975733526,
+        "distance": 57.807820115806635,
+        "speed": 4.858713698065222,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.43560000000000626,
+        "jib": 0,
+        "thrust": 4645.0983501042865,
+        "rpm": 0,
+        "x": 715.125982039536,
+        "z": 1212.3452564950592,
+        "distance": 55.42149253420379,
+        "speed": 4.850067371548029,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.4205700000000089,
+        "jib": 0,
+        "thrust": 4471.231885545308,
+        "rpm": 0,
+        "x": 712.5549844505108,
+        "z": 1212.4506049299632,
+        "distance": 52.8666525260952,
+        "speed": 4.841090160389857,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.3905550000000102,
+        "jib": 0,
+        "thrust": 4147.29054892163,
+        "rpm": 0,
+        "x": 710.1449960116473,
+        "z": 1212.4787164362479,
+        "distance": 50.467402019885974,
+        "speed": 4.8431547497649925,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.3755700000000089,
+        "jib": 0,
+        "thrust": 3993.3543939801793,
+        "rpm": 0,
+        "x": 707.7392874115325,
+        "z": 1212.4515539131633,
+        "distance": 48.06853536325938,
+        "speed": 4.84550566998812,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.34546500000000824,
+        "jib": 0,
+        "thrust": 3680.876114467557,
+        "rpm": 0,
+        "x": 705.1858986411052,
+        "z": 1212.3957006528194,
+        "distance": 45.520692319182366,
+        "speed": 4.857070729119619,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.3304350000000076,
+        "jib": 0,
+        "thrust": 3534.4764386436455,
+        "rpm": 0,
+        "x": 702.7894019542935,
+        "z": 1212.3638783030842,
+        "distance": 43.13206710288346,
+        "speed": 4.937294752850001,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.3005100000000076,
+        "jib": 0,
+        "thrust": 3234.8018719767847,
+        "rpm": 0,
+        "x": 700.37957786536,
+        "z": 1212.3736390172985,
+        "distance": 40.735416772271634,
+        "speed": 4.967122874431774,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.28548000000000695,
+        "jib": 0,
+        "thrust": 3072.9934009755116,
+        "rpm": 0,
+        "x": 697.7954400515823,
+        "z": 1212.4022420215567,
+        "distance": 38.16926441813314,
+        "speed": 4.86116252991898,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.2555100000000076,
+        "jib": 0,
+        "thrust": 2731.131308223684,
+        "rpm": 0,
+        "x": 695.3681370196227,
+        "z": 1212.4209218379863,
+        "distance": 35.76025839378539,
+        "speed": 4.8469356164561574,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.2405250000000096,
+        "jib": 0,
+        "thrust": 2571.6381365639777,
+        "rpm": 0,
+        "x": 692.7855291644349,
+        "z": 1212.4455161146857,
+        "distance": 33.20066569953965,
+        "speed": 4.85195637752143,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.21055500000001026,
+        "jib": 0,
+        "thrust": 2256.1363392931266,
+        "rpm": 0,
+        "x": 690.3696292297722,
+        "z": 1212.4772273787787,
+        "distance": 30.811009764239596,
+        "speed": 4.83514381010939,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.1956150000000083,
+        "jib": 0,
+        "thrust": 2101.4069812291805,
+        "rpm": 0,
+        "x": 687.7947394068642,
+        "z": 1212.5281484588359,
+        "distance": 28.271684032319897,
+        "speed": 4.821774348165524,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.1956150000000083,
+        "jib": 0,
+        "thrust": 2108.316419182413,
+        "rpm": 0,
+        "x": 685.386545040269,
+        "z": 1212.6023545783662,
+        "distance": 25.907744424750156,
+        "speed": 4.840363379014266,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.1956150000000083,
+        "jib": 0,
+        "thrust": 2113.364790226804,
+        "rpm": 0,
+        "x": 682.8279887947181,
+        "z": 1212.7183388849644,
+        "distance": 23.413558626661366,
+        "speed": 4.806121814304771,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.1956150000000083,
+        "jib": 0,
+        "thrust": 2119.816248471158,
+        "rpm": 0,
+        "x": 680.4388904189648,
+        "z": 1212.8637705782694,
+        "distance": 21.107313054240414,
+        "speed": 4.770175555530053,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "setting_sail",
+        "anchor": 0,
+        "main": 0.1956150000000083,
+        "jib": 0,
+        "thrust": 2126.899660239471,
+        "rpm": 0,
+        "x": 678.0611028098411,
+        "z": 1213.036328983755,
+        "distance": 18.840806278778945,
+        "speed": 4.745401069438116,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": "cannon_starboard",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "stopping",
+        "anchor": 0,
+        "main": 0.045630000000007,
+        "jib": 0,
+        "thrust": 499.32097328170875,
+        "rpm": 0,
+        "x": 675.5461973549601,
+        "z": 1213.2290895403496,
+        "distance": 16.482881711890595,
+        "speed": 4.715481110040373,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": null,
+            "phase": "moving",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "stopping",
+        "anchor": 0,
+        "main": 0.015615000000008308,
+        "jib": 0,
+        "thrust": 171.8657435987562,
+        "rpm": 0,
+        "x": 673.2078343705901,
+        "z": 1213.4075170370033,
+        "distance": 14.340454177829484,
+        "speed": 4.679737082326735,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": null,
+            "phase": "moving",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "stopping",
+        "anchor": 0,
+        "main": 0.015615000000008308,
+        "jib": 0,
+        "thrust": 173.31616158060044,
+        "rpm": 0,
+        "x": 670.7226742581626,
+        "z": 1213.5815092535129,
+        "distance": 12.138919923584204,
+        "speed": 4.6570761524775195,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": null,
+            "phase": "moving",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "stopping",
+        "anchor": 0,
+        "main": 0.015615000000008308,
+        "jib": 0,
+        "thrust": 173.55797111238903,
+        "rpm": 0,
+        "x": 668.4093109762458,
+        "z": 1213.7150614938002,
+        "distance": 10.194437583726875,
+        "speed": 4.608173008341064,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": null,
+            "phase": "moving",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "stopping",
+        "anchor": 0,
+        "main": 0.015615000000008308,
+        "jib": 0,
+        "thrust": 175.91087010022702,
+        "rpm": 0,
+        "x": 665.9792824376293,
+        "z": 1213.8092547701826,
+        "distance": 8.327756485175776,
+        "speed": 4.547933814776266,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": null,
+            "phase": "moving",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "stopping",
+        "anchor": 0,
+        "main": 0.015615000000008308,
+        "jib": 0,
+        "thrust": 179.0123938303464,
+        "rpm": 0,
+        "x": 663.757513730211,
+        "z": 1213.8507521811105,
+        "distance": 6.8978493844173405,
+        "speed": 4.597101783520682,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": null,
+            "phase": "moving",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "stopping",
+        "anchor": 0.044444444444444446,
+        "main": 0.015615000000008308,
+        "jib": 0,
+        "thrust": 177.67343643909575,
+        "rpm": 0,
+        "x": 661.427625060067,
+        "z": 1213.8541315318591,
+        "distance": 5.907563194572165,
+        "speed": 4.491041951570559,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": "anchor",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "stopping",
+        "anchor": 0.1555555555555556,
+        "main": 0.015615000000008308,
+        "jib": 0,
+        "thrust": 175.85454440783016,
+        "rpm": 0,
+        "x": 659.2388562913934,
+        "z": 1213.804916137086,
+        "distance": 5.681742872943483,
+        "speed": 4.4077014431698265,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": "anchor",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "stopping",
+        "anchor": 0.2740666666666673,
+        "main": 0.015615000000008308,
+        "jib": 0,
+        "thrust": 176.23413847832046,
+        "rpm": 0,
+        "x": 656.9173750613119,
+        "z": 1213.6824578131939,
+        "distance": 6.261061312063961,
+        "speed": 4.362808901859473,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": "anchor",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "stopping",
+        "anchor": 0.3851333333333345,
+        "main": 0.015615000000008308,
+        "jib": 0,
+        "thrust": 176.38955719592286,
+        "rpm": 0,
+        "x": 654.757976414219,
+        "z": 1213.5255498719669,
+        "distance": 7.407831068065916,
+        "speed": 4.32869551906885,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": "anchor",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "stopping",
+        "anchor": 0.5036666666666665,
+        "main": 0.015615000000008308,
+        "jib": 0,
+        "thrust": 176.10146138920078,
+        "rpm": 0,
+        "x": 652.4661203898188,
+        "z": 1213.3441092317505,
+        "distance": 9.034001068625058,
+        "speed": 4.370860693271568,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": "anchor",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "stopping",
+        "anchor": 0.614755555555554,
+        "main": 0.015615000000008308,
+        "jib": 0,
+        "thrust": 176.27191518829943,
+        "rpm": 0,
+        "x": 650.3347981616487,
+        "z": 1213.1604922991896,
+        "distance": 10.761724450985785,
+        "speed": 4.363074989834683,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": "anchor",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "stopping",
+        "anchor": 0.7333111111111091,
+        "main": 0.015615000000008308,
+        "jib": 0,
+        "thrust": 176.50716204818212,
+        "rpm": 0,
+        "x": 648.0788830889549,
+        "z": 1212.926481399054,
+        "distance": 12.71245265184977,
+        "speed": 4.335667214733616,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": "anchor",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "stopping",
+        "anchor": 0.8443999999999996,
+        "main": 0.015615000000008308,
+        "jib": 0,
+        "thrust": 176.3995306584489,
+        "rpm": 0,
+        "x": 645.9761633559101,
+        "z": 1212.6465252072248,
+        "distance": 14.594285508575037,
+        "speed": 4.317744959557775,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": "anchor",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "stopping",
+        "anchor": 0.9555111111111103,
+        "main": 0.015615000000008308,
+        "jib": 0,
+        "thrust": 175.99279712603317,
+        "rpm": 0,
+        "x": 643.8917068078955,
+        "z": 1212.307970960033,
+        "distance": 16.501695273840454,
+        "speed": 4.263477078149492,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "anchor",
+            "station": "anchor",
+            "phase": "work",
+            "report": ""
+          }
+        ]
+      },
+      {
+        "phase": "stopping",
+        "anchor": 0.9999555555555546,
+        "main": 0.015615000000008308,
+        "jib": 0,
+        "thrust": 175.57971476201257,
+        "rpm": 0,
+        "x": 641.6950287514471,
+        "z": 1211.9070388362593,
+        "distance": 18.55077583567644,
+        "speed": 4.19083230017782,
+        "crew": [
+          {
+            "id": "ai:kael",
+            "job": "helm",
+            "station": "helm",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:mei",
+            "job": "sail_main",
+            "station": "sail_main",
+            "phase": "work",
+            "report": ""
+          },
+          {
+            "id": "ai:rowan",
+            "job": "cannon_starboard",
+            "station": null,
+            "phase": "moving",
+            "report": ""
+          }
+        ]
+      }
+    ],
+    "calm": {
+      "thrust": 32156.136610473823,
+      "rpm": 0
+    }
+  },
+  "errors": []
+}

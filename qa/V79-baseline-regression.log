@@ -1,0 +1,349 @@
+
+> tidewater@1.0.0 test:v78
+> node --test test/stormwake-v78.mjs && npm run test:v77
+
+TAP version 13
+# deep gallery max grade 0.2140350835614237 min ground 37 triangles 5496
+# Subtest: unified collision at intersecting mesh seams, low FPS and diagonal motion
+ok 1 - unified collision at intersecting mesh seams, low FPS and diagonal motion
+  ---
+  duration_ms: 33.471274
+  type: 'test'
+  ...
+# Subtest: thin legacy solid cannot be tunneled through at 10Hz roll speed
+ok 2 - thin legacy solid cannot be tunneled through at 10Hz roll speed
+  ---
+  duration_ms: 4.298277
+  type: 'test'
+  ...
+# Subtest: swimming cannot cross triangle wall, invalid and teleport inputs fail closed
+ok 3 - swimming cannot cross triangle wall, invalid and teleport inputs fail closed
+  ---
+  duration_ms: 0.559402
+  type: 'test'
+  ...
+# Subtest: camera boom checks actual mesh and box
+ok 4 - camera boom checks actual mesh and box
+  ---
+  duration_ms: 0.64624
+  type: 'test'
+  ...
+# Subtest: malformed GLB lengths are rejected without unbounded parse
+ok 5 - malformed GLB lengths are rejected without unbounded parse
+  ---
+  duration_ms: 0.669584
+  type: 'test'
+  ...
+# Subtest: frame exception stops simulation and invokes failure handler exactly once
+ok 6 - frame exception stops simulation and invokes failure handler exactly once
+  ---
+  duration_ms: 0.526293
+  type: 'test'
+  ...
+# Subtest: lower cave is a single mesh, connected downhill gallery, roof, side walls, and round-trip actual land motor
+ok 7 - lower cave is a single mesh, connected downhill gallery, roof, side walls, and round-trip actual land motor
+  ---
+  duration_ms: 57.257592
+  type: 'test'
+  ...
+# Subtest: large collision build yields and publishes only the completed tree
+ok 8 - large collision build yields and publishes only the completed tree
+  ---
+  duration_ms: 60.36508
+  type: 'test'
+  ...
+# Subtest: tavern full original mesh including upper geometry; real land motor entrance/service/return
+ok 9 - tavern full original mesh including upper geometry; real land motor entrance/service/return
+  ---
+  duration_ms: 8122.013295
+  type: 'test'
+  ...
+# Subtest: forge full original mesh including upper geometry; real land motor entrance/service/return
+ok 10 - forge full original mesh including upper geometry; real land motor entrance/service/return
+  ---
+  duration_ms: 692.781446
+  type: 'test'
+  ...
+# Subtest: actual Player.updateWalk repeated running, jumping and wall collision at 30/60/144 Hz
+ok 11 - actual Player.updateWalk repeated running, jumping and wall collision at 30/60/144 Hz
+  ---
+  duration_ms: 44.568878
+  type: 'test'
+  ...
+# Subtest: short non-walkable prop cannot be stepped through; recovery checks mesh penetration
+ok 12 - short non-walkable prop cannot be stepped through; recovery checks mesh penetration
+  ---
+  duration_ms: 0.472394
+  type: 'test'
+  ...
+# Subtest: same completed one-shot can replay without stale animation timer
+ok 13 - same completed one-shot can replay without stale animation timer
+  ---
+  duration_ms: 0.178012
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 12735.58571
+
+> tidewater@1.0.0 test:v77
+> node --test test/stormwake-v77.mjs && npm run test:v76
+
+TAP version 13
+# Subtest: forge levels and wallet saved atomically, restored from v1 save and capped
+ok 1 - forge levels and wallet saved atomically, restored from v1 save and capped
+  ---
+  duration_ms: 1.940101
+  type: 'test'
+  ...
+# Subtest: failed write and invalid payment leave wallet and levels unchanged
+ok 2 - failed write and invalid payment leave wallet and levels unchanged
+  ---
+  duration_ms: 0.248014
+  type: 'test'
+  ...
+# Subtest: forge action rechecks site, wall, height, battle, loaded status and connection
+ok 3 - forge action rechecks site, wall, height, battle, loaded status and connection
+  ---
+  duration_ms: 0.633651
+  type: 'test'
+  ...
+# Subtest: tavern payment, bounded restore, 45-second cooldown and no repeated full-health purchase
+ok 4 - tavern payment, bounded restore, 45-second cooldown and no repeated full-health purchase
+  ---
+  duration_ms: 0.250488
+  type: 'test'
+  ...
+# Subtest: real swing snapshots forged damage without changing reach or timing, disabled online
+ok 5 - real swing snapshots forged damage without changing reach or timing, disabled online
+  ---
+  duration_ms: 0.422771
+  type: 'test'
+  ...
+# Subtest: service modal owns input and death keeps it disabled
+ok 6 - service modal owns input and death keeps it disabled
+  ---
+  duration_ms: 0.236798
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 125.996446
+
+> tidewater@1.0.0 test:v76
+> node --test test/stormwake-v76.mjs && npm run test:v75
+
+TAP version 13
+# fern instances 96
+# Subtest: all five actual source meshes and original PBR channels retained
+ok 1 - all five actual source meshes and original PBR channels retained
+  ---
+  duration_ms: 114.424163
+  type: 'test'
+  ...
+# Subtest: fern retains original four variants, aligned origin, alpha PNG and cutout material
+ok 2 - fern retains original four variants, aligned origin, alpha PNG and cutout material
+  ---
+  duration_ms: 12.157981
+  type: 'test'
+  ...
+# Subtest: six actual rock placements preserve original main road clearance and terrain contact
+ok 3 - six actual rock placements preserve original main road clearance and terrain contact
+  ---
+  duration_ms: 3819.456101
+  type: 'test'
+  ...
+# Subtest: fern patches avoid road, building footprints, steep ground, and sea
+ok 4 - fern patches avoid road, building footprints, steep ground, and sea
+  ---
+  duration_ms: 3.082501
+  type: 'test'
+  ...
+# Subtest: tavern source collision and actual player motor: entrance, service, return, floor support
+ok 5 - tavern source collision and actual player motor: entrance, service, return, floor support
+  ---
+  duration_ms: 6580.112517
+  type: 'test'
+  ...
+# Subtest: forge source collision and actual player motor: entrance, service, return, floor support
+ok 6 - forge source collision and actual player motor: entrance, service, return, floor support
+  ---
+  duration_ms: 401.772327
+  type: 'test'
+  ...
+# Subtest: service registers only loaded reachable position and dispatches to V77 panel
+ok 7 - service registers only loaded reachable position and dispatches to V77 panel
+  ---
+  duration_ms: 1.513124
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 14307.187793
+
+> tidewater@1.0.0 test:v75
+> node --test test/stormwake-v75.mjs && npm run test:v74
+
+TAP version 13
+# east-ridge {
+#   above: 54783,
+#   below: 5739,
+#   bounds: [
+#     [ 349.03829169491615, 69.62159690856933, -334.8753030291521 ],
+#     [ 361.300301356144, 77.34127469062804, -324.3274492473856 ]
+#   ]
+# }
+# high-pass {
+#   above: 54960,
+#   below: 5562,
+#   bounds: [
+#     [ 396.6912780361275, 69.0803050994873, -400.7892976178484 ],
+#     [ 408.2225935535236, 77.29802660942077, -387.61478805487883 ]
+#   ]
+# }
+# north-pass {
+#   above: 50392,
+#   below: 10130,
+#   bounds: [
+#     [ 426.75152012604906, 59.94844493865967, -428.1989030050882 ],
+#     [ 435.9105369657394, 66.4230134010315, -418.8709361902366 ]
+#   ]
+# }
+# fossil-approach {
+#   above: 42625,
+#   below: 17897,
+#   bounds: [
+#     [ 404.3583513605461, 45.39627380371094, -599.8895851295423 ],
+#     [ 414.6522734934803, 52.36888599395752, -589.4598583321266 ]
+#   ]
+# }
+# fossil-ridge {
+#   above: 51544,
+#   below: 8978,
+#   bounds: [
+#     [ 343.4065388451021, 45.81705722808838, -649.3184094063969 ],
+#     [ 353.6336131896314, 53.03869128227234, -639.4483080228932 ]
+#   ]
+# }
+# original {
+#   lo: [ -0.3144760154907066, -0.018142533345469763, -0.3548964544485512 ],
+#   hi: [ 0.31387915581073417, 1.7177603215602057, 0.2010692883319427 ]
+# }
+# V75_Idle_talking maxReach 0.2488435059785843
+# V75_Action_interact maxReach 0.40975093841552734
+# Subtest: original rock FBX converted to complete 20174 triangle PBR GLB
+ok 1 - original rock FBX converted to complete 20174 triangle PBR GLB
+  ---
+  duration_ms: 20.847276
+  type: 'test'
+  ...
+# Subtest: five rock sites use actual triangles, embedded base, visible height and terrain clearance
+ok 2 - five rock sites use actual triangles, embedded base, visible height and terrain clearance
+  ---
+  duration_ms: 49.534654
+  type: 'test'
+  ...
+# Subtest: rock wall blocks swept player capsule at a visible, steep source triangle on every site
+ok 3 - rock wall blocks swept player capsule at a visible, steep source triangle on every site
+  ---
+  duration_ms: 39.783535
+  type: 'test'
+  ...
+# Subtest: all original road centerlines stay outside every new collision world with >2m horizontal clearance
+ok 4 - all original road centerlines stay outside every new collision world with >2m horizontal clearance
+  ---
+  duration_ms: 1.799244
+  type: 'test'
+  ...
+# Subtest: captain motion has 13 reviewed rotation channels; rejects wrong skeleton or invalid quaternion without partial mutation
+ok 5 - captain motion has 13 reviewed rotation channels; rejects wrong skeleton or invalid quaternion without partial mutation
+  ---
+  duration_ms: 47.186533
+  type: 'test'
+  ...
+# Subtest: actual 63-bone skin, foot stability, arm reach and no extreme vertex stretch during both retargeted actions
+ok 6 - actual 63-bone skin, foot stability, arm reach and no extreme vertex stretch during both retargeted actions
+  ---
+  duration_ms: 88.393199
+  type: 'test'
+  ...
+# Subtest: conversation greeting -> talk -> idle, repeated E cannot restart, walking away cancels, 30/60/144Hz
+ok 7 - conversation greeting -> talk -> idle, repeated E cannot restart, walking away cancels, 30/60/144Hz
+  ---
+  duration_ms: 123.810037
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4076.276396
+
+> tidewater@1.0.0 test:v74
+> node --test test/stormwake-v74.mjs test/stormwake-v73.mjs test/stormwake-v72.mjs test/stormwake-v71.mjs test/stormwake-v70.mjs test/stormwake-v69.mjs && node test/stormwake-v68-ws.mjs
+
+TAP version 13
+# Subtest: physical screen directions: bridge, chase, four heading quadrants, normal/inverted input
+ok 1 - physical screen directions: bridge, chase, four heading quadrants, normal/inverted input
+  ---
+  duration_ms: 5.185039
+  type: 'test'
+  ...
+# Subtest: interior stations, moving boat rotation, consistent look direction and sensitivity
+ok 2 - interior stations, moving boat rotation, consistent look direction and sensitivity
+  ---
+  duration_ms: 99.918717
+  type: 'test'
+  ...
+# Subtest: all species swim in 3D with bounded heading change, speed, depth and shoreline clearance
+ok 3 - all species swim in 3D with bounded heading change, speed, depth and shoreline clearance
+  ---
+  duration_ms: 90.014703
+  type: 'test'
+  ...
+# Subtest: host publishes depth, pitch and bank for every titan
+ok 4 - host publishes depth, pitch and bank for every titan
+  ---
+  duration_ms: 1.229446
+  type: 'test'
+  ...
+# Subtest: AI operates both actual sail stations without stealing human helm and can furl both
+ok 5 - AI operates both actual sail stations without stealing human helm and can furl both
+  ---
+  duration_ms: 37.012662
+  type: 'test'
+  ...
+# Subtest: actual V64 asset: all four cloth panels return exactly, trim moves vertices and normals stay finite
+ok 6 - actual V64 asset: all four cloth panels return exactly, trim moves vertices and normals stay finite
+  ---
+  duration_ms: 156.23334
+  type: 'test'
+  ...
+# Subtest: real cabin lid included in collision BVH; crossing roof and repeated jump landings remain above cabin
+ok 7 - real cabin lid included in collision BVH; crossing roof and repeated jump landings remain above cabin
+  ---
+  duration_ms: 794.239184
+  type: 'test'
+  ...

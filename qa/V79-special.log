@@ -1,0 +1,58 @@
+TAP version 13
+# Subtest: OS repeat after modal, blur, or text focus cannot restart movement without new press
+ok 1 - OS repeat after modal, blur, or text focus cannot restart movement without new press
+  ---
+  duration_ms: 1.236308
+  type: 'test'
+  ...
+# Subtest: Shift+P not consumed by journal, regular P opens once
+ok 2 - Shift+P not consumed by journal, regular P opens once
+  ---
+  duration_ms: 0.417373
+  type: 'test'
+  ...
+# Subtest: invalid mouse deltas cannot poison view
+ok 3 - invalid mouse deltas cannot poison view
+  ---
+  duration_ms: 1.213704
+  type: 'test'
+  ...
+# Subtest: both interaction directors reject malformed coordinates and dispatch once per frame even if consumer repeats
+ok 4 - both interaction directors reject malformed coordinates and dispatch once per frame even if consumer repeats
+  ---
+  duration_ms: 7.198404
+  type: 'test'
+  ...
+# Subtest: wall-clock FPS measures a 500ms hitch rather than the 100ms capped simulation dt
+ok 5 - wall-clock FPS measures a 500ms hitch rather than the 100ms capped simulation dt
+  ---
+  duration_ms: 0.261154
+  type: 'test'
+  ...
+# Subtest: wallet rollback for failed spend, sale, release, gear purchase and fuel; reject invalid cost
+ok 6 - wallet rollback for failed spend, sale, release, gear purchase and fuel; reject invalid cost
+  ---
+  duration_ms: 0.7547
+  type: 'test'
+  ...
+# Subtest: reward receipts stay single-use and storage-less local session remains playable
+ok 7 - reward receipts stay single-use and storage-less local session remains playable
+  ---
+  duration_ms: 0.174978
+  type: 'test'
+  ...
+# Subtest: land reward outbox retries failed wallet save across reload and cannot double-credit
+ok 8 - land reward outbox retries failed wallet save across reload and cannot double-credit
+  ---
+  duration_ms: 0.627903
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 78.480912
