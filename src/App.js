@@ -557,6 +557,7 @@ fn terrainWetness( xz: vec2f, h: f32 ) -> vec2f {
 	// moving shaft or allow a network player to teleport through world geometry.
 	setFreeCam( on, returnToActor=false ) {
 		if(on===this.freeCam)return true;
+        if(on&&this.landAdventure?.deepRealmV86?.active){this.landAdventure._message('地下副本请使用步行视角，沿入口安全返程。',4);return false;}
 		const p=this.player,lift=this.landAdventure?.expeditionCave?.lift;
 		if(on&&!this.qs?.has('bench')&&!this.qs?.has('debug')){
 			if(!p||p.mode!=='walk'||!p.grounded||p.busy||p.stationId||p.pendingStation||p.shipClimb||p.boardingClimb||this.landAdventure?.stance||this.landAdventure?.battleTimer>0||this.hunt?.abyss?.active||this.voyageM1?.deepEcho?.piloting||lift?.onPlatform(p.position)||lift?.threshold(p.position))return false;
@@ -641,7 +642,7 @@ fn terrainWetness( xz: vec2f, h: f32 ) -> vec2f {
 		this.input.interactionOwner = this.game?.hud?.catchOpen ? 'catch' : this.game?.hud?.standOpen ? 'vendor' :
             playerCanBoard ? 'player' :
 			(this.voyageM1 && this.player.mode==='deck' && (this.input.down('ShiftLeft')||this.input.down('ShiftRight'))) ? 'voyage' :
-			this.landAdventure?.undergroundV85?.wants(this.player.position) ? 'land' : this.voyageM1?.wantsInteraction?.() ? 'voyage' : this.landAdventure?.wantsLandInteraction?.( this.player.position ) ? 'land' : null;
+			(this.landAdventure?.deepRealmV86?.wants(this.player.position)||this.landAdventure?.rex?.wantsRepeat(this.player.position)||this.landAdventure?.undergroundV85?.wants(this.player.position)) ? 'land' : this.voyageM1?.wantsInteraction?.() ? 'voyage' : this.landAdventure?.wantsLandInteraction?.( this.player.position ) ? 'land' : null;
 		if ( this.input.hit( 'KeyF' ) && (this.freeCam||!submerged) ) this.setFreeCam( ! this.freeCam, this.input.down('ShiftLeft')||this.input.down('ShiftRight') );
 		if ( this.input.hit( 'KeyT' ) && !submerged && !this.landAdventure?.stance && !(this.voyageM1 && ['deck','boat'].includes(this.player.mode)) ) this.toggleTime();
 		if ( this.input.hit( 'KeyL' ) && !submerged ) {

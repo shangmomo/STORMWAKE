@@ -73,3 +73,8 @@
 }
 /* V66 equipment and recovery are real state, not clickable cosmetic controls. */
 .land-v66-weaponbar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:8px 0 4px}.land-v66-weaponbar span{padding:6px 4px;border:1px solid #315561;background:#0b2331;border-radius:5px;line-height:1.35;font-size:10px;color:#a3b8c0}.land-v66-weaponbar span b{display:block;font-size:11px;color:#c9e7e9}.land-v66-weaponbar span.selected{border-color:#f2ce87;background:#284b51;color:#fff2cf}.land-v66-recovery{height:4px;background:#152e38;border-radius:4px;overflow:hidden}.land-v66-recovery i{display:block;height:100%;background:#e4c483}.land-v31-enemy:not(:empty){background:#532a28;border-left:2px solid #ee9e83;padding:6px;margin-top:9px}.land-v31-gear{font-weight:700;color:#f4ddb2}
+
+/* V86: do not cover the underground objective with the ocean voyage panel. */
+.sw-v39-hud.sw-realm-hidden{display:none!important}
+.land-v31-hud{right:64px;max-height:calc(100vh - 190px);overflow:auto}
+@media(max-width:800px){.land-v31-hud{right:55px;max-width:calc(100vw - 68px)}}

@@ -1,5 +1,6 @@
 // Optional CC BY 4.0 T. rex asset. No placeholder, no remote game-time requests.
 // Asset calibration is fail-closed: unknown rigs remain unavailable, not invisible enemies.
+import {canPersonal} from '../core/ControlPolicy.js';
 import {landCoop,landObserver} from './LandEncounterGuideV832.js';
 import {Group,Vector3} from '../engine/index.js';
 import {loadGLB} from '../engine/loaders/GLTF.js';
@@ -9,6 +10,7 @@ import {REX,newRex,advanceRex} from './RexBrain.js';
 import {REX_CLIPS,BITE_FRAME,adaptRexAsset,makeMouthAnchors,mouthWorld,mouthHits} from './RexAsset.js';
 const BASE=(import.meta.env?.BASE_URL||'/')+'models/land/';
 const SAVE='stormwake:trex:v71';
+export const REX_REPLAY=Object.freeze({x:310,z:-638});
 const distance=(a,b)=>Math.hypot(a.x-b.x,a.z-b.z);
 function nodeNames(rig){return rig.gltf.skins[0].joints.map(i=>rig.gltf.nodes[i].name).filter(Boolean);}
 function chooseBone(names,patterns){for(const p of patterns){const n=names.find(v=>p.test(v));if(n)return n;}return null;}
@@ -51,9 +53,10 @@ export class RexEncounter{
  _bone(name){const p=this.rig.nodeWorld(name,new Vector3());return p?this.rig.group.localToWorld(p):null;}
  _enable(on){if(this.root)this.root.visible=on;for(const {c} of this.cylinders)c.solid=on;}
  _terrain(x,z){return this.app.terrainData.heightAt(x,z);}
- update(dt,active){if(landCoop(this.app)||this.e.dead){this._enable(false);return;}
+ update(dt,active){if(landCoop(this.app)){this._enable(false);return;}
   const p=this.app.player.position,e=this.e,near=distance(p,e)<100,visible=near||distance(landObserver(this.app),e)<100;
   if(this.status!=='ready'){this._enable(false);if(this.status==='rejected'&&this.attempts<3&&(this.a.time||0)>=this.retryAt&&distance(landObserver(this.app),e)<160)this.retryAsset();return;}
+  if(this.e.dead){this._enable(false);this.rig.hold();return;}
   this._enable(visible);if(!visible){this.rig.hold();return;}
   // Disable our own moving contact proxies while checking other obstacles.
   for(const {c} of this.cylinders)c.solid=false;
@@ -78,6 +81,9 @@ export class RexEncounter{
    swing.targetsHit.add('v71:rex');this.e.hp=Math.max(0,this.e.hp-swing.damage*(this.e.state==='recover'?1.35:1));if(this.e.hp===0){this.e.dead=true;this._enable(false);try{localStorage.setItem(SAVE,'1');}catch{}this.a._reward(350,'land:v71:rex','暴龙已击败，获得 350 金币。');}return true;
   }return false;
  }
+ repeatPoint(){return new Vector3(REX_REPLAY.x,this._terrain(REX_REPLAY.x,REX_REPLAY.z),REX_REPLAY.z);}
+ wantsRepeat(p){return this.status==='ready'&&this.e.dead&&!landCoop(this.app)&&canPersonal(this.app)&&this.app.player.mode==='walk'&&!this.a.stance&&!this.a.pendingStrike&&!this.a.battleTimer&&this.a.hp>0&&distance(p,REX_REPLAY)<3.4&&Math.abs(p.y-this.repeatPoint().y)<1.8;}
+ registerRepeat(director,player){if(!this.wantsRepeat(player.position))return;director.add({id:'v86:rex-repeat',position:this.repeatPoint(),range:3.4,heightRange:1.8,priority:108,label:'E 重新挑战暴龙（首次奖励不重复）',perform:()=>{if(!this.wantsRepeat(player.position))return;this.e=newRex();this.reset();this.a._message('暴龙已重新进入化石谷，首次奖励不会重复发放。',5);}},player);}
  reset(){if(!this.e.dead){this.e=newRex();this.lastSerial=-1;this.attackLayer=null;if(this.rig)this.rig.play(this.clips.idle,{fade:.1});this._enable(false);}}
  journal(p){if(this.status!=='ready'||!this.a.fossilSurvey?.state.returned||this.e.dead)return null;return {task:'化石谷远征 · 追踪暴龙（单人）',distance:Math.round(distance(p,REX.home))};}
  hud(p){if(this.root?.visible&&!this.e.dead&&distance(p,this.e)<35)return `暴龙 · HP ${Math.ceil(this.e.hp)}/${REX.hp} · ${this.e.state==='windup'?'蓄力：咬击':this.e.state==='recover'?'收招窗口':this.e.state==='return'?'归巢':'保持距离'}`;return null;}

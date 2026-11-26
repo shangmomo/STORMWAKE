@@ -1,3 +1,4 @@
+import {DeepRealmV86} from './DeepRealmV86.js';
 import {UndergroundAdventureV85} from './UndergroundAdventureV85.js';
 import {LAKE_LOOKOUT} from './UndergroundHallV84.js';
 import {bossGuide,landObserver,landDistance,corsairAvailable} from './LandEncounterGuideV832.js';
@@ -169,6 +170,7 @@ export class LandAdventure {
         this.sceneryV76=new ExpeditionSceneryV76(this);
         this.servicesV77=new ExpeditionServicesV77(this);
         this.undergroundV85=new UndergroundAdventureV85(this);
+        this.deepRealmV86=new DeepRealmV86(this);
 		this.residents = new LandResidents( app );
 		this.dialogue = new LandDialoguePanel( app );
 		this.avatar = new LandAvatar( app );
@@ -265,7 +267,8 @@ export class LandAdventure {
 	// Evaluated BEFORE Player.update: an E press at a land object belongs to
 	// the land interaction director, never the ship's generic boarding handler.
 	wantsLandInteraction( point ) {
-        if(point&&this.undergroundV85?.wants(point))return true;
+        if(this.deepRealmV86?.active)return !!point&&this.deepRealmV86.wants(point);
+        if(point&&(this.deepRealmV86?.wants(point)||this.rex?.wantsRepeat(point)||this.undergroundV85?.wants(point)))return true;
 		if ( !point || this.app.player?.mode !== 'walk' || !canPersonal(this.app) ) return false;
 		const near = ( pos, reach, vertical=3.25 ) =>
 			Math.hypot( pos.x-point.x, pos.z-point.z ) < reach && Math.abs(pos.y-point.y) < vertical;
@@ -366,6 +369,7 @@ export class LandAdventure {
         }
 		const p = this.app.player;
 		p.getViewDir( _view ); _view.y = 0; _view.normalize();if(swing.direction)_view.copy(swing.direction);
+		if(this.deepRealmV86?.active){this.deepRealmV86.strike(swing,p.position,_view);return;}
 		let hit = 0;
 		for ( const e of this.enemies ) {
 			if ( swing.targetsHit.has( e.id ) || e.dead || (e.type==='lurker'&&!this._lurkerEnabled()) || (e.type==='bear'&&!e.actor) || (e.type==='corsair'&&!corsairAvailable(this.progress.stage,this.app)) || ( e.type === 'warden' && this.progress.stage < 3 ) ||
@@ -442,6 +446,9 @@ export class LandAdventure {
 		const player = this.app.player, p = player.position;
 		const director = this.interactions;
 		director.beginFrame();
+        this.deepRealmV86?.register(director,player);
+        if(this.deepRealmV86?.active)return;
+        this.rex?.registerRepeat(director,player);
         this.artistSites?.register(director,player);
         this.sceneryV76?.register(director,player);
         this.ecologyV74?.register(director,player);
@@ -718,10 +725,12 @@ export class LandAdventure {
 	}
 
 	_respawn() {
+        this.deepRealmV86?.detach();
 		const p = this.app.player;
 		p.mode = 'walk';
 		p.position.copy( WORLD.start.position );
 		p.position.y = p.groundAt( p.position.x, p.position.z, 30 );
+        p._lastSafeLand=p.position.clone();p._previousSafeLand=null;p._camY=null;
 		p.velocity.set( 0, 0, 0 );
 		this.hp = 100; this.stamina = 100; this.stance = false;
 		this.rex?.reset();
@@ -793,7 +802,7 @@ export class LandAdventure {
 		this.hud.style.display = active ? '' : 'none';
 		if ( !active ) return;
         const scout=!!this.app.freeCam||this.app.player.mode==='swim';this.hud.classList.toggle('sw-land-scout',scout);
-        const guide=this.ui('boss-guide');if(guide){const label=(this.app.player.mode==='swim'&&!this.app.freeCam?'湖底探索 · C 下潜 / Space 上浮':scout?'F 安全落地 · Shift+F 返回原角色':'陆地首领 · 方位北0°')+'\n'+bossGuide(this).map(b=>b.name+' · '+b.distance+'m / '+b.bearing+'° · '+b.status).join('\n')+(scout&&this.app.scoutLandingNotice?'\n'+this.app.scoutLandingNotice:'')+((Math.hypot(landObserver(this.app).x-LAKE_LOOKOUT.x,landObserver(this.app).z-LAKE_LOOKOUT.z)<130)?'\n西侧晶岩湖厅 · '+Math.round(Math.hypot(landObserver(this.app).x-LAKE_LOOKOUT.x,landObserver(this.app).z-LAKE_LOOKOUT.z))+'m · 船长营地后方蓝色箭头':'');const extra=this.undergroundV85?.hud();const display=label+(extra?'\n'+extra:'');if(guide.textContent!==display)guide.textContent=display;}
+        const guide=this.ui('boss-guide');if(guide){const label=(this.app.player.mode==='swim'&&!this.app.freeCam?'湖底探索 · C 下潜 / Space 上浮':scout?'F 安全落地 · Shift+F 返回原角色':'陆地首领 · 方位北0°')+'\n'+bossGuide(this).map(b=>b.name+' · '+b.distance+'m / '+b.bearing+'° · '+b.status).join('\n')+(scout&&this.app.scoutLandingNotice?'\n'+this.app.scoutLandingNotice:'')+((Math.hypot(landObserver(this.app).x-LAKE_LOOKOUT.x,landObserver(this.app).z-LAKE_LOOKOUT.z)<130)?'\n西侧晶岩湖厅 · '+Math.round(Math.hypot(landObserver(this.app).x-LAKE_LOOKOUT.x,landObserver(this.app).z-LAKE_LOOKOUT.z))+'m · 船长营地后方蓝色箭头':'');const extra=this.undergroundV85?.hud();const realm=this.deepRealmV86?.hud();const display=this.deepRealmV86?.active?realm:label+(extra?'\n'+extra:'')+(realm?'\n'+realm:'');if(guide.textContent!==display)guide.textContent=display;}
         if(scout)return;
 		const p = this.app.player.position, stage = this.progress.stage;
 		const tasks = [ '前往海风镇告示板，与小汐展开灯塔调查',
@@ -833,6 +842,7 @@ export class LandAdventure {
 			cutlass:'潮纹快斩', lunge:'前冲刺击', whirl:'旋风斩', feint:'虚晃突刺' };
 		this.ui( 'enemy' ).textContent = near ? `⚠ ${LAND_SPECIES[ near.type ].name} · HP ${Math.ceil(near.hp)}/${near.maxHp}${near.type==='corsair'?` · 第${near.phase||1}阶段`:''} · ${near.state==='telegraph'?`蓄力：${bossAttack[near.attackStyle]||'危险攻击'}！`:near.state==='recover'?'收招破绽：可以反击':'保持距离'}` : '';
 		const rexHUD=this.rex?.hud(p);if(rexHUD)this.ui('enemy').textContent=rexHUD;
+        if(this.deepRealmV86?.active){this.ui('task').textContent='深层地下王国 · 清理三座大厅';this.ui('distance').textContent='沿坡道前进；原入口 E 返程；首次击杀共1080金币';this.ui('enemy').textContent='';}
 		this.ui( 'message' ).textContent = this.noticeTimer > 0 ? this.notice : '';
 		this.hud.classList.toggle( 'land-v31-hit', this.hurtTimer > 0 );
 		this.hud.classList.toggle( 'land-v31-collapsed', !this.journalExpanded );
@@ -907,6 +917,8 @@ export class LandAdventure {
         this.sceneryV76?.update();
         this.servicesV77?.update();
         this.undergroundV85?.update(dt);
+        this.deepRealmV86?.update(dt);
+        this.app.voyageM1?.hud?.classList.toggle('sw-realm-hidden',!!this.deepRealmV86?.active);
 		if ( this.pendingStrike && combatActive ) this._resolveStrikeContacts();
 		this._updateFauna( dt, player, phase );
 		const conversation = this.residents.update( dt, {

@@ -1,4 +1,4 @@
-"""STORMWAKE V85.1 - one launcher, choose solo / LAN host / LAN join.
+"""STORMWAKE V86 - one launcher, choose solo / LAN host / LAN join.
 Python 3.10+, Chrome or Edge with WebGPU; host also requires Node.js 22+.
 """
 import argparse
@@ -21,7 +21,7 @@ def choose_mode():
     try:
         import tkinter as tk
         from tkinter import messagebox
-        root=tk.Tk();root.title('STORMWAKE V85.1 · 启动海上冒险')
+        root=tk.Tk();root.title('STORMWAKE V86 · 启动海上冒险')
         root.geometry('460x290');root.resizable(False,False)
         root.configure(bg='#172d37')
         state={'mode':None,'room':'127.0.0.1:5174'}
@@ -80,7 +80,7 @@ def main(argv=None):
         if mode!='solo':params.update(coop=1,room=room)
         with TidewaterHTTPServer(('127.0.0.1',args.port),TidewaterHandler) as server:
             url=f'http://127.0.0.1:{server.server_port}/?{urlencode(params)}'
-            print(f'STORMWAKE V85.1 ({mode}) : {url}',flush=True)
+            print(f'STORMWAKE V86 ({mode}) : {url}',flush=True)
             if mode=='host':
                 print('房主：TCP 5174；其他玩家选择【多人·加入房间】，填入本机局域网 IPv4:5174。',flush=True)
                 print('注意 Windows 防火墙必须允许 5174 TCP。',flush=True)
