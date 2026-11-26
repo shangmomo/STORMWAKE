@@ -1,3 +1,6 @@
+import {lakeFishDepth,lakeCastStart} from './LakeFishingV85.js';
+import {DEEP_LAKE} from '../land/UndergroundHallV84.js';
+import {strikeLineBlocked} from '../land/LandCombatTiming.js';
 import { Mesh, BufferGeometry, Float32BufferAttribute, Matrix4, Quaternion, Vector3, Vector4, MathUtils } from '../engine/index.js';
 import { prepare, mergePrepared, cylinder, torus, sphere, rod, mat4, lathe, roundedBox, tube } from '../world/boat/GeoKit.js';
 import { createPropMaterial, createLineMaterial, PAT } from './GameMaterials.js';
@@ -76,11 +79,12 @@ export const POSES = {
 
 export class FishingRod {
 
-	constructor( { scene, camera, query, terrain, audio = null } ) {
+	constructor( { scene, camera, query, terrain, audio = null, colliders=null } ) {
 
 		this.camera = camera;
 		this.query = query;
 		this.terrain = terrain;
+        this.colliders=colliders;this.lakeCast=false;
 		this.audio = audio;
 		this.slot = query.allocate( 'bobber', 1 );
 
@@ -416,7 +420,8 @@ export class FishingRod {
 		// ---- flick: the bobber leaves the tip half way through
 		if ( this.state === 'flick' && this.t > 0.09 ) {
 
-			const v0 = 7 + 13 * this.power * ( this.castM / 22 ) ** 0.5;
+			this.lakeCast=lakeCastStart(this.terrain,cam.position);
+            const v0 = this.lakeCast?4+7*this.power:7 + 13 * this.power * ( this.castM / 22 ) ** 0.5;
 			// toward where you aim: the heading runs from the tip (off to the side of the view) to the
 			// point on the water straight ahead at the cast's reach, so the line leaves along the rod
 			// toward the crosshair instead of parallel to the view from the tip
@@ -444,11 +449,13 @@ export class FishingRod {
 
 		}
 
-		const ground = this.terrain.heightAt( this.bobber.x, this.bobber.z );
+		let ground = this.terrain.heightAt( this.bobber.x, this.bobber.z );
+        if(this.lakeCast){this.depth=lakeFishDepth(this.terrain,this.bobber.x,this.bobber.z);this.waterY=this.depth>0?DEEP_LAKE.surface:ground;}
 		if ( this.state === 'flying' ) {
 
 			// ballistic with a little drag, capped by the rod's casting range
-			this.bobberVel.y -= GRAV * dt;
+			const previous=this.lakeCast?this.bobber.clone():null;
+            this.bobberVel.y -= GRAV * dt;
 			this.bobberVel.multiplyScalar( Math.exp( - dt * 0.25 ) );
 			this.bobber.addScaledVector( this.bobberVel, dt );
 			const range = Math.hypot( this.bobber.x - this.tip.x, this.bobber.z - this.tip.z );
@@ -459,8 +466,9 @@ export class FishingRod {
 
 			}
 
-			const surf = Math.max( this.waterY, ground );
-			if ( this.bobber.y <= surf ) {
+			if(this.lakeCast){ground=this.terrain.heightAt(this.bobber.x,this.bobber.z);this.depth=lakeFishDepth(this.terrain,this.bobber.x,this.bobber.z);this.waterY=this.depth>0?DEEP_LAKE.surface:ground;if(strikeLineBlocked(this.colliders,previous,this.bobber,0)){this.bobber.copy(previous);this.bobberVel.set(0,0,0);this.setState('retrieving');if(this.onLand)this.onLand('ground');}}
+            const surf = Math.max( this.waterY, ground );
+			if ( this.state==='flying' && this.bobber.y <= surf ) {
 
 				this.bobber.y = surf;
 				const onWater = this.waterY > ground + 0.05;
@@ -488,8 +496,8 @@ export class FishingRod {
 			const sideways = _x.set( - _v.z, 0, _v.x ).multiplyScalar( Math.sin( this._wander ) * 0.9 * dt * ( 1 + fight.surge ) );
 			const dist = Math.max( 1, fight.distance );
 			this.fishPos.set( this.tip.x + _v.x * dist, 0, this.tip.z + _v.z * dist ).add( sideways );
-			this.bobber.x += ( this.fishPos.x - this.bobber.x ) * ( 1 - Math.exp( - dt * 6 ) );
-			this.bobber.z += ( this.fishPos.z - this.bobber.z ) * ( 1 - Math.exp( - dt * 6 ) );
+			const k=1-Math.exp(-dt*6),nx=this.bobber.x+(this.fishPos.x-this.bobber.x)*k,nz=this.bobber.z+(this.fishPos.z-this.bobber.z)*k;
+            if(!this.lakeCast||lakeFishDepth(this.terrain,nx,nz)>.15){this.bobber.x=nx;this.bobber.z=nz;}else this.fishPos.copy(this.bobber);
 			this.bobber.y += ( this.waterY - 0.05 - 0.2 * fight.surge - this.bobber.y ) * ( 1 - Math.exp( - dt * 8 ) );
 
 		} else if ( this.state === 'landing' ) {

@@ -13,6 +13,8 @@
 //   time      activity by time of day: 'day', 'dawnDusk', 'night' or 'any'
 //   rarity    0..1, scales how often it bites relative to the others in the same water
 export const FISH = {
+ caveMinnow:{name:'晶岩盲鱼 · Crystal minnow',sci:'Fantasy cave species',lw:[.009,3],model:'silverside',habitat:{cave:1},kg:[.08,.45],price:28,fight:.18,stamina:3,time:'any',rarity:1},
+ cavePerch:{name:'幽光石鲈 · Glow perch',sci:'Fantasy cave species',lw:[.018,3],model:'grunt',habitat:{cave:1},kg:[.45,2.2],price:34,fight:.42,stamina:7,time:'any',rarity:.50},
 	silverside: { name: 'Hardhead silverside', sci: 'Atherinomorus stipes', lw: [ 0.0074, 3.1 ], model: 'silverside', habitat: { shallows: 1, pier: 0.6, bay: 0.2 }, kg: [ 0.02, 0.08 ], price: 3, fight: 0.05, stamina: 1.5, time: 'any', rarity: 0.2 },
 	mullet: { name: 'Striped mullet', sci: 'Mugil cephalus', lw: [ 0.0112, 2.98 ], model: 'mullet', habitat: { shallows: 1, pier: 0.4 }, kg: [ 0.4, 2.2 ], price: 5, fight: 0.3, stamina: 5, time: 'day', rarity: 0.8 },
 	needlefish: { name: 'Houndfish', sci: 'Tylosurus crocodilus', lw: [ 0.0012, 3.1 ], model: 'needlefish', habitat: { shallows: 0.7, bay: 0.5, pier: 0.3 }, kg: [ 0.5, 2.5 ], price: 4, fight: 0.45, stamina: 5, time: 'day', rarity: 0.5 },

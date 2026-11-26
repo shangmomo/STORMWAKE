@@ -45,7 +45,7 @@ export function pickSpecies( habitat, hour, rng = Math.random ) {
 
 		const f = FISH[ id ];
 		let hw = 0;
-		for ( const k in f.habitat ) hw += f.habitat[ k ] * habitat[ k ];
+		for ( const k in f.habitat ) hw += f.habitat[ k ] * (habitat[ k ] ?? 0);
 		const x = hw * f.rarity * activity( f.time, hour );
 		w.push( x );
 		total += x;
@@ -57,11 +57,11 @@ export function pickSpecies( habitat, hour, rng = Math.random ) {
 	for ( let i = 0; i < w.length; i ++ ) {
 
 		r -= w[ i ];
-		if ( r <= 0 ) return FISH_IDS[ i ];
+		if ( w[i]>0 && r <= 0 ) return FISH_IDS[ i ];
 
 	}
 
-	return FISH_IDS[ FISH_IDS.length - 1 ];
+	return FISH_IDS[w.findLastIndex(x=>x>0)] || null;
 
 }
 

@@ -1,3 +1,4 @@
+import {lakeFishDepth,lakeFishHabitat} from './LakeFishingV85.js';
 import { Vector3, Color } from '../engine/index.js';
 import { WORLD } from '../world/WorldLayout.js';
 import { FISH } from './FishTable.js';
@@ -31,7 +32,7 @@ export class Game {
 		this.app = app;
 		this.state = new GameState();
 		this.state.load();
-		this.rod = new FishingRod( { scene: app.scene, camera: app.camera, query: app.query, terrain: app.terrainData, audio: app.audio } );
+		this.rod = new FishingRod( { scene: app.scene, camera: app.camera, query: app.query, terrain: app.terrainData, audio: app.audio, colliders:app.colliders } );
 		this.rod.onLand = ( where ) => this.onBobberLanded( where );
 		this.stand = new FishStand( { scene: app.scene, terrain: app.terrainData, colliders: app.colliders } );
 		this.display = new CatchDisplay( { scene: app.scene, stall: this.stand.iceFish() } );
@@ -410,6 +411,7 @@ export class Game {
 	}
 
 	habitatAtPoint( x, z, depth ) {
+        if(lakeFishDepth(this.app.terrainData,x,z)>0)return lakeFishHabitat(this.app.terrainData,x,z,this.state.fishStock.fraction(x,z));
 
 		const b = { x, z };
 		const reef = WORLD.reef;
